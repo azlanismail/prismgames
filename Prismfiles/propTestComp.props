@@ -1,0 +1,9 @@
+const int MAXRT = 10;
+const double MAXRU = 0.6;
+
+"p1" : <<1>> ((R{"rt_s1"}<=MAXRT [S] & R{"rt_s2"}<=MAXRT [S]))
+
+"p2" : <<1>> ((R{"ru_s1"}<=MAXRT [S] & R{"ru_s2"}<=MAXRT [S]))
+
+"pall" : comp("p1", "p2")
+

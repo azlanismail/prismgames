@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="ppl">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/usr/lib64/ppl"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-1.8.0-openjdk-1.8.0.77-1.b03.fc23.x86_64"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/lpsolve55j.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/colt.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/commons-math3-3.3.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/epsgraphics.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/jas.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/jcommon.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/jfreechart.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/jhoafparser.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/log4j.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/nailgun-server.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/pepa.zip"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/ppl_java.jar"/>
+	<classpathentry kind="lib" path="/home/azlan/Downloads/prism-games-2.0.beta3-linux64/lib/prism.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

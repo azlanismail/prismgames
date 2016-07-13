@@ -1,0 +1,80 @@
+
+Building model...
+
+Computing reachable states... 3 states
+Reachable states exploration and model construction done in 0.156 secs.
+Sorting reachable states list...
+
+Computing reachable states... 3 states
+Reachable states exploration and model construction done in 0.107 secs.
+Sorting reachable states list...
+product construction took 0.004207 s
+
+Time for model construction: 0.472 seconds.
+//////////////////////////////////////////////////////////////////////////////
+//                   STARTING COMPOSITIONAL MODEL CHECKING                  //
+//////////////////////////////////////////////////////////////////////////////
+
+Building Model ... 
+
+Computing reachable states... 3 states
+Reachable states exploration and model construction done in 0.085 secs.
+Sorting reachable states list...
+
+Computing reachable states... 3 states
+Reachable states exploration and model construction done in 0.143 secs.
+Sorting reachable states list...
+
+Model checking : "phi1": <<1>> ((R{"r1"}/{"c"}<=v1 [ S ]=>R{"r2"}/{"c"}>=v2 [ S ]))
+
+Reducing multi-objective query to CNF: R{"r1"}/{"c"}>v1 [ S ]|R{"r2"}/{"c"}>=v2 [ S ]
+expr: [[R{"r1"}/{"c"}>v1 [ S ], R{"r2"}/{"c"}>=v2 [ S ]]]
+
+Warning: Strict inequalities ignored and turned into nonstrict inequalities:
+	R{"r1"}/{"c"}>v1 [ S ]
+
+
+Warning: Ensure that game is controllable multichain. Not tested.
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"r1"}/{"c"}>v1 [ S ], R{"r2"}/{"c"}>=v2 [ S ]]]
+
+initial state: 1
+operation: Verification
+Verification took 3.077053 s
+strategy: null
+
+Number of states satisfying "phi1": 3 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 4.3660000000000005 seconds.
+
+Result: true (property satisfied in the initial state)
+
+Model checking : "phi2": <<1>> ((R{"r1"}/{"c"}<=v1 [ S ]&R{"r3"}/{"c"}<=v3 [ S ]))
+
+Reducing multi-objective query to CNF: R{"r1"}/{"c"}<=v1 [ S ]&R{"r3"}/{"c"}<=v3 [ S ]
+expr: [[R{"r1"}/{"c"}<=v1 [ S ]], [R{"r3"}/{"c"}<=v3 [ S ]]]
+
+Warning: Ensure that game is controllable multichain. Not tested.
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"r1"}/{"c"}<=v1 [ S ]], [R{"r3"}/{"c"}<=v3 [ S ]]]
+
+initial state: 1
+operation: Verification
+Verification took 0.091859 s
+strategy: null
+
+Number of states satisfying "phi2": 3 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.09300000000000001 seconds.
+
+Result: true (property satisfied in the initial state)
+//////////////////////////////////////////////////////////////////////////////
+//                   COMPLETED COMPOSITIONAL MODEL CHECKING                 //
+//////////////////////////////////////////////////////////////////////////////
+
