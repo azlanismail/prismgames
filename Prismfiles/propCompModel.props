@@ -1,9 +1,9 @@
-const int MAXRT = 10;
-const double MAXRU = 0.6;
+const double MAXRT = 1;
+const double MAXRU = 1;
 
-"qall" : comp("q1","q2")
+"qall" : comp("q1", "q2")
 
-"q1" : <<1>> (R{"c1_rt"}<=MAXRT [ S ]&R{"c1_ru"}<=MAXRT [ S ])
+"q1" : <<1>> (((R{"c1_rt"}<=MAXRT [ S ]&R{"c1_ru"}<=MAXRU [ S ])))
 
-"q2" : <<1>> (R{"c2_rt"}<=MAXRT [ S ]&R{"c2_ru"}<=MAXRT [ S ])
+"q2" : <<1>> (((R{"c2_rt"}<=MAXRT [ S ]&R{"c2_ru"}<=MAXRU [ S ])))
 

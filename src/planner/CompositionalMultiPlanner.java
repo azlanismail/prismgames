@@ -24,7 +24,7 @@ import prism.PrismSettings;
 import prism.Result;
 import simulator.SimulatorEngine;
 import strat.Strategy;
-
+import strat.Strategies;
 
 public class CompositionalMultiPlanner {
 	//Classes from Prism-games
@@ -46,10 +46,10 @@ public class CompositionalMultiPlanner {
 		String logPath = "./myLog.txt";
 		String laptopPath = "C:/Users/USER/git/MultiPlanner/PlanningComp2/";
 		String desktopPath = "H:/git/MultiPlanner/PlanningComp2/";
-		String linuxPath = "/home/azlan/git/MultiPlanner/PlanningComp2/";
+		String linuxPath = "/home/azlan/git/PrismGames/";
 		String mainPath = linuxPath;
-		String modelPath = mainPath+"Prismfiles/comp_example.prism";
-		String propPath = mainPath+"Prismfiles/comp_example.props";
+		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v3.prism";
+		String propPath = mainPath+"Prismfiles/propCompModel.props";
 		String modelConstPath = mainPath+"IOFiles/ModelConstants.txt";
 		String propConstPath = mainPath+"IOFiles/PropConstants.txt";
 		String stratPath1 = mainPath+"IOFiles/strategyInitial";
@@ -121,6 +121,8 @@ public class CompositionalMultiPlanner {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	    	
+	    	//strategy = new StochasticUpdateStrategy();
 		}
 		
 		public void setConstantsProbe(int probeId) {
@@ -292,11 +294,9 @@ public class CompositionalMultiPlanner {
 		
 		public void checkModelbyPrismEx() throws PrismLangException, PrismException
 		{
-			//smc.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
-			
-			//smc.setGenerateStrategy(true);
 			smc.setComputeParetoSet(false);
-		    smc.getSettings().set(PrismSettings.PRISM_GENERATE_STRATEGY, true);
+		    smc.setGenerateStrategy(true);
+		    
 		    
 			System.out.println("Planning is based on compositional games");
 			resultSMG = smc.check(propertiesFile.getProperty(0));
@@ -304,14 +304,13 @@ public class CompositionalMultiPlanner {
 	    
 	    public void outcomefromModelChecking()
 	    {
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultSMG.getResultString());
-	    	 //System.out.println("The outcome of the strategy is :"+smc.getStrategy());
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultSMG.getResultString()); 	 
 	    }
 	    
 	    public void outcomefromModelBuilding()
 	    {
-	    //	System.out.println("Number of states (Model Building) :"+model.getNumStates());
-	    //	System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
+	    	System.out.println("Number of states (Model Building) :"+model.getNumStates());
+	    	System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
 	    }
 	       
 	     
@@ -341,8 +340,7 @@ public class CompositionalMultiPlanner {
 	    	//assign the pointer from SMGModelChecker to strategy
 	    	System.out.println("exporting the strategy");
 	    	strategy =  resultSMG.getStrategy(); // smc.getStrategy();
-	    	if (strategy == null)
-	    		System.out.println("Strategy == null");
+	    	
 	    	if (this.stage == 0) {
 	    	//export to .adv file
 	    	strategy.exportToFile(stratPath1);
@@ -573,7 +571,7 @@ public class CompositionalMultiPlanner {
 	 	 	    
 	 	    
 	 			plan.generate();
-	 			System.out.println("Successful execution");
+	 			
 		  
 	 		//	try {
 	 				//plan.getAdaptStrategyfromAdv();

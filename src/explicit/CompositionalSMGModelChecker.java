@@ -56,6 +56,8 @@ import simulator.SimulatorEngine;
 import strat.StochasticUpdateStrategyProduct;
 import strat.Strategy;
 
+import java.io.File;
+
 /**
  * Model checker for compositional methods on SMGs
  */
@@ -134,6 +136,7 @@ public class CompositionalSMGModelChecker extends PrismComponent
 		this.cancel_computation = cancel_computation;
 	}
 
+	
 
         public Strategy getStrategy()
         {
@@ -194,6 +197,9 @@ public class CompositionalSMGModelChecker extends PrismComponent
 		// set subsystem model checker options
 		mc.setComputeParetoSet(computePareto);
 		mc.setCancel(cancel_computation);
+		
+		//need to set to true
+		mc.setGenerateStrategy(true);
 
 		// build the subsystems
 		mainLog.print("Building Model ... \n");
@@ -383,4 +389,25 @@ public class CompositionalSMGModelChecker extends PrismComponent
 	{
 		return subsystemStrategies;
 	}
+	
+	public void setGenerateStrategy(boolean generateStatus) throws PrismException
+	{
+		settings.set(PrismSettings.PRISM_GENERATE_STRATEGY, true);
+	}
+	
+	 public void exportStrategy(int stage, String stratPath1, String stratPath2)
+	    {
+	    	//assign the pointer from SMGModelChecker to strategy
+	    	System.out.println("exporting the strategy");
+	    //	strategy =  resultSMG.getStrategy(); // smc.getStrategy();
+	    	if (strategy == null)
+	    		System.out.println("Strategy == null");
+	    	if (stage == 0) {
+	    	//export to .adv file
+	    	strategy.exportToFile(stratPath1);
+	    	}else {
+	    		strategy.exportToFile(stratPath2);
+	    	}
+	    }
+	    
 }

@@ -2,7 +2,7 @@ smg
 
 //top level system 
 system "MC"
-"C1" || "C2"  //a set of resource collaborators
+"C1" || "C2"  //a set of decision makers
 endsystem
 
 //sub-system
@@ -17,7 +17,7 @@ endsystem
 const int MAXR = 2;  //UB for retry
 const int MAXS = 5;  //UB for the number of collaborators
 const double MAXUT = 0.7; //UB for the utility value
-const int GOAL_TY = 1; //UB for collaborators
+const int GOAL_TY = 5; //UB for collaborators (for filtering)
 const int GOAL_TY_Q1 = 1; //performance violation
 const int GOAL_TY_Q2 = 2; //availability
 const int GOAL_TY_Q3 = 3; //safety
@@ -25,42 +25,55 @@ const int GOAL_TY_UT = 4; //utility-based
 const int GOAL_TY_ML = 5; //multi
 
 //PROBING PARAMETERS
-const int RS_REQ_ID = 1; //initiator or requestor
+const int RS_REQ_ID = 0; //initiator or requestor
 const bool CURA = true; //current availability
 const bool CURP = true; //current performance
 const bool CURF = true; //current safety
 const int DELAY = 3;  //current delay
 
 //PROFILING PARAMETERS
+const int APP_ID = -1;
+const double APP_CPU_CORES = 0.2;
+const double APP_CPU_LOADS = 0.2;
+const double APP_CPU_SPEEDS = 0.2;
+
+
 const int RS0_ID = 0;
-const double RS0_RU = 0.3;
-const int RS0_RT = 3;
+const double RS0_CPU_CORES = 0.3;
+const double RS0_CPU_LOADS = 0.3;
+const double RS0_CPU_SPEEDS = 0.3;
 
 const int RS1_ID = 1;
-const double RS1_RU = 0.2;
-const int RS1_RT = 7;
+const double RS1_CPU_CORES = 0.3;
+const double RS1_CPU_LOADS = 0.3;
+const double RS1_CPU_SPEEDS = 0.3;
 
 const int RS2_ID = 2;
-const double RS2_RU = 0.4;
-const int RS2_RT = 2;
+const double RS2_CPU_CORES = 0.3;
+const double RS2_CPU_LOADS = 0.3;
+const double RS2_CPU_SPEEDS = 0.3;
 
 const int RS3_ID = 3;
-const double RS3_RU = 0.15;
-const int RS3_RT = 6;
+const double RS3_CPU_CORES = 0.3;
+const double RS3_CPU_LOADS = 0.3;
+const double RS3_CPU_SPEEDS = 0.3;
 
 const int RS4_ID = 4;
-const double RS4_RU = 0.23;
-const int RS4_RT = 5;
+const double RS4_CPU_CORES = 0.3;
+const double RS4_CPU_LOADS = 0.3;
+const double RS4_CPU_SPEEDS = 0.3;
 
 //=======================================
 //CONTROLLING PARAMETERS
 global a1: bool init CURA;     //states for the availability
 global p1: bool init CURP;     //states for the performance violation
 global f1: bool init CURF;     //states for the security/safety violation
+global goal: bool init false;
+global s1:[-1..MAXS] init -1; //potential resource collaborators for decision maker 1
+global s2:[-1..MAXS] init -1; //potential resource collaborators for decision maker 2
 //=======================================
 module M1
-t1:[0..3] init 1;      //to control the turn
-s1:[0..MAXS] init 0; //states for the resource collaborator selection
+t1:[0..2] init 1;      //to control the turn
 r1:[0..MAXR] init 0;   //states for the retry
 //a1: bool init CURA;     //states for the availability
 //p1: bool init CURP;     //states for the performance violation
@@ -72,11 +85,12 @@ r1:[0..MAXR] init 0;   //states for the retry
 // (constraints) the goals/constraints are satisfied
 //& (sat=true)
 //&(s1'= RS0_ID)
-[r0a!] (t1=0) & (RS_REQ_ID != RS0_ID) & (r1<=MAXR) -> (r1'=r1+1) & (t1'=1);
-[r1a!] (t1=0) & (RS_REQ_ID != RS1_ID) & (r1<=MAXR) -> (r1'=r1+1) & (t1'=1);
-[r2a!] (t1=0) & (RS_REQ_ID != RS2_ID) & (r1<=MAXR) -> (r1'=r1+1) & (t1'=1);
-[r3a!] (t1=0) & (RS_REQ_ID != RS3_ID) & (r1<=MAXR) ->  (r1'=r1+1) & (t1'=1);
-[r4a!] (t1=0) & (RS_REQ_ID != RS4_ID) & (r1<=MAXR) ->  (r1'=r1+1) & (t1'=1);
+[r0a!] (t1=0) & (RS_REQ_ID != RS0_ID) & (goal=false) & (r1<=MAXR) -> (s1'=RS0_ID) & (goal'=sat) & (r1'=r1+1) & (t1'=1);
+[r1a!] (t1=0) & (RS_REQ_ID != RS1_ID) & (goal=false) & (r1<=MAXR) -> (s1'=RS1_ID) & (goal'=sat) & (r1'=r1+1) & (t1'=1);
+[r2a!] (t1=0) & (RS_REQ_ID != RS2_ID) & (goal=false) & (r1<=MAXR) -> (s1'=RS2_ID) & (goal'=sat) & (r1'=r1+1) & (t1'=1);
+[r3a!] (t1=0) & (RS_REQ_ID != RS3_ID) & (goal=false) & (r1<=MAXR) -> (s1'=RS3_ID) & (goal'=sat) & (r1'=r1+1) & (t1'=1);
+[r4a!] (t1=0) & (RS_REQ_ID != RS4_ID) & (goal=false) & (r1<=MAXR) -> (s1'=RS4_ID) & (goal'=sat) & (r1'=r1+1) & (t1'=1);
+[enda!] (t1=0) & (goal=true) -> (t1'=2);
 
 // P2 moves:
 // (turn) the turn is meant for P2
@@ -91,13 +105,14 @@ r1:[0..MAXR] init 0;   //states for the retry
 
 //start the move
 [st?] (t1=1) -> (t1'=2);
-//[st2?] (t1=1) -> (t1'=3);
+[st?] (t1=2) -> (t1'=2);
 
 //terminate the process
 //[tr1?] (t=1) & (r1>=MAXR) & (end=false) -> (end'=true);
 
 //schedule the turn between subsystems
 [] (t1=2) -> (t1'=0);
+
 endmodule
 
 //=============================================
@@ -109,40 +124,9 @@ endsystem
 
 //module M2=M1 [t1=t2, s1=s2, r1=r2, r1a=r2a, r1b=r2b, r1c=r2c, r1d=r2d, 
 //              r1e=r2e] endmodule
-module M2=M1 [t1=t2, s1=s2, r1=r2, st=ss, r0a=r0b, r1a=r1b, r2a=r2b, r3a=r3b, 
-              r4a=r4b] endmodule
+module M2=M1 [t1=t2, s1=s2, r1=r2, r0a=r0b, r1a=r1b, r2a=r2b, r3a=r3b, r4a=r4b, enda=endb] endmodule
 
 
-//=================================
-//QoS COMPUTATION FOR EACH METRIC
-
-//to compute the overall response time for C1
-formula ag1_rt =( s1 = RS0_ID ? RS0_RT + DELAY :
-            	( s1 = RS1_ID ? RS1_RT + DELAY :
-            	( s1 = RS2_ID ? RS2_RT + DELAY :
-            	( s1 = RS3_ID ? RS3_RT + DELAY :
-		( s1 = RS4_ID ? RS4_RT + DELAY : 0 )))));
-
-//to compute the overall response time for C2
-formula ag2_rt =( s2 = RS0_ID ? RS0_RT + DELAY :
-            	( s2 = RS1_ID ? RS1_RT + DELAY :
-            	( s2 = RS2_ID ? RS2_RT + DELAY :
-            	( s2 = RS3_ID ? RS3_RT + DELAY :
-		( s2 = RS4_ID ? RS4_RT + DELAY : 0 )))));
-
-//to compute the overall response time for C1
-formula ag1_ru =( s1 = RS0_ID ? RS0_RU :
-            	( s1 = RS1_ID ? RS1_RU :
-            	( s1 = RS2_ID ? RS2_RU :
-            	( s1 = RS3_ID ? RS3_RU :
-		( s1 = RS4_ID ? RS4_RU : 0 )))));
-
-//to compute the overall response time for C2
-formula ag2_ru =( s2 = RS0_ID ? RS0_RU :
-            	( s2 = RS1_ID ? RS1_RU :
-            	( s2 = RS2_ID ? RS2_RU :
-            	( s2 = RS3_ID ? RS3_RU :
-		( s2 = RS4_ID ? RS4_RU: 0 )))));
 
 //=================================
 //Computation for aggregation-based
@@ -151,25 +135,40 @@ formula ag2_ru =( s2 = RS0_ID ? RS0_RU :
 formula uv_all = 0.6;
 
 //=================================
-//QoS CONSTRAINTS CHECKING
+//QoS CONSTRAINTS CHECKING FOR NODE 1
 
-//to check the satisfaction of performance
-//false means violated, true means healthy
-//formula sat_q1 = (t1=0 ? p1: (t2=0 ? p2: false));
-formula sat_q1 = p1;
+//to get the respective cores value
+formula cpu_cores_selected = ( (s1=RS0_ID) ? RS0_CPU_CORES :
+                             ( (s1=RS1_ID) ? RS1_CPU_CORES :
+                             ( (s1=RS2_ID) ? RS2_CPU_CORES :
+                             ( (s1=RS3_ID) ? RS3_CPU_CORES :
+                             ( (s1=RS4_ID) ? RS4_CPU_CORES : 0.0)))));
 
-//to check the satisfaction of availability (associated to the failure too)
-//false means unavailable, true means available
-//formula sat_q2 = (t1=0? a1: (t2=0? a2: false));
-formula sat_q2 = a1;
+//to check the satisfaction of CPU Cores
+formula sat_q1 = ( (APP_CPU_CORES > cpu_cores_selected) ? false:true);
 
-//to check the satisfaction of safety
-//false means unsafe, true means safe
-//formula sat_q3 = (t1=0? f1: (t2=0? f2: false));
-formula sat_q3 = f1;
+//to get the respective loads value
+formula cpu_loads_selected = ( (s1=RS0_ID) ? RS0_CPU_LOADS :
+                             ( (s1=RS1_ID) ? RS1_CPU_LOADS :
+                             ( (s1=RS2_ID) ? RS2_CPU_LOADS :
+                             ( (s1=RS3_ID) ? RS3_CPU_LOADS :
+                             ( (s1=RS4_ID) ? RS4_CPU_LOADS : 0.0)))));
 
-//to check the satisfaction of overall quality based on individual metric
-//true if only each of them is true, otherwise false
+//to check the satisfaction of CPU Loads
+formula sat_q2 = ( (APP_CPU_LOADS > cpu_loads_selected) ? false:true);
+
+//to get the respective speeds value
+formula cpu_speeds_selected = ( (s1=RS0_ID) ? RS0_CPU_SPEEDS :
+                              ( (s1=RS1_ID) ? RS1_CPU_SPEEDS :
+                              ( (s1=RS2_ID) ? RS2_CPU_SPEEDS :
+                              ( (s1=RS3_ID) ? RS3_CPU_SPEEDS :
+                              ( (s1=RS4_ID) ? RS4_CPU_SPEEDS : 0.0)))));
+
+//to check the satisfaction of CPU Speeds
+formula sat_q3 = ( (APP_CPU_SPEEDS > cpu_speeds_selected) ? false:true);
+
+
+//to check the satisfaction of overall quality for each node
 formula sat_ml_all = ( (sat_q1=true) & (sat_q2=true) & (sat_q3=true) ? true:false);
 
 //to check the satisfaction of overall quality based on utility
@@ -184,42 +183,25 @@ formula sat = ( GOAL_TY = GOAL_TY_Q1 ? sat_q1 :
               ( GOAL_TY = GOAL_TY_UT ? sat_ut_all :
               ( GOAL_TY = GOAL_TY_ML ? sat_ml_all : false)))));
 
-
 //==============================================
 //REWARD STRUCTURE
 
-//time dimension: response time
+//time dimension: CPU speed
 rewards "c1_rt"
-[r0a] true : ag1_rt;
-[r1a] true : ag1_rt;
-[r2a] true : ag1_rt;
-[r3a] true : ag1_rt;
-[r4a] true : ag1_rt;
+[enda] true : cpu_speeds_selected;
 endrewards
 
 rewards "c2_rt"
-[r0b] true : ag2_rt;
-[r1b] true : ag2_rt;
-[r2b] true : ag2_rt;
-[r3b] true : ag2_rt;
-[r4b] true : ag2_rt;
+[endb] true : cpu_speeds_selected;
 endrewards
 
-//resource dimension: utilization
+//resource dimension: CPU cores
 rewards "c1_ru"
-[r0a] true : ag1_ru;
-[r1a] true : ag1_ru;
-[r2a] true : ag1_ru;
-[r3a] true : ag1_ru;
-[r4a] true : ag1_ru;
+[enda] true : cpu_cores_selected;
 endrewards
 
 rewards "c2_ru"
-[r0b] true : ag2_ru;
-[r1b] true : ag2_ru;
-[r2b] true : ag2_ru;
-[r3b] true : ag2_ru;
-[r4b] true : ag2_ru;
+[endb] true : cpu_cores_selected;
 endrewards
 
 label "done1" = t1 = 2;
