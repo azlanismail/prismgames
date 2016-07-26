@@ -387,7 +387,7 @@ public class CompositionalMultiPlanner {
 	    
 	    public int getAdaptStrategyfromAdv() throws IllegalArgumentException, FileNotFoundException
 	    {   
-	    	//==============Get the decision strategy
+	    	//==============Get the decision states
 	    	//read from transition file
 	    	Scanner read;
 	    	
