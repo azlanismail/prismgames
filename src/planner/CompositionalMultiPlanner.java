@@ -24,7 +24,7 @@ import prism.PrismSettings;
 import prism.Result;
 import simulator.SimulatorEngine;
 import strat.Strategy;
-import strat.Strategies;
+
 
 public class CompositionalMultiPlanner {
 	//Classes from Prism-games
@@ -41,6 +41,7 @@ public class CompositionalMultiPlanner {
 		Strategy strategy;
 		CompositionalSMGModelChecker smc;
 		PrismSettings ps;
+		StrategyExtraction ste;
 		
 		//Defining File Inputs/Outputs
 		String logPath = "./myLog.txt";
@@ -48,7 +49,7 @@ public class CompositionalMultiPlanner {
 		String desktopPath = "H:/git/MultiPlanner/PlanningComp2/";
 		String linuxPath = "/home/azlan/git/PrismGames/";
 		String mainPath = linuxPath;
-		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v3.prism";
+		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v5.prism";
 		String propPath = mainPath+"Prismfiles/propCompModel.props";
 		String modelConstPath = mainPath+"IOFiles/ModelConstants.txt";
 		String propConstPath = mainPath+"IOFiles/PropConstants.txt";
@@ -56,12 +57,14 @@ public class CompositionalMultiPlanner {
 		String transPath1 = mainPath+"IOFiles/transitionInitial";
 		String stratPath2 = mainPath+"IOFiles/strategy";
 		String transPath2 = mainPath+"IOFiles/transition";
+		String mappingPath = mainPath+"IOFiles/mapping";
 
 		//Defining parameters to the stochastic-games model
 		String md_probe = "CUR_PROBE";
 		String md_maxCS = "MAX_CS";
 		String md_maxRT = "MAX_RT";
 		String md_maxFR = "MAX_FR";
+		
 		//String md_goalTQ = "GOAL_TQ";
 		String md_goalTY = "GOAL_TY";
 		String md_serviceType = "SV_TY";
@@ -195,6 +198,7 @@ public class CompositionalMultiPlanner {
 		}
 		
 		public void setConstantsServiceProfile(int i, int rt, double cs, double fr) {
+			
 			String type = null;
 			int id = 0;
 			if(i <= 3) {
@@ -263,6 +267,7 @@ public class CompositionalMultiPlanner {
 		public void setConstantsCloudTesting(int goalType) {
 			setConstantsGoalType(goalType);
 		}
+		
 		
 		/**
 		 * It is used in QoS requirement classes and to assign parameters for the initial stage planning
@@ -385,131 +390,24 @@ public class CompositionalMultiPlanner {
 	    
 	    
 	    
-	    public int getAdaptStrategyfromAdv() throws IllegalArgumentException, FileNotFoundException
+	    public void getAdaptStrategy() throws IllegalArgumentException, FileNotFoundException
 	    {   
-	    	//==============Get the decision states
-	    	//read from transition file
-	    	Scanner read;
-	    	
-	    	if (this.stage ==0)
-	    		read = new Scanner(new BufferedReader(new FileReader(transPath1)));
-	    	else
-	    		read = new Scanner(new BufferedReader(new FileReader(transPath2)));
-			//read.useDelimiter(",");
-			int prevState = -1;
-			int curState = -1;
-			int decState = -1;
-		
-			//skip the first line
-			read.nextLine();
-			prevState = read.nextInt();
-			read.nextLine();
-			//System.out.println("prev state is "+prevState);
-			while (read.hasNextLine()) {
-			   	curState = read.nextInt();
-			   //	System.out.println("current state is "+curState);
-				if (prevState == curState) {
-					decState = curState;
-					break;
-				}
-				else {
-					prevState = curState;
-				}
-				read.nextLine();
-				
-	        }
-			read.close();
+	    	ste = new StrategyExtraction(mappingPath, transPath2, stratPath2);
+			ste.readMappingFile();
+			ste.getAllMappingList();
+			ste.readTransitionFile();
+			ste.getAllTrasitionList();
+			ste.readStrategyFile();
+			ste.getAllStrategyList();
 			
-			if (decState == -1) throw new IllegalArgumentException("Invalid decision state");
-			System.out.println("Decision state is :"+decState);
-			
-	    	//========get the strategy
-	    	int choice = 0;
-	    	//int decState = getDecisionState();
-	    	
-	    	//Read from the exported strategy
-	    	Scanner readS;
-	    	if (this.stage ==0)
-	    		readS = new Scanner(new BufferedReader(new FileReader(stratPath1)));
-	    	else
-	    		readS = new Scanner(new BufferedReader(new FileReader(stratPath2)));
-			//read.useDelimiter(",");
-			int inData = -1;
-			
-			//begin reading the first line
-			String inRead = readS.nextLine(); 
-			while (readS.hasNextLine()) {
-				if (inRead.equalsIgnoreCase("MemUpdMoves:")){
-					//skip four lines
-					for(int i=0; i < 4; i++)
-						readS.nextLine();
-					inData = readS.nextInt();
-					//System.out.println("inData is :"+inData);
-					//find the decision state
-					boolean found = false;
-					while (true){
-						if (inData == decState) {
-							//skip another two elements
-							readS.nextInt(); readS.nextInt();
-							//pick up the next element
-							choice = readS.nextInt();
-							found = true;
-							break;
-						}
-						else {
-							readS.nextLine();
-						}
-						inData = readS.nextInt();
-					}
-					//System.out.println("inData final is "+choice);
-					if (found == true) break;
-				}
-				inRead = readS.nextLine();
-	        }
-			readS.close();
-			System.out.println("Obtained strategy is "+choice);
-			
-			//===========get the label======================
-			Scanner readL;
-			if (this.stage ==0)
-	    		readL = new Scanner(new BufferedReader(new FileReader(transPath1)));
-	    	else
-	    		readL = new Scanner(new BufferedReader(new FileReader(transPath2)));
-			curState = -1;
-			int decAction = choice;
-	    	int curAction = -1;
-	    	String label = null;
-	    	boolean status = false;
-			//skip the first line
-			readL.nextLine();
-			while (readL.hasNextLine()) {
-			   	curState = readL.nextInt();
-			   //	System.out.println("current state is "+curState);
-				if (curState == decState) {
-					curAction = readL.nextInt();
-					if (curAction == decAction) {
-						//skip two columns
-						readL.nextInt(); readL.nextInt();
-						label = readL.next();
-						status = true;
-					}
-				}
-				if (status == true) break;
-				readL.nextLine();
-	        }
-			readL.close();
-			System.out.println("Label is :"+label);
-			
-			//==========get the id
-			System.out.println("Service id is "+getServiceIdfromLabel(label));
-			return getServiceIdfromLabel(label);
+			ste.findDecision();
 	    }
 	   
 	        
 	    /**
 	     * Objective: To generate the adaptation plan
 	     */
-	    public void generate() 
+	    public void generate()
 	    {        
 	    	
 	    	 
@@ -533,6 +431,19 @@ public class CompositionalMultiPlanner {
 			}
 	        //strategy related process
 	       	exportStrategy();
+	       	
+	       	//get the adaptation strategy
+	       	try {
+ 				getAdaptStrategy();
+ 			} 
+ 			catch (IllegalArgumentException e) {
+ 				e.printStackTrace();
+ 			}
+ 			catch (FileNotFoundException e) {
+ 				// TODO Auto-generated catch block
+ 				e.printStackTrace();
+ 				System.err.println("something not right");
+ 			}
 	       	
 	    }//end of synthesis
 	    
@@ -571,19 +482,7 @@ public class CompositionalMultiPlanner {
 	 	 	    
 	 	    
 	 			plan.generate();
-	 			
-		  
-	 		//	try {
-	 				//plan.getAdaptStrategyfromAdv();
-	 		//	} 
-	 		//	catch (IllegalArgumentException e) {
-	 		//		e.printStackTrace();
-	 		//	}
-	 			//catch (FileNotFoundException e) {
-	 				// TODO Auto-generated catch block
-	 		//		e.printStackTrace();
-	 		//		System.err.println("something not right");
-	 		//	}
+	 	
 	 			tm.stop();
 	 			time[i] = tm.getDuration();
 	 	    }

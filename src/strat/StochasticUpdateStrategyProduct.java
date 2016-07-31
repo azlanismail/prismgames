@@ -195,8 +195,11 @@ public class StochasticUpdateStrategyProduct implements Strategy
     {
 	String strats = Strategies.FORMAT_STRING_SU_STRAT_COMP + "\n";
 	strats += "// Composed Stochastic Update Strategy\n";
-	for(int i = 0; i < strategies.size(); i++)
+	strats += "// TotalStrategy "+strategies.size()+"\n";
+	for(int i = 0; i < strategies.size(); i++) {
+		strats += "StrategyIndex "+(i+1)+"\n";
 	    strats += String.format("%s\n", strategies.get(i).toString());
+	}
 	return strats;
     }
 

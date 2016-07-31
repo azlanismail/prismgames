@@ -1,0 +1,284 @@
+smg
+
+//top level system 
+system "MC"
+"C1" || "C2"  //a set of decision makers / components
+endsystem
+
+//sub-system
+system "C1"
+M1
+endsystem
+
+//====================================
+//inputs parameters
+
+//USER-DEFINED PARAMETERS
+const int MAXR = 2;  //UB for retry
+const int MAXS = 4;  //UB for the number of collaborators
+const double MAXUT = 0.7; //UB for the utility value
+const int GOAL_TY = 5; //UB for collaborators (for filtering)
+const int GOAL_TY_Q1 = 1; //performance violation
+const int GOAL_TY_Q2 = 2; //availability
+const int GOAL_TY_Q3 = 3; //safety
+const int GOAL_TY_UT = 4; //utility-based
+const int GOAL_TY_ML = 5; //multi
+
+//PROBING PARAMETERS
+const int RSA_INIT_ID = 2; //initiator or requestor
+const int RSB_INIT_ID = 3;
+const bool CURA = true; //current availability
+const bool CURP = true; //current performance
+const bool CURF = true; //current safety
+const int DELAY = 3;  //current delay
+
+//PROFILING PARAMETERS
+const int APP0_ID = 0;
+const double APP0_CPU_CORES = 0.3;
+const double APP0_CPU_LOADS = 0.4;
+const double APP0_CPU_SPEEDS = 0.5;
+
+const int APP1_ID = 1;
+const double APP1_CPU_CORES = 0.5;
+const double APP1_CPU_LOADS = 0.4;
+const double APP1_CPU_SPEEDS = 0.3;
+
+
+const int RS0_ID = 0;
+const double RS0_CPU_CORES = 0.7;
+const double RS0_CPU_LOADS = 0.6;
+const double RS0_CPU_SPEEDS = 0.5;
+
+const int RS1_ID = 1;
+const double RS1_CPU_CORES = 0.7;
+const double RS1_CPU_LOADS = 0.6;
+const double RS1_CPU_SPEEDS = 0.5;
+
+const int RS2_ID = 2;
+const double RS2_CPU_CORES = 0.5;
+const double RS2_CPU_LOADS = 0.2;
+const double RS2_CPU_SPEEDS = 0.1;
+
+const int RS3_ID = 3;
+const double RS3_CPU_CORES = 0.3;
+const double RS3_CPU_LOADS = 0.7;
+const double RS3_CPU_SPEEDS = 0.2;
+
+const int RS4_ID = 4;
+const double RS4_CPU_CORES = 0.3;
+const double RS4_CPU_LOADS = 0.3;
+const double RS4_CPU_SPEEDS = 0.3;
+
+//=======================================
+//CONTROLLING PARAMETERS
+global a1: bool init CURA;     //states for the availability
+global p1: bool init CURP;     //states for the performance violation
+global f1: bool init CURF;     //states for the security/safety violation
+
+//global sa:[0..MAXS] init RSA_INIT_ID; //potential resource collaborators for decision maker 1
+//global sb:[0..MAXS] init RSB_INIT_ID; //potential resource collaborators for decision maker 2
+//=======================================
+module M1
+ta:[0..2] init 1;      //to control the turn
+ra:[0..MAXR] init 0;   //states for the retry
+sa:[0..MAXS] init RSA_INIT_ID; //potential resource collaborators for decision maker 1
+goala: bool init false;
+//a1: bool init CURA;     //states for the availability
+//p1: bool init CURP;     //states for the performance violation
+//f1: bool init CURF;     //states for the security/safety violation
+
+// P1 moves:
+[r0a!] (ta=0) & (goala=false) & (ra<=MAXR) -> (sa'=RS0_ID) & (goala'=app0_sat) & (ra'=ra+1) & (ta'=1);
+[r1a!] (ta=0) & (goala=false) & (ra<=MAXR) -> (sa'=RS1_ID) & (goala'=app0_sat) & (ra'=ra+1) & (ta'=1);
+[r2a!] (ta=0) & (goala=false) & (ra<=MAXR) -> (sa'=RS2_ID) & (goala'=app0_sat) & (ra'=ra+1) & (ta'=1);
+[r3a!] (ta=0) & (goala=false) & (ra<=MAXR) -> (sa'=RS3_ID) & (goala'=app0_sat) & (ra'=ra+1) & (ta'=1);
+[r4a!] (ta=0) & (goala=false) & (ra<=MAXR) -> (sa'=RS4_ID) & (goala'=app0_sat) & (ra'=ra+1) & (ta'=1);
+//terminate the process
+[enda!] (ta=0) & (goala=true) -> (ta'=2);
+
+// P2 moves:
+//[m1x?] (t1=1) -> 0.5:(a1'=false)&(t1'=2)&(s1'=0) + 0.5:(a1'=true)&(t1'=2);
+//[m1x?] (t1=1) -> 0.5:(a1'=false)&(t1'=2)&(s1'=0) + 0.5:(a1'=true)&(t1'=2);
+//[m1y?] (t1=1) -> 0.5:(p1'=false)&(t1'=2)&(s1'=0) + 0.5:(p1'=true)&(t1'=2);
+//[m1z?] (t1=1) -> 0.5:(f1'=false)&(t1'=2)&(s1'=0) + 0.5:(f1'=true)&(t1'=2);
+
+//start the move
+[st1?] (ta=1) -> (ta'=2);
+[st2?] (ta=2) -> (ta'=2);
+
+//schedule the turn between subsystems
+[] (ta=2) -> (ta'=0);
+
+endmodule
+
+//=============================================
+//=============================================
+//=============================================
+system "C2"
+M2
+endsystem
+
+//module M2=M1 [t1=t2, s1=s2, r1=r2, r0a=r0b, r1a=r1b, r2a=r2b, r3a=r3b, r4a=r4b, enda=endb] endmodule
+
+module M2
+tb:[0..2] init 1;      //to control the turn
+rb:[0..MAXR] init 0;   //states for the retry
+sb:[0..MAXS] init RSB_INIT_ID;   //potential resource collaborators for decision maker 2
+goalb: bool init false;
+//a1: bool init CURA;     //states for the availability
+//p1: bool init CURP;     //states for the performance violation
+//f1: bool init CURF;     //states for the security/safety violation
+
+// P1 moves:
+[r0b!] (tb=0) & (goalb=false) & (rb<=MAXR) -> (sb'=RS0_ID) & (goalb'=app1_sat) & (rb'=rb+1) & (tb'=1);
+[r1b!] (tb=0) & (goalb=false) & (rb<=MAXR) -> (sb'=RS1_ID) & (goalb'=app1_sat) & (rb'=rb+1) & (tb'=1);
+[r2b!] (tb=0) & (goalb=false) & (rb<=MAXR) -> (sb'=RS2_ID) & (goalb'=app1_sat) & (rb'=rb+1) & (tb'=1);
+[r3b!] (tb=0) & (goalb=false) & (rb<=MAXR) -> (sb'=RS3_ID) & (goalb'=app1_sat) & (rb'=rb+1) & (tb'=1);
+[r4b!] (tb=0) & (goalb=false) & (rb<=MAXR) -> (sb'=RS4_ID) & (goalb'=app1_sat) & (rb'=rb+1) & (tb'=1);
+//terminate the process
+[endb!] (tb=0) & (goalb=true) -> (tb'=2);
+
+// P2 moves:
+//[m1x?] (t1=1) -> 0.5:(a1'=false)&(t1'=2)&(s1'=0) + 0.5:(a1'=true)&(t1'=2);
+//[m1x?] (t1=1) -> 0.5:(a1'=false)&(t1'=2)&(s1'=0) + 0.5:(a1'=true)&(t1'=2);
+//[m1y?] (t1=1) -> 0.5:(p1'=false)&(t1'=2)&(s1'=0) + 0.5:(p1'=true)&(t1'=2);
+//[m1z?] (t1=1) -> 0.5:(f1'=false)&(t1'=2)&(s1'=0) + 0.5:(f1'=true)&(t1'=2);
+
+//start the move
+[st1?] (tb=1) -> (tb'=2);
+[st2?] (tb=2) -> (tb'=2);
+
+//schedule the turn between subsystems
+[] (tb=2) -> (tb'=0);
+
+endmodule
+
+
+//=================================
+//Computation for aggregation-based
+
+//formula uv_all = uv_cs * WG_CS + uv_rt * WG_RT + uv_fr * WG_FR;
+formula app0_uv_all = 0.6;
+formula app1_uv_all = 0.6;
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP 0
+
+//to get the respective cores value
+formula app0_cpu_cores_selected = ( (sa=RS0_ID) ? RS0_CPU_CORES :
+                             	  ( (sa=RS1_ID) ? RS1_CPU_CORES :
+                             	  ( (sa=RS2_ID) ? RS2_CPU_CORES :
+                             	  ( (sa=RS3_ID) ? RS3_CPU_CORES :
+                             	  ( (sa=RS4_ID) ? RS4_CPU_CORES : 0.0)))));
+
+//to check the satisfaction of CPU Cores
+formula app0_sat_q1 = ( (APP0_CPU_CORES > app0_cpu_cores_selected) ? false:true);
+
+//to get the respective loads value
+formula app0_cpu_loads_selected = ( (sa=RS0_ID) ? RS0_CPU_LOADS :
+                             ( (sa=RS1_ID) ? RS1_CPU_LOADS :
+                             ( (sa=RS2_ID) ? RS2_CPU_LOADS :
+                             ( (sa=RS3_ID) ? RS3_CPU_LOADS :
+                             ( (sa=RS4_ID) ? RS4_CPU_LOADS : 0.0)))));
+
+//to check the satisfaction of CPU Loads
+formula app0_sat_q2 = ( (APP0_CPU_LOADS > app0_cpu_loads_selected) ? false:true);
+
+//to get the respective speeds value
+formula app0_cpu_speeds_selected = ( (sa=RS0_ID) ? RS0_CPU_SPEEDS :
+                              	( (sa=RS1_ID) ? RS1_CPU_SPEEDS :
+                              	( (sa=RS2_ID) ? RS2_CPU_SPEEDS :
+                              	( (sa=RS3_ID) ? RS3_CPU_SPEEDS :
+                              	( (sa=RS4_ID) ? RS4_CPU_SPEEDS : 0.0)))));
+
+//to check the satisfaction of CPU Speeds
+formula app0_sat_q3 = ( (APP0_CPU_SPEEDS > app0_cpu_speeds_selected) ? false:true);
+
+
+//to check the satisfaction of overall quality for each node
+formula app0_sat_ml_all = ( (app0_sat_q1=true) & (app0_sat_q2=true) & (app0_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app0_sat_ut_all = ( app0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app0_sat = ( GOAL_TY = GOAL_TY_Q1 ? app0_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app0_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app0_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app0_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app0_sat_ml_all : false)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP 1
+
+//to get the respective cores value
+formula app1_cpu_cores_selected = ( (sb=RS0_ID) ? RS0_CPU_CORES :
+                             	  ( (sb=RS1_ID) ? RS1_CPU_CORES :
+                             	  ( (sb=RS2_ID) ? RS2_CPU_CORES :
+                             	  ( (sb=RS3_ID) ? RS3_CPU_CORES :
+                             	  ( (sb=RS4_ID) ? RS4_CPU_CORES : 0.0)))));
+
+//to check the satisfaction of CPU Cores
+formula app1_sat_q1 = ( (APP1_CPU_CORES > app1_cpu_cores_selected) ? false:true);
+
+//to get the respective loads value
+formula app1_cpu_loads_selected = ( (sb=RS0_ID) ? RS0_CPU_LOADS :
+                             ( (sb=RS1_ID) ? RS1_CPU_LOADS :
+                             ( (sb=RS2_ID) ? RS2_CPU_LOADS :
+                             ( (sb=RS3_ID) ? RS3_CPU_LOADS :
+                             ( (sb=RS4_ID) ? RS4_CPU_LOADS : 0.0)))));
+
+//to check the satisfaction of CPU Loads
+formula app1_sat_q2 = ( (APP1_CPU_LOADS > app1_cpu_loads_selected) ? false:true);
+
+//to get the respective speeds value
+formula app1_cpu_speeds_selected = ( (sb=RS0_ID) ? RS0_CPU_SPEEDS :
+                              	( (sb=RS1_ID) ? RS1_CPU_SPEEDS :
+                              	( (sb=RS2_ID) ? RS2_CPU_SPEEDS :
+                              	( (sb=RS3_ID) ? RS3_CPU_SPEEDS :
+                              	( (sb=RS4_ID) ? RS4_CPU_SPEEDS : 0.0)))));
+
+//to check the satisfaction of CPU Speeds
+formula app1_sat_q3 = ( (APP1_CPU_SPEEDS > app1_cpu_speeds_selected) ? false:true);
+
+
+//to check the satisfaction of overall quality for each node
+formula app1_sat_ml_all = ( (app1_sat_q1=true) & (app1_sat_q2=true) & (app1_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app1_sat_ut_all = ( app1_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app1_sat = ( GOAL_TY = GOAL_TY_Q1 ? app1_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app1_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app1_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app1_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app1_sat_ml_all : false)))));
+
+//==============================================
+//REWARD STRUCTURE
+
+//time dimension: CPU speed
+rewards "c1_rt"
+[enda] true : app0_cpu_speeds_selected;
+endrewards
+
+rewards "c2_rt"
+[endb] true : app1_cpu_speeds_selected;
+endrewards
+
+//resource dimension: CPU cores
+rewards "c1_ru"
+[enda] true : app0_cpu_cores_selected;
+endrewards
+
+rewards "c2_ru"
+[endb] true : app1_cpu_cores_selected;
+endrewards
+
+label "done1" = ta = 2;
+label "done2" = tb = 2;

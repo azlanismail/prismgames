@@ -1,9 +1,11 @@
-const double MAXRT = 1;
-const double MAXRU = 1;
+const double MAXRTA = 0.3;
+const double MAXRUA = 0.3;
+const double MAXRTB = 0.5;
+const double MAXRUB = 0.5;
 
 "qall" : comp("q1", "q2")
 
-"q1" : <<1>> (((R{"c1_rt"}<=MAXRT [ S ]&R{"c1_ru"}<=MAXRU [ S ])))
+"q1" : <<1>> (((((R{"c1_rt"}<=MAXRTA [ S ]&R{"c1_ru"}<=MAXRUA [ S ])))))
 
-"q2" : <<1>> (((R{"c2_rt"}<=MAXRT [ S ]&R{"c2_ru"}<=MAXRU [ S ])))
+"q2" : <<1>> (((((R{"c2_rt"}<=MAXRTB [ S ]&R{"c2_ru"}<=MAXRUB [ S ])))))
 

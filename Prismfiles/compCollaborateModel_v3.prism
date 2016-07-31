@@ -25,28 +25,33 @@ const int GOAL_TY_UT = 4; //utility-based
 const int GOAL_TY_ML = 5; //multi
 
 //PROBING PARAMETERS
-const int RS_REQ_ID = 0; //initiator or requestor
+const int RS_REQ_ID = 1; //initiator or requestor
 const bool CURA = true; //current availability
 const bool CURP = true; //current performance
 const bool CURF = true; //current safety
 const int DELAY = 3;  //current delay
 
 //PROFILING PARAMETERS
-const int APP_ID = -1;
-const double APP_CPU_CORES = 0.2;
-const double APP_CPU_LOADS = 0.2;
-const double APP_CPU_SPEEDS = 0.2;
+const int APP0_ID = 0;
+const double APP0_CPU_CORES = 0.3;
+const double APP0_CPU_LOADS = 0.4;
+const double APP0_CPU_SPEEDS = 0.5;
+
+const int APP1_ID = 1;
+const double APP1_CPU_CORES = 0.5;
+const double APP1_CPU_LOADS = 0.4;
+const double APP1_CPU_SPEEDS = 0.3;
 
 
 const int RS0_ID = 0;
-const double RS0_CPU_CORES = 0.3;
-const double RS0_CPU_LOADS = 0.3;
-const double RS0_CPU_SPEEDS = 0.3;
+const double RS0_CPU_CORES = 0.7;
+const double RS0_CPU_LOADS = 0.6;
+const double RS0_CPU_SPEEDS = 0.5;
 
 const int RS1_ID = 1;
-const double RS1_CPU_CORES = 0.3;
-const double RS1_CPU_LOADS = 0.3;
-const double RS1_CPU_SPEEDS = 0.3;
+const double RS1_CPU_CORES = 0.7;
+const double RS1_CPU_LOADS = 0.6;
+const double RS1_CPU_SPEEDS = 0.5;
 
 const int RS2_ID = 2;
 const double RS2_CPU_CORES = 0.3;
