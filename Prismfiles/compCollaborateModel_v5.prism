@@ -33,41 +33,41 @@ const bool CURF = true; //current safety
 const int DELAY = 3;  //current delay
 
 //PROFILING PARAMETERS
-const int APP0_ID = 0;
-const double APP0_CPU_CORES = 0.3;
-const double APP0_CPU_LOADS = 0.4;
-const double APP0_CPU_SPEED = 0.5;
+const int APP0_ID; // = 0;
+const double APP0_CPU_CORES; // = 0.3;
+const double APP0_CPU_LOADS; // = 0.4;
+const double APP0_CPU_SPEED; // = 0.5;
 
-const int APP1_ID = 1;
-const double APP1_CPU_CORES = 0.5;
-const double APP1_CPU_LOADS = 0.4;
-const double APP1_CPU_SPEED = 0.3;
+const int APP1_ID; // = 1;
+const double APP1_CPU_CORES; // = 0.5;
+const double APP1_CPU_LOADS; // = 0.4;
+const double APP1_CPU_SPEED; // = 0.3;
 
 
-const int RS0_ID = 0;
-const double RS0_CPU_CORES = 0.7;
-const double RS0_CPU_LOADS = 0.6;
-const double RS0_CPU_SPEED = 0.8;
+const int RS0_ID; // = 0;
+const double RS0_CPU_CORES; // = 0.7;
+const double RS0_CPU_LOADS; // = 0.6;
+const double RS0_CPU_SPEED; // = 0.8;
 
-const int RS1_ID = 1;
-const double RS1_CPU_CORES = 0.7;
-const double RS1_CPU_LOADS = 0.6;
-const double RS1_CPU_SPEED = 0.8;
+const int RS1_ID; // = 1;
+const double RS1_CPU_CORES; // = 0.7;
+const double RS1_CPU_LOADS; // = 0.6;
+const double RS1_CPU_SPEED; // = 0.8;
 
-const int RS2_ID = 2;
-const double RS2_CPU_CORES = 0.5;
-const double RS2_CPU_LOADS = 0.2;
-const double RS2_CPU_SPEED = 0.1;
+const int RS2_ID; // = 2;
+const double RS2_CPU_CORES; // = 0.5;
+const double RS2_CPU_LOADS; // = 0.2;
+const double RS2_CPU_SPEED; // = 0.1;
 
-const int RS3_ID = 3;
-const double RS3_CPU_CORES = 0.3;
-const double RS3_CPU_LOADS = 0.7;
-const double RS3_CPU_SPEED = 0.2;
+const int RS3_ID; // = 3;
+const double RS3_CPU_CORES; // = 0.3;
+const double RS3_CPU_LOADS; // = 0.7;
+const double RS3_CPU_SPEED; // = 0.2;
 
-const int RS4_ID = 4;
-const double RS4_CPU_CORES = 0.3;
-const double RS4_CPU_LOADS = 0.3;
-const double RS4_CPU_SPEED = 0.3;
+const int RS4_ID; // = 4;
+const double RS4_CPU_CORES; // = 0.3;
+const double RS4_CPU_LOADS; // = 0.3;
+const double RS4_CPU_SPEED; // = 0.3;
 
 //=======================================
 //CONTROLLING PARAMETERS

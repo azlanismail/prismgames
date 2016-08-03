@@ -42,6 +42,7 @@ public class CompositionalMultiPlanner {
 		CompositionalSMGModelChecker smc;
 		PrismSettings ps;
 		StrategyExtraction ste;
+		ConfigurationPlanner conf;
 		
 		//Defining File Inputs/Outputs
 		String logPath = "./myLog.txt";
@@ -59,26 +60,7 @@ public class CompositionalMultiPlanner {
 		String transPath2 = mainPath+"IOFiles/transition";
 		String mappingPath = mainPath+"IOFiles/mapping";
 
-		//Defining parameters to the stochastic-games model
-		String md_probe = "CUR_PROBE";
-		String md_maxCS = "MAX_CS";
-		String md_maxRT = "MAX_RT";
-		String md_maxFR = "MAX_FR";
 		
-		//String md_goalTQ = "GOAL_TQ";
-		String md_goalTY = "GOAL_TY";
-		String md_serviceType = "SV_TY";
-		String md_serviceFailedId = "SV_FAIL_ID";
-		String md_delay = "CUR_DELAY";
-		String md_maxDelay = "MAX_DELAY";
-		String md_minDelay = "MIN_DELAY";
-		
-		String md_retry = "RETRY";
-
-		//utility-based decision making
-		String md_wg_cs = "WG_CS"; 
-		String md_wg_rt = "WG_RT";  
-		String md_wg_fr = "WG_FR"; 
 		
 		//Defining properties for the planner
 		private int stage;
@@ -94,17 +76,8 @@ public class CompositionalMultiPlanner {
 			mainLog = new PrismFileLog(logPath);
 	        prism = new Prism(mainLog , mainLog);
 	        prismEx = new PrismExplicit(mainLog, prism.getSettings());
-	        //prismCom = new PrismComponent();
-	        
-	        //prismCom.setLog(mainLog);
-	        //prismCom.setSettings(prism.getSettings());
-	       // prismEx = new PrismExplicit(prism.getMainLog(), prism.getSettings());
-	        
 	       
-	       //for building and checking the model 
-	    	//simEngine = new SimulatorEngine(prismCom,prism);
-	        
-	    	//for parsing model and property file
+	        //for parsing model and property file
 	    	try {
 	    			modulesFile = prism.parseModelFile(new File(modelPath));
 	    			propertiesFile = prism.parsePropertiesFile(modulesFile, new File(propPath));
@@ -114,8 +87,7 @@ public class CompositionalMultiPlanner {
 			}		
 	    	
 	    	//for assigning values of constants
-	    	vm = new Values();
-	    	//vp = new Values();	
+	    	conf = new ConfigurationPlanner();
 	    	   	
 	    	//I need to access SMGModelChecker directly to manipulate the strategy
 	    	try {
@@ -124,173 +96,20 @@ public class CompositionalMultiPlanner {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	
-	    	//strategy = new StochasticUpdateStrategy();
-		}
-		
-		public void setConstantsProbe(int probeId) {
-			vm.setValue(md_probe, probeId);
-		}
-		
-		public void setConstantsGoalType(int goalType) {
-			vm.setValue(md_goalTY, goalType);
-		}
-		
-		public void setServiceType(String serviceType) {
-			System.out.println("Type detected and sent to the model is :"+serviceType);
-	    	if (serviceType.equalsIgnoreCase("MedicalAnalysisService"))
-	    		setConstantsServiceType(0);
-	    	if (serviceType.equalsIgnoreCase("AlarmService"))
-	    		setConstantsServiceType(1);
-	    	if (serviceType.equalsIgnoreCase("DrugService"))
-	    		setConstantsServiceType(2);
-		}
-		
-		public void setConstantsServiceType(int typeId) {
-			System.out.println("Received service type is :"+typeId);
-			vm.setValue(md_serviceType, typeId);
-		}
-		
-		public void setConstantsFailedServiceId(int serviceId) {
-			vm.setValue(md_serviceFailedId, serviceId);
-		}
-		
-		public void setConstantsMaxCost(double maxCS) {
-			vm.setValue(md_maxCS, maxCS);
-		}
-		
-		public void setConstantsMaxResponseTime(int maxRT) {
-			vm.setValue(md_maxRT, maxRT);
-		}
-		
-		public void setConstantsMaxFailureRate(double maxFR) {
-			vm.setValue(md_maxFR, maxFR);
-		}
-		
-		public void setConstantsUtilWeight(double wgCS, double wgRT, double wgFR) {
-			vm.setValue(md_wg_cs, wgCS);
-			vm.setValue(md_wg_rt, wgRT);
-			vm.setValue(md_wg_fr, wgFR);
-		}
-		
-		public void setConstantsRetry(int r) {
-			vm.setValue(md_retry, r);
-		}
-		
-		
-		public void initializeServiceProfile(){
-			//set the service profiles for alarm service
-	 		setConstantsServiceProfile(1, 11, 4.0, 0.11);
-	 		setConstantsServiceProfile(2, 9, 12.0, 0.04);
-			setConstantsServiceProfile(3, 3, 2.0, 0.18);
+	    }
 			
-			//set the service profiles for medical analysis service
-			setConstantsServiceProfile(4,22,4.0,0.12);
-			setConstantsServiceProfile(5,27,14.0,0.07);
-			setConstantsServiceProfile(6,31,2.15,0.18);
-			setConstantsServiceProfile(7,29,7.3,0.25);
-			setConstantsServiceProfile(8,20,11.9,0.05);
-			
-			//set the service profiles for drug service
-			setConstantsServiceProfile(9,1,2,0.01);
-			setConstantsServiceProfile(10,1,2,0.01);
-			
+		public void setApplicationRequirements(int id, double cpuCores, double cpuSpeed, double cpuLoads){
+			conf.setAppRequirements(id, cpuCores, cpuSpeed, cpuLoads);
 		}
 		
-		public void setConstantsServiceProfile(int i, int rt, double cs, double fr) {
-			
-			String type = null;
-			int id = 0;
-			if(i <= 3) {
-				type = "ALARM";
-				id = i;
-			}
-			else if (i <= 8){
-				type = "MEDIC";
-				if (i == 4) id = 1;
-				if (i == 5) id = 2;
-				if (i == 6) id = 3;
-				if (i == 7) id = 4;
-				if (i == 8) id = 5;
-			}
-			else if (i <= 10){
-				type = "DRUG";
-				if (i == 9) id = 1;
-				if (i == 10) id = 2;
-				
-			}
-			else
-				System.err.println("Parameters are not matched with the parameters in the model");
-			
-			String md_sv_id = "SV_"+type+""+id+"_ID";
-			String md_sv_rt = "SV_"+type+""+id+"_RT";
-			String md_sv_cs = "SV_"+type+""+id+"_CS";
-			String md_sv_fr = "SV_"+type+""+id+"_FR";
-			
-			vm.setValue(md_sv_id, i); 
-			vm.setValue(md_sv_rt, rt);
-			vm.setValue(md_sv_cs, cs); 
-			vm.setValue(md_sv_fr, fr);
+		public void setNodeCapabilities(int id, double cpuCores, double cpuSpeed, double cpuLoads){
+			conf.setNodeCapabilities(id, cpuCores, cpuSpeed, cpuLoads);
 		}
-		
-		public void setDelay(){
-			Random rand = new Random();
-			int maxDelay = 5;
-			int minDelay = 0;
-			int delay = rand.nextInt(maxDelay - minDelay + 1) + minDelay;
-			System.out.println("Delay :"+delay);
-			vm.setValue(md_delay, delay);
-			vm.setValue(md_maxDelay, maxDelay);
-			vm.setValue(md_minDelay, minDelay);
-		}
-		
-		/**
-		 * 
-		 * @param goalType
-		 * @param probe
-		 * @param type
-		 * @param id
-		 * @param maxRT
-		 * @param maxFR
-		 */
-		public void setConstantsTesting(int goalType, int probe, int type, int id, int maxRT, double maxCS, double maxFR, int r) {
-			setConstantsGoalType(goalType);
-			setConstantsProbe(probe);
-			setConstantsServiceType(type);
-			setConstantsFailedServiceId(id);
-			setConstantsMaxResponseTime(maxRT);
-			setConstantsMaxCost(maxCS);
-			setConstantsMaxFailureRate(maxFR);
-			setConstantsRetry(r);
-		}
-		
-		public void setConstantsCloudTesting(int goalType) {
-			setConstantsGoalType(goalType);
-		}
-		
-		
-		/**
-		 * It is used in QoS requirement classes and to assign parameters for the initial stage planning
-		 * @param goalType
-		 * @param probe
-		 * @param type
-		 * @param id
-		 */
-		public void setConstantsParams(int goalType, int probe, String type, int id) {
-			setConstantsGoalType(goalType);
-			setConstantsProbe(probe);
-			setServiceType(type);
-			setConstantsFailedServiceId(id);
-			//setConstantsMaxResponseTime(maxRT);
-			//setConstantsMaxCost(maxCS);
-			//setConstantsMaxFailureRate(maxFR);
-		}
-		
 
 		public void buildModelbyPrismEx() throws PrismLangException, PrismException
 		{
 			//assign constants values to the model 
-	    	modulesFile.setUndefinedConstants(vm);
+	    	modulesFile.setUndefinedConstants(conf.getDefinedValues());
 	 		
 	    	//build the model
 		    model = prismEx.buildModel(modulesFile, prism.getSimulator());
@@ -355,41 +174,6 @@ public class CompositionalMultiPlanner {
 	    }
 	    
 	       
-	    
-	   
-	    
-	    public int getServiceIdfromLabel(String label){
-	    	int serviceId = -1;
-	    	
-	    	//map the selected action from strategy and transition
-	    	
-	    	try {
-	    		//in the case of retry
-	    		if (label.equalsIgnoreCase("Retry")) serviceId = vm.getIntValueOf(md_serviceFailedId);
-	    			
-				if (label.equalsIgnoreCase("MedicalService1")) serviceId = 4;
-				if (label.equalsIgnoreCase("MedicalService2")) serviceId = 5;
-				if (label.equalsIgnoreCase("MedicalService3")) serviceId = 6;
-				if (label.equalsIgnoreCase("MedicalService4")) serviceId = 7;
-				if (label.equalsIgnoreCase("MedicalService5")) serviceId = 8;
-				
-				if (label.equalsIgnoreCase("AlarmService1")) serviceId = 1;
-				if (label.equalsIgnoreCase("AlarmService2")) serviceId = 2;
-				if (label.equalsIgnoreCase("AlarmService3")) serviceId = 3;
-				
-				if (label.equalsIgnoreCase("DrugService1")) serviceId = 9;
-				if (label.equalsIgnoreCase("DrugService2")) serviceId = 9;
-			} catch (PrismLangException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    	
-	    	return serviceId;
-	    }
-	    
-	    
-	    
-	    
 	    public void getAdaptStrategy() throws IllegalArgumentException, FileNotFoundException
 	    {   
 	    	ste = new StrategyExtraction(mappingPath, transPath2, stratPath2);
@@ -454,12 +238,18 @@ public class CompositionalMultiPlanner {
 	    	//0-means the initial stage
 	    	//1-means the adaptation stage
 	    	int stage = 1;
-	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(stage); 
-	 		
-	 		//set the service profiles for alarm service
-	 		plan.setConstantsServiceProfile(1, 11, 4.0, 0.11);
-	 		
+	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(stage); 		
 			
+	 		//parameters: id, cpuCores, cpuSpeed, cpuLoadas
+	 		plan.setApplicationRequirements(0, 0.6, 0.6, 0.6);
+	 		plan.setApplicationRequirements(1, 0.6, 0.6, 0.6);
+	 		
+	 		plan.setNodeCapabilities(0, 0.4, 0.4, 0.4);
+	 		plan.setNodeCapabilities(1, 0.4, 0.4, 0.4);
+	 		plan.setNodeCapabilities(2, 0.8, 0.8, 0.8);
+	 		plan.setNodeCapabilities(3, 0.8, 0.8, 0.8);
+	 		plan.setNodeCapabilities(4, 0.8, 0.8, 0.8);
+	 		
 	 		Random rand = new Random();
 	 		//int serviceType = -1;
 	 		int cycle =1;
@@ -472,17 +262,7 @@ public class CompositionalMultiPlanner {
 	 	    {
 	 			tm.start();
 	 			System.out.println("number of cycle :"+i);
-	 			//serviceType = rand.nextInt(2);
-	 			//The goal type must be 4 that refers to multi-objective
-	 			//plan.setConstantsTesting(goalType,2,serviceType,-1,26,20,0.7, retry);
-	 			///plan.setConstantsCloudTesting(goalType);
-	 	 		//	if (goalType == 3) {
-	 	 	//			plan.setConstantsUtilWeight(0.6, 0.2, 0.2);
-	 	 		//	}
-	 	 	    
-	 	    
 	 			plan.generate();
-	 	
 	 			tm.stop();
 	 			time[i] = tm.getDuration();
 	 	    }
