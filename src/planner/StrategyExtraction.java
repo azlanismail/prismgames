@@ -13,8 +13,9 @@ public class StrategyExtraction {
 	private String stratPath = null;
 	
 	private ArrayList<String> mapslist;
-	private ArrayList<Integer> translist1;
-	private ArrayList<String> translist2;
+	private ArrayList<Integer> transStates;
+	private ArrayList<Integer> transActions;
+	private ArrayList<String> transLabels;
 	private ArrayList<Integer> substrat1States;
 	private ArrayList<Integer> substrat1Actions;
 	private ArrayList<Integer> substrat2States;
@@ -22,7 +23,8 @@ public class StrategyExtraction {
 	private Scanner readM, readT, readS;
 	
 	private int decStateStrat1, decStateStrat2;
-	private String selAction1, selAction2;
+	private int selAction1, selAction2;
+	private String selLabel1, selLabel2;
 	
 	
 	public StrategyExtraction(String mPath, String tPath, String sPath){
@@ -38,18 +40,14 @@ public class StrategyExtraction {
 		
 		readM = new Scanner(new BufferedReader(new FileReader(this.mapsPath)));
 		
-		int id=0;
 		String label = null;
-		
-		id = readM.nextInt();
+	
 		label = readM.next();
-		mapslist.add(id, label);
+		mapslist.add(label);
 				
 		while (readM.hasNext()) {
-			id = readM.nextInt();
 			label = readM.next();
-			mapslist.add(id, label);
-			readM.nextLine();
+			mapslist.add(label);
 		}
 		readM.close();
 	}
@@ -63,44 +61,53 @@ public class StrategyExtraction {
 	
 
 	public void readTransitionFile() throws IllegalArgumentException, FileNotFoundException {
-		translist1 = new ArrayList<Integer>();
-		translist2 = new ArrayList<String>();
+		transStates = new ArrayList<Integer>();
+		transActions = new ArrayList<Integer>();
+		transLabels = new ArrayList<String>();
 		
 		readT = new Scanner(new BufferedReader(new FileReader(this.transPath)));
 		
-		int id=0;
+		int state=0, action=0;
 		String label = null;
 		
 		//skip the first line
 		readT.nextLine();
 		
-		//read the first int
-		id = readT.nextInt();
+		//read the first index
+		state = readT.nextInt();
 		
-		//skip three integers
-		readT.next(); readT.nextInt(); readT.nextInt(); 
+		//read the second index
+		action = readT.nextInt();
+		
+		//skip another two indexes
+		readT.nextInt(); readT.nextDouble(); 
 		
 		//read the label
 		label = readT.next();
 		
 		//add into the arraylist
-		translist1.add(id);
-		translist2.add(label);
+		transStates.add(state);
+		transActions.add(action);
+		transLabels.add(label);
 				
 		while (readT.hasNext()) {
 			
-			//read the first int
-			id = readT.nextInt();
+			//read the first index
+			state = readT.nextInt();
 			
-			//skip three integers
-			readT.next(); readT.nextInt(); readT.nextInt(); 
+			//read the second index
+			action = readT.nextInt();
+			
+			//skip another two indexes
+			readT.nextInt(); readT.nextDouble(); 
 			
 			//read the label
 			label = readT.next();
 			
 			//add into the arraylist
-			translist1.add(id);
-			translist2.add(label);
+			transStates.add(state);
+			transActions.add(action);
+			transLabels.add(label);
 			
 			readT.nextLine();
 		}
@@ -108,10 +115,10 @@ public class StrategyExtraction {
 	}
 
 	public void getAllTrasitionList(){
-		int maxSize = translist1.size();
+		int maxSize = transStates.size();
 		
 		for(int i=0; i < maxSize; i++) {
-			System.out.println("Transition list - state: "+translist1.get(i)+" label: "+translist2.get(i));
+			System.out.println("Transition list - state: "+transStates.get(i)+" action: "+transActions.get(i)+" label: "+transLabels.get(i));
 		}
 	}
 	
@@ -217,56 +224,78 @@ public class StrategyExtraction {
 	{
 		int maxSizeStrat1 = substrat1States.size();
 		int maxSizeStrat2 = substrat2States.size();
-		int stateFromStrat = 0, indexFromTrans = 0;
-		String labelFromTrans = null;
+		int maxTrans = transStates.size();
+		int stateFromStrat1=0, stateFromTrans1=0, actionFromTrans1=0, actionFromStrat1=0;
+		String labelFromTrans1 = null;
+		boolean found = false;
 		
+		//substrategy 1
 		//starting from the last item of strategy list
 		for(int i = maxSizeStrat1 -1; i >= 0; i--) {
 			//get the state from the strategy list
-			stateFromStrat = substrat1States.get(i);
-			System.out.println("state from strategy list is "+stateFromStrat);
-			
-		
-			//get the index of a state from the transition list that equals to state from strategy list
-			indexFromTrans = translist1.indexOf(stateFromStrat);
-			//System.out.println("index from trans list is "+indexFromTrans);
-			
-			//get the label from the transition list
-			labelFromTrans = translist2.get(indexFromTrans);
-			//System.out.println("label from trans list is "+labelFromTrans);
+			stateFromStrat1 = substrat1States.get(i);
+			actionFromStrat1 = substrat1Actions.get(i);
+			//System.out.println("state from sub strategy 1 list is "+stateFromStrat1);
+					
+			for(int j=0; j < maxTrans; j++) {
+				stateFromTrans1 = transStates.get(j);
+				actionFromTrans1 = transActions.get(j);
 				
-			//if the label equals to any label in the map list
-			if (mapslist.contains(labelFromTrans)) {
-				this.decStateStrat1 = stateFromStrat;
-				this.selAction1 = labelFromTrans;
-				System.out.println("Decision state :"+stateFromStrat+" with action :"+labelFromTrans);
-				break;
+				//check if the state is similar
+				if (stateFromTrans1 == stateFromStrat1)	{
+					//check if the action is similar
+					if (actionFromTrans1 == actionFromStrat1) {
+						labelFromTrans1 = transLabels.get(j);
+						//check if the label is an action label
+						if (mapslist.contains(labelFromTrans1)) {
+							this.decStateStrat1 = stateFromStrat1;
+							this.selAction1 = actionFromStrat1;
+							this.selLabel1 = labelFromTrans1;
+							System.out.println("Decision state :"+stateFromStrat1+" with action :"+labelFromTrans1);
+							found = true;
+						}
+					}
+				}
 			}	
-		}
+			if (found)
+				break;			
+		}//end for substrategy 1
 		
+		
+		int stateFromStrat2=0, stateFromTrans2=0, actionFromTrans2=0, actionFromStrat2=0;
+		String labelFromTrans2 = null;
+		found = false;
+		//substrategy 2
 		//starting from the last item of strategy list
-		for(int j = maxSizeStrat2 -1; j >= 0; j--) {
+		for(int i = maxSizeStrat2 -1; i >= 0; i--) {
 			//get the state from the strategy list
-			stateFromStrat = substrat1States.get(j);
-			System.out.println("state from strategy list is "+stateFromStrat);
-			
-		
-			//get the index of a state from the transition list that equals to state from strategy list
-			indexFromTrans = translist1.indexOf(stateFromStrat);
-			//System.out.println("index from trans list is "+indexFromTrans);
-			
-			//get the label from the transition list
-			labelFromTrans = translist2.get(indexFromTrans);
-			//System.out.println("label from trans list is "+labelFromTrans);
+			stateFromStrat2 = substrat2States.get(i);
+			actionFromStrat2 = substrat2Actions.get(i);
+			//System.out.println("state from sub strategy 2 list is "+stateFromStrat2);
+					
+			for(int j=0; j < maxTrans; j++) {
+				stateFromTrans2 = transStates.get(j);
+				actionFromTrans2 = transActions.get(j);
 				
-			//if the label equals to any label in the map list
-			if (mapslist.contains(labelFromTrans)) {
-				this.decStateStrat2 = stateFromStrat;
-				this.selAction2 = labelFromTrans;
-				System.out.println("Decision state :"+stateFromStrat+" with action :"+labelFromTrans);
-				break;
+				//check if the state is similar
+				if (stateFromTrans2 == stateFromStrat2)	{
+					//check if the action is similar
+					if (actionFromTrans2 == actionFromStrat2) {
+						labelFromTrans2 = transLabels.get(j);
+						//check if the label is an action label
+						if (mapslist.contains(labelFromTrans2)) {
+							this.decStateStrat2 = stateFromStrat2;
+							this.selAction2 = actionFromStrat2;
+							this.selLabel2 = labelFromTrans2;
+							System.out.println("Decision state :"+stateFromStrat2+" with action :"+labelFromTrans2);
+							found = true;
+						}
+					}
+				}
 			}	
-		}
+			if (found)
+				break;			
+		}//endfor sub strategy 2
 	 }
 	
 	public int getDecisionStateStrategy1() {
@@ -277,14 +306,26 @@ public class StrategyExtraction {
 		return this.decStateStrat2;
 	}
 	
-	public String getDecisionLabelStrategy1() {
+	public int getDecisionActionStrategy1() {
 		return this.selAction1;
+	}
+	
+	public int getDecisionActionStrategy2() {
+		return this.selAction2;
+	}
+	
+	public String getDecisionLabelStrategy1() {
+		return this.selLabel1;
 	}
 	
 	public String getDecisionLabelStrategy2() {
-		return this.selAction1;
+		return this.selLabel2;
 	}
-	
+
+	public void displayStrategies(){
+		System.out.println("Substrategy 1:- decision state:"+this.decStateStrat1+" action:"+this.selAction1+" label:"+this.selLabel1);
+		System.out.println("Substrategy 2:- decision state:"+this.decStateStrat2+" action:"+this.selAction2+" label:"+this.selLabel2);
+	}
 	public static void main(String[] args) throws IllegalArgumentException, FileNotFoundException {
 		// TODO Auto-generated method stub
 		//Defining File Inputs/Outputs
@@ -305,6 +346,7 @@ public class StrategyExtraction {
 		ste.getAllStrategyList();
 		
 		ste.findDecision();
+		ste.displayStrategies();
 	}
 
 }

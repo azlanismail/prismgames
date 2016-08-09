@@ -1,12 +1,8 @@
 package planner;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 import explicit.Model;
 import explicit.PrismExplicit;
@@ -50,7 +46,7 @@ public class CompositionalMultiPlanner {
 		String desktopPath = "H:/git/MultiPlanner/PlanningComp2/";
 		String linuxPath = "/home/azlan/git/PrismGames/";
 		String mainPath = linuxPath;
-		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v5.prism";
+		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v9.prism";
 		String propPath = mainPath+"Prismfiles/propCompModel.props";
 		String modelConstPath = mainPath+"IOFiles/ModelConstants.txt";
 		String propConstPath = mainPath+"IOFiles/PropConstants.txt";
@@ -60,8 +56,6 @@ public class CompositionalMultiPlanner {
 		String transPath2 = mainPath+"IOFiles/transition";
 		String mappingPath = mainPath+"IOFiles/mapping";
 
-		
-		
 		//Defining properties for the planner
 		private int stage;
 		
@@ -98,12 +92,12 @@ public class CompositionalMultiPlanner {
 			}
 	    }
 			
-		public void setApplicationRequirements(int id, double cpuCores, double cpuSpeed, double cpuLoads){
-			conf.setAppRequirements(id, cpuCores, cpuSpeed, cpuLoads);
+		public void setApplicationRequirements(int id, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory){
+			conf.setAppRequirements(id, cpuCores, cpuSpeed, cpuLoads, totalMemory, freeMemory);
 		}
 		
-		public void setNodeCapabilities(int id, double cpuCores, double cpuSpeed, double cpuLoads){
-			conf.setNodeCapabilities(id, cpuCores, cpuSpeed, cpuLoads);
+		public void setNodeCapabilities(int id, String name, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory, String location){
+			conf.setNodeCapabilities(id, name, cpuCores, cpuSpeed, cpuLoads, totalMemory, freeMemory, location);
 		}
 
 		public void buildModelbyPrismEx() throws PrismLangException, PrismException
@@ -178,13 +172,10 @@ public class CompositionalMultiPlanner {
 	    {   
 	    	ste = new StrategyExtraction(mappingPath, transPath2, stratPath2);
 			ste.readMappingFile();
-			ste.getAllMappingList();
 			ste.readTransitionFile();
-			ste.getAllTrasitionList();
 			ste.readStrategyFile();
-			ste.getAllStrategyList();
-			
 			ste.findDecision();
+			ste.displayStrategies();
 	    }
 	   
 	        
@@ -231,6 +222,9 @@ public class CompositionalMultiPlanner {
 	       	
 	    }//end of synthesis
 	    
+	    public int getMaxResource() {
+	    	return conf.getMaxResource();
+	    }
 	     
 	     public static void main(String[] args) {
 	 		// TODO Auto-generated method stub
@@ -240,21 +234,23 @@ public class CompositionalMultiPlanner {
 	    	int stage = 1;
 	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(stage); 		
 			
-	 		//parameters: id, cpuCores, cpuSpeed, cpuLoadas
-	 		plan.setApplicationRequirements(0, 0.6, 0.6, 0.6);
-	 		plan.setApplicationRequirements(1, 0.6, 0.6, 0.6);
 	 		
-	 		plan.setNodeCapabilities(0, 0.4, 0.4, 0.4);
-	 		plan.setNodeCapabilities(1, 0.4, 0.4, 0.4);
-	 		plan.setNodeCapabilities(2, 0.8, 0.8, 0.8);
-	 		plan.setNodeCapabilities(3, 0.8, 0.8, 0.8);
-	 		plan.setNodeCapabilities(4, 0.8, 0.8, 0.8);
+	 		plan.setApplicationRequirements(0, 1, 0, 0.0, 0, 0);
+	 		plan.setApplicationRequirements(1, 1, 0, 0.0, 0, 0);
 	 		
-	 		Random rand = new Random();
+	 		plan.setNodeCapabilities(0, "NODE0", 1, 2000, 0.3, 1000, 500, "LOC0");
+	 		plan.setNodeCapabilities(1, "NODE1", 1, 2500, 0.3, 1000, 500, "LOC1");
+	 		plan.setNodeCapabilities(2, "NODE2", 1, 2500, 0.5, 1000, 500, "LOC2");
+	 		plan.setNodeCapabilities(3, "NODE3", 1, 2500, 0.5, 1000, 500, "LOC3");
+	 		plan.setNodeCapabilities(4, "NODE4", 1, 2500, 0.7, 1000, 500, "LOC4");
+	 		plan.setNodeCapabilities(5, "NODE5", 1, 2500, 0.7, 1000, 500, "LOC5");
+	 		plan.setNodeCapabilities(6, "NODE6", 1, 2500, 0.7, 1000, 500, "LOC6");
+	 		plan.setNodeCapabilities(7, "NODE7", 1, 2500, 0.7, 1000, 500, "LOC7");
+	 		//Random rand = new Random();
 	 		//int serviceType = -1;
 	 		int cycle =1;
-	 		int goalType = 4;
-	 		int retry = 1;
+	 		//int goalType = 4;
+	 		//int retry = 1;
 	 		long time[] = new long[cycle];
 	 		TimeMeasure tm = new TimeMeasure();
 	 		

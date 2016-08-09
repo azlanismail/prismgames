@@ -1,7 +1,5 @@
 $SU.strat.comp-v0.1
 // Composed Stochastic Update Strategy
-// TotalStrategy 2
-StrategyIndex 1
 $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
@@ -207,7 +205,6 @@ maximum C-iterations: 500
 
 endstrategy
 
-StrategyIndex 2
 $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy

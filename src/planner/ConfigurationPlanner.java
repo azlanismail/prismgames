@@ -28,37 +28,53 @@ public class ConfigurationPlanner {
 			String md_wg_rt = "WG_RT";  
 			String md_wg_fr = "WG_FR"; 
 			
+	private int MaxResource = 0;
+			
 	public ConfigurationPlanner() {
 		vm = new Values();
+		this.MaxResource = 8;
 	}
 	
-	public void setAppRequirements(int id, double cpuCores, double cpuSpeed, double cpuLoads) {
+	public void setAppRequirements(int id, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory) {
 		//set the following:
 		
 		String md_id = "APP"+id+"_ID";
 		String md_cpuCores = "APP"+id+"_CPU_CORES";
 		String md_cpuLoads = "APP"+id+"_CPU_LOADS";
 		String md_cpuSpeed = "APP"+id+"_CPU_SPEED";
+		String md_totalMemory = "APP"+id+"_TOTALMEMORY";
+		String md_freeMemory = "APP"+id+"_FREEMEMORY";
+		
 		
 		System.out.println("the received requirements are, id:"+id+", cpu cores:"+cpuCores+", cpu loads:"+cpuLoads+", cpu speed:"+cpuSpeed);
 		vm.setValue(md_id, id);
 		vm.setValue(md_cpuCores, cpuCores);
 		vm.setValue(md_cpuLoads, cpuLoads);
-		vm.setValue(md_cpuSpeed, cpuSpeed);		
+		vm.setValue(md_cpuSpeed, cpuSpeed);
+		vm.setValue(md_totalMemory, totalMemory);
+		vm.setValue(md_freeMemory, freeMemory);
 	}
 	
-	public void setNodeCapabilities(int id, double cpuCores, double cpuSpeed, double cpuLoads){
+	public void setNodeCapabilities(int id, String name, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory, String location){
 		//set the following:
 		String md_id = "RS"+id+"_ID";
+		String md_name = "RS"+id+"_NAME";
 		String md_cpuCores = "RS"+id+"_CPU_CORES";
 		String md_cpuLoads = "RS"+id+"_CPU_LOADS";
 		String md_cpuSpeed = "RS"+id+"_CPU_SPEED";
+		String md_totalMemory = "RS"+id+"_TOTALMEMORY";
+		String md_freeMemory = "RS"+id+"_FREEMEMORY";
+		String md_location = "RS"+id+"_LOCATION";
 		
-		System.out.println("the received node capabilities are, id:"+id+", cpu cores:"+cpuCores+", cpu loads:"+cpuLoads+", cpu speed:"+cpuSpeed);
+		System.out.println("the received node capabilities are, id:"+id+", name:"+name+", cpu cores:"+cpuCores+", cpu loads:"+cpuLoads+", cpu speed:"+cpuSpeed);
 		vm.setValue(md_id, id);
+		//vm.setValue(md_name, name);
 		vm.setValue(md_cpuCores, cpuCores);
-		vm.setValue(md_cpuLoads, cpuLoads);
 		vm.setValue(md_cpuSpeed, cpuSpeed);
+		vm.setValue(md_cpuLoads, cpuLoads);
+		vm.setValue(md_totalMemory, totalMemory);
+		vm.setValue(md_freeMemory, freeMemory);
+		//vm.setValue(md_location, location);
 	}
 	
 	public void setAppRequirementsConstant(){
@@ -97,10 +113,14 @@ public class ConfigurationPlanner {
 		return vm;
 	}
 	
+	public int getMaxResource() {
+		return this.MaxResource;
+	}
+	
 	public static void main(String[] args){
 		ConfigurationPlanner conf = new ConfigurationPlanner();
-		conf.setAppRequirements(1, 0.7, 0.5, 0.3);
-		conf.setNodeCapabilities(1, 0.3, 0.4, 0.5);
+		conf.setAppRequirements(1, 1, 0, 0.3, 3, 3);
+		conf.setNodeCapabilities(1, "NODE1", 3, 3, 0.5, 3, 3, "LOC1");
 		
 		System.out.println("Success");
 	}

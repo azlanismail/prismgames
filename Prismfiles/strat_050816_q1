@@ -1,0 +1,56 @@
+$SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+800
+// Initial state
+InitState:
+0
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+2 0 {0=1.0}
+3 0 {0=1.0}
+14 0 {0=1.0}
+19 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+1 0 1 {0=1.0}
+1 0 2 {0=1.0}
+2 0 0 {0=1.0}
+3 0 0 {0=1.0}
+4 0 0 {0=1.0}
+9 0 0 {0=1.0}
+14 0 0 {0=1.0}
+19 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 0 0 1 {0=1.0}
+1 0 0 2 {0=1.0}
+1 1 0 3 {0=1.0}
+1 2 0 1 {0=1.0}
+2 0 0 4 {0=1.0}
+3 0 0 9 {0=1.0}
+4 0 0 14 {0=1.0}
+9 0 0 19 {0=1.0}
+14 0 0 0 {0=1.0}
+19 0 0 0 {0=1.0}
+Info:
+Property: <<1>> ((((R{"c1_rt"}<=MAXRTA [ S ]&R{"c1_ru"}<=MAXRUA [ S ]))))
+Type: $SU.strat-v0.1
+Memory size: 20
+endstrategy

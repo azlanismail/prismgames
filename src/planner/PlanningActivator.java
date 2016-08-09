@@ -30,19 +30,20 @@ public class PlanningActivator implements BundleActivator {
 		}
 		//mainLog = new PrismFileLog(logPath);
         //prism = new Prism(mainLog);
-		plan = new CompositionalMultiPlanner(1);
+		//plan = new CompositionalMultiPlanner(1);
 		
 		//parameters: id, cpuCores, cpuSpeed, cpuLoadas
- 		plan.setApplicationRequirements(0, 0.6, 0.6, 0.6);
- 		plan.setApplicationRequirements(1, 0.6, 0.6, 0.6);
+ 		//plan.setApplicationRequirements(0, 0.6, 0.6, 0.6);
+ 		//plan.setApplicationRequirements(1, 0.6, 0.6, 0.6);
  		
- 		plan.setNodeCapabilities(0, 0.4, 0.4, 0.4);
- 		plan.setNodeCapabilities(1, 0.4, 0.4, 0.4);
- 		plan.setNodeCapabilities(2, 0.8, 0.8, 0.8);
- 		plan.setNodeCapabilities(3, 0.8, 0.8, 0.8);
- 		plan.setNodeCapabilities(4, 0.8, 0.8, 0.8);
+ 		//plan.setNodeCapabilities(0, "NODE0", 4, 4, 0.4);
+ 		//plan.setNodeCapabilities(1, "NODE1", 4, 4, 0.4);
+ 		//plan.setNodeCapabilities(2, "NODE2", 8, 8, 0.8);
+ 		//plan.setNodeCapabilities(3, "NODE3", 8, 8, 0.8);
+ 		//plan.setNodeCapabilities(4, "NODE4", 8, 8, 0.8);
  		
- 		plan.generate();
+ 		
+ 		//plan.generate();
 	}
 	
 	/*
