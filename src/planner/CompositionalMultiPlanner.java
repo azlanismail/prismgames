@@ -96,6 +96,8 @@ public class CompositionalMultiPlanner {
 	    }
 			
 		public void setApplicationRequirements(int id, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory){
+			
+			//cpuSpeed / denominator
 			conf.setAppRequirements(id, cpuCores, cpuSpeed, cpuLoads, totalMemory, freeMemory);
 		}
 		
