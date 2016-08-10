@@ -11,6 +11,8 @@ public class StrategyExtraction {
 	private String mapsPath = null;
 	private String transPath = null;
 	private String stratPath = null;
+	private String actionLabelAPath = null;
+	private String actionLabelBPath = null;
 	
 	private ArrayList<String> mapslist;
 	private ArrayList<Integer> transStates;
@@ -20,17 +22,22 @@ public class StrategyExtraction {
 	private ArrayList<Integer> substrat1Actions;
 	private ArrayList<Integer> substrat2States;
 	private ArrayList<Integer> substrat2Actions;
-	private Scanner readM, readT, readS;
+	private ArrayList<String> actionLabelA;
+	private ArrayList<String> actionLabelB;
+	private ArrayList<String> nodeIdlist;
+	private Scanner readM, readT, readS, readA, readB;
 	
 	private int decStateStrat1, decStateStrat2;
 	private int selAction1, selAction2;
 	private String selLabel1, selLabel2;
 	
 	
-	public StrategyExtraction(String mPath, String tPath, String sPath){
+	public StrategyExtraction(String mPath, String tPath, String sPath, String aPath, String bPath){
 		this.mapsPath = mPath;
 		this.transPath = tPath;
 		this.stratPath = sPath;
+		this.actionLabelAPath = aPath;
+		this.actionLabelBPath = bPath;
 	}
 	
 	
@@ -52,6 +59,39 @@ public class StrategyExtraction {
 		readM.close();
 	}
 	
+	public void setNodeIdList(ArrayList<String> nodeId) {
+		nodeIdlist = new ArrayList<String>();
+		this.nodeIdlist = nodeId;
+	}
+	
+	public void readActionLabelFile() throws IllegalArgumentException, FileNotFoundException {
+		actionLabelA = new ArrayList<String>();
+		actionLabelB = new ArrayList<String>();
+		
+		readA = new Scanner(new BufferedReader(new FileReader(this.actionLabelAPath)));
+		readB = new Scanner(new BufferedReader(new FileReader(this.actionLabelBPath)));
+		
+		String label = null;
+	
+		label = readA.next();
+		actionLabelA.add(label);
+				
+		while (readA.hasNext()) {
+			label = readA.next();
+			actionLabelA.add(label);
+		}
+		readA.close();
+		
+		label = readB.next();
+		actionLabelB.add(label);
+				
+		while (readB.hasNext()) {
+			label = readB.next();
+			actionLabelB.add(label);
+		}
+		readB.close();
+	}
+	
 	public void getAllMappingList(){
 	
 		for(int i=0; i < mapslist.size(); i++) {
@@ -59,6 +99,13 @@ public class StrategyExtraction {
 		}
 	}
 	
+	public void displayActionLabelAList(){
+		System.out.println("The list of action label A is "+actionLabelA);
+	}
+	
+	public void displayActionLabelBList(){
+		System.out.println("The list of action label B is "+actionLabelB);
+	}
 
 	public void readTransitionFile() throws IllegalArgumentException, FileNotFoundException {
 		transStates = new ArrayList<Integer>();
@@ -247,7 +294,7 @@ public class StrategyExtraction {
 					if (actionFromTrans1 == actionFromStrat1) {
 						labelFromTrans1 = transLabels.get(j);
 						//check if the label is an action label
-						if (mapslist.contains(labelFromTrans1)) {
+						if (actionLabelA.contains(labelFromTrans1)) {
 							this.decStateStrat1 = stateFromStrat1;
 							this.selAction1 = actionFromStrat1;
 							this.selLabel1 = labelFromTrans1;
@@ -283,7 +330,7 @@ public class StrategyExtraction {
 					if (actionFromTrans2 == actionFromStrat2) {
 						labelFromTrans2 = transLabels.get(j);
 						//check if the label is an action label
-						if (mapslist.contains(labelFromTrans2)) {
+						if (actionLabelB.contains(labelFromTrans2)) {
 							this.decStateStrat2 = stateFromStrat2;
 							this.selAction2 = actionFromStrat2;
 							this.selLabel2 = labelFromTrans2;
@@ -321,6 +368,26 @@ public class StrategyExtraction {
 	public String getDecisionLabelStrategy2() {
 		return this.selLabel2;
 	}
+	
+	public String getSelectedNodeIdA() {
+		int index = 0;
+		if (actionLabelA.contains(this.selLabel1)) {
+			index = actionLabelA.indexOf(this.selLabel1);
+			return nodeIdlist.get(index);
+		}
+		else
+			return null;
+	}
+	
+	public String getSelectedNodeIdB() {
+		int index = 0;
+		if(actionLabelB.contains(this.selLabel2)) {
+			index = actionLabelB.indexOf(this.selLabel2);
+			return nodeIdlist.get(index);
+		}
+		else
+			return null;
+	}
 
 	public void displayStrategies(){
 		System.out.println("Substrategy 1:- decision state:"+this.decStateStrat1+" action:"+this.selAction1+" label:"+this.selLabel1);
@@ -336,17 +403,35 @@ public class StrategyExtraction {
 		String strategyPath = mainPath+"IOFiles/strategy";
 		String transitionPath = mainPath+"IOFiles/transition";
         String mappingPath = mainPath+"IOFiles/mapping";
+        String actionLabelAPath = mainPath+"IOFiles/actionlabelA";
+        String actionLabelBPath = mainPath+"IOFiles/actionlabelB";
+        
+        //simulating the input configuration process
+		ConfigurationPlanner conf = new ConfigurationPlanner();
+		conf.setAppRequirements(1, 1, 0, 0.3, 3, 3);
+		conf.setNodeCapabilities(1, "NODE1", 3, 3, 0.5, 3, 3, "LOC1");
+		conf.setNodeCapabilities(1, "NODE2", 3, 3, 0.5, 3, 3, "LOC1");
+		conf.setNodeCapabilities(1, "NODE3", 3, 3, 0.5, 3, 3, "LOC1");	
 		
-		StrategyExtraction ste = new StrategyExtraction(mappingPath, transitionPath, strategyPath);
-		ste.readMappingFile();
-		ste.getAllMappingList();
+		StrategyExtraction ste = new StrategyExtraction(mappingPath, transitionPath, strategyPath, actionLabelAPath, actionLabelBPath);
+		//ste.readMappingFile();
+		ste.readActionLabelFile();
+		ste.displayActionLabelAList();
+		ste.displayActionLabelBList();
+		//ste.getAllMappingList();
 		ste.readTransitionFile();
 		ste.getAllTrasitionList();
 		ste.readStrategyFile();
+		
 		ste.getAllStrategyList();
 		
 		ste.findDecision();
 		ste.displayStrategies();
+		
+		ste.setNodeIdList(conf.getNodeIdList());
+		System.out.println("Node name from substrategy 1 is "+ste.getSelectedNodeIdA());
+		System.out.println("Node name from substrategy 2 is "+ste.getSelectedNodeIdB());
+		
 	}
 
 }

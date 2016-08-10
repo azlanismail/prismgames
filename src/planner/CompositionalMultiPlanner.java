@@ -55,6 +55,9 @@ public class CompositionalMultiPlanner {
 		String stratPath2 = mainPath+"IOFiles/strategy";
 		String transPath2 = mainPath+"IOFiles/transition";
 		String mappingPath = mainPath+"IOFiles/mapping";
+		String actionLabelAPath = mainPath+"IOFiles/actionlabelA";
+	    String actionLabelBPath = mainPath+"IOFiles/actionlabelB";
+	        
 
 		//Defining properties for the planner
 		private int stage;
@@ -170,12 +173,23 @@ public class CompositionalMultiPlanner {
 	       
 	    public void getAdaptStrategy() throws IllegalArgumentException, FileNotFoundException
 	    {   
-	    	ste = new StrategyExtraction(mappingPath, transPath2, stratPath2);
-			ste.readMappingFile();
+	    	StrategyExtraction ste = new StrategyExtraction(mappingPath, transPath2, stratPath2, actionLabelAPath, actionLabelBPath);		
+			//ste.readMappingFile();
+			ste.readActionLabelFile();
+			ste.displayActionLabelAList();
+			ste.displayActionLabelBList();
+			//ste.getAllMappingList();
 			ste.readTransitionFile();
+			//ste.getAllTrasitionList();
 			ste.readStrategyFile();
+			//ste.getAllStrategyList();
+			
 			ste.findDecision();
 			ste.displayStrategies();
+			
+			ste.setNodeIdList(conf.getNodeIdList());
+			System.out.println("Node name from substrategy 1 is "+ste.getSelectedNodeIdA());
+			System.out.println("Node name from substrategy 2 is "+ste.getSelectedNodeIdB());			
 	    }
 	   
 	        
@@ -235,11 +249,11 @@ public class CompositionalMultiPlanner {
 	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(stage); 		
 			
 	 		
-	 		plan.setApplicationRequirements(0, 1, 0, 0.0, 0, 0);
+	 		plan.setApplicationRequirements(0, 1, 300, 0.0, 0, 0);
 	 		plan.setApplicationRequirements(1, 1, 0, 0.0, 0, 0);
 	 		
-	 		plan.setNodeCapabilities(0, "NODE0", 1, 2000, 0.3, 1000, 500, "LOC0");
-	 		plan.setNodeCapabilities(1, "NODE1", 1, 2500, 0.3, 1000, 500, "LOC1");
+	 		plan.setNodeCapabilities(0, "NODE0", 1, 200, 0.3, 1000, 500, "LOC0");
+	 		plan.setNodeCapabilities(1, "NODE1", 1, 200, 0.3, 1000, 500, "LOC1");
 	 		plan.setNodeCapabilities(2, "NODE2", 1, 2500, 0.5, 1000, 500, "LOC2");
 	 		plan.setNodeCapabilities(3, "NODE3", 1, 2500, 0.5, 1000, 500, "LOC3");
 	 		plan.setNodeCapabilities(4, "NODE4", 1, 2500, 0.7, 1000, 500, "LOC4");

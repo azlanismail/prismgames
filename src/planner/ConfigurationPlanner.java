@@ -1,5 +1,7 @@
 package planner;
 
+import java.util.ArrayList;
+
 import parser.Values;
 
 
@@ -29,10 +31,13 @@ public class ConfigurationPlanner {
 			String md_wg_fr = "WG_FR"; 
 			
 	private int MaxResource = 0;
+	
+	private ArrayList<String> nodeIdlist;
 			
 	public ConfigurationPlanner() {
 		vm = new Values();
 		this.MaxResource = 8;
+		nodeIdlist = new ArrayList<String>();
 	}
 	
 	public void setAppRequirements(int id, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory) {
@@ -75,16 +80,12 @@ public class ConfigurationPlanner {
 		vm.setValue(md_totalMemory, totalMemory);
 		vm.setValue(md_freeMemory, freeMemory);
 		//vm.setValue(md_location, location);
-	}
-	
-	public void setAppRequirementsConstant(){
 		
+		//insert into a list of node id
+		nodeIdlist.add(name);
 	}
 	
-	public void setContantsParameters(){
-	
-	}
-	
+		
 	public void setConstantsGoalType(int goalType) {
 		vm.setValue(md_goalTY, goalType);
 	}
@@ -117,12 +118,20 @@ public class ConfigurationPlanner {
 		return this.MaxResource;
 	}
 	
+	public ArrayList<String> getNodeIdList() {
+		return nodeIdlist;
+	}
+	
 	public static void main(String[] args){
+		ArrayList<String> nodeid = new ArrayList<String>();
 		ConfigurationPlanner conf = new ConfigurationPlanner();
 		conf.setAppRequirements(1, 1, 0, 0.3, 3, 3);
 		conf.setNodeCapabilities(1, "NODE1", 3, 3, 0.5, 3, 3, "LOC1");
-		
+		conf.setNodeCapabilities(1, "NODE2", 3, 3, 0.5, 3, 3, "LOC1");
+		conf.setNodeCapabilities(1, "NODE3", 3, 3, 0.5, 3, 3, "LOC1");
+		nodeid = conf.getNodeIdList();
 		System.out.println("Success");
+		System.out.println("the data in node id list: "+nodeid);
 	}
 	
 }

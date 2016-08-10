@@ -2,17 +2,17 @@
 Building model...
 
 Computing reachable states... 46 states
-Reachable states exploration and model construction done in 0.25 secs.
+Reachable states exploration and model construction done in 0.316 secs.
 Sorting reachable states list...
 
 Computing reachable states... 46 states
-Reachable states exploration and model construction done in 0.132 secs.
+Reachable states exploration and model construction done in 0.194 secs.
 Sorting reachable states list...
 Progress:
 (1000/~2116)
-product construction took 2.386267 s
+product construction took 2.195564 s
 
-Time for model construction: 3.003 seconds.
+Time for model construction: 2.726 seconds.
 //////////////////////////////////////////////////////////////////////////////
 //                   STARTING COMPOSITIONAL MODEL CHECKING                  //
 //////////////////////////////////////////////////////////////////////////////
@@ -20,11 +20,11 @@ Time for model construction: 3.003 seconds.
 Building Model ... 
 
 Computing reachable states... 46 states
-Reachable states exploration and model construction done in 0.298 secs.
+Reachable states exploration and model construction done in 0.18 secs.
 Sorting reachable states list...
 
 Computing reachable states... 46 states
-Reachable states exploration and model construction done in 0.244 secs.
+Reachable states exploration and model construction done in 0.202 secs.
 Sorting reachable states list...
 
 Model checking : "q1": <<1>> ((((R{"c1_rt"}<=MAXRTA [ S ]&R{"c1_ru"}<=MAXRUA [ S ]))))
@@ -39,8 +39,8 @@ Property:
 
 initial state: 18
 operation: Strategy generation
-Strategy construction took 0.295285 s
-Synthesis took 0.757779 s
+Strategy construction took 0.210909 s
+Synthesis took 0.453920 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
@@ -251,7 +251,7 @@ Number of states satisfying "q1": 46 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 1.2990000000000002 seconds.
+Time for model checking: 0.541 seconds.
 
 Result: true (property satisfied in the initial state)
 
@@ -267,8 +267,8 @@ Property:
 
 initial state: 18
 operation: Strategy generation
-Strategy construction took 0.080922 s
-Synthesis took 0.265110 s
+Strategy construction took 0.070085 s
+Synthesis took 0.220316 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
@@ -479,7 +479,7 @@ Number of states satisfying "q2": 46 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.29000000000000004 seconds.
+Time for model checking: 0.24600000000000002 seconds.
 
 Result: true (property satisfied in the initial state)
 //////////////////////////////////////////////////////////////////////////////
@@ -487,6 +487,6 @@ Result: true (property satisfied in the initial state)
 //////////////////////////////////////////////////////////////////////////////
 
 
-Model checking completed in 2.3110000000000004 secs.
+Model checking completed in 1.1900000000000002 secs.
 
 Result: true
