@@ -93,6 +93,9 @@ public class CompositionalMultiPlanner {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	    	
+	    	//for generating and extracting strategy
+	    	ste = new StrategyExtraction(mappingPath, transPath2, stratPath2, actionLabelAPath, actionLabelBPath);	
 	    }
 			
 		public void setApplicationRequirements(int id, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory){
@@ -173,9 +176,9 @@ public class CompositionalMultiPlanner {
 	    }
 	    
 	       
-	    public void getAdaptStrategy() throws IllegalArgumentException, FileNotFoundException
+	    public void getAdaptStrategy() 
 	    {   
-	    	StrategyExtraction ste = new StrategyExtraction(mappingPath, transPath2, stratPath2, actionLabelAPath, actionLabelBPath);		
+	    	try {
 			//ste.readMappingFile();
 			ste.readActionLabelFile();
 			ste.displayActionLabelAList();
@@ -189,9 +192,13 @@ public class CompositionalMultiPlanner {
 			ste.findDecision();
 			ste.displayStrategies();
 			
-			ste.setNodeIdList(conf.getNodeIdList());
-			System.out.println("Node name from substrategy 1 is "+ste.getSelectedNodeIdA());
-			System.out.println("Node name from substrategy 2 is "+ste.getSelectedNodeIdB());			
+			}
+	    	catch(IllegalArgumentException ie) {
+	    		ie.printStackTrace();
+	    	}
+	    	catch(FileNotFoundException e) {
+	    		e.printStackTrace();
+	    	}
 	    }
 	   
 	        
@@ -230,16 +237,22 @@ public class CompositionalMultiPlanner {
  			catch (IllegalArgumentException e) {
  				e.printStackTrace();
  			}
- 			catch (FileNotFoundException e) {
- 				// TODO Auto-generated catch block
- 				e.printStackTrace();
- 				System.err.println("something not right");
- 			}
-	       	
 	    }//end of synthesis
 	    
 	    public int getMaxResource() {
 	    	return conf.getMaxResource();
+	    }
+	    
+	    public String getDecision(int decId) {
+	    	String nodeName;
+	    	
+	    	ste.setNodeIdList(conf.getNodeIdList());
+	    	nodeName = ste.getDecision(decId);
+	    	//ste.setNodeIdList(conf.getNodeIdList());
+			System.out.println("Selected node name is "+nodeName);
+		//	System.out.println("Node name from substrategy 2 is "+ste.getSelectedNodeIdB());
+	      
+	    	return nodeName;
 	    }
 	     
 	     public static void main(String[] args) {
@@ -275,6 +288,7 @@ public class CompositionalMultiPlanner {
 	 			tm.start();
 	 			System.out.println("number of cycle :"+i);
 	 			plan.generate();
+	 			plan.getDecision(0);
 	 			tm.stop();
 	 			time[i] = tm.getDuration();
 	 	    }

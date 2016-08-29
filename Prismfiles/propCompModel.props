@@ -5,7 +5,9 @@ const double MAXRUB = 1;
 
 "qall" : comp("q1", "q2")
 
-"q1" : <<1>> (((R{"c1_rt"}<=MAXRTA [ S ]&R{"c1_ru"}<=MAXRUA [ S ])))
+"q1" : <<1>> ((((((R{"c1_rt"}<=MAXRTA [ S ]&R{"c1_ru"}<=MAXRUA [ S ]))))))
 
-"q2" : <<1>> (((R{"c2_rt"}<=MAXRTB [ S ]&R{"c2_ru"}<=MAXRUB [ S ])))
+"q2" : <<1>> ((((((R{"c2_rt"}<=MAXRTB [ S ]&R{"c2_ru"}<=MAXRUB [ S ]))))))
+
+Rmin=? [ F "done1" ]
 

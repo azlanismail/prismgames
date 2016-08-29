@@ -349,6 +349,7 @@ public class StrategyExtraction {
 		return this.decStateStrat1;
 	}
 	
+	
 	public int getDecisionStateStrategy2() {
 		return this.decStateStrat2;
 	}
@@ -389,6 +390,20 @@ public class StrategyExtraction {
 			return null;
 	}
 
+	public String getDecision(int type) {
+	
+		String nodeName;
+		
+		if (type == 0) {
+			nodeName = getSelectedNodeIdA();
+		}
+		else {
+			nodeName = getSelectedNodeIdB();
+		}
+			
+		return nodeName;
+	}
+	
 	public void displayStrategies(){
 		System.out.println("Substrategy 1:- decision state:"+this.decStateStrat1+" action:"+this.selAction1+" label:"+this.selLabel1);
 		System.out.println("Substrategy 2:- decision state:"+this.decStateStrat2+" action:"+this.selAction2+" label:"+this.selLabel2);
