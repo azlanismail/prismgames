@@ -698,5 +698,9 @@ rewards "c2_ru"
 //[endb] true : rwd_app1_cpu_loads;
 endrewards
 
+rewards "c2_ru"
+//[endb] true : rwd_app1_cpu_loads;
+endrewards
+
 label "done1" = ta = 2;
 //label "done2" = tb = 2;

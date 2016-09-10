@@ -26,88 +26,89 @@ const int GOAL_TY_ML = 5; //multi
 
 
 //=======Application Requirements===========
-const int APP0_ID; // = 0;
-const int APP0_CPU_CORES; // = 1;
-const double APP0_CPU_LOADS; // = 0.4;
-const int APP0_CPU_SPEED; // = 300;
-const int APP0_TOTALMEMORY; // = 20;
-const int APP0_FREEMEMORY; // = 20;
+const int APP0_ID = 0;
+const int APP0_CPU_CORES = 1;
+const double APP0_CPU_LOADS = 0.4;
+const int APP0_CPU_SPEED = 300;
+const int APP0_TOTALMEMORY = 20;
+const int APP0_FREEMEMORY = 20;
 const int APP0_LOCATION = 1;
 
-const int APP1_ID; // = 1;
-const int APP1_CPU_CORES; // = 1;
-const double APP1_CPU_LOADS; // = 0.5;
-const int APP1_CPU_SPEED; // = 600;
-const int APP1_TOTALMEMORY; // = 20;
-const int APP1_FREEMEMORY; // = 20;
+const int APP1_ID = 1;
+const int APP1_CPU_CORES = 1;
+const double APP1_CPU_LOADS = 0.5;
+const int APP1_CPU_SPEED = 600;
+const int APP1_TOTALMEMORY = 20;
+const int APP1_FREEMEMORY = 20;
 const int APP1_LOCATION = 1;
 
 
 //========Resource/Node Profiles===========
 
-const int RS0_ID; // = 0;
-const int RS0_CPU_CORES; // = 1;
-const double RS0_CPU_LOADS; // = 0.3;
-const int RS0_CPU_SPEED; // = 2000;
-const int RS0_TOTALMEMORY;
-const int RS0_FREEMEMORY;
+const int RS0_ID = 0;
+const int RS0_CPU_CORES = 1;
+const double RS0_CPU_LOADS = 0.3;
+const int RS0_CPU_SPEED = 2000;
+const int RS0_TOTALMEMORY = 1000;
+const int RS0_FREEMEMORY = 300;
 const int RS0_LOCATION = 0;
 
-const int RS1_ID; // = 1;
-const int RS1_CPU_CORES; // = 1;
-const double RS1_CPU_LOADS; // = 0.3;
-const int RS1_CPU_SPEED; // = 2000;
-const int RS1_TOTALMEMORY;
-const int RS1_FREEMEMORY;
+const int RS1_ID = 1;
+const int RS1_CPU_CORES = 1;
+const double RS1_CPU_LOADS = 0.3;
+const int RS1_CPU_SPEED = 2000;
+const int RS1_TOTALMEMORY = 1000;
+const int RS1_FREEMEMORY = 600;
 const int RS1_LOCATION = 1;
 
-const int RS2_ID; // = 2;
-const int RS2_CPU_CORES; // = 1;
-const double RS2_CPU_LOADS; // = 0.5;
-const int RS2_CPU_SPEED; // = 2593;
-const int RS2_TOTALMEMORY;
-const int RS2_FREEMEMORY;
+const int RS2_ID = 2;
+const int RS2_CPU_CORES = 1;
+const double RS2_CPU_LOADS = 0.5;
+const int RS2_CPU_SPEED = 2593;
+const int RS2_TOTALMEMORY = 1000;
+const int RS2_FREEMEMORY = 700;
 const int RS2_LOCATION = 2;
 
-const int RS3_ID; // = 3;
-const int RS3_CPU_CORES; // = 1;
-const double RS3_CPU_LOADS; // = 0.7;
-const int RS3_CPU_SPEED; // = 2593;
-const int RS3_TOTALMEMORY;
-const int RS3_FREEMEMORY;
+const int RS3_ID = 3;
+const int RS3_CPU_CORES = 1;
+const double RS3_CPU_LOADS = 0.7;
+const int RS3_CPU_SPEED = 2593;
+const int RS3_TOTALMEMORY = 1000;
+const int RS3_FREEMEMORY = 300;
 const int RS3_LOCATION = 3;
 
-const int RS4_ID; // = 4;
-const int RS4_CPU_CORES; // = 1;
-const double RS4_CPU_LOADS; // = 0.7;
-const int RS4_CPU_SPEED; // = 2593;
-const int RS4_TOTALMEMORY;
-const int RS4_FREEMEMORY;
+const int RS4_ID = 4;
+const int RS4_CPU_CORES = 1;
+const double RS4_CPU_LOADS = 0.7;
+const int RS4_CPU_SPEED = 2593;
+const int RS4_TOTALMEMORY = 1000;
+const int RS4_FREEMEMORY = 550;
 const int RS4_LOCATION = 4;
 
-const int RS5_ID; // = 5;
-const int RS5_CPU_CORES; // = 1;
-const double RS5_CPU_LOADS; // = 0.7;
-const int RS5_CPU_SPEED; // = 2593;
-const int RS5_TOTALMEMORY;
-const int RS5_FREEMEMORY;
+const int RS5_ID = 5;
+const int RS5_CPU_CORES = 1;
+const double RS5_CPU_LOADS = 0.7;
+const int RS5_CPU_SPEED = 2593;
+const int RS5_TOTALMEMORY = 1000;
+const int RS5_FREEMEMORY = 450;
 const int RS5_LOCATION = 5;
 
-const int RS6_ID; // = 6;
-const int RS6_CPU_CORES; // = 1;
-const double RS6_CPU_LOADS; // = 0.7;
-const int RS6_CPU_SPEED; // = 2593;
-const int RS6_TOTALMEMORY;
-const int RS6_FREEMEMORY;
+const int RS6_ID = 6;
+const int RS6_CPU_CORES = 1;
+const double RS6_CPU_LOADS = 0.7;
+const int RS6_CPU_SPEED = 2593;
+const int RS6_TOTALMEMORY = 1000;
+const int RS6_FREEMEMORY = 650;
 const int RS6_LOCATION = 6;
 
-const int RS7_ID; // = 7;
-const int RS7_CPU_CORES; // = 1;
-const double RS7_CPU_LOADS; // = 0.7;
-const int RS7_CPU_SPEED; // = 2000;
-const int RS7_TOTALMEMORY;
-const int RS7_FREEMEMORY;
+const int RS7_ID = 7;
+const int RS7_CPU_CORES = 1;
+const double RS7_CPU_LOADS = 0.7;
+const int RS7_CPU_SPEED = 2000;
+const int RS7_TOTALMEMORY = 1000;
+const int RS7_FREEMEMORY = 800;
 const int RS7_LOCATION = 7;
+
 
 //=======================================
 //CONTROLLING PARAMETERS
@@ -738,12 +739,22 @@ rewards "c2_rt"
 [endb] true : rwd_app1_cpu_speed;
 endrewards
 
+rewards "rt"
+[enda] true : rwd_app0_cpu_speed;
+[endb] true : rwd_app1_cpu_speed;
+endrewards
+
 //resource dimension: CPU loads
 rewards "c1_ru"
 [enda] true : rwd_app0_cpu_loads;
 endrewards
 
 rewards "c2_ru"
+[endb] true : rwd_app1_cpu_loads;
+endrewards
+
+rewards "ru"
+[enda] true : rwd_app0_cpu_loads;
 [endb] true : rwd_app1_cpu_loads;
 endrewards
 
