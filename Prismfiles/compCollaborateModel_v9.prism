@@ -146,9 +146,9 @@ av7a: bool init true;
 [r2aa?] (ta=1) & (goala=false) -> 0.9:(av2a'=true) & (ta'=2) + 0.1:(av2a'=false) & (ta'=2);
 [r3aa?] (ta=1) & (goala=false) -> 0.9:(av3a'=true) & (ta'=2) + 0.1:(av3a'=false) & (ta'=2);
 [r4aa?] (ta=1) & (goala=false) -> 0.9:(av4a'=true) & (ta'=2) + 0.1:(av4a'=false) & (ta'=2);
-[r5aa?] (ta=1) & (goala=false) -> 0.9:(av5a'=true) & (ta'=2) + 0.1:(av5a'=false) & (ta'=2);
-[r6aa?] (ta=1) & (goala=false) -> 0.9:(av6a'=true) & (ta'=2) + 0.1:(av6a'=false) & (ta'=2);
-[r7aa?] (ta=1) & (goala=false) -> 0.9:(av7a'=true) & (ta'=2) + 0.1:(av7a'=false) & (ta'=2);
+[r5aa?] (ta=1) & (goala=false) -> 0.5:(av5a'=true) & (ta'=2) + 0.5:(av5a'=false) & (ta'=2);
+[r6aa?] (ta=1) & (goala=false) -> 0.5:(av6a'=true) & (ta'=2) + 0.5:(av6a'=false) & (ta'=2);
+[r7aa?] (ta=1) & (goala=false) -> 0.5:(av7a'=true) & (ta'=2) + 0.5:(av7a'=false) & (ta'=2);
 
 //start the move
 [st1?] (ta=1) -> (ta'=2);
