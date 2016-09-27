@@ -1,15 +1,15 @@
 const double MAXRTA = 5000;
 const double MAXRUA = 1;
-const double MAXRTB = 5000;
-const double MAXRUB = 1;
+const double MAXRTB;
+const double MAXRUB;
 const int MAXRT = 5000;
 const double MAXRU = 1;
 
-"q1" : <<1>> ((R{"c1_ru"}<=MAXRUA [ S ]=>R{"c2_ru"}<=MAXRUB [ S ]))
+"q1" : <<1>> ((((R{"c1_ru"}<=MAXRUA [ C ]=>R{"c2_ru"}<=MAXRUB [ C ]))))
 
-"q2" : <<1>> ((R{"c1_rt"}<=MAXRTA [ S ]=>R{"c2_rt"}<=MAXRTB [ S ]))
+"q2" : <<1>> ((((R{"c1_rt"}<=MAXRTA [ C ]=>R{"c2_rt"}<=MAXRTB [ C ]))))
 
 "qAll" : comp("q1", "q2")
 
-"qcomp" : <<1>> ((R{"c2_rt"}<=MAXRTB [ S ]&R{"c2_ru"}<=MAXRUB [ S ]))
+"qcomp" : <<1>> ((((R{"c2_rt"}<=MAXRTB [ S ]&R{"c2_ru"}<=MAXRUB [ S ]))))
 
