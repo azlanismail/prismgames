@@ -773,5 +773,6 @@ endrewards
 //[endb] true : rwd_app1_cpu_loads;
 //endrewards
 
-//label "done1" = ta = 2;
+label "done1" = ta = 2;
+//label "done1" = goala = true;
 //label "done2" = tb = 2;
