@@ -111,6 +111,26 @@ const int RS7_LOCATION = 7;
 
 
 //=======================================
+//PROBABILISTIC PARAMETERS
+const double AVA_RS0 = 0.9;
+const double AVA_RS1 = 0.9;
+const double AVA_RS2 = 0.9;
+const double AVA_RS3 = 0.9;
+const double AVA_RS4 = 0.9;
+const double AVA_RS5 = 0.9;
+const double AVA_RS6 = 0.9;
+const double AVA_RS7 = 0.9;
+
+const double AVB_RS0 = 0.9;
+const double AVB_RS1 = 0.9;
+const double AVB_RS2 = 0.9;
+const double AVB_RS3 = 0.9;
+const double AVB_RS4 = 0.9;
+const double AVB_RS5 = 0.9;
+const double AVB_RS6 = 0.9;
+const double AVB_RS7 = 0.9;
+
+//=======================================
 //CONTROLLING PARAMETERS
 
 global goala: bool init false;
@@ -151,14 +171,14 @@ sela:[0..7] init 0;
 [enda!] (ta=0) & (goala=true) -> (ta'=2);
 
 // P2 moves:
-[ch0a?] (ta=1) & (sela=0) & (goala=true) -> 0.9:(av0'=true) & (ta'=2) + 0.1:(av0'=false) & (ta'=2);
-[ch1a?] (ta=1) & (sela=1) & (goala=true) -> 0.9:(av1'=true) & (ta'=2) + 0.1:(av1'=false) & (ta'=2);
-[ch2a?] (ta=1) & (sela=2) & (goala=true) -> 0.9:(av2'=true) & (ta'=2) + 0.1:(av2'=false) & (ta'=2);
-[ch3a?] (ta=1) & (sela=3) & (goala=true) -> 0.9:(av3'=true) & (ta'=2) + 0.1:(av3'=false) & (ta'=2);
-[ch4a?] (ta=1) & (sela=4) & (goala=true) -> 0.9:(av4'=true) & (ta'=2) + 0.1:(av4'=false) & (ta'=2);
-[ch5a?] (ta=1) & (sela=5) & (goala=true) -> 0.9:(av5'=true) & (ta'=2) + 0.1:(av5'=false) & (ta'=2);
-[ch6a?] (ta=1) & (sela=6) & (goala=true) -> 0.9:(av6'=true) & (ta'=2) + 0.1:(av6'=false) & (ta'=2);
-[ch7a?] (ta=1) & (sela=7) & (goala=true) -> 0.9:(av7'=true) & (ta'=2) + 0.1:(av7'=false) & (ta'=2);
+[ch0a?] (ta=1) & (sela=0) & (goala=true) -> AVA_RS0:(av0'=true) & (ta'=2) + 1-AVA_RS0:(av0'=false) & (ta'=2);
+[ch1a?] (ta=1) & (sela=1) & (goala=true) -> AVA_RS1:(av1'=true) & (ta'=2) + 1-AVA_RS1:(av1'=false) & (ta'=2);
+[ch2a?] (ta=1) & (sela=2) & (goala=true) -> AVA_RS2:(av2'=true) & (ta'=2) + 1-AVA_RS2:(av2'=false) & (ta'=2);
+[ch3a?] (ta=1) & (sela=3) & (goala=true) -> AVA_RS3:(av3'=true) & (ta'=2) + 1-AVA_RS3:(av3'=false) & (ta'=2);
+[ch4a?] (ta=1) & (sela=4) & (goala=true) -> AVA_RS4:(av4'=true) & (ta'=2) + 1-AVA_RS4:(av4'=false) & (ta'=2);
+[ch5a?] (ta=1) & (sela=5) & (goala=true) -> AVA_RS5:(av5'=true) & (ta'=2) + 1-AVA_RS5:(av5'=false) & (ta'=2);
+[ch6a?] (ta=1) & (sela=6) & (goala=true) -> AVA_RS6:(av6'=true) & (ta'=2) + 1-AVA_RS6:(av6'=false) & (ta'=2);
+[ch7a?] (ta=1) & (sela=7) & (goala=true) -> AVA_RS7:(av7'=true) & (ta'=2) + 1-AVA_RS7:(av7'=false) & (ta'=2);
 
 //start the move
 [be?] (ta=1) -> (ta'=2);
@@ -205,14 +225,14 @@ selb:[0..7] init 0;
 [endb!] (tb=0) & (goalb=true) -> (tb'=2);
 
 // P2 moves:
-[ch0b?] (tb=1) & (selb=0) & (goalb=true) -> 0.9:(av0'=true) & (tb'=2) + 0.1:(av0'=false) & (tb'=2);
-[ch1b?] (tb=1) & (selb=1) & (goalb=true) -> 0.9:(av1'=true) & (tb'=2) + 0.1:(av1'=false) & (tb'=2);
-[ch2b?] (tb=1) & (selb=2) & (goalb=true) -> 0.9:(av2'=true) & (tb'=2) + 0.1:(av2'=false) & (tb'=2);
-[ch3b?] (tb=1) & (selb=3) & (goalb=true) -> 0.9:(av3'=true) & (tb'=2) + 0.1:(av3'=false) & (tb'=2);
-[ch4b?] (tb=1) & (selb=4) & (goalb=true) -> 0.9:(av4'=true) & (tb'=2) + 0.1:(av4'=false) & (tb'=2);
-[ch5b?] (tb=1) & (selb=5) & (goalb=true) -> 0.9:(av5'=true) & (tb'=2) + 0.1:(av5'=false) & (tb'=2);
-[ch6b?] (tb=1) & (selb=6) & (goalb=true) -> 0.9:(av6'=true) & (tb'=2) + 0.1:(av6'=false) & (tb'=2);
-[ch7b?] (tb=1) & (selb=7) & (goalb=true) -> 0.9:(av7'=true) & (tb'=2) + 0.1:(av7'=false) & (tb'=2);
+[ch0b?] (tb=1) & (selb=0) & (goalb=true) -> AVB_RS0:(av0'=true) & (tb'=2) + 1-AVB_RS0:(av0'=false) & (tb'=2);
+[ch1b?] (tb=1) & (selb=1) & (goalb=true) -> AVB_RS1:(av1'=true) & (tb'=2) + 1-AVB_RS1:(av1'=false) & (tb'=2);
+[ch2b?] (tb=1) & (selb=2) & (goalb=true) -> AVB_RS2:(av2'=true) & (tb'=2) + 1-AVB_RS2:(av2'=false) & (tb'=2);
+[ch3b?] (tb=1) & (selb=3) & (goalb=true) -> AVB_RS3:(av3'=true) & (tb'=2) + 1-AVB_RS3:(av3'=false) & (tb'=2);
+[ch4b?] (tb=1) & (selb=4) & (goalb=true) -> AVB_RS4:(av4'=true) & (tb'=2) + 1-AVB_RS4:(av4'=false) & (tb'=2);
+[ch5b?] (tb=1) & (selb=5) & (goalb=true) -> AVB_RS5:(av5'=true) & (tb'=2) + 1-AVB_RS5:(av5'=false) & (tb'=2);
+[ch6b?] (tb=1) & (selb=6) & (goalb=true) -> AVB_RS6:(av6'=true) & (tb'=2) + 1-AVB_RS6:(av6'=false) & (tb'=2);
+[ch7b?] (tb=1) & (selb=7) & (goalb=true) -> AVB_RS7:(av7'=true) & (tb'=2) + 1-AVB_RS7:(av7'=false) & (tb'=2);
 
 //start the move
 [be?] (tb=1) -> (tb'=2);
@@ -752,11 +772,6 @@ rewards "c2_rt"
 goalb = true : rwd_app1_cpu_speed;
 endrewards
 
-//rewards "rt"
-//[enda] true : rwd_app0_cpu_speed;
-//[endb] true : rwd_app1_cpu_speed;
-//endrewards
-
 //resource dimension: CPU loads
 rewards "c1_ru"
 //[enda] true : rwd_app0_cpu_loads;
@@ -768,10 +783,7 @@ rewards "c2_ru"
 goalb = true : rwd_app1_cpu_loads;
 endrewards
 
-//rewards "ru"
-//[enda] true : rwd_app0_cpu_loads;
-//[endb] true : rwd_app1_cpu_loads;
-//endrewards
-
-label "done1" = ta = 2;
+//==========================================
+//LABELS
+label "done1" = (goala = true) & (ta=1);
 label "done2" = tb = 2;
