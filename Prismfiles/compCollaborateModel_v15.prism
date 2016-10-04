@@ -2,7 +2,7 @@ smg
 
 //top level system 
 system "MC"
-"C1" //|| "C2"  //a set of decision makers / components
+"C1" || "C2"  //a set of decision makers / components
 endsystem
 
 //sub-system
@@ -109,13 +109,44 @@ const int RS7_TOTALMEMORY = 1000;
 const int RS7_FREEMEMORY = 800;
 const int RS7_LOCATION = 7;
 
+
+//=======================================
+//PROBABILISTIC PARAMETERS
+const double AVA_RS0 = 0.9;
+const double AVA_RS1 = 0.9;
+const double AVA_RS2 = 0.9;
+const double AVA_RS3 = 0.9;
+const double AVA_RS4 = 0.9;
+const double AVA_RS5 = 0.9;
+const double AVA_RS6 = 0.9;
+const double AVA_RS7 = 0.9;
+
+const double AVB_RS0 = 0.9;
+const double AVB_RS1 = 0.9;
+const double AVB_RS2 = 0.9;
+const double AVB_RS3 = 0.9;
+const double AVB_RS4 = 0.9;
+const double AVB_RS5 = 0.9;
+const double AVB_RS6 = 0.9;
+const double AVB_RS7 = 0.9;
+
 //=======================================
 //CONTROLLING PARAMETERS
 
-
+//global goala: bool init false;
+//global goalb: bool init false;
+//global av0: bool init true;
+//global av1: bool init true;
+//global av2: bool init true;
+//global av3: bool init true;
+//global av4: bool init true;
+//global av5: bool init true;
+//global av6: bool init true;
+//global av7: bool init true;
 //=======================================
 module M1
 ta:[0..2] init 1;      //to control the turn
+sela:[0..7] init 0;
 goala: bool init false;
 av0a: bool init true;
 av1a: bool init true;
@@ -128,30 +159,30 @@ av7a: bool init true;
 
 // P1 moves:
 //appx_rsy_sat - represents the satisfaction of performance violation
-[r0a!] (ta=0) & (app0_rs0_sat=true) & (goala=false) -> (goala'=true) & (ta'=1);
-[r1a!] (ta=0) & (app0_rs1_sat=true) & (goala=false) -> (goala'=true) & (ta'=1);
-[r2a!] (ta=0) & (app0_rs2_sat=true) & (goala=false) -> (goala'=true) & (ta'=1);
-[r3a!] (ta=0) & (app0_rs3_sat=true) & (goala=false) -> (goala'=true) & (ta'=1);
-[r4a!] (ta=0) & (app0_rs4_sat=true) & (goala=false) -> (goala'=true) & (ta'=1);
-[r5a!] (ta=0) & (app0_rs5_sat=true) & (goala=false) -> (goala'=true) & (ta'=1);
-[r6a!] (ta=0) & (app0_rs6_sat=true) & (goala=false) -> (goala'=true) & (ta'=1);
-[r7a!] (ta=0) & (app0_rs7_sat=true) & (goala=false) -> (goala'=true) & (ta'=1);
+[r0a!] (ta=0) & (app0_rs0_sat_ml_all=true) & (goala=false) & (av0a=true) -> (goala'=true) & (sela'=0) & (ta'=1);
+[r1a!] (ta=0) & (app0_rs1_sat_ml_all=true) & (goala=false) & (av1a=true) -> (goala'=true) & (sela'=1) & (ta'=1);
+[r2a!] (ta=0) & (app0_rs2_sat_ml_all=true) & (goala=false) & (av2a=true) -> (goala'=true) & (sela'=2) & (ta'=1);
+[r3a!] (ta=0) & (app0_rs3_sat_ml_all=true) & (goala=false) & (av3a=true) -> (goala'=true) & (sela'=3) & (ta'=1);
+[r4a!] (ta=0) & (app0_rs4_sat_ml_all=true) & (goala=false) & (av4a=true) -> (goala'=true) & (sela'=4) & (ta'=1);
+[r5a!] (ta=0) & (app0_rs5_sat_ml_all=true) & (goala=false) & (av5a=true) -> (goala'=true) & (sela'=5) & (ta'=1);
+[r6a!] (ta=0) & (app0_rs6_sat_ml_all=true) & (goala=false) & (av6a=true) -> (goala'=true) & (sela'=6) & (ta'=1);
+[r7a!] (ta=0) & (app0_rs7_sat_ml_all=true) & (goala=false) & (av7a=true) -> (goala'=true) & (sela'=7) & (ta'=1);
 //terminate the process
 [enda!] (ta=0) & (goala=true) -> (ta'=2);
 
 // P2 moves:
-[r0aa?] (ta=1) & (goala=false) -> 0.9:(av0a'=true) & (ta'=2) + 0.1:(av0a'=false) & (ta'=2);
-[r1aa?] (ta=1) & (goala=false) -> 0.9:(av1a'=true) & (ta'=2) + 0.1:(av1a'=false) & (ta'=2);
-[r2aa?] (ta=1) & (goala=false) -> 0.9:(av2a'=true) & (ta'=2) + 0.1:(av2a'=false) & (ta'=2);
-[r3aa?] (ta=1) & (goala=false) -> 0.9:(av3a'=true) & (ta'=2) + 0.1:(av3a'=false) & (ta'=2);
-[r4aa?] (ta=1) & (goala=false) -> 0.9:(av4a'=true) & (ta'=2) + 0.1:(av4a'=false) & (ta'=2);
-[r5aa?] (ta=1) & (goala=false) -> 0.9:(av5a'=true) & (ta'=2) + 0.1:(av5a'=false) & (ta'=2);
-[r6aa?] (ta=1) & (goala=false) -> 0.9:(av6a'=true) & (ta'=2) + 0.1:(av6a'=false) & (ta'=2);
-[r7aa?] (ta=1) & (goala=false) -> 0.9:(av7a'=true) & (ta'=2) + 0.1:(av7a'=false) & (ta'=2);
+[ch0a?] (ta=1) & (sela=0) & (goala = true) -> AVA_RS0:(av0a'=true) & (ta'=2) + 1-AVA_RS0:(av0a'=false) & (ta'=2);
+[ch1a?] (ta=1) & (sela=1) & (goala = true) -> AVA_RS1:(av1a'=true) & (ta'=2) + 1-AVA_RS1:(av1a'=false) & (ta'=2);
+[ch2a?] (ta=1) & (sela=2) & (goala = true) -> AVA_RS2:(av2a'=true) & (ta'=2) + 1-AVA_RS2:(av2a'=false) & (ta'=2);
+[ch3a?] (ta=1) & (sela=3) & (goala = true) -> AVA_RS3:(av3a'=true) & (ta'=2) + 1-AVA_RS3:(av3a'=false) & (ta'=2);
+[ch4a?] (ta=1) & (sela=4) & (goala = true) -> AVA_RS4:(av4a'=true) & (ta'=2) + 1-AVA_RS4:(av4a'=false) & (ta'=2);
+[ch5a?] (ta=1) & (sela=5) & (goala = true) -> AVA_RS5:(av5a'=true) & (ta'=2) + 1-AVA_RS5:(av5a'=false) & (ta'=2);
+[ch6a?] (ta=1) & (sela=6) & (goala = true) -> AVA_RS6:(av6a'=true) & (ta'=2) + 1-AVA_RS6:(av6a'=false) & (ta'=2);
+[ch7a?] (ta=1) & (sela=7) & (goala = true) -> AVA_RS7:(av7a'=true) & (ta'=2) + 1-AVA_RS7:(av7a'=false) & (ta'=2);
 
 //start the move
-[st1?] (ta=1) -> (ta'=2);
-[st2?] (ta=2) -> (ta'=2);
+[be?] (ta=1) -> (ta'=2);
+//[end?] (ta=2) -> (ta'=2);
 
 //schedule the turn between subsystems
 [] (ta=2) -> (ta'=0);
@@ -161,6 +192,56 @@ endmodule
 //=============================================
 //=============================================
 //=============================================
+system "C2"
+M2
+endsystem
+
+//module M2=M1 [t1=t2, s1=s2, r1=r2, r0a=r0b, r1a=r1b, r2a=r2b, r3a=r3b, r4a=r4b, enda=endb] endmodule
+
+module M2
+tb:[0..2] init 1;      //to control the turn
+selb:[0..7] init 0;
+goalb: bool init false;
+av0b: bool init true;
+av1b: bool init true;
+av2b: bool init true;
+av3b: bool init true;
+av4b: bool init true;
+av5b: bool init true;
+av6b: bool init true;
+av7b: bool init true;
+
+// P1 moves:
+[r0b!] (tb=0) & (app1_rs0_sat_ml_all=true) & (goalb=false) & (av0b=true) -> (goalb'=true) & (selb'=0) & (tb'=1);
+[r1b!] (tb=0) & (app1_rs1_sat_ml_all=true) & (goalb=false) & (av1b=true) -> (goalb'=true) & (selb'=1) & (tb'=1);
+[r2b!] (tb=0) & (app1_rs2_sat_ml_all=true) & (goalb=false) & (av2b=true) -> (goalb'=true) & (selb'=2) & (tb'=1);
+[r3b!] (tb=0) & (app1_rs3_sat_ml_all=true) & (goalb=false) & (av3b=true) -> (goalb'=true) & (selb'=3) & (tb'=1);
+[r4b!] (tb=0) & (app1_rs4_sat_ml_all=true) & (goalb=false) & (av4b=true) -> (goalb'=true) & (selb'=4) & (tb'=1);
+[r5b!] (tb=0) & (app1_rs5_sat_ml_all=true) & (goalb=false) & (av5b=true) -> (goalb'=true) & (selb'=5) & (tb'=1);
+[r6b!] (tb=0) & (app1_rs6_sat_ml_all=true) & (goalb=false) & (av6b=true) -> (goalb'=true) & (selb'=6) & (tb'=1);
+[r7b!] (tb=0) & (app1_rs7_sat_ml_all=true) & (goalb=false) & (av7b=true) -> (goalb'=true) & (selb'=7) & (tb'=1);
+
+//terminate the process
+[endb!] (tb=0) & (goalb=true) -> (tb'=2);
+
+// P2 moves:
+[ch0b?] (tb=1) & (selb=0) & (goalb = true) -> AVB_RS0:(av0b'=true) & (tb'=2) + 1-AVB_RS0:(av0b'=false) & (tb'=2);
+[ch1b?] (tb=1) & (selb=1) & (goalb = true) -> AVB_RS1:(av1b'=true) & (tb'=2) + 1-AVB_RS1:(av1b'=false) & (tb'=2);
+[ch2b?] (tb=1) & (selb=2) & (goalb = true) -> AVB_RS2:(av2b'=true) & (tb'=2) + 1-AVB_RS2:(av2b'=false) & (tb'=2);
+[ch3b?] (tb=1) & (selb=3) & (goalb = true) -> AVB_RS3:(av3b'=true) & (tb'=2) + 1-AVB_RS3:(av3b'=false) & (tb'=2);
+[ch4b?] (tb=1) & (selb=4) & (goalb = true) -> AVB_RS4:(av4b'=true) & (tb'=2) + 1-AVB_RS4:(av4b'=false) & (tb'=2);
+[ch5b?] (tb=1) & (selb=5) & (goalb = true) -> AVB_RS5:(av5b'=true) & (tb'=2) + 1-AVB_RS5:(av5b'=false) & (tb'=2);
+[ch6b?] (tb=1) & (selb=6) & (goalb = true) -> AVB_RS6:(av6b'=true) & (tb'=2) + 1-AVB_RS6:(av6b'=false) & (tb'=2);
+[ch7b?] (tb=1) & (selb=7) & (goalb = true) -> AVB_RS7:(av7b'=true) & (tb'=2) + 1-AVB_RS7:(av7b'=false) & (tb'=2);
+
+//start the move
+[be?] (tb=1) -> (tb'=2);
+//[end?] (tb=2) -> (tb'=2);
+
+//schedule the turn between subsystems
+[] (tb=2) -> (tb'=0);
+
+endmodule
 
 
 //=================================
@@ -683,20 +764,34 @@ formula rwd_app1_cpu_loads = APP1_CPU_LOADS;
 //time dimension: CPU speed
 rewards "c1_rt"
 [enda] true : rwd_app0_cpu_speed;
+//goala = true : rwd_app0_cpu_speed;
 endrewards
 
 rewards "c2_rt"
-//[endb] true : rwd_app1_cpu_speed;
+[endb] true : rwd_app1_cpu_speed;
+//goalb = true : rwd_app1_cpu_speed;
 endrewards
 
 //resource dimension: CPU loads
 rewards "c1_ru"
 [enda] true : rwd_app0_cpu_loads;
+//goala = true : rwd_app0_cpu_loads;
 endrewards
 
 rewards "c2_ru"
-//[endb] true : rwd_app1_cpu_loads;
+[endb] true : rwd_app1_cpu_loads;
+//goalb = true : rwd_app1_cpu_loads;
 endrewards
 
-label "done1" = ta = 2;
-//label "done2" = tb = 2;
+
+rewards "sel_app0"
+//goala = true : then store the current memory left
+
+endrewards
+
+
+
+//==========================================
+//LABELS
+label "done1" = ta=2;
+label "done2" = tb=2;

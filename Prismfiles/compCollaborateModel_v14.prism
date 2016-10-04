@@ -133,8 +133,8 @@ const double AVB_RS7 = 0.9;
 //=======================================
 //CONTROLLING PARAMETERS
 
-global goala: bool init false;
-global goalb: bool init false;
+//global goala: bool init false;
+//global goalb: bool init false;
 global av0: bool init true;
 global av1: bool init true;
 global av2: bool init true;
@@ -147,7 +147,7 @@ global av7: bool init true;
 module M1
 ta:[0..2] init 1;      //to control the turn
 sela:[0..7] init 0;
-//goala: bool init false;
+goala: bool init false;
 //av0a: bool init true;
 //av1a: bool init true;
 //av2a: bool init true;
@@ -201,7 +201,7 @@ endsystem
 module M2
 tb:[0..2] init 1;      //to control the turn
 selb:[0..7] init 0;
-//goalb: bool init false;
+goalb: bool init false;
 //av0b: bool init true;
 //av1b: bool init true;
 //av2b: bool init true;
@@ -764,26 +764,34 @@ formula rwd_app1_cpu_loads = APP1_CPU_LOADS;
 //time dimension: CPU speed
 rewards "c1_rt"
 //[enda] true : rwd_app0_cpu_speed;
-goala = true : rwd_app0_cpu_speed;
+//goala = true : rwd_app0_cpu_speed;
 endrewards
 
 rewards "c2_rt"
 //[endb] true : rwd_app1_cpu_speed;
-goalb = true : rwd_app1_cpu_speed;
+//goalb = true : rwd_app1_cpu_speed;
 endrewards
 
 //resource dimension: CPU loads
 rewards "c1_ru"
 //[enda] true : rwd_app0_cpu_loads;
-goala = true : rwd_app0_cpu_loads;
+//goala = true : rwd_app0_cpu_loads;
 endrewards
 
 rewards "c2_ru"
 //[endb] true : rwd_app1_cpu_loads;
-goalb = true : rwd_app1_cpu_loads;
+//goalb = true : rwd_app1_cpu_loads;
 endrewards
+
+
+rewards "sel_app0"
+//goala = true : then store the current memory left
+
+endrewards
+
+
 
 //==========================================
 //LABELS
-label "done1" = (goala = true) & (ta=1);
-label "done2" = tb = 2;
+label "done1" = ta=2;
+label "done2" = tb=2;
