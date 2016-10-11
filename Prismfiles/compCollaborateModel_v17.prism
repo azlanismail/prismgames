@@ -170,26 +170,26 @@ av7a: bool init true;
 
 // P1 moves:
 //appx_rsy_sat - represents the satisfaction of performance violation
-[r0a!] (ta=0) & (app0_rs0_sat_ml_all=true) & (goala=false) & (av0a=true) -> (goala'=true) & (sela'=0) & (cload_rs0'=cload_rs0 + APP0_CPU_LOADS) & (ta'=1);
-[r1a!] (ta=0) & (app0_rs1_sat_ml_all=true) & (goala=false) & (av1a=true) -> (goala'=true) & (sela'=1) & (cload_rs1'=cload_rs1 + APP0_CPU_LOADS) & (ta'=1);
-[r2a!] (ta=0) & (app0_rs2_sat_ml_all=true) & (goala=false) & (av2a=true) -> (goala'=true) & (sela'=2) & (cload_rs2'=cload_rs2 + APP0_CPU_LOADS) & (ta'=1);
-[r3a!] (ta=0) & (app0_rs3_sat_ml_all=true) & (goala=false) & (av3a=true) -> (goala'=true) & (sela'=3) & (cload_rs3'=cload_rs3 + APP0_CPU_LOADS) & (ta'=1);
-[r4a!] (ta=0) & (app0_rs4_sat_ml_all=true) & (goala=false) & (av4a=true) -> (goala'=true) & (sela'=4) & (cload_rs4'=cload_rs4 + APP0_CPU_LOADS) & (ta'=1);
-[r5a!] (ta=0) & (app0_rs5_sat_ml_all=true) & (goala=false) & (av5a=true) -> (goala'=true) & (sela'=5) & (cload_rs5'=cload_rs5 + APP0_CPU_LOADS) & (ta'=1);
-[r6a!] (ta=0) & (app0_rs6_sat_ml_all=true) & (goala=false) & (av6a=true) -> (goala'=true) & (sela'=6) & (cload_rs6'=cload_rs6 + APP0_CPU_LOADS) & (ta'=1);
-[r7a!] (ta=0) & (app0_rs7_sat_ml_all=true) & (goala=false) & (av7a=true) -> (goala'=true) & (sela'=7) & (cload_rs7'=cload_rs7 + APP0_CPU_LOADS) & (ta'=1);
+[r0a!] (ta=0) & (app0_rs0_sat_ml_all=true) & (goala=false) & (av0a=true) -> (goala'=true) & (sela'=0) & (ta'=1);
+[r1a!] (ta=0) & (app0_rs1_sat_ml_all=true) & (goala=false) & (av1a=true) -> (goala'=true) & (sela'=1) & (ta'=1);
+[r2a!] (ta=0) & (app0_rs2_sat_ml_all=true) & (goala=false) & (av2a=true) -> (goala'=true) & (sela'=2) & (ta'=1);
+[r3a!] (ta=0) & (app0_rs3_sat_ml_all=true) & (goala=false) & (av3a=true) -> (goala'=true) & (sela'=3) & (ta'=1);
+[r4a!] (ta=0) & (app0_rs4_sat_ml_all=true) & (goala=false) & (av4a=true) -> (goala'=true) & (sela'=4) & (ta'=1);
+[r5a!] (ta=0) & (app0_rs5_sat_ml_all=true) & (goala=false) & (av5a=true) -> (goala'=true) & (sela'=5) & (ta'=1);
+[r6a!] (ta=0) & (app0_rs6_sat_ml_all=true) & (goala=false) & (av6a=true) -> (goala'=true) & (sela'=6) & (ta'=1);
+[r7a!] (ta=0) & (app0_rs7_sat_ml_all=true) & (goala=false) & (av7a=true) -> (goala'=true) & (sela'=7) & (ta'=1);
 //terminate the process
 [enda!] (ta=0) & (goala=true) -> (ta'=2);
 
 // P2 moves:
-[ch0a?] (ta=1) & (sela=0) & (goala = true) -> AVA_RS0:(av0a'=true) & (ta'=2) + 1-AVA_RS0:(av0a'=false) & (ta'=2);
-[ch1a?] (ta=1) & (sela=1) & (goala = true) -> AVA_RS1:(av1a'=true) & (ta'=2) + 1-AVA_RS1:(av1a'=false) & (ta'=2);
-[ch2a?] (ta=1) & (sela=2) & (goala = true) -> AVA_RS2:(av2a'=true) & (ta'=2) + 1-AVA_RS2:(av2a'=false) & (ta'=2);
-[ch3a?] (ta=1) & (sela=3) & (goala = true) -> AVA_RS3:(av3a'=true) & (ta'=2) + 1-AVA_RS3:(av3a'=false) & (ta'=2);
-[ch4a?] (ta=1) & (sela=4) & (goala = true) -> AVA_RS4:(av4a'=true) & (ta'=2) + 1-AVA_RS4:(av4a'=false) & (ta'=2);
-[ch5a?] (ta=1) & (sela=5) & (goala = true) -> AVA_RS5:(av5a'=true) & (ta'=2) + 1-AVA_RS5:(av5a'=false) & (ta'=2);
-[ch6a?] (ta=1) & (sela=6) & (goala = true) -> AVA_RS6:(av6a'=true) & (ta'=2) + 1-AVA_RS6:(av6a'=false) & (ta'=2);
-[ch7a?] (ta=1) & (sela=7) & (goala = true) -> AVA_RS7:(av7a'=true) & (ta'=2) + 1-AVA_RS7:(av7a'=false) & (ta'=2);
+[ch0a?] (ta=1) & (sela=0) & (goala = true) -> AVA_RS0:(av0a'=true) & (cload_rs0'=cload_rs0 + APP0_CPU_LOADS) & (ta'=2) + 1-AVA_RS0:(av0a'=false) & (ta'=2);
+[ch1a?] (ta=1) & (sela=1) & (goala = true) -> AVA_RS1:(av1a'=true) & (cload_rs1'=cload_rs1 + APP0_CPU_LOADS) & (ta'=2) + 1-AVA_RS1:(av1a'=false) & (ta'=2);
+[ch2a?] (ta=1) & (sela=2) & (goala = true) -> AVA_RS2:(av2a'=true) & (cload_rs2'=cload_rs2 + APP0_CPU_LOADS) & (ta'=2) + 1-AVA_RS2:(av2a'=false) & (ta'=2);
+[ch3a?] (ta=1) & (sela=3) & (goala = true) -> AVA_RS3:(av3a'=true) & (cload_rs3'=cload_rs3 + APP0_CPU_LOADS) & (ta'=2) + 1-AVA_RS3:(av3a'=false) & (ta'=2);
+[ch4a?] (ta=1) & (sela=4) & (goala = true) -> AVA_RS4:(av4a'=true) & (cload_rs4'=cload_rs4 + APP0_CPU_LOADS) & (ta'=2) + 1-AVA_RS4:(av4a'=false) & (ta'=2);
+[ch5a?] (ta=1) & (sela=5) & (goala = true) -> AVA_RS5:(av5a'=true) & (cload_rs5'=cload_rs5 + APP0_CPU_LOADS) & (ta'=2) + 1-AVA_RS5:(av5a'=false) & (ta'=2);
+[ch6a?] (ta=1) & (sela=6) & (goala = true) -> AVA_RS6:(av6a'=true) & (cload_rs6'=cload_rs6 + APP0_CPU_LOADS) & (ta'=2) + 1-AVA_RS6:(av6a'=false) & (ta'=2);
+[ch7a?] (ta=1) & (sela=7) & (goala = true) -> AVA_RS7:(av7a'=true) & (cload_rs7'=cload_rs7 + APP0_CPU_LOADS) & (ta'=2) + 1-AVA_RS7:(av7a'=false) & (ta'=2);
 
 //start the move
 [be?] (ta=1) -> (ta'=2);
@@ -223,27 +223,27 @@ av6b: bool init true;
 av7b: bool init true;
 
 // P1 moves:
-[r0b!] (tb=0) & (app1_rs0_sat_ml_all=true) & (goalb=false) & (av0b=true) -> (goalb'=true) & (selb'=0) & (cload_rs0'=cload_rs0 + APP1_CPU_LOADS) & (tb'=1);
-[r1b!] (tb=0) & (app1_rs1_sat_ml_all=true) & (goalb=false) & (av1b=true) -> (goalb'=true) & (selb'=1) & (cload_rs1'=cload_rs1 + APP1_CPU_LOADS) & (tb'=1);
-[r2b!] (tb=0) & (app1_rs2_sat_ml_all=true) & (goalb=false) & (av2b=true) -> (goalb'=true) & (selb'=2) & (cload_rs2'=cload_rs2 + APP1_CPU_LOADS) & (tb'=1);
-[r3b!] (tb=0) & (app1_rs3_sat_ml_all=true) & (goalb=false) & (av3b=true) -> (goalb'=true) & (selb'=3) & (cload_rs3'=cload_rs3 + APP1_CPU_LOADS) & (tb'=1);
-[r4b!] (tb=0) & (app1_rs4_sat_ml_all=true) & (goalb=false) & (av4b=true) -> (goalb'=true) & (selb'=4) & (cload_rs4'=cload_rs4 + APP1_CPU_LOADS) & (tb'=1);
-[r5b!] (tb=0) & (app1_rs5_sat_ml_all=true) & (goalb=false) & (av5b=true) -> (goalb'=true) & (selb'=5) & (cload_rs5'=cload_rs5 + APP1_CPU_LOADS) & (tb'=1);
-[r6b!] (tb=0) & (app1_rs6_sat_ml_all=true) & (goalb=false) & (av6b=true) -> (goalb'=true) & (selb'=6) & (cload_rs6'=cload_rs6 + APP1_CPU_LOADS) & (tb'=1);
-[r7b!] (tb=0) & (app1_rs7_sat_ml_all=true) & (goalb=false) & (av7b=true) -> (goalb'=true) & (selb'=7) & (cload_rs7'=cload_rs7 + APP1_CPU_LOADS) & (tb'=1);
+[r0b!] (tb=0) & (app1_rs0_sat_ml_all=true) & (goalb=false) & (av0b=true) -> (goalb'=true) & (selb'=0) & (tb'=1);
+[r1b!] (tb=0) & (app1_rs1_sat_ml_all=true) & (goalb=false) & (av1b=true) -> (goalb'=true) & (selb'=1) & (tb'=1);
+[r2b!] (tb=0) & (app1_rs2_sat_ml_all=true) & (goalb=false) & (av2b=true) -> (goalb'=true) & (selb'=2) & (tb'=1);
+[r3b!] (tb=0) & (app1_rs3_sat_ml_all=true) & (goalb=false) & (av3b=true) -> (goalb'=true) & (selb'=3) & (tb'=1);
+[r4b!] (tb=0) & (app1_rs4_sat_ml_all=true) & (goalb=false) & (av4b=true) -> (goalb'=true) & (selb'=4) & (tb'=1);
+[r5b!] (tb=0) & (app1_rs5_sat_ml_all=true) & (goalb=false) & (av5b=true) -> (goalb'=true) & (selb'=5) & (tb'=1);
+[r6b!] (tb=0) & (app1_rs6_sat_ml_all=true) & (goalb=false) & (av6b=true) -> (goalb'=true) & (selb'=6) & (tb'=1);
+[r7b!] (tb=0) & (app1_rs7_sat_ml_all=true) & (goalb=false) & (av7b=true) -> (goalb'=true) & (selb'=7) & (tb'=1);
 
 //terminate the process
 [endb!] (tb=0) & (goalb=true) -> (tb'=2);
 
 // P2 moves:
-[ch0b?] (tb=1) & (selb=0) & (goalb = true) -> AVB_RS0:(av0b'=true) & (tb'=2) + 1-AVB_RS0:(av0b'=false) & (tb'=2);
-[ch1b?] (tb=1) & (selb=1) & (goalb = true) -> AVB_RS1:(av1b'=true) & (tb'=2) + 1-AVB_RS1:(av1b'=false) & (tb'=2);
-[ch2b?] (tb=1) & (selb=2) & (goalb = true) -> AVB_RS2:(av2b'=true) & (tb'=2) + 1-AVB_RS2:(av2b'=false) & (tb'=2);
-[ch3b?] (tb=1) & (selb=3) & (goalb = true) -> AVB_RS3:(av3b'=true) & (tb'=2) + 1-AVB_RS3:(av3b'=false) & (tb'=2);
-[ch4b?] (tb=1) & (selb=4) & (goalb = true) -> AVB_RS4:(av4b'=true) & (tb'=2) + 1-AVB_RS4:(av4b'=false) & (tb'=2);
-[ch5b?] (tb=1) & (selb=5) & (goalb = true) -> AVB_RS5:(av5b'=true) & (tb'=2) + 1-AVB_RS5:(av5b'=false) & (tb'=2);
-[ch6b?] (tb=1) & (selb=6) & (goalb = true) -> AVB_RS6:(av6b'=true) & (tb'=2) + 1-AVB_RS6:(av6b'=false) & (tb'=2);
-[ch7b?] (tb=1) & (selb=7) & (goalb = true) -> AVB_RS7:(av7b'=true) & (tb'=2) + 1-AVB_RS7:(av7b'=false) & (tb'=2);
+[ch0b?] (tb=1) & (selb=0) & (goalb = true) -> AVB_RS0:(av0b'=true) & (cload_rs0'=cload_rs0 + APP1_CPU_LOADS) & (tb'=2) + 1-AVB_RS0:(av0b'=false) & (tb'=2);
+[ch1b?] (tb=1) & (selb=1) & (goalb = true) -> AVB_RS1:(av1b'=true) & (cload_rs1'=cload_rs1 + APP1_CPU_LOADS) & (tb'=2) + 1-AVB_RS1:(av1b'=false) & (tb'=2);
+[ch2b?] (tb=1) & (selb=2) & (goalb = true) -> AVB_RS2:(av2b'=true) & (cload_rs2'=cload_rs2 + APP1_CPU_LOADS) & (tb'=2) + 1-AVB_RS2:(av2b'=false) & (tb'=2);
+[ch3b?] (tb=1) & (selb=3) & (goalb = true) -> AVB_RS3:(av3b'=true) & (cload_rs3'=cload_rs3 + APP1_CPU_LOADS) & (tb'=2) + 1-AVB_RS3:(av3b'=false) & (tb'=2);
+[ch4b?] (tb=1) & (selb=4) & (goalb = true) -> AVB_RS4:(av4b'=true) & (cload_rs4'=cload_rs4 + APP1_CPU_LOADS) & (tb'=2) + 1-AVB_RS4:(av4b'=false) & (tb'=2);
+[ch5b?] (tb=1) & (selb=5) & (goalb = true) -> AVB_RS5:(av5b'=true) & (cload_rs5'=cload_rs5 + APP1_CPU_LOADS) & (tb'=2) + 1-AVB_RS5:(av5b'=false) & (tb'=2);
+[ch6b?] (tb=1) & (selb=6) & (goalb = true) -> AVB_RS6:(av6b'=true) & (cload_rs6'=cload_rs6 + APP1_CPU_LOADS) & (tb'=2) + 1-AVB_RS6:(av6b'=false) & (tb'=2);
+[ch7b?] (tb=1) & (selb=7) & (goalb = true) -> AVB_RS7:(av7b'=true) & (cload_rs7'=cload_rs7 + APP1_CPU_LOADS) & (tb'=2) + 1-AVB_RS7:(av7b'=false) & (tb'=2);
 
 //start the move
 [be?] (tb=1) -> (tb'=2);
