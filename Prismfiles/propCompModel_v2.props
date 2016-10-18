@@ -1,24 +1,24 @@
 const int MAXRTA = 5000;
 const double MAXRUA = 100;
-const int MAXRTB = 5000;
-const int MAXRUB = 100;
+const int MAXRTB = 134;
+const int MAXRUB = 15;
 const int MAXRT = 5000;
 const int MAXRU = 100;
 const int k;
 const double maxV;
 const int maxY;
 
-"q1" : <<1>> (((((((R{"c1_ru"}<=MAXRUA [ S ]=>R{"c2_ru"}<=MAXRUB [ S ])))))))
+"q1" : <<1>> (R{"c1_ru"}<=MAXRUA [ S ]=>R{"c2_ru"}<=MAXRUB [ S ])
 
-"q2" : <<1>> (((((((R{"c1_rt"}<=MAXRTA [ S ]=>R{"c2_rt"}<=MAXRTB [ S ])))))))
+"q2" : <<1>> (R{"c1_rt"}<=MAXRTA [ S ]=>R{"c2_rt"}<=MAXRTB [ S ])
 
 "qAll" : comp("q1", "q2")
 
-"qcomp" : <<1>> (((((((R{"c2_rt"}<=MAXRTB [ S ]&R{"c2_ru"}<=MAXRUB [ S ])))))))
+"qcomp" : <<1>> (R{"c2_rt"}<=MAXRTB [ S ]&R{"c2_ru"}<=MAXRUB [ S ])
 
-<<1>> Pmax=? [ F<=k "done1" ]
+<<1>> Pmax=? [ F<=k "same" ]
 
-"qcomp2" : <<1>> ((((((R{"c1_ru"}<=MAXRUA [ S ]&R{"c2_ru"}<=MAXRUB [ S ]))))))
+"qcomp2" : <<2>> (R{"c1_ru"}<=MAXRUA [ S ]&R{"c2_ru"}<=MAXRUB [ S ])
 
 <<1>> Pmax=? [ F<=k "done2" ]
 
@@ -26,9 +26,9 @@ const int maxY;
 
 R{"c1_rt"}<=maxY [ Fc "done1" ]
 
-<<1>> (((R{"c1_ru"}<=MAXRUA [ S ]&R{"c1_rt"}<=MAXRTA [ S ])))
+<<1>> (((((R{"c1_ru"}<=MAXRUA [ S ]&R{"c1_rt"}<=MAXRTA [ S ])))))
 
 <<1>> R{"c1_ru"}<=MAXRUA [ S ]&R{"c1_rt"}<=MAXRTA [ S ]
 
-<<1>> ((R{"c2_ru"}<=MAXRUB [ S ]&R{"c2_rt"}<=MAXRTB [ S ]))
+<<1>> ((((R{"c2_ru"}<=MAXRUB [ S ]&R{"c2_rt"}<=MAXRTB [ S ]))))
 
