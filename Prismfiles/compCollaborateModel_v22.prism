@@ -168,14 +168,14 @@ av5a: bool init true;
 av6a: bool init true;
 av7a: bool init true;
 
-cloada_rs0:[0..150] init RS0_CPU_LOADS_A;
-cloada_rs1:[0..150] init RS1_CPU_LOADS_A;
-cloada_rs2:[0..150] init RS2_CPU_LOADS_A;
-cloada_rs3:[0..150] init RS3_CPU_LOADS_A;
-cloada_rs4:[0..150] init RS4_CPU_LOADS_A;
-cloada_rs5:[0..150] init RS5_CPU_LOADS_A;
-cloada_rs6:[0..150] init RS6_CPU_LOADS_A;
-cloada_rs7:[0..150] init RS7_CPU_LOADS_A;
+cloada_rs0:[0..150] init 0;
+cloada_rs1:[0..150] init 0;
+cloada_rs2:[0..150] init 0;
+cloada_rs3:[0..150] init 0;
+cloada_rs4:[0..150] init 0;
+cloada_rs5:[0..150] init 0;
+cloada_rs6:[0..150] init 0;
+cloada_rs7:[0..150] init 0;
 
 cspeeda_rs0:[0..5000] init 0;
 cspeeda_rs1:[0..5000] init 0;
@@ -189,30 +189,30 @@ cspeeda_rs7:[0..5000] init 0;
 
 // P1 moves:
 //appx_rsy_sat - represents the satisfaction of performance violation
-[r0a!] (ta=0) & (app0_rs0_sat_ml_all=true) & (goala=false) & (av0a=true) -> (goala'=true) & (sela'=0) & (ta'=1);
-[r1a!] (ta=0) & (app0_rs1_sat_ml_all=true) & (goala=false) & (av1a=true) -> (goala'=true) & (sela'=1) & (ta'=1);
-[r2a!] (ta=0) & (app0_rs2_sat_ml_all=true) & (goala=false) & (av2a=true) -> (goala'=true) & (sela'=2) & (ta'=1);
-[r3a!] (ta=0) & (app0_rs3_sat_ml_all=true) & (goala=false) & (av3a=true) -> (goala'=true) & (sela'=3) & (ta'=1);
-[r4a!] (ta=0) & (app0_rs4_sat_ml_all=true) & (goala=false) & (av4a=true) -> (goala'=true) & (sela'=4) & (ta'=1);
-[r5a!] (ta=0) & (app0_rs5_sat_ml_all=true) & (goala=false) & (av5a=true) -> (goala'=true) & (sela'=5) & (ta'=1);
-[r6a!] (ta=0) & (app0_rs6_sat_ml_all=true) & (goala=false) & (av6a=true) -> (goala'=true) & (sela'=6) & (ta'=1);
-[r7a!] (ta=0) & (app0_rs7_sat_ml_all=true) & (goala=false) & (av7a=true) -> (goala'=true) & (sela'=7) & (ta'=1);
+[r0a!] (ta=0) & (app0_rs0_sat_ml_all=true) & (goala=false) -> (goala'=true) & (sela'=0) & (cloada_rs0'=cloada_rs0 + APP0_CPU_LOADS) & (cspeeda_rs0'= APP0_CPU_SPEED + 2) & (ta'=1);
+[r1a!] (ta=0) & (app0_rs1_sat_ml_all=true) & (goala=false) -> (goala'=true) & (sela'=1) & (cloada_rs1'=cloada_rs1 + APP0_CPU_LOADS) & (cspeeda_rs1'= APP0_CPU_SPEED + 3) & (ta'=1);
+[r2a!] (ta=0) & (app0_rs2_sat_ml_all=true) & (goala=false) -> (goala'=true) & (sela'=2) & (cloada_rs2'=cloada_rs2 + APP0_CPU_LOADS) & (cspeeda_rs2'= APP0_CPU_SPEED + 2) & (ta'=1);
+[r3a!] (ta=0) & (app0_rs3_sat_ml_all=true) & (goala=false) -> (goala'=true) & (sela'=3) & (cloada_rs3'=cloada_rs3 + APP0_CPU_LOADS) & (cspeeda_rs3'= APP0_CPU_SPEED + 1) & (ta'=1);
+[r4a!] (ta=0) & (app0_rs4_sat_ml_all=true) & (goala=false) -> (goala'=true) & (sela'=4) & (cloada_rs4'=cloada_rs4 + APP0_CPU_LOADS) & (cspeeda_rs4'= APP0_CPU_SPEED + 4) & (ta'=1);
+[r5a!] (ta=0) & (app0_rs5_sat_ml_all=true) & (goala=false) -> (goala'=true) & (sela'=5) & (cloada_rs5'=cloada_rs5 + APP0_CPU_LOADS) & (cspeeda_rs5'= APP0_CPU_SPEED + 4) & (ta'=1);
+[r6a!] (ta=0) & (app0_rs6_sat_ml_all=true) & (goala=false) -> (goala'=true) & (sela'=6) & (cloada_rs6'=cloada_rs6 + APP0_CPU_LOADS) & (cspeeda_rs6'= APP0_CPU_SPEED + 3) & (ta'=1);
+[r7a!] (ta=0) & (app0_rs7_sat_ml_all=true) & (goala=false) -> (goala'=true) & (sela'=7) & (cloada_rs7'=cloada_rs7 + APP0_CPU_LOADS) & (cspeeda_rs7'= APP0_CPU_SPEED + 2) & (ta'=1);
 //terminate the process
 [enda!] (ta=0) & (goala=true) -> (ta'=2);
 
 // P2 moves:
-[ch0a?] (ta=1) & (sela=0) & (goala = true) -> AVA_RS0:(av0a'=true) & (cloada_rs0'=cloada_rs0 + APP0_CPU_LOADS) & (cspeeda_rs0'= APP0_CPU_SPEED) & (ta'=2) + 1-AVA_RS0:(av0a'=false) & (ta'=2);
-[ch1a?] (ta=1) & (sela=1) & (goala = true) -> AVA_RS1:(av1a'=true) & (cloada_rs1'=cloada_rs1 + APP0_CPU_LOADS) & (cspeeda_rs1'= APP0_CPU_SPEED) & (ta'=2) + 1-AVA_RS1:(av1a'=false) & (ta'=2);
-[ch2a?] (ta=1) & (sela=2) & (goala = true) -> AVA_RS2:(av2a'=true) & (cloada_rs2'=cloada_rs2 + APP0_CPU_LOADS) & (cspeeda_rs2'= APP0_CPU_SPEED) & (ta'=2) + 1-AVA_RS2:(av2a'=false) & (ta'=2);
-[ch3a?] (ta=1) & (sela=3) & (goala = true) -> AVA_RS3:(av3a'=true) & (cloada_rs3'=cloada_rs3 + APP0_CPU_LOADS) & (cspeeda_rs3'= APP0_CPU_SPEED) & (ta'=2) + 1-AVA_RS3:(av3a'=false) & (ta'=2);
-[ch4a?] (ta=1) & (sela=4) & (goala = true) -> AVA_RS4:(av4a'=true) & (cloada_rs4'=cloada_rs4 + APP0_CPU_LOADS) & (cspeeda_rs4'= APP0_CPU_SPEED) & (ta'=2) + 1-AVA_RS4:(av4a'=false) & (ta'=2);
-[ch5a?] (ta=1) & (sela=5) & (goala = true) -> AVA_RS5:(av5a'=true) & (cloada_rs5'=cloada_rs5 + APP0_CPU_LOADS) & (cspeeda_rs5'= APP0_CPU_SPEED) & (ta'=2) + 1-AVA_RS5:(av5a'=false) & (ta'=2);
-[ch6a?] (ta=1) & (sela=6) & (goala = true) -> AVA_RS6:(av6a'=true) & (cloada_rs6'=cloada_rs6 + APP0_CPU_LOADS) & (cspeeda_rs6'= APP0_CPU_SPEED) & (ta'=2) + 1-AVA_RS6:(av6a'=false) & (ta'=2);
-[ch7a?] (ta=1) & (sela=7) & (goala = true) -> AVA_RS7:(av7a'=true) & (cloada_rs7'=cloada_rs7 + APP0_CPU_LOADS) & (cspeeda_rs7'= APP0_CPU_SPEED) & (ta'=2) + 1-AVA_RS7:(av7a'=false) & (ta'=2);
+[ch0a?] (ta=1) & (sela=0) -> AVA_RS0:(av0a'=true) & (ta'=2) + 1-AVA_RS0:(av0a'=false) & (ta'=2);
+[ch1a?] (ta=1) & (sela=1) -> AVA_RS1:(av1a'=true) & (ta'=2) + 1-AVA_RS1:(av1a'=false) & (ta'=2);
+[ch2a?] (ta=1) & (sela=2) -> AVA_RS2:(av2a'=true) & (ta'=2) + 1-AVA_RS2:(av2a'=false) & (ta'=2);
+[ch3a?] (ta=1) & (sela=3) -> AVA_RS3:(av3a'=true) & (ta'=2) + 1-AVA_RS3:(av3a'=false) & (ta'=2);
+[ch4a?] (ta=1) & (sela=4) -> AVA_RS4:(av4a'=true) & (ta'=2) + 1-AVA_RS4:(av4a'=false) & (ta'=2);
+[ch5a?] (ta=1) & (sela=5) -> AVA_RS5:(av5a'=true) & (ta'=2) + 1-AVA_RS5:(av5a'=false) & (ta'=2);
+[ch6a?] (ta=1) & (sela=6) -> AVA_RS6:(av6a'=true) & (ta'=2) + 1-AVA_RS6:(av6a'=false) & (ta'=2);
+[ch7a?] (ta=1) & (sela=7) -> AVA_RS7:(av7a'=true) & (ta'=2) + 1-AVA_RS7:(av7a'=false) & (ta'=2);
 
 //start the move
 [be?] (ta=1) -> (ta'=2);
-[end?] (ta=2) -> (ta'=2);
+//[end?] (ta=2) -> (ta'=2);
 
 //schedule the turn between subsystems
 [] (ta=2) -> (ta'=0);
@@ -242,14 +242,14 @@ av6b: bool init true;
 av7b: bool init true;
 
 
-cloadb_rs0:[0..150] init RS0_CPU_LOADS_B;
-cloadb_rs1:[0..150] init RS1_CPU_LOADS_B;
-cloadb_rs2:[0..150] init RS2_CPU_LOADS_B;
-cloadb_rs3:[0..150] init RS3_CPU_LOADS_B;
-cloadb_rs4:[0..150] init RS4_CPU_LOADS_B;
-cloadb_rs5:[0..150] init RS5_CPU_LOADS_B;
-cloadb_rs6:[0..150] init RS6_CPU_LOADS_B;
-cloadb_rs7:[0..150] init RS7_CPU_LOADS_B;
+cloadb_rs0:[0..150] init 0;
+cloadb_rs1:[0..150] init 0;
+cloadb_rs2:[0..150] init 0;
+cloadb_rs3:[0..150] init 0;
+cloadb_rs4:[0..150] init 0;
+cloadb_rs5:[0..150] init 0;
+cloadb_rs6:[0..150] init 0;
+cloadb_rs7:[0..150] init 0;
 
 cspeedb_rs0:[0..5000] init 0;
 cspeedb_rs1:[0..5000] init 0;
@@ -261,31 +261,31 @@ cspeedb_rs6:[0..5000] init 0;
 cspeedb_rs7:[0..5000] init 0;
 
 // P1 moves:
-[r0b!] (tb=0) & (app1_rs0_sat_ml_all=true) & (goalb=false) & (av0b=true) -> (goalb'=true) & (selb'=0) & (tb'=1);
-[r1b!] (tb=0) & (app1_rs1_sat_ml_all=true) & (goalb=false) & (av1b=true) -> (goalb'=true) & (selb'=1) & (tb'=1);
-[r2b!] (tb=0) & (app1_rs2_sat_ml_all=true) & (goalb=false) & (av2b=true) -> (goalb'=true) & (selb'=2) & (tb'=1);
-[r3b!] (tb=0) & (app1_rs3_sat_ml_all=true) & (goalb=false) & (av3b=true) -> (goalb'=true) & (selb'=3) & (tb'=1);
-[r4b!] (tb=0) & (app1_rs4_sat_ml_all=true) & (goalb=false) & (av4b=true) -> (goalb'=true) & (selb'=4) & (tb'=1);
-[r5b!] (tb=0) & (app1_rs5_sat_ml_all=true) & (goalb=false) & (av5b=true) -> (goalb'=true) & (selb'=5) & (tb'=1);
-[r6b!] (tb=0) & (app1_rs6_sat_ml_all=true) & (goalb=false) & (av6b=true) -> (goalb'=true) & (selb'=6) & (tb'=1);
-[r7b!] (tb=0) & (app1_rs7_sat_ml_all=true) & (goalb=false) & (av7b=true) -> (goalb'=true) & (selb'=7) & (tb'=1);
+[r0b!] (tb=0) & (app1_rs0_sat_ml_all=true) & (goalb=false) -> (goalb'=true) & (selb'=0) & (cloadb_rs0'=cloadb_rs0 + APP1_CPU_LOADS) & (cspeedb_rs0'= APP1_CPU_SPEED + 2) & (tb'=1);
+[r1b!] (tb=0) & (app1_rs1_sat_ml_all=true) & (goalb=false) -> (goalb'=true) & (selb'=1) & (cloadb_rs1'=cloadb_rs1 + APP1_CPU_LOADS) & (cspeedb_rs1'= APP1_CPU_SPEED + 3) & (tb'=1);
+[r2b!] (tb=0) & (app1_rs2_sat_ml_all=true) & (goalb=false) -> (goalb'=true) & (selb'=2) & (cloadb_rs2'=cloadb_rs2 + APP1_CPU_LOADS) & (cspeedb_rs2'= APP1_CPU_SPEED + 4) & (tb'=1);
+[r3b!] (tb=0) & (app1_rs3_sat_ml_all=true) & (goalb=false) -> (goalb'=true) & (selb'=3) & (cloadb_rs3'=cloadb_rs3 + APP1_CPU_LOADS) & (cspeedb_rs3'= APP1_CPU_SPEED + 3) & (tb'=1);
+[r4b!] (tb=0) & (app1_rs4_sat_ml_all=true) & (goalb=false) -> (goalb'=true) & (selb'=4) & (cloadb_rs4'=cloadb_rs4 + APP1_CPU_LOADS) & (cspeedb_rs4'= APP1_CPU_SPEED + 2) & (tb'=1);
+[r5b!] (tb=0) & (app1_rs5_sat_ml_all=true) & (goalb=false) -> (goalb'=true) & (selb'=5) & (cloadb_rs5'=cloadb_rs5 + APP1_CPU_LOADS) & (cspeedb_rs5'= APP1_CPU_SPEED + 1) & (tb'=1);
+[r6b!] (tb=0) & (app1_rs6_sat_ml_all=true) & (goalb=false) -> (goalb'=true) & (selb'=6) & (cloadb_rs6'=cloadb_rs6 + APP1_CPU_LOADS) & (cspeedb_rs6'= APP1_CPU_SPEED + 4) & (tb'=1);
+[r7b!] (tb=0) & (app1_rs7_sat_ml_all=true) & (goalb=false) -> (goalb'=true) & (selb'=7) & (cloadb_rs7'=cloadb_rs7 + APP1_CPU_LOADS) & (cspeedb_rs7'= APP1_CPU_SPEED + 2) & (tb'=1);
 
 //terminate the process
 [endb!] (tb=0) & (goalb=true) -> (tb'=2);
 
 // P2 moves:
-[ch0b?] (tb=1) & (selb=0) & (goalb = true) -> AVB_RS0:(av0b'=true) & (cloadb_rs0'=cloadb_rs0 + APP1_CPU_LOADS) & (cspeedb_rs0'= APP1_CPU_SPEED) & (tb'=2) + 1-AVB_RS0:(av0b'=false) & (tb'=2);
-[ch1b?] (tb=1) & (selb=1) & (goalb = true) -> AVB_RS1:(av1b'=true) & (cloadb_rs1'=cloadb_rs1 + APP1_CPU_LOADS) & (cspeedb_rs1'= APP1_CPU_SPEED) & (tb'=2) + 1-AVB_RS1:(av1b'=false) & (tb'=2);
-[ch2b?] (tb=1) & (selb=2) & (goalb = true) -> AVB_RS2:(av2b'=true) & (cloadb_rs2'=cloadb_rs2 + APP1_CPU_LOADS) & (cspeedb_rs2'= APP1_CPU_SPEED) & (tb'=2) + 1-AVB_RS2:(av2b'=false) & (tb'=2);
-[ch3b?] (tb=1) & (selb=3) & (goalb = true) -> AVB_RS3:(av3b'=true) & (cloadb_rs3'=cloadb_rs3 + APP1_CPU_LOADS) & (cspeedb_rs3'= APP1_CPU_SPEED) & (tb'=2) + 1-AVB_RS3:(av3b'=false) & (tb'=2);
-[ch4b?] (tb=1) & (selb=4) & (goalb = true) -> AVB_RS4:(av4b'=true) & (cloadb_rs4'=cloadb_rs4 + APP1_CPU_LOADS) & (cspeedb_rs4'= APP1_CPU_SPEED) & (tb'=2) + 1-AVB_RS4:(av4b'=false) & (tb'=2);
-[ch5b?] (tb=1) & (selb=5) & (goalb = true) -> AVB_RS5:(av5b'=true) & (cloadb_rs5'=cloadb_rs5 + APP1_CPU_LOADS) & (cspeedb_rs5'= APP1_CPU_SPEED) & (tb'=2) + 1-AVB_RS5:(av5b'=false) & (tb'=2);
-[ch6b?] (tb=1) & (selb=6) & (goalb = true) -> AVB_RS6:(av6b'=true) & (cloadb_rs6'=cloadb_rs6 + APP1_CPU_LOADS) & (cspeedb_rs6'= APP1_CPU_SPEED) & (tb'=2) + 1-AVB_RS6:(av6b'=false) & (tb'=2);
-[ch7b?] (tb=1) & (selb=7) & (goalb = true) -> AVB_RS7:(av7b'=true) & (cloadb_rs7'=cloadb_rs7 + APP1_CPU_LOADS) & (cspeedb_rs7'= APP1_CPU_SPEED) & (tb'=2) + 1-AVB_RS7:(av7b'=false) & (tb'=2);
+[ch0b?] (tb=1) & (selb=0) -> AVB_RS0:(av0b'=true) & (tb'=2) + 1-AVB_RS0:(av0b'=false) & (tb'=2);
+[ch1b?] (tb=1) & (selb=1) -> AVB_RS1:(av1b'=true) & (tb'=2) + 1-AVB_RS1:(av1b'=false) & (tb'=2);
+[ch2b?] (tb=1) & (selb=2) -> AVB_RS2:(av2b'=true) & (tb'=2) + 1-AVB_RS2:(av2b'=false) & (tb'=2);
+[ch3b?] (tb=1) & (selb=3) -> AVB_RS3:(av3b'=true) & (tb'=2) + 1-AVB_RS3:(av3b'=false) & (tb'=2);
+[ch4b?] (tb=1) & (selb=4) -> AVB_RS4:(av4b'=true) & (tb'=2) + 1-AVB_RS4:(av4b'=false) & (tb'=2);
+[ch5b?] (tb=1) & (selb=5) -> AVB_RS5:(av5b'=true) & (tb'=2) + 1-AVB_RS5:(av5b'=false) & (tb'=2);
+[ch6b?] (tb=1) & (selb=6) -> AVB_RS6:(av6b'=true) & (tb'=2) + 1-AVB_RS6:(av6b'=false) & (tb'=2);
+[ch7b?] (tb=1) & (selb=7) -> AVB_RS7:(av7b'=true) & (tb'=2) + 1-AVB_RS7:(av7b'=false) & (tb'=2);
 
 //start the move
 [be?] (tb=1) -> (tb'=2);
-[end?] (tb=2) -> (tb'=2);
+//[end?] (tb=2) -> (tb'=2);
 
 //schedule the turn between subsystems
 [] (tb=2) -> (tb'=0);
@@ -817,14 +817,14 @@ formula rwd_app0_cpu_speed =
 
 
 formula rwd_app0_cpu_loads = 
-		( sela = 0 ? cloada_rs0 + cloadb_rs0 :
-              	( sela = 1 ? cloada_rs1 + cloadb_rs1 :
-              	( sela = 2 ? cloada_rs2 + cloadb_rs2 :
-              	( sela = 3 ? cloada_rs3 + cloadb_rs3 :
-              	( sela = 4 ? cloada_rs4 + cloadb_rs4 : 
-		( sela = 5 ? cloada_rs5 + cloadb_rs5 :
-		( sela = 6 ? cloada_rs6 + cloadb_rs6 :
-		( sela = 7 ? cloada_rs7 + cloadb_rs7 : 0 ))))))));
+		( sela = 0 ? cloada_rs0 :
+              	( sela = 1 ? cloada_rs1 :
+              	( sela = 2 ? cloada_rs2 :
+              	( sela = 3 ? cloada_rs3 :
+              	( sela = 4 ? cloada_rs4 : 
+		( sela = 5 ? cloada_rs5 :
+		( sela = 6 ? cloada_rs6 :
+		( sela = 7 ? cloada_rs7 : 0 ))))))));
 
 //formula for application 1
 
@@ -839,14 +839,14 @@ formula rwd_app1_cpu_speed =
 		( selb = 7 ? cspeedb_rs7 : 0 ))))))));
 
 formula rwd_app1_cpu_loads = 
-		( selb = 0 ? cloadb_rs0 + cloada_rs0 :
-              	( selb = 1 ? cloadb_rs1 + cloada_rs1 :
-              	( selb = 2 ? cloadb_rs2 + cloada_rs2 :
-              	( selb = 3 ? cloadb_rs3 + cloada_rs3 :
-              	( selb = 4 ? cloadb_rs4 + cloada_rs4 : 
-		( selb = 5 ? cloadb_rs5 + cloada_rs5 :
-		( selb = 6 ? cloadb_rs6 + cloada_rs6 :
-		( selb = 7 ? cloadb_rs7 + cloada_rs7 : 0 ))))))));
+		( selb = 0 ? cloadb_rs0  :
+              	( selb = 1 ? cloadb_rs1  :
+              	( selb = 2 ? cloadb_rs2  :
+              	( selb = 3 ? cloadb_rs3  :
+              	( selb = 4 ? cloadb_rs4  : 
+		( selb = 5 ? cloadb_rs5  :
+		( selb = 6 ? cloadb_rs6  :
+		( selb = 7 ? cloadb_rs7  : 0 ))))))));
 
 
 //formula for all application
@@ -897,21 +897,54 @@ formula rwd_all_cpu_loads =
 //for component 1 : cpu speed
 rewards "c1_rt"
 [enda] true : rwd_app0_cpu_speed;
+//sela>-1 : rwd_app0_cpu_speed;
+//[r0a] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r1a] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r2a] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r3a] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r4a] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r5a] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r6a] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r7a] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
 endrewards
 
 //for component 1 : cpu load
 rewards "c1_ru"
 [enda] true : rwd_app0_cpu_loads;
+//[r0a] true : cloada_rs0 + cloadb_rs0;
+//[r1a] true : cloada_rs1 + cloadb_rs1;
+//[r2a] true : cloada_rs2 + cloadb_rs2;
+//[r3a] true : cloada_rs3 + cloadb_rs3;
+//[r4a] true : cloada_rs4 + cloadb_rs4;
+//[r5a] true : cloada_rs5 + cloadb_rs5;
+//[r6a] true : cloada_rs6 + cloadb_rs6;
+//[r7a] true : cloada_rs7 + cloadb_rs7;
 endrewards
 
 //for component 2 : cpu speed
 rewards "c2_rt"
 [endb] true : rwd_app1_cpu_speed;
+//[r0b] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r1b] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r2b] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r3b] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r4b] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r5b] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r6b] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
+//[r7b] true : max(rwd_app0_cpu_speed, rwd_app1_cpu_speed);
 endrewards
 
 //for component 2 : cpu load
 rewards "c2_ru"
 [endb] true : rwd_app1_cpu_loads;
+//[r0b] true : cloada_rs0 + cloadb_rs0;
+//[r1b] true : cloada_rs1 + cloadb_rs1;
+//[r2b] true : cloada_rs2 + cloadb_rs2;
+//[r3b] true : cloada_rs3 + cloadb_rs3;
+//[r4b] true : cloada_rs4 + cloadb_rs4;
+//[r5b] true : cloada_rs5 + cloadb_rs5;
+//[r6b] true : cloada_rs6 + cloadb_rs6;
+//[r7b] true : cloada_rs7 + cloadb_rs7;
 endrewards
 
 
@@ -921,7 +954,7 @@ endrewards
 
 //for component 1 : cpu speed 
 rewards "c11_rt"
-[enda] true : rwd_all_cpu_speed;
+[enda] true : rwd_all_cpu_speed; 
 endrewards
 
 //for component 1 : cpu load 
@@ -941,8 +974,8 @@ endrewards
 
 //==========================================
 //LABELS
-label "done1" = ta=2;
-label "done2" = tb=2;
+label "done1" = (goala=true & sela>-1);
+label "done2" = (goalb=true & selb>-1);
 
 label "same" = (sela>-1 & selb>-1 & sela=selb);
 

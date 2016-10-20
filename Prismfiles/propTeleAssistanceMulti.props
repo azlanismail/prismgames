@@ -1,6 +1,6 @@
 const double MAXCS = 14;
 const double MAXFR = 0.25;
-const double MAXRT = 34;
+const double MAXRT = 30;
 
 <<am>> R{"cost"}min=? [ F "done" ]
 
@@ -10,7 +10,7 @@ const double MAXRT = 34;
 
 <<am>> R{"utilityGoal"}max=? [ F "done" ]
 
-<<am>> R{"cost"}<=MAXCS [ S ] & R{"reliability"}<=MAXFR [ S ] & R{"time"}<=MAXRT [ S ]
+<<am>> R{"cost"}<=MAXCS [ S ]&R{"reliability"}<=MAXFR [ S ]&R{"time"}<=MAXRT [ S ]
 
 <<am>> R{"cost"}max=? [ F "done" ]
 
