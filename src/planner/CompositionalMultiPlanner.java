@@ -46,8 +46,8 @@ public class CompositionalMultiPlanner {
 		String desktopPath = "H:/git/MultiPlanner/PlanningComp2/";
 		String linuxPath = "/home/azlan/git/PrismGames/";
 		String mainPath = linuxPath;
-		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v9.prism";
-		String propPath = mainPath+"Prismfiles/propCompModel.props";
+		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v23.prism";
+		String propPath = mainPath+"Prismfiles/propCloudAdaptive.props";
 		String modelConstPath = mainPath+"IOFiles/ModelConstants.txt";
 		String propConstPath = mainPath+"IOFiles/PropConstants.txt";
 		String stratPath1 = mainPath+"IOFiles/strategyInitial";
@@ -125,7 +125,7 @@ public class CompositionalMultiPlanner {
 		    
 		    
 			System.out.println("Planning is based on compositional games");
-			resultSMG = smc.check(propertiesFile.getProperty(0));
+			resultSMG = smc.check(propertiesFile.getProperty(5));
 		}	
 	    
 	    public void outcomefromModelChecking()
