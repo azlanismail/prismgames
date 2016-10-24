@@ -267,6 +267,9 @@ public class StrategyExtraction {
 		
 	}
 	
+	/**
+	 * Objective: To extract the selected action from the strategy profiles
+	 */
 	public void findDecision()
 	{
 		int maxSizeStrat1 = substrat1States.size();
@@ -390,6 +393,11 @@ public class StrategyExtraction {
 			return null;
 	}
 
+	/**
+	 * Objective: To return the selected action based on the the respective game/component.
+	 * @param type
+	 * @return
+	 */
 	public String getDecision(int type) {
 	
 		String nodeName;

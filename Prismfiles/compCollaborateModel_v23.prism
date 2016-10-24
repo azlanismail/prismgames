@@ -35,7 +35,7 @@ const int MAX_CLOUD_LOAD = 50; //UB for cpu load of a cloud
 //APPLICATION REQUIREMENTS
 const int APP0_ID = 0;
 const int APP0_CPU_CORES = 1;
-const int APP0_CPU_LOADS = 40;
+const int APP0_CPU_LOADS = 30;
 const int APP0_CPU_SPEED = 300;
 const int APP0_TOTALMEMORY = 20;
 const int APP0_FREEMEMORY = 20;
@@ -186,16 +186,17 @@ av7a: bool init true;
 [r7a!] (ta=0) & (goala=false) -> (goala'=true) & (sela'=7) & (ta'=1);
 //terminate the process
 [enda!] (ta=0) & (goala=true) -> (ta'=2);
+[enda!] (ta=0) & (goala=true) & (execa=true) -> (ta'=2);
 
 // P2 moves:
 [ch0a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS0:(av0a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS0:(av0a'=false) & (execa'=false) & (ta'=2);
-[ch1a?] (ta=1) & (execa=false) & (sela=1) -> AVA_RS1:(av1a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS1:(av1a'=false) & (execa'=false) & (ta'=2);
-[ch2a?] (ta=1) & (execa=false) & (sela=2) -> AVA_RS2:(av2a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS2:(av2a'=false) & (execa'=false) & (ta'=2);
-[ch3a?] (ta=1) & (execa=false) & (sela=3) -> AVA_RS3:(av3a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS3:(av3a'=false) & (execa'=false) & (ta'=2);
-[ch4a?] (ta=1) & (execa=false) & (sela=4) -> AVA_RS4:(av4a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS4:(av4a'=false) & (execa'=false) & (ta'=2);
-[ch5a?] (ta=1) & (execa=false) & (sela=5) -> AVA_RS5:(av5a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS5:(av5a'=false) & (execa'=false) & (ta'=2);
-[ch6a?] (ta=1) & (execa=false) & (sela=6) -> AVA_RS6:(av6a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS6:(av6a'=false) & (execa'=false) & (ta'=2);
-[ch7a?] (ta=1) & (execa=false) & (sela=7) -> AVA_RS7:(av7a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS7:(av7a'=false) & (execa'=false) & (ta'=2);
+[ch1a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS1:(av1a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS1:(av1a'=false) & (execa'=false) & (ta'=2);
+[ch2a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS2:(av2a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS2:(av2a'=false) & (execa'=false) & (ta'=2);
+[ch3a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS3:(av3a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS3:(av3a'=false) & (execa'=false) & (ta'=2);
+[ch4a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS4:(av4a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS4:(av4a'=false) & (execa'=false) & (ta'=2);
+[ch5a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS5:(av5a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS5:(av5a'=false) & (execa'=false) & (ta'=2);
+[ch6a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS6:(av6a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS6:(av6a'=false) & (execa'=false) & (ta'=2);
+[ch7a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS7:(av7a'=true) & (execa'=true) & (ta'=2) + 1-AVA_RS7:(av7a'=false) & (execa'=false) & (ta'=2);
 
 //start the move
 [be?] (ta=1) -> (ta'=2);
@@ -237,6 +238,7 @@ av7b: bool init true;
 
 //terminate the process
 [endb!] (tb=0) & (goalb=true) -> (tb'=2);
+[endb!] (tb=0) & (goalb=true) & (execb=true) -> (tb'=2);
 
 // P2 moves:
 [ch0b?] (tb=1) & (execb=false) & (selb=0) -> AVB_RS0:(av0b'=true) & (execb'=true) & (tb'=2) + 1-AVB_RS0:(av0b'=false) & (execb'=false) & (tb'=2);
@@ -775,7 +777,6 @@ formula app1_rs7_sat =
 
 //for component 1 : cpu speed
 rewards "c1_rt"
-//[enda] true : rwd_app0_cpu_speed;
 [r0a] true : APP0_CPU_SPEED + 1;
 [r1a] true : APP0_CPU_SPEED + 2;
 [r2a] true : APP0_CPU_SPEED + 3;
@@ -788,7 +789,6 @@ endrewards
 
 //for component 1 : cpu load
 rewards "c1_ru"
-//[enda] true : rwd_app0_cpu_loads;
 [r0a] true : RS0_CPU_LOADS + APP0_CPU_LOADS;
 [r1a] true : RS1_CPU_LOADS + APP0_CPU_LOADS;
 [r2a] true : RS2_CPU_LOADS + APP0_CPU_LOADS;
@@ -797,12 +797,10 @@ rewards "c1_ru"
 [r5a] true : RS5_CPU_LOADS + APP0_CPU_LOADS;
 [r6a] true : RS6_CPU_LOADS + APP0_CPU_LOADS;
 [r7a] true : RS7_CPU_LOADS + APP0_CPU_LOADS;
-
 endrewards
 
 //for component 2 : cpu speed
 rewards "c2_rt"
-//[endb] true : rwd_app1_cpu_speed;
 [r0b] true : APP1_CPU_SPEED + 1;
 [r1b] true : APP1_CPU_SPEED + 2;
 [r2b] true : APP1_CPU_SPEED + 3;
@@ -815,7 +813,6 @@ endrewards
 
 //for component 2 : cpu load
 rewards "c2_ru"
-//[endb] true : rwd_app1_cpu_loads;
 [r0b] true : RS0_CPU_LOADS + APP1_CPU_LOADS;
 [r1b] true : RS1_CPU_LOADS + APP1_CPU_LOADS;
 [r2b] true : RS2_CPU_LOADS + APP1_CPU_LOADS;
@@ -832,8 +829,7 @@ endrewards
 
 formula max_rw_cpu_speed = max(APP0_CPU_SPEED, APP1_CPU_SPEED);
 //for component 1 : cpu speed 
-rewards "call_rt"
-//[enda] true : rwd_all_cpu_speed; 
+rewards "call_rt" 
 [r0b] true : RS0_CPU_LOADS + max_rw_cpu_speed;
 [r1b] true : RS1_CPU_LOADS + max_rw_cpu_speed;
 [r2b] true : RS2_CPU_LOADS + max_rw_cpu_speed;
@@ -842,13 +838,11 @@ rewards "call_rt"
 [r5b] true : RS5_CPU_LOADS + max_rw_cpu_speed;
 [r6b] true : RS6_CPU_LOADS + max_rw_cpu_speed;
 [r7b] true : RS7_CPU_LOADS + max_rw_cpu_speed;
-
 endrewards
 
 formula sum_rw_cpu_loads = APP0_CPU_LOADS + APP1_CPU_LOADS;
 //for component 1 : cpu load 
 rewards "call_ru"
-//[enda] true : rwd_all_cpu_loads;
 [r0b] true : RS0_CPU_LOADS + sum_rw_cpu_loads;
 [r1b] true : RS1_CPU_LOADS + sum_rw_cpu_loads;
 [r2b] true : RS2_CPU_LOADS + sum_rw_cpu_loads;
@@ -859,15 +853,64 @@ rewards "call_ru"
 [r7b] true : RS7_CPU_LOADS + sum_rw_cpu_loads;
 endrewards
 
-//for component 2 : cpu speed
-rewards "c22_rt"
-//[endb] true : rwd_all_cpu_speed;
-endrewards
+formula availa_rs0 = ( av0a=true ? 1 : 0 );
+formula availa_rs1 = ( av1a=true ? 1 : 0 );
+formula availa_rs2 = ( av2a=true ? 1 : 0 );
+formula availa_rs3 = ( av3a=true ? 1 : 0 );
+formula availa_rs4 = ( av4a=true ? 1 : 0 );
+formula availa_rs5 = ( av5a=true ? 1 : 0 );
+formula availa_rs6 = ( av6a=true ? 1 : 0 );
+formula availa_rs7 = ( av7a=true ? 1 : 0 );
 
-//for component 2 : cpu load 
-rewards "c22_ru"
-//[endb] true : rwd_all_cpu_loads;
-endrewards
+formula availb_rs0 = ( av0b=true ? 1 : 0 );
+formula availb_rs1 = ( av1b=true ? 1 : 0 );
+formula availb_rs2 = ( av2b=true ? 1 : 0 );
+formula availb_rs3 = ( av3b=true ? 1 : 0 );
+formula availb_rs4 = ( av4b=true ? 1 : 0 );
+formula availb_rs5 = ( av5b=true ? 1 : 0 );
+formula availb_rs6 = ( av6b=true ? 1 : 0 );
+formula availb_rs7 = ( av7b=true ? 1 : 0 );
+
+//rewards "avail_rs0"
+//[ch0a] true: availa_rs0;
+//[ch0b] true: availb_rs0;
+//endrewards
+
+//rewards "avail_rs1"
+//[ch1a] true: availa_rs1;
+//[ch1b] true: availb_rs1;
+//endrewards
+
+//rewards "avail_rs2"
+//[ch2a] true: availa_rs2;
+//[ch2b] true: availb_rs2;
+//endrewards
+
+//rewards "avail_rs3"
+//[ch3a] true: availa_rs3;
+//[ch3b] true: availb_rs3;
+//endrewards
+
+//rewards "avail_rs4"
+//[ch4a] true: availa_rs4;
+//[ch4b] true: availb_rs4;
+//endrewards
+
+
+//rewards "avail_rs5"
+//[ch5a] true: availa_rs5;
+//[ch5b] true: availb_rs5;
+//endrewards
+
+//rewards "avail_rs6"
+//[ch6a] true: availa_rs6;
+//[ch6b] true: availb_rs6;
+//endrewards
+
+//rewards "avail_rs7"
+//[ch7a] true: availa_rs7;
+//[ch7b] true: availb_rs7;
+//endrewards
 
 //==========================================
 //LABELS

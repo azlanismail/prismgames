@@ -6,6 +6,7 @@ import java.util.Random;
 
 import explicit.Model;
 import explicit.PrismExplicit;
+import explicit.SMGModelChecker;
 import explicit.CompositionalSMGModelChecker;
 import parser.Values;
 import parser.ast.ModulesFile;
@@ -33,9 +34,10 @@ public class CompositionalMultiPlanner {
 		PropertiesFile propertiesFile;
 		SimulatorEngine simEngine;
 		Model model;
-		Result resultSMG;
+		Result resultProb, resultRwd1, resultRwd2, resultRwd3, resultRwd4, resultCSMG, resultComp;
 		Strategy strategy;
-		CompositionalSMGModelChecker smc;
+		SMGModelChecker smg;
+		CompositionalSMGModelChecker csmg;
 		PrismSettings ps;
 		StrategyExtraction ste;
 		ConfigurationPlanner conf;
@@ -88,7 +90,9 @@ public class CompositionalMultiPlanner {
 	    	   	
 	    	//I need to access SMGModelChecker directly to manipulate the strategy
 	    	try {
-				smc = new CompositionalSMGModelChecker(prism, modulesFile, propertiesFile, prism.getSimulator());
+	    		smg = new SMGModelChecker(prism);
+	    		smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
+				csmg = new CompositionalSMGModelChecker(prism, modulesFile, propertiesFile, prism.getSimulator());
 			} catch (PrismException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -120,17 +124,40 @@ public class CompositionalMultiPlanner {
 		
 		public void checkModelbyPrismEx() throws PrismLangException, PrismException
 		{
-			smc.setComputeParetoSet(false);
-		    smc.setGenerateStrategy(true);
+			csmg.setComputeParetoSet(false);
+		    csmg.setGenerateStrategy(true);
 		    
+		    System.out.println("Planning is based on compositional games");
+			resultProb = smg.check(model, propertiesFile.getProperty(0));
+			double resProb = (double) resultProb.getResult();
+			
+			if(resProb > 0.0) {
+				resultRwd1 = smg.check(model, propertiesFile.getProperty(1));
+				resultRwd2 = smg.check(model, propertiesFile.getProperty(2));
+				resultRwd3 = smg.check(model, propertiesFile.getProperty(3));
+				resultRwd4 = smg.check(model, propertiesFile.getProperty(4));
+				resultComp= csmg.check(propertiesFile.getProperty(5));
+				boolean compStatus = (boolean) resultComp.getResult();
+				if (compStatus) {
+					resultCSMG = smg.check(model, propertiesFile.getProperty(9));
+					//resultCSMG = csmg.check(propertiesFile.getProperty(9));
+				}
+			}
 		    
-			System.out.println("Planning is based on compositional games");
-			resultSMG = smc.check(propertiesFile.getProperty(5));
+			//System.out.println("Planning is based on compositional games");
+			//resultCSMG = csmg.check(propertiesFile.getProperty(0));
+			
 		}	
 	    
 	    public void outcomefromModelChecking()
 	    {
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultSMG.getResultString()); 	 
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultProb.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd1.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd2.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd3.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd4.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultComp.getResult());
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultCSMG.getResult()); 
 	    }
 	    
 	    public void outcomefromModelBuilding()
@@ -165,7 +192,7 @@ public class CompositionalMultiPlanner {
 	    {
 	    	//assign the pointer from SMGModelChecker to strategy
 	    	System.out.println("exporting the strategy");
-	    	strategy =  resultSMG.getStrategy(); // smc.getStrategy();
+	    	strategy =  resultCSMG.getStrategy(); // smc.getStrategy();
 	    	
 	    	if (this.stage == 0) {
 	    	//export to .adv file
@@ -228,15 +255,15 @@ public class CompositionalMultiPlanner {
 				e.printStackTrace();
 			}
 	        //strategy related process
-	       	exportStrategy();
+	     //  	exportStrategy();
 	       	
 	       	//get the adaptation strategy
-	       	try {
- 				getAdaptStrategy();
- 			} 
- 			catch (IllegalArgumentException e) {
- 				e.printStackTrace();
- 			}
+	   //    	try {
+ 		//		getAdaptStrategy();
+ 		//	} 
+ 		//	catch (IllegalArgumentException e) {
+ 		//		e.printStackTrace();
+ 		//	}
 	    }//end of synthesis
 	    
 	    public int getMaxResource() {
@@ -288,7 +315,7 @@ public class CompositionalMultiPlanner {
 	 			tm.start();
 	 			System.out.println("number of cycle :"+i);
 	 			plan.generate();
-	 			plan.getDecision(0);
+	 			//plan.getDecision(0);
 	 			tm.stop();
 	 			time[i] = tm.getDuration();
 	 	    }
