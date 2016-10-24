@@ -34,7 +34,7 @@ public class CompositionalMultiPlanner {
 		PropertiesFile propertiesFile;
 		SimulatorEngine simEngine;
 		Model model;
-		Result resultProb, resultRwd1, resultRwd2, resultRwd3, resultRwd4, resultCSMG, resultComp;
+		Result resultProb, resultRwd1, resultRwd2, resultRwd3, resultRwd4, resultCSMG, resultComp, resultMulti1, resultMulti2;
 		Strategy strategy;
 		SMGModelChecker smg;
 		CompositionalSMGModelChecker csmg;
@@ -139,7 +139,8 @@ public class CompositionalMultiPlanner {
 				resultComp= csmg.check(propertiesFile.getProperty(5));
 				boolean compStatus = (boolean) resultComp.getResult();
 				if (compStatus) {
-					resultCSMG = smg.check(model, propertiesFile.getProperty(9));
+					resultMulti1 = smg.check(model, propertiesFile.getProperty(8));
+					resultMulti2 = smg.check(model, propertiesFile.getProperty(9));
 					//resultCSMG = csmg.check(propertiesFile.getProperty(9));
 				}
 			}
@@ -157,7 +158,9 @@ public class CompositionalMultiPlanner {
 	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd3.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd4.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ resultComp.getResult());
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultCSMG.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultMulti1.getResult());
+	    	 System.out.println("The result from model checking (SMG) is :"+ resultMulti2.getResultString());
+	    	// System.out.println("The result from model checking (SMG) is :"+ resultCSMG.getResult()); 
 	    }
 	    
 	    public void outcomefromModelBuilding()
