@@ -34,7 +34,7 @@ public class CompositionalMultiPlanner {
 		PropertiesFile propertiesFile;
 		SimulatorEngine simEngine;
 		Model model;
-		Result resultProb, resultRwd1, resultRwd2, resultRwd3, resultRwd4, resultCSMG, resultComp, resultMulti1, resultMulti2;
+		Result rsProb, rsRwd1, rsRwd2, rsRwd3, rsRwd4, rsCSMG, rsComp, rsMulti1, rsMulti2;
 		Strategy strategy;
 		SMGModelChecker smg;
 		CompositionalSMGModelChecker csmg;
@@ -102,13 +102,11 @@ public class CompositionalMultiPlanner {
 	    	ste = new StrategyExtraction(mappingPath, transPath2, stratPath2, actionLabelAPath, actionLabelBPath);	
 	    }
 			
-		public void setApplicationRequirements(int id, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory){
-			
-			//cpuSpeed / denominator
-			conf.setAppRequirements(id, cpuCores, cpuSpeed, cpuLoads, totalMemory, freeMemory);
+		public void setApplicationRequirements(int id, int cpuCores, double cpuLoads, double cpuSpeed, int totalMemory, int freeMemory){
+			conf.setAppRequirements(id, cpuCores, cpuLoads, cpuSpeed, totalMemory, freeMemory);
 		}
 		
-		public void setNodeCapabilities(int id, String name, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory, String location){
+		public void setNodeCapabilities(int id, String name, int cpuCores, double cpuSpeed, double cpuLoads, int totalMemory, int freeMemory, String location){
 			conf.setNodeCapabilities(id, name, cpuCores, cpuSpeed, cpuLoads, totalMemory, freeMemory, location);
 		}
 
@@ -128,19 +126,23 @@ public class CompositionalMultiPlanner {
 		    csmg.setGenerateStrategy(true);
 		    
 		    System.out.println("Planning is based on compositional games");
-			resultProb = smg.check(model, propertiesFile.getProperty(0));
-			double resProb = (double) resultProb.getResult();
+			rsProb = smg.check(model, propertiesFile.getProperty(0));
+			double resProb = (double)rsProb.getResult();
 			
 			if(resProb > 0.0) {
-				resultRwd1 = smg.check(model, propertiesFile.getProperty(1));
-				resultRwd2 = smg.check(model, propertiesFile.getProperty(2));
-				resultRwd3 = smg.check(model, propertiesFile.getProperty(3));
-				resultRwd4 = smg.check(model, propertiesFile.getProperty(4));
-				resultComp= csmg.check(propertiesFile.getProperty(5));
-				boolean compStatus = (boolean) resultComp.getResult();
+				rsRwd1 = smg.check(model, propertiesFile.getProperty(1)); //max reward of cpu speed of G0
+				rsRwd2 = smg.check(model, propertiesFile.getProperty(2)); //max reward of cpu load of G0
+				rsRwd3 = smg.check(model, propertiesFile.getProperty(3)); //max reward of cpu speed of G1
+				rsRwd4 = smg.check(model, propertiesFile.getProperty(4)); //max reward of cpu load of G1
+				
+				//assign the UB rewards to the compositional properties
+				conf.setUpperBoundsMultiObjectives((double)rsRwd1.getResult(), (double)rsRwd2.getResult(), (double)rsRwd3.getResult(), (double)rsRwd4.getResult());
+				propertiesFile.setUndefinedConstants(conf.getDefinedProperties());
+				rsComp= csmg.check(propertiesFile.getProperty(5));
+				boolean compStatus = (boolean) rsComp.getResult();
 				if (compStatus) {
-					resultMulti1 = smg.check(model, propertiesFile.getProperty(8));
-					resultMulti2 = smg.check(model, propertiesFile.getProperty(9));
+					rsMulti1 = smg.check(model, propertiesFile.getProperty(8));
+					rsMulti2 = smg.check(model, propertiesFile.getProperty(9));
 					//resultCSMG = csmg.check(propertiesFile.getProperty(9));
 				}
 			}
@@ -152,14 +154,14 @@ public class CompositionalMultiPlanner {
 	    
 	    public void outcomefromModelChecking()
 	    {
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultProb.getResult()); 
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd1.getResult()); 
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd2.getResult()); 
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd3.getResult()); 
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultRwd4.getResult()); 
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultComp.getResult());
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultMulti1.getResult());
-	    	 System.out.println("The result from model checking (SMG) is :"+ resultMulti2.getResultString());
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsProb.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd1.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd2.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd3.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd4.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult());
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResultString());
 	    	// System.out.println("The result from model checking (SMG) is :"+ resultCSMG.getResult()); 
 	    }
 	    
@@ -195,7 +197,7 @@ public class CompositionalMultiPlanner {
 	    {
 	    	//assign the pointer from SMGModelChecker to strategy
 	    	System.out.println("exporting the strategy");
-	    	strategy =  resultCSMG.getStrategy(); // smc.getStrategy();
+	    	strategy =  rsCSMG.getStrategy(); // smc.getStrategy();
 	    	
 	    	if (this.stage == 0) {
 	    	//export to .adv file
@@ -203,6 +205,7 @@ public class CompositionalMultiPlanner {
 	    	}else {
 	    		strategy.exportToFile(stratPath2);
 	    	}
+	    	
 	    }
 	    
 	       
@@ -294,8 +297,8 @@ public class CompositionalMultiPlanner {
 	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(stage); 		
 			
 	 		
-	 		plan.setApplicationRequirements(0, 1, 300, 0.0, 0, 0);
-	 		plan.setApplicationRequirements(1, 1, 0, 0.0, 0, 0);
+	 		plan.setApplicationRequirements(0, 1, 30.0, 300.0, 20, 20);
+	 		plan.setApplicationRequirements(1, 1, 25.0, 600.0, 20, 20);
 	 		
 	 		plan.setNodeCapabilities(0, "NODE0", 1, 200, 0.3, 1000, 500, "LOC0");
 	 		plan.setNodeCapabilities(1, "NODE1", 1, 200, 0.3, 1000, 500, "LOC1");

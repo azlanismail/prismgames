@@ -7,7 +7,7 @@ import parser.Values;
 
 public class ConfigurationPlanner {
 
-	private Values vm;
+			Values vm, vp;
 	
 	//Defining parameters to the stochastic-games model
 			String md_probe = "CUR_PROBE";
@@ -30,17 +30,20 @@ public class ConfigurationPlanner {
 			String md_wg_rt = "WG_RT";  
 			String md_wg_fr = "WG_FR"; 
 			
+			
+			
 	private int MaxResource = 0;
 	
 	private ArrayList<String> nodeIdlist;
 			
 	public ConfigurationPlanner() {
 		vm = new Values();
+		vp = new Values();
 		this.MaxResource = 8;
 		nodeIdlist = new ArrayList<String>();
 	}
 	
-	public void setAppRequirements(int id, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory) {
+	public void setAppRequirements(int id, int cpuCores, double cpuLoads, double cpuSpeed, int totalMemory, int freeMemory) {
 		//set the following:
 		
 		String md_id = "APP"+id+"_ID";
@@ -52,15 +55,15 @@ public class ConfigurationPlanner {
 		
 		
 		System.out.println("the received requirements are, id:"+id+", cpu cores:"+cpuCores+", cpu loads:"+cpuLoads+", cpu speed:"+cpuSpeed);
-		vm.setValue(md_id, id);
-		vm.setValue(md_cpuCores, cpuCores);
-		vm.setValue(md_cpuLoads, cpuLoads);
-		vm.setValue(md_cpuSpeed, cpuSpeed);
-		vm.setValue(md_totalMemory, totalMemory);
-		vm.setValue(md_freeMemory, freeMemory);
+		vm.addValue(md_id, id);
+		vm.addValue(md_cpuCores, cpuCores);
+		vm.addValue(md_cpuLoads, cpuLoads);
+		vm.addValue(md_cpuSpeed, cpuSpeed);
+		vm.addValue(md_totalMemory, totalMemory);
+		vm.addValue(md_freeMemory, freeMemory);
 	}
 	
-	public void setNodeCapabilities(int id, String name, int cpuCores, int cpuSpeed, double cpuLoads, int totalMemory, int freeMemory, String location){
+	public void setNodeCapabilities(int id, String name, int cpuCores, double cpuSpeed, double cpuLoads, int totalMemory, int freeMemory, String location){
 		//set the following:
 		String md_id = "RS"+id+"_ID";
 		String md_name = "RS"+id+"_NAME";
@@ -85,6 +88,23 @@ public class ConfigurationPlanner {
 		nodeIdlist.add(name);
 	}
 	
+	public void setUpperBoundsMultiObjectives(double g0q1, double g0q2, double g1q1, double g1q2) {
+	
+		//UB for multi-objective properties
+		String ub_game0_q1 = "MAXRTA";  //UB for cpu speed of game 0
+		String ub_game0_q2 = "MAXRUA";  //UB for cpu loads of game 0
+		String ub_game1_q1 = "MAXRTB";  //UB for cpu speed of game 1
+		String ub_game1_q2 = "MAXRUB";  //UB for cpu loads of game 1
+				
+		
+		System.out.println("the received upper bounds are:"+g0q1+","+g0q2+","+g1q1+","+g1q2);
+		
+		vp.setValue(ub_game0_q1, g0q1);
+		vp.setValue(ub_game0_q2, g0q2);
+		vp.setValue(ub_game1_q1, g1q1);
+		vp.setValue(ub_game1_q2, g1q2);
+		
+	}
 		
 	public void setConstantsGoalType(int goalType) {
 		vm.setValue(md_goalTY, goalType);
@@ -114,6 +134,10 @@ public class ConfigurationPlanner {
 		return vm;
 	}
 	
+	public Values getDefinedProperties() {
+		return vp;
+	}
+	
 	public int getMaxResource() {
 		return this.MaxResource;
 	}
@@ -129,6 +153,7 @@ public class ConfigurationPlanner {
 		conf.setNodeCapabilities(1, "NODE1", 3, 3, 0.5, 3, 3, "LOC1");
 		conf.setNodeCapabilities(1, "NODE2", 3, 3, 0.5, 3, 3, "LOC1");
 		conf.setNodeCapabilities(1, "NODE3", 3, 3, 0.5, 3, 3, "LOC1");
+		conf.setUpperBoundsMultiObjectives(1000, 100, 1000, 100);
 		nodeid = conf.getNodeIdList();
 		System.out.println("Success");
 		System.out.println("the data in node id list: "+nodeid);
