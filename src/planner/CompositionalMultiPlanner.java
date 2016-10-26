@@ -114,7 +114,8 @@ public class CompositionalMultiPlanner {
 		{
 			//assign constants values to the model 
 	    	modulesFile.setUndefinedConstants(conf.getDefinedValues());
-	 		
+	    	//modulesFile.setUndefinedConstants(vm);
+	    	
 	    	//build the model
 		    model = prismEx.buildModel(modulesFile, prism.getSimulator());
 		   

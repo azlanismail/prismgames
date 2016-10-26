@@ -2,6 +2,7 @@ package planner;
 
 public class GeneratedStrategy {
 
+
 	private int current_state;
 	private int current_move;
 	private int current_corner;

@@ -2,29 +2,29 @@
 Building model...
 
 Computing reachable states... 45 states
-Reachable states exploration and model construction done in 0.309 secs.
+Reachable states exploration and model construction done in 0.216 secs.
 Sorting reachable states list...
 
 Computing reachable states... 59 states
-Reachable states exploration and model construction done in 0.155 secs.
+Reachable states exploration and model construction done in 0.273 secs.
 Sorting reachable states list...
 Progress:
 (1000/~2655)
-product construction took 0.640592 s
+product construction took 1.124324 s
 
-Time for model construction: 1.337 seconds.
+Time for model construction: 1.649 seconds.
 
 Starting probabilistic reachability...
 Starting Prob0 (maxmin)...
-Prob0 (maxmin) took 4 iterations and 0.042 seconds.
+Prob0 (maxmin) took 4 iterations and 0.005 seconds.
 target=1059, yes=1059, no=136, maybe=4
 Starting value iteration (maxmin)...
-Value iteration (maxmin) took 4 iterations and 0.005 seconds.
-Probabilistic reachability took 0.12 seconds.
+Value iteration (maxmin) took 4 iterations and 0.001 seconds.
+Probabilistic reachability took 0.02 seconds.
 
 Value in the initial state: 1.0
 
-Time for model checking: 0.344 seconds.
+Time for model checking: 0.041 seconds.
 
 Result: 1.0 (value in the initial state)
 Building reward structure...
