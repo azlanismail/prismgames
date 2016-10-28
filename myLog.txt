@@ -2,21 +2,21 @@
 Building model...
 
 Computing reachable states... 45 states
-Reachable states exploration and model construction done in 0.216 secs.
+Reachable states exploration and model construction done in 0.319 secs.
 Sorting reachable states list...
 
 Computing reachable states... 59 states
-Reachable states exploration and model construction done in 0.273 secs.
+Reachable states exploration and model construction done in 0.167 secs.
 Sorting reachable states list...
 Progress:
 (1000/~2655)
-product construction took 1.124324 s
+product construction took 1.486045 s
 
-Time for model construction: 1.649 seconds.
+Time for model construction: 1.998 seconds.
 
 Starting probabilistic reachability...
 Starting Prob0 (maxmin)...
-Prob0 (maxmin) took 4 iterations and 0.005 seconds.
+Prob0 (maxmin) took 4 iterations and 0.007 seconds.
 target=1059, yes=1059, no=136, maybe=4
 Starting value iteration (maxmin)...
 Value iteration (maxmin) took 4 iterations and 0.001 seconds.
@@ -24,7 +24,373 @@ Probabilistic reachability took 0.02 seconds.
 
 Value in the initial state: 1.0
 
-Time for model checking: 0.041 seconds.
+Time for model checking: 0.037 seconds.
 
 Result: 1.0 (value in the initial state)
 Building reward structure...
+
+Starting expected reachability...
+Starting Prob1 (minmax)...
+Prob1 (minmax) took 4 iterations and 0.001 seconds.
+target=1131, inf=0, rest=68
+Computing the upper bound where 3.04 is used instead of 0.0
+Starting value iteration (maxmin)...
+Value iteration (maxmin) took 54 iterations and 0.031 seconds.
+Computed an over-approximation of the solution (in 0 seconds), this will now be used to get the solution
+Starting value iteration (maxmin)...
+Value iteration (maxmin) took 4 iterations and 0.005 seconds.
+Expected reachability took 0.044 seconds.
+
+Value in the initial state: 304.0
+
+Time for model checking: 0.057 seconds.
+
+Result: 304.0 (value in the initial state)
+Building reward structure...
+
+Starting expected reachability...
+Starting Prob1 (minmax)...
+Prob1 (minmax) took 4 iterations and 0.0 seconds.
+target=1131, inf=0, rest=68
+Computing the upper bound where 0.9500000000000001 is used instead of 0.0
+Starting value iteration (maxmin)...
+Value iteration (maxmin) took 54 iterations and 0.042 seconds.
+Computed an over-approximation of the solution (in 0 seconds), this will now be used to get the solution
+Starting value iteration (maxmin)...
+Value iteration (maxmin) took 4 iterations and 0.0 seconds.
+Expected reachability took 0.059 seconds.
+
+Value in the initial state: 95.0
+
+Time for model checking: 0.09 seconds.
+
+Result: 95.0 (value in the initial state)
+Building reward structure...
+
+Starting expected reachability...
+Starting Prob1 (minmax)...
+Prob1 (minmax) took 4 iterations and 0.0 seconds.
+target=1152, inf=0, rest=47
+Computing the upper bound where 6.04 is used instead of 0.0
+Starting value iteration (maxmin)...
+Value iteration (maxmin) took 54 iterations and 0.02 seconds.
+Computed an over-approximation of the solution (in 0 seconds), this will now be used to get the solution
+Starting value iteration (maxmin)...
+Value iteration (maxmin) took 4 iterations and 0.001 seconds.
+Expected reachability took 0.046 seconds.
+
+Value in the initial state: 604.0
+
+Time for model checking: 0.067 seconds.
+
+Result: 604.0 (value in the initial state)
+Building reward structure...
+
+Starting expected reachability...
+Starting Prob1 (minmax)...
+Prob1 (minmax) took 4 iterations and 0.011 seconds.
+target=1152, inf=0, rest=47
+Computing the upper bound where 0.9 is used instead of 0.0
+Starting value iteration (maxmin)...
+Value iteration (maxmin) took 54 iterations and 0.026 seconds.
+Computed an over-approximation of the solution (in 0 seconds), this will now be used to get the solution
+Starting value iteration (maxmin)...
+Value iteration (maxmin) took 4 iterations and 0.0 seconds.
+Expected reachability took 0.041 seconds.
+
+Value in the initial state: 90.0
+
+Time for model checking: 0.049 seconds.
+
+Result: 90.0 (value in the initial state)
+//////////////////////////////////////////////////////////////////////////////
+//                   STARTING COMPOSITIONAL MODEL CHECKING                  //
+//////////////////////////////////////////////////////////////////////////////
+
+Building Model ... 
+
+Computing reachable states... 45 states
+Reachable states exploration and model construction done in 0.177 secs.
+Sorting reachable states list...
+
+Computing reachable states... 59 states
+Reachable states exploration and model construction done in 0.188 secs.
+Sorting reachable states list...
+
+Model checking : "q1": <<1>> (((R{"c1_ru"}<=MAXRUA [ C ]=>R{"c2_ru"}<=MAXRUB [ C ])))
+
+Reducing multi-objective query to CNF: R{"c1_ru"}>MAXRUA [ C ]|R{"c2_ru"}<=MAXRUB [ C ]
+expr: [[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
+
+Warning: Strict inequalities ignored and turned into nonstrict inequalities:
+	R{"c1_ru"}>MAXRUA [ C ]
+
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
+
+initial state: 18
+operation: Strategy generation
+Strategy construction took 0.116572 s
+Synthesis took 0.224929 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+45
+// Initial state
+InitState:
+18
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {0=1.0}
+1 0 {0=1.0}
+2 0 {0=1.0}
+3 0 {0=1.0}
+4 0 {0=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
+7 0 {0=1.0}
+8 0 {0=1.0}
+9 0 {0=1.0}
+10 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+2 0 0 {0=1.0}
+3 0 0 {0=1.0}
+4 0 0 {0=1.0}
+5 0 0 {0=1.0}
+6 0 0 {0=1.0}
+7 0 0 {0=1.0}
+8 0 0 {0=1.0}
+9 0 0 {0=1.0}
+10 0 0 {0=1.0}
+18 0 0 {0=1.0}
+19 0 0 {0=1.0}
+19 0 1 {0=1.0}
+19 0 2 {0=1.0}
+19 0 3 {0=1.0}
+19 0 4 {0=1.0}
+19 0 5 {0=1.0}
+19 0 6 {0=1.0}
+19 0 7 {0=1.0}
+19 0 8 {0=1.0}
+27 0 0 {0=1.0}
+28 0 0 {0=1.0}
+29 0 0 {0=1.0}
+30 0 0 {0=1.0}
+31 0 0 {0=1.0}
+32 0 0 {0=1.0}
+33 0 0 {0=1.0}
+34 0 0 {0=1.0}
+35 0 0 {0=1.0}
+36 0 0 {0=1.0}
+37 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 0 0 19 {0=1.0}
+1 0 0 28 {0=1.0}
+2 0 0 29 {0=1.0}
+3 0 0 30 {0=1.0}
+4 0 0 31 {0=1.0}
+5 0 0 32 {0=1.0}
+6 0 0 33 {0=1.0}
+7 0 0 34 {0=1.0}
+8 0 0 35 {0=1.0}
+9 0 0 36 {0=1.0}
+10 0 0 37 {0=1.0}
+18 0 0 27 {0=1.0}
+19 0 0 37 {0=1.0}
+19 0 0 28 {0=1.0}
+19 1 0 37 {0=1.0}
+19 1 0 29 {0=1.0}
+19 2 0 37 {0=1.0}
+19 2 0 30 {0=1.0}
+19 3 0 37 {0=1.0}
+19 3 0 31 {0=1.0}
+19 4 0 32 {0=1.0}
+19 4 0 37 {0=1.0}
+19 5 0 33 {0=1.0}
+19 5 0 37 {0=1.0}
+19 6 0 34 {0=1.0}
+19 6 0 37 {0=1.0}
+19 7 0 35 {0=1.0}
+19 7 0 37 {0=1.0}
+19 8 0 36 {0=1.0}
+27 0 0 0 {0=1.0}
+28 0 0 1 {0=1.0}
+29 0 0 2 {0=1.0}
+30 0 0 3 {0=1.0}
+31 0 0 4 {0=1.0}
+32 0 0 5 {0=1.0}
+33 0 0 6 {0=1.0}
+34 0 0 7 {0=1.0}
+35 0 0 8 {0=1.0}
+36 0 0 9 {0=1.0}
+37 0 0 10 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+maximum D-iterations: 500
+	D-iteration offset: 1
+endstrategy
+
+
+Number of states satisfying "q1": 3
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.29700000000000004 seconds.
+
+Result: true (property satisfied in the initial state)
+
+Model checking : "q2": <<1>> (((R{"c1_rt"}<=MAXRTA [ C ]=>R{"c2_rt"}<=MAXRTB [ C ])))
+
+Reducing multi-objective query to CNF: R{"c1_rt"}>MAXRTA [ C ]|R{"c2_rt"}<=MAXRTB [ C ]
+expr: [[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
+
+Warning: Strict inequalities ignored and turned into nonstrict inequalities:
+	R{"c1_rt"}>MAXRTA [ C ]
+
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
+
+initial state: 25
+operation: Strategy generation
+Strategy construction took 0.015284 s
+Synthesis took 0.084898 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+59
+// Initial state
+InitState:
+25
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {0=1.0}
+1 0 {0=1.0}
+2 0 {0=1.0}
+3 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+2 0 0 {0=1.0}
+3 0 0 {0=1.0}
+25 0 0 {0=1.0}
+26 0 0 {0=1.0}
+26 0 1 {0=1.0}
+34 0 0 {0=1.0}
+35 0 0 {0=1.0}
+36 0 0 {0=1.0}
+37 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 0 0 26 {0=1.0}
+1 0 0 35 {0=1.0}
+2 0 0 36 {0=1.0}
+3 0 0 37 {0=1.0}
+25 0 0 34 {0=1.0}
+26 0 0 36 {0=1.0}
+26 1 0 35 {0=1.0}
+26 1 0 37 {0=1.0}
+34 0 0 0 {0=1.0}
+35 0 0 1 {0=1.0}
+36 0 0 2 {0=1.0}
+37 0 0 3 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+maximum D-iterations: 500
+	D-iteration offset: 1
+endstrategy
+
+
+Number of states satisfying "q2": 59 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.098 seconds.
+
+Result: true (property satisfied in the initial state)
+//////////////////////////////////////////////////////////////////////////////
+//                   COMPLETED COMPOSITIONAL MODEL CHECKING                 //
+//////////////////////////////////////////////////////////////////////////////
+
+
+Model checking completed in 0.772 secs.
+
+Result: true
+
+Reducing multi-objective query to CNF: R{"c1_rt"}<=MAXRTA [ C ]&R{"c1_ru"}<=MAXRUA [ C ]
+expr: [[R{"c1_rt"}<=MAXRTA [ C ]], [R{"c1_ru"}<=MAXRUA [ C ]]]
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c1_rt"}<=MAXRTA [ C ]], [R{"c1_ru"}<=MAXRUA [ C ]]]
+
+initial state: 0
+operation: Pareto set computation
+Pareto set computation took 1.467415 s
+Resulting Pareto set:
+maxcorners=3. state 0:
+[r:[0.0000, 1.0000]r:[1.0000, 0.0000][304.0100, 95.0100]]
+
+Pareto set computation result evaluated
+Time for model checking: 1.854 seconds.
+
+Result: Pareto Set
+
+Reducing multi-objective query to CNF: R{"c2_rt"}<=MAXRTB [ C ]&R{"c2_ru"}<=MAXRUB [ C ]
+expr: [[R{"c2_rt"}<=MAXRTB [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c2_rt"}<=MAXRTB [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
+
+initial state: 0
+operation: Pareto set computation
+Pareto set computation took 3.038618 s
+Resulting Pareto set:
+maxcorners=3. state 0:
+[r:[0.0000, 1.0000]r:[1.0000, 0.0000][601.0100, 55.0100]]
+
+Pareto set computation result evaluated
+Time for model checking: 3.248 seconds.
+
+Result: Pareto Set

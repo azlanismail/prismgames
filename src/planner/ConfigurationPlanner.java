@@ -75,13 +75,13 @@ public class ConfigurationPlanner {
 		String md_location = "RS"+id+"_LOCATION";
 		
 		System.out.println("the received node capabilities are, id:"+id+", name:"+name+", cpu cores:"+cpuCores+", cpu loads:"+cpuLoads+", cpu speed:"+cpuSpeed);
-		vm.setValue(md_id, id);
+		vm.addValue(md_id, id);
 		//vm.setValue(md_name, name);
-		vm.setValue(md_cpuCores, cpuCores);
-		vm.setValue(md_cpuSpeed, cpuSpeed);
-		vm.setValue(md_cpuLoads, cpuLoads);
-		vm.setValue(md_totalMemory, totalMemory);
-		vm.setValue(md_freeMemory, freeMemory);
+		vm.addValue(md_cpuCores, cpuCores);
+		vm.addValue(md_cpuSpeed, cpuSpeed);
+		vm.addValue(md_cpuLoads, cpuLoads);
+		vm.addValue(md_totalMemory, totalMemory);
+		vm.addValue(md_freeMemory, freeMemory);
 		//vm.setValue(md_location, location);
 		
 		//insert into a list of node id
