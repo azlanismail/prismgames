@@ -52,7 +52,7 @@ public class CompositionalMultiPlanner {
 		String desktopPath = "H:/git/MultiPlanner/PlanningComp2/";
 		String linuxPath = "/home/azlan/git/PrismGames/";
 		String mainPath = linuxPath;
-		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v23.prism";
+		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v24.prism";
 		String propPath = mainPath+"Prismfiles/propCloudAdaptive.props";
 		String modelConstPath = mainPath+"IOFiles/ModelConstants.txt";
 		String propConstPath = mainPath+"IOFiles/PropConstants.txt";
@@ -80,7 +80,7 @@ public class CompositionalMultiPlanner {
 	        prism = new Prism(mainLog , mainLog);
 	        //prismCom = new PrismComponent();
 	        simEngine = new SimulatorEngine(prismCom, prism);
-	        simPath = new GenerateSimulationPath(prism.getSimulator(), prism.getLog());
+	        //simPath = new GenerateSimulationPath(prism.getSimulator(), prism.getLog());
 	        prismEx = new PrismExplicit(mainLog, prism.getSettings());
 	       
 	        //for parsing model and property file
@@ -120,7 +120,7 @@ public class CompositionalMultiPlanner {
 		public void buildModelbyPrismEx() throws PrismLangException, PrismException
 		{
 			//assign constants values to the model 
-	    	modulesFile.setSomeUndefinedConstants(conf.getDefinedValues());  
+	    	modulesFile.setUndefinedConstants(conf.getDefinedValues());  
 	    	//System.out.println("the constants are "+modulesFile.getAllConstants().toString());
 	    	//System.out.println("The values "+modulesFile.getConstantValues().toString());
 	    	
@@ -129,6 +129,7 @@ public class CompositionalMultiPlanner {
 	    	
 	    	//build the model
 		    model = prismEx.buildModel(modulesFile, prism.getSimulator());
+		    //model = prismEx.buildModel(modulesFile, simEngine);
 		   
 		}
 		
@@ -137,6 +138,7 @@ public class CompositionalMultiPlanner {
 		    try {
 		    	smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
 	    	    csmg = new CompositionalSMGModelChecker(prism, modulesFile, propertiesFile, prism.getSimulator());
+	    	    //csmg = new CompositionalSMGModelChecker(prism, modulesFile, propertiesFile, simEngine);
 			} catch (PrismException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -146,33 +148,28 @@ public class CompositionalMultiPlanner {
 		    csmg.setGenerateStrategy(true);
 		    
 		    System.out.println("Planning is based on compositional games");
-			rsProb = smg.check(model, propertiesFile.getProperty(0));
-			double resProb = (double)rsProb.getResult();
+	    	rsRwd1 = smg.check(model, propertiesFile.getProperty(1)); //max reward of cpu speed of G0
+			rsRwd2 = smg.check(model, propertiesFile.getProperty(2)); //max reward of cpu load of G0
+			rsRwd3 = smg.check(model, propertiesFile.getProperty(3)); //max reward of cpu speed of G1
+			rsRwd4 = smg.check(model, propertiesFile.getProperty(4)); //max reward of cpu load of G1
 			
-			if(resProb > 0.0) {
-				rsRwd1 = smg.check(model, propertiesFile.getProperty(1)); //max reward of cpu speed of G0
-				rsRwd2 = smg.check(model, propertiesFile.getProperty(2)); //max reward of cpu load of G0
-				rsRwd3 = smg.check(model, propertiesFile.getProperty(3)); //max reward of cpu speed of G1
-				rsRwd4 = smg.check(model, propertiesFile.getProperty(4)); //max reward of cpu load of G1
-				
-				//assign the UB rewards to the compositional properties
-				conf.setUpperBoundsMultiObjectives((double)rsRwd1.getResult(), (double)rsRwd2.getResult(), (double)rsRwd3.getResult(), (double)rsRwd4.getResult());
-				propertiesFile.setUndefinedConstants(conf.getDefinedProperties());
-				
-				//need to reset the propertiesFile due to new values for the properties
-				smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
-				
-				rsComp= csmg.check(propertiesFile.getProperty(5));
-				boolean compStatus = (boolean) rsComp.getResult();
-				if (compStatus) {
-					rsMulti1 = smg.check(model, propertiesFile.getProperty(8));
-					rsMulti2 = smg.check(model, propertiesFile.getProperty(9));
-					//resultCSMG = csmg.check(propertiesFile.getProperty(9));
-				}else {
-					System.out.println("Not able to get a composition");
-				}
+			//assign the UB rewards to the compositional properties
+			conf.setUpperBoundsMultiObjectives((double)rsRwd1.getResult(), (double)rsRwd2.getResult(), (double)rsRwd3.getResult(), (double)rsRwd4.getResult());
+			propertiesFile.setUndefinedConstants(conf.getDefinedProperties());
+			
+			//need to reset the propertiesFile due to new values for the properties
+			smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
+			
+			rsComp= csmg.check(propertiesFile.getProperty(5));
+			boolean compStatus = (boolean) rsComp.getResult();
+			if (compStatus) {
+				rsMulti1 = smg.check(model, propertiesFile.getProperty(8));
+				rsMulti2 = smg.check(model, propertiesFile.getProperty(9));
+				//resultCSMG = csmg.check(propertiesFile.getProperty(9));
+			}else {
+				System.out.println("Not able to get a composition");
 			}
-		    
+					    
 			//System.out.println("Planning is based on compositional games");
 			//resultCSMG = csmg.check(propertiesFile.getProperty(0));
 			
@@ -180,7 +177,7 @@ public class CompositionalMultiPlanner {
 	    
 	    public void outcomefromModelChecking()
 	    {
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsProb.getResult()); 
+	    	// System.out.println("The result from model checking (SMG) is :"+ rsProb.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd1.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd2.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd3.getResult()); 
@@ -225,6 +222,7 @@ public class CompositionalMultiPlanner {
 	    	System.out.println("exporting the strategy");
 	    	strategy =  rsCSMG.getStrategy(); // smc.getStrategy();
 	    	
+	    	
 	    	if (this.stage == 0) {
 	    	//export to .adv file
 	    	strategy.exportToFile(stratPath1);
@@ -236,14 +234,21 @@ public class CompositionalMultiPlanner {
 	    
 	    public void simulatePath() {
 	    	try{
-	    		simEngine.createNewPath(modulesFile, model);
-	    		path = simEngine.getPath();
-	    		simEngine.initialisePath(path.getCurrentState());
-	    		System.out.println("The initial state "+modulesFile.getDefaultInitialState().toString());
-	    		System.out.println("The current state "+path.getCurrentState().toString());
-	    		//simPath.generateSimulationPath(modulesFile, model, model.getFirstInitialState(), "The details", 10, );
+	    		simEngine = prism.getSimulator();
 	    		
-	    		//System.out.println("Transition list are :"+simEngine.getTransitionList().toString());
+	    		//simEngine.createNewOnTheFlyPath(modulesFile, model);
+	    		path = simEngine.getPath();
+	    		//simEngine.initialisePath(path.getCurrentState());
+	    		int count=0, maxCount = 10;
+	    		
+	    		while(true) {
+	    			System.out.println("The current state "+path.getCurrentState().toString());
+	    			simEngine.automaticTransition();	    		
+	    			if (simEngine.isPathLooping() || count == maxCount) break;
+	    			count++;
+	    		}
+	    		System.out.println("The size of the path is "+path.size());
+	    		System.out.println("The overall path are "+path.toString());
 	    	}
 	    	catch (PrismException e) {
 				// TODO Auto-generated catch block
