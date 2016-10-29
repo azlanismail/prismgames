@@ -176,7 +176,9 @@ execa: bool init false;
 [r5a!] (ta=0) & (goala=false) -> (goala'=true) & (sela'=5) & (ta'=1);
 [r6a!] (ta=0) & (goala=false) -> (goala'=true) & (sela'=6) & (ta'=1);
 [r7a!] (ta=0) & (goala=false) -> (goala'=true) & (sela'=7) & (ta'=1);
+
 //terminate the process
+//[enda!] (ta=0) -> (ta'=2);
 [enda!] (ta=0) & (goala=true) -> (ta'=2);
 [enda!] (ta=0) & (goala=true) & (execa=true) -> (ta'=2);
 
@@ -196,6 +198,7 @@ execa: bool init false;
 
 //schedule the turn between subsystems
 [] (ta=2) -> (ta'=0);
+
 
 endmodule
 
@@ -222,6 +225,7 @@ execb: bool init false;
 [r7b!] (tb=0) & (goalb=false) -> (goalb'=true) & (selb'=7) & (tb'=1);
 
 //terminate the process
+//[endb!] (tb=0) -> (tb'=2);
 [endb!] (tb=0) & (goalb=true) -> (tb'=2);
 [endb!] (tb=0) & (goalb=true) & (execb=true) -> (tb'=2);
 
@@ -241,6 +245,7 @@ execb: bool init false;
 
 //schedule the turn between subsystems
 [] (tb=2) -> (tb'=0);
+
 
 endmodule
 

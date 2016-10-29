@@ -1,16 +1,8 @@
-/README.txt
 /acceptance/
 /automata/
-/bin/
 /cex/
 /common/
-/dd/
-/dv/
 /explicit/
-/hybrid/
-/jdd/
-/jltl2ba/
-/jltl2dstar/
 /libppl_java.so
 /manifest.txt
 /mtbdd/
@@ -30,3 +22,8 @@
 /sparse/
 /strat/
 /userinterface/
+/dv/
+/hybrid/
+/jdd/
+/jltl2ba/
+/jltl2dstar/

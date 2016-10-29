@@ -146,6 +146,7 @@ public class CompositionalMultiPlanner {
 		    
 		    csmg.setComputeParetoSet(false);
 		    csmg.setGenerateStrategy(true);
+		    smg.setGenerateStrategy(true);
 		    
 		    System.out.println("Planning is based on compositional games");
 	    	rsRwd1 = smg.check(model, propertiesFile.getProperty(1)); //max reward of cpu speed of G0
@@ -184,7 +185,7 @@ public class CompositionalMultiPlanner {
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd4.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult());
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResultString());
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult());
 	    	// System.out.println("The result from model checking (SMG) is :"+ resultCSMG.getResult()); 
 	    }
 	    
@@ -220,8 +221,8 @@ public class CompositionalMultiPlanner {
 	    {
 	    	//assign the pointer from SMGModelChecker to strategy
 	    	System.out.println("exporting the strategy");
-	    	strategy =  rsCSMG.getStrategy(); // smc.getStrategy();
-	    	
+	    	//strategy =  rsCSMG.getStrategy(); // smc.getStrategy();
+	    	strategy = rsComp.getStrategy();
 	    	
 	    	if (this.stage == 0) {
 	    	//export to .adv file
@@ -256,8 +257,33 @@ public class CompositionalMultiPlanner {
 			}
 	    	
 	    }
-	       
-	    public void getAdaptStrategy() 
+	    
+	    /**
+	     * To extract a single strategy
+	     */
+	    public void extractSingleStrategy() 
+	    {   
+	    	try {
+			ste.readSingleActionLabelFile();
+			ste.displayActionLabelAList();
+			ste.readTransitionFile();
+			ste.readSingleStrategyFile();
+			
+			ste.findSingleDecision();
+			ste.displayStrategies();
+			
+			}
+	    	catch(IllegalArgumentException ie) {
+	    		ie.printStackTrace();
+	    	}
+	    	catch(FileNotFoundException e) {
+	    		e.printStackTrace();
+	    	}
+	    }
+	
+	    
+	    
+	    public void extractStrategy() 
 	    {   
 	    	try {
 			//ste.readMappingFile();
@@ -309,15 +335,16 @@ public class CompositionalMultiPlanner {
 				e.printStackTrace();
 			}
 	        //strategy related process
-	     //  	exportStrategy();
+	       	exportStrategy();
 	       	
 	       	//get the adaptation strategy
-	   //    	try {
- 		//		getAdaptStrategy();
- 		//	} 
- 		//	catch (IllegalArgumentException e) {
- 		//		e.printStackTrace();
- 		//	}
+	       	try {
+ 				//extractStrategy();
+ 				extractSingleStrategy();
+ 			} 
+ 			catch (IllegalArgumentException e) {
+ 				e.printStackTrace();
+ 			}
 	    }//end of synthesis
 	    
 	    public int getMaxResource() {
@@ -369,7 +396,7 @@ public class CompositionalMultiPlanner {
 	 			tm.start();
 	 			System.out.println("number of cycle :"+i);
 	 			plan.generate();
-	 			//plan.getDecision(0);
+	 			plan.getDecision(0);
 	 			tm.stop();
 	 			time[i] = tm.getDuration();
 	 			plan.simulatePath();

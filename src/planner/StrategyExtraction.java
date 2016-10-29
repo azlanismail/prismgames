@@ -27,11 +27,18 @@ public class StrategyExtraction {
 	private ArrayList<String> nodeIdlist;
 	private Scanner readM, readT, readS, readA, readB;
 	
-	private int decStateStrat1, decStateStrat2;
-	private int selAction1, selAction2;
+	private int decStateStrat1 = -1, decStateStrat2 =-1;
+	private int selAction1 = -1, selAction2 = -1;
 	private String selLabel1, selLabel2;
 	
-	
+	/**
+	 * Constructor for multi-strategies
+	 * @param mPath
+	 * @param tPath
+	 * @param sPath
+	 * @param aPath
+	 * @param bPath
+	 */
 	public StrategyExtraction(String mPath, String tPath, String sPath, String aPath, String bPath){
 		this.mapsPath = mPath;
 		this.transPath = tPath;
@@ -40,8 +47,22 @@ public class StrategyExtraction {
 		this.actionLabelBPath = bPath;
 	}
 	
+	/**
+	 * Constructor for single strategy
+	 * @param mPath
+	 * @param tPath
+	 * @param sPath
+	 * @param aPath
+	 */
+	public StrategyExtraction(String mPath, String tPath, String sPath, String aPath){
+		this.mapsPath = mPath;
+		this.transPath = tPath;
+		this.stratPath = sPath;
+		this.actionLabelAPath = aPath;
+	}
 	
 	
+	//this function is no longer used
 	public void readMappingFile() throws IllegalArgumentException, FileNotFoundException {
 		mapslist = new ArrayList<String>();
 		
@@ -64,6 +85,33 @@ public class StrategyExtraction {
 		this.nodeIdlist = nodeId;
 	}
 	
+	/**
+	 * To read predefined action labels for single-strategies
+	 * @throws IllegalArgumentException
+	 * @throws FileNotFoundException
+	 */
+	public void readSingleActionLabelFile() throws IllegalArgumentException, FileNotFoundException {
+		actionLabelA = new ArrayList<String>();
+		
+		readA = new Scanner(new BufferedReader(new FileReader(this.actionLabelAPath)));
+		
+		String label = null;
+	
+		label = readA.next();
+		actionLabelA.add(label);
+				
+		while (readA.hasNext()) {
+			label = readA.next();
+			actionLabelA.add(label);
+		}
+		readA.close();
+	}
+	
+	/**
+	 * To read predefined action labels for multi-strategies
+	 * @throws IllegalArgumentException
+	 * @throws FileNotFoundException
+	 */
 	public void readActionLabelFile() throws IllegalArgumentException, FileNotFoundException {
 		actionLabelA = new ArrayList<String>();
 		actionLabelB = new ArrayList<String>();
@@ -100,11 +148,17 @@ public class StrategyExtraction {
 	}
 	
 	public void displayActionLabelAList(){
-		System.out.println("The list of action label A is "+actionLabelA);
+		if (actionLabelA.size() > 0)
+			System.out.println("The list of action label A is "+actionLabelA);
+		else
+			System.out.println("The list for action label A is empty");
 	}
 	
 	public void displayActionLabelBList(){
-		System.out.println("The list of action label B is "+actionLabelB);
+		if (actionLabelB.size() > 0)
+			System.out.println("The list of action label B is "+actionLabelB);
+		else
+			System.out.println("The list for action label B is empty");
 	}
 
 	public void readTransitionFile() throws IllegalArgumentException, FileNotFoundException {
@@ -169,7 +223,70 @@ public class StrategyExtraction {
 		}
 	}
 	
+	
+	/**
+	 * To read from single strategy profile
+	 * @throws IllegalArgumentException
+	 * @throws FileNotFoundException
+	 */
+	public void readSingleStrategyFile() throws IllegalArgumentException, FileNotFoundException {
+		
+		substrat1States = new ArrayList<Integer>();
+		substrat1Actions = new ArrayList<Integer>();
+			
+		
+		readS = new Scanner(new BufferedReader(new FileReader(this.stratPath)));
+	
+		String inRead=null;
+		int potState=0, potAction=0;
+		int stratId = 0; 
+		
+		while (readS.hasNextLine()) {
+			inRead = readS.nextLine();
+			
+			if (inRead.contains("StrategyIndex")) {
+				//get the strategy index
+				 String[] arr = inRead.split(" ");    
+				 stratId = Integer.parseInt(arr[1]);
+				 //System.out.println("Strategy Index is :"+arr[1]);
+			}
+			
+			//System.out.println("the data read from the file "+inRead);
+			if (inRead.equalsIgnoreCase("MemUpdMoves:") && (stratId == 1)){
+				//skip four lines
+				readS.nextLine(); readS.nextLine(); readS.nextLine(); readS.nextLine();
+				inRead = readS.next();
+				while (readS.hasNextLine() && (!inRead.equalsIgnoreCase("Info:"))) {
+					//read the first index (potential decision state)
+					potState = Integer.parseInt(inRead);
+				
+					//read the second index (potential action)
+					potAction = Integer.parseInt(readS.next());
+				
+					//store into the array lists
+					substrat1States.add(potState);
+					substrat1Actions.add(potAction);
+				
+					//skip the rest of the line
+					readS.nextLine();
+					
+					//read the next integer
+					inRead = readS.next();
+				}
+			}
+			if(stratId > 1)
+				System.err.println("This function only caters for single strategy");
+        
+        }
+		readS.close();		
+	}
 
+	
+	/**
+	 * To read from multi-strategies profile
+	 * @throws IllegalArgumentException
+	 * @throws FileNotFoundException
+	 */
 	public void readStrategyFile() throws IllegalArgumentException, FileNotFoundException {
 		
 		substrat1States = new ArrayList<Integer>();
@@ -244,8 +361,10 @@ public class StrategyExtraction {
 					inRead = readS.next();
 				}
 			}
-			if(stratId > 2)
-				System.err.println("This function only caters for 2 sub strategies");
+			if(stratId > 2) {
+				System.err.println("This function only caters for single strategy");
+				break;
+			}
         
         }
 		readS.close();		
@@ -255,20 +374,71 @@ public class StrategyExtraction {
 		
 		int maxSize1 = substrat1States.size();
 		
-		for(int i=0; i < maxSize1; i++) {
-			System.out.println("Sub strategy 1 list - state: "+substrat1States.get(i)+" action: "+substrat1Actions.get(i));
+		if (substrat1States.size() > 0 ) {
+			for(int i=0; i < maxSize1; i++) {
+				System.out.println("Sub strategy 1 list - state: "+substrat1States.get(i)+" action: "+substrat1Actions.get(i));
+			}
 		}
+		else
+			System.out.println("The states and actions from strategy 1 is empty");
 		
 		int maxSize2 = substrat2States.size();
-		
-		for(int i=0; i < maxSize2; i++) {
-			System.out.println("Sub strategy 2 list - state: "+substrat2States.get(i)+" action: "+substrat2Actions.get(i));
+		if (substrat2States.size() > 0 ) {
+			for(int i=0; i < maxSize2; i++) {
+				System.out.println("Sub strategy 2 list - state: "+substrat2States.get(i)+" action: "+substrat2Actions.get(i));
+			}
 		}
+		else
+			System.out.println("The states and actions from strategy 2 is empty");
 		
 	}
 	
 	/**
-	 * Objective: To extract the selected action from the strategy profiles
+	 * Objective: To extract a single selected action from a single strategy profile
+	 */
+	public void findSingleDecision()
+	{
+		int maxSizeStrat1 = substrat1States.size();
+		int maxTrans = transStates.size();
+		int stateFromStrat1=0, stateFromTrans1=0, actionFromTrans1=0, actionFromStrat1=0;
+		String labelFromTrans1 = null;
+		boolean found = false;
+		
+		//substrategy 1
+		//starting from the last item of strategy list
+		for(int i = maxSizeStrat1 -1; i >= 0; i--) {
+			//get the state from the strategy list
+			stateFromStrat1 = substrat1States.get(i);
+			actionFromStrat1 = substrat1Actions.get(i);
+			//System.out.println("state from sub strategy 1 list is "+stateFromStrat1);
+					
+			for(int j=0; j < maxTrans; j++) {
+				stateFromTrans1 = transStates.get(j);
+				actionFromTrans1 = transActions.get(j);
+				
+				//check if the state is similar
+				if (stateFromTrans1 == stateFromStrat1)	{
+					//check if the action is similar
+					if (actionFromTrans1 == actionFromStrat1) {
+						labelFromTrans1 = transLabels.get(j);
+						//check if the label is an action label
+						if (actionLabelA.contains(labelFromTrans1)) {
+							this.decStateStrat1 = stateFromStrat1;
+							this.selAction1 = actionFromStrat1;
+							this.selLabel1 = labelFromTrans1;
+							System.out.println("Decision state :"+stateFromStrat1+" with action :"+labelFromTrans1);
+							found = true;
+						}
+					}
+				}
+			}	
+			if (found)
+				break;			
+		}//end for substrategy 1
+	 }
+		
+	/**
+	 * Objective: To extract multiple selected actions from the strategy profiles
 	 */
 	public void findDecision()
 	{
@@ -413,8 +583,15 @@ public class StrategyExtraction {
 	}
 	
 	public void displayStrategies(){
-		System.out.println("Substrategy 1:- decision state:"+this.decStateStrat1+" action:"+this.selAction1+" label:"+this.selLabel1);
-		System.out.println("Substrategy 2:- decision state:"+this.decStateStrat2+" action:"+this.selAction2+" label:"+this.selLabel2);
+		if (this.decStateStrat1 > -1)
+			System.out.println("Substrategy 1:- decision state:"+this.decStateStrat1+" action:"+this.selAction1+" label:"+this.selLabel1);
+		else
+			System.out.println("Empty strategy 1");
+		
+		if (this.decStateStrat2 > -1)
+			System.out.println("Substrategy 2:- decision state:"+this.decStateStrat2+" action:"+this.selAction2+" label:"+this.selLabel2);
+		else
+			System.out.println("Empty strategy 2");
 	}
 	public static void main(String[] args) throws IllegalArgumentException, FileNotFoundException {
 		// TODO Auto-generated method stub
@@ -437,11 +614,11 @@ public class StrategyExtraction {
 		conf.setNodeCapabilities(1, "NODE3", 3, 3, 0.5, 3, 3, "LOC1");	
 		
 		StrategyExtraction ste = new StrategyExtraction(mappingPath, transitionPath, strategyPath, actionLabelAPath, actionLabelBPath);
-		//ste.readMappingFile();
+		
 		ste.readActionLabelFile();
 		ste.displayActionLabelAList();
 		ste.displayActionLabelBList();
-		//ste.getAllMappingList();
+
 		ste.readTransitionFile();
 		ste.getAllTrasitionList();
 		ste.readStrategyFile();

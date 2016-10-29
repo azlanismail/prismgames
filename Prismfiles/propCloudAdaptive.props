@@ -16,13 +16,13 @@ const int k = 5;
 
 "qAll" : comp("q1", "q2")
 
-"q1" : <<1>> ((R{"c1_ru"}<=MAXRUA [ C ]=>R{"c2_ru"}<=MAXRUB [ C ]))
+"q1" : <<1>> (((R{"c1_ru"}<=MAXRUA [ C ]=>R{"c2_ru"}<=MAXRUB [ C ])))
 
-"q2" : <<1>> ((R{"c1_rt"}<=MAXRTA [ C ]=>R{"c2_rt"}<=MAXRTB [ C ]))
+"q2" : <<1>> (((R{"c1_rt"}<=MAXRTA [ C ]=>R{"c2_rt"}<=MAXRTB [ C ])))
 
-"qcomp1" : <<1>> ((R{"c1_rt"}<=MAXRTA [ C ]&R{"c1_ru"}<=MAXRUA [ C ]))
+"qcomp1" : <<1>> (((R{"c1_rt"}<=MAXRTA [ C ]&R{"c1_ru"}<=MAXRUA [ C ])))
 
-"qcomp2" : <<1>> ((R{"c2_rt"}<=MAXRTB [ C ]&R{"c2_ru"}<=MAXRUB [ C ]))
+"qcomp2" : <<1>> (((R{"c2_rt"}<=MAXRTB [ C ]&R{"c2_ru"}<=MAXRUB [ C ])))
 
-<<1>> R{"c1_rt"}min=? [ F "done1" ]
+"qcomp3" : <<1>> (R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ])
 
