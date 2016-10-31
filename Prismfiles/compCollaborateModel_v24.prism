@@ -64,7 +64,7 @@ const int RS0_LOCATION = 0;
 
 const int RS1_ID = 1;
 const int RS1_CPU_CORES = 1;
-const double RS1_CPU_LOADS = 30;
+const double RS1_CPU_LOADS = 60;
 const double RS1_CPU_LOADS_A = 15;
 const double RS1_CPU_LOADS_B = 15;
 const double RS1_CPU_SPEED = 2000;
