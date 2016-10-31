@@ -10,7 +10,10 @@ public class StrategyExtraction {
 
 	private String mapsPath = null;
 	private String transPath = null;
-	private String stratPath = null;
+	private String stratCompPath = null;
+	private String stratMultiCompPath = null;
+	private String stratMulti1Path = null;
+	private String stratMulti2Path = null;
 	private String actionLabelAPath = null;
 	private String actionLabelBPath = null;
 	
@@ -39,28 +42,15 @@ public class StrategyExtraction {
 	 * @param aPath
 	 * @param bPath
 	 */
-	public StrategyExtraction(String mPath, String tPath, String sPath, String aPath, String bPath){
-		this.mapsPath = mPath;
+	public StrategyExtraction(String tPath, String sPath1, String sPath2, String sPath3, String sPath4,  String aPath, String bPath){
 		this.transPath = tPath;
-		this.stratPath = sPath;
+		this.stratCompPath = sPath1;
+		this.stratMultiCompPath = sPath2;
+		this.stratMulti1Path = sPath3;
+		this.stratMulti2Path = sPath4;
 		this.actionLabelAPath = aPath;
 		this.actionLabelBPath = bPath;
 	}
-	
-	/**
-	 * Constructor for single strategy
-	 * @param mPath
-	 * @param tPath
-	 * @param sPath
-	 * @param aPath
-	 */
-	public StrategyExtraction(String mPath, String tPath, String sPath, String aPath){
-		this.mapsPath = mPath;
-		this.transPath = tPath;
-		this.stratPath = sPath;
-		this.actionLabelAPath = aPath;
-	}
-	
 	
 	//this function is no longer used
 	public void readMappingFile() throws IllegalArgumentException, FileNotFoundException {
@@ -229,13 +219,13 @@ public class StrategyExtraction {
 	 * @throws IllegalArgumentException
 	 * @throws FileNotFoundException
 	 */
-	public void readSingleStrategyFile() throws IllegalArgumentException, FileNotFoundException {
+	public void readMultiCompfromOneStrategiesProfile() throws IllegalArgumentException, FileNotFoundException {
 		
 		substrat1States = new ArrayList<Integer>();
 		substrat1Actions = new ArrayList<Integer>();
 			
 		
-		readS = new Scanner(new BufferedReader(new FileReader(this.stratPath)));
+		readS = new Scanner(new BufferedReader(new FileReader(this.stratMultiCompPath)));
 	
 		String inRead=null;
 		int potState=0, potAction=0;
@@ -274,9 +264,10 @@ public class StrategyExtraction {
 					inRead = readS.next();
 				}
 			}
-			if(stratId > 1)
-				System.err.println("This function only caters for single strategy");
-        
+			if(stratId > 1) {
+				System.err.println("This reading function only caters for single strategy");
+				break;
+			}
         }
 		readS.close();		
 	}
@@ -287,7 +278,7 @@ public class StrategyExtraction {
 	 * @throws IllegalArgumentException
 	 * @throws FileNotFoundException
 	 */
-	public void readStrategyFile() throws IllegalArgumentException, FileNotFoundException {
+	public void readCompfromTwoStrategiesProfile() throws IllegalArgumentException, FileNotFoundException {
 		
 		substrat1States = new ArrayList<Integer>();
 		substrat1Actions = new ArrayList<Integer>();
@@ -295,7 +286,7 @@ public class StrategyExtraction {
 		substrat2Actions = new ArrayList<Integer>();
 		
 		
-		readS = new Scanner(new BufferedReader(new FileReader(this.stratPath)));
+		readS = new Scanner(new BufferedReader(new FileReader(this.stratCompPath)));
 	
 		String inRead=null;
 		int potState=0, potAction=0;
@@ -602,7 +593,7 @@ public class StrategyExtraction {
 		
 		String strategyPath = mainPath+"IOFiles/strategy";
 		String transitionPath = mainPath+"IOFiles/transition";
-        String mappingPath = mainPath+"IOFiles/mapping";
+      //  String mappingPath = mainPath+"IOFiles/mapping";
         String actionLabelAPath = mainPath+"IOFiles/actionlabelA";
         String actionLabelBPath = mainPath+"IOFiles/actionlabelB";
         
@@ -613,24 +604,24 @@ public class StrategyExtraction {
 		conf.setNodeCapabilities(1, "NODE2", 3, 3, 0.5, 3, 3, "LOC1");
 		conf.setNodeCapabilities(1, "NODE3", 3, 3, 0.5, 3, 3, "LOC1");	
 		
-		StrategyExtraction ste = new StrategyExtraction(mappingPath, transitionPath, strategyPath, actionLabelAPath, actionLabelBPath);
+		//StrategyExtraction ste = new StrategyExtraction(transitionPath, strategyPath, actionLabelAPath, actionLabelBPath);
 		
-		ste.readActionLabelFile();
-		ste.displayActionLabelAList();
-		ste.displayActionLabelBList();
+		//ste.readActionLabelFile();
+		//ste.displayActionLabelAList();
+		//ste.displayActionLabelBList();
 
-		ste.readTransitionFile();
-		ste.getAllTrasitionList();
-		ste.readStrategyFile();
+		//ste.readTransitionFile();
+		//ste.getAllTrasitionList();
+		//ste.readStrategyFile();
 		
-		ste.getAllStrategyList();
+		//ste.getAllStrategyList();
 		
-		ste.findDecision();
-		ste.displayStrategies();
+		//ste.findDecision();
+		//ste.displayStrategies();
 		
-		ste.setNodeIdList(conf.getNodeIdList());
-		System.out.println("Node name from substrategy 1 is "+ste.getSelectedNodeIdA());
-		System.out.println("Node name from substrategy 2 is "+ste.getSelectedNodeIdB());
+		//ste.setNodeIdList(conf.getNodeIdList());
+		//System.out.println("Node name from substrategy 1 is "+ste.getSelectedNodeIdA());
+		//System.out.println("Node name from substrategy 2 is "+ste.getSelectedNodeIdB());
 		
 	}
 

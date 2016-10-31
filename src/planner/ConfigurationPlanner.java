@@ -88,6 +88,26 @@ public class ConfigurationPlanner {
 		nodeIdlist.add(name);
 	}
 	
+	public void setDefaultUpperBoundsMultiObjectives() {
+		
+		//UB for multi-objective properties
+		String ub_game0_q1 = "MAXRTA";  //UB for cpu speed of game 0
+		String ub_game0_q2 = "MAXRUA";  //UB for cpu loads of game 0
+		String ub_game1_q1 = "MAXRTB";  //UB for cpu speed of game 1
+		String ub_game1_q2 = "MAXRUB";  //UB for cpu loads of game 1
+		
+		Double g0q1=1000.0, g0q2=100.0, g1q1 = 1000.0, g1q2=100.0;
+		
+		
+		System.out.println("the default upper bounds are:"+g0q1+","+g0q2+","+g1q1+","+g1q2);
+		
+		vp.setValue(ub_game0_q1, g0q1);
+		vp.setValue(ub_game0_q2, g0q2);
+		vp.setValue(ub_game1_q1, g1q1);
+		vp.setValue(ub_game1_q2, g1q2);
+		
+	}
+	
 	public void setUpperBoundsMultiObjectives(double g0q1, double g0q2, double g1q1, double g1q2) {
 	
 		//UB for multi-objective properties

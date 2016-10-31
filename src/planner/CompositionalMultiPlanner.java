@@ -38,8 +38,8 @@ public class CompositionalMultiPlanner {
 		GenerateSimulationPath simPath;
 		Path path;
 		Model model;
-		Result rsProb, rsRwd1, rsRwd2, rsRwd3, rsRwd4, rsCSMG, rsComp, rsMulti1, rsMulti2;
-		Strategy strategy;
+		Result rsProb, rsRwd1, rsRwd2, rsRwd3, rsRwd4, rsCSMG, rsComp, rsMulti1, rsMulti2, rsMultiComp;
+		Strategy stratComp, stratMultiComp, stratMulti1, stratMulti2;
 		SMGModelChecker smg;
 		CompositionalSMGModelChecker csmg;
 		PrismSettings ps;
@@ -56,20 +56,29 @@ public class CompositionalMultiPlanner {
 		String propPath = mainPath+"Prismfiles/propCloudAdaptive.props";
 		String modelConstPath = mainPath+"IOFiles/ModelConstants.txt";
 		String propConstPath = mainPath+"IOFiles/PropConstants.txt";
-		String stratPath1 = mainPath+"IOFiles/strategyInitial";
-		String transPath1 = mainPath+"IOFiles/transitionInitial";
-		String stratPath2 = mainPath+"IOFiles/strategy";
-		String transPath2 = mainPath+"IOFiles/transition";
-		String mappingPath = mainPath+"IOFiles/mapping";
+		String stratCompPath = mainPath+"IOFiles/stratComp.txt";
+		String stratMultiCompPath = mainPath+"IOFiles/stratMultiComp.txt";
+		String stratMulti1Path = mainPath+"IOFiles/stratMulti1.txt";
+		String stratMulti2Path = mainPath+"IOFiles/stratMulti2.txt";
+		String transPath = mainPath+"IOFiles/transition.txt";
+		//String stratPath1 = mainPath+"IOFiles/strategyInitial";
+		//String transPath1 = mainPath+"IOFiles/transitionInitial";
+		//String stratPath2 = mainPath+"IOFiles/strategy";
+		//String transPath2 = mainPath+"IOFiles/transition";
+		//String mappingPath = mainPath+"IOFiles/mapping";
 		String actionLabelAPath = mainPath+"IOFiles/actionlabelA";
 	    String actionLabelBPath = mainPath+"IOFiles/actionlabelB";
-	        
+	    
+	    //Defining the type of property
+	    int maxCpuSpeedG0=1, maxCpuLoadG0=2, maxCpuSpeedG1=3, maxCpuLoadG1=4;
+	    int compImpli=5, MultiObj1=8, MultiObj2=9, compMultiObj=10;
 
-		//Defining properties for the planner
+		//Defining internal attributes for the planner
 		private int stage;
+		private boolean synthesisStatus = false;
 		
-		public CompositionalMultiPlanner(int sg) {
-			this.stage = sg;
+		public CompositionalMultiPlanner() {
+			//this.stage = sg;
 			initiatePlanner();
 			//initializeServiceProfile();
 			//setDelay();
@@ -94,19 +103,9 @@ public class CompositionalMultiPlanner {
 	    	
 	    	//for assigning values of constants
 	    	conf = new ConfigurationPlanner();
-	    	   	
-	    	//I need to access SMGModelChecker directly to manipulate the strategy
-	    	try {
-	    		smg = new SMGModelChecker(prism);
-	    		//smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
-				//csmg = new CompositionalSMGModelChecker(prism, modulesFile, propertiesFile, prism.getSimulator());
-			} catch (PrismException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 	    	
-	    	//for generating and extracting strategy
-	    	ste = new StrategyExtraction(mappingPath, transPath2, stratPath2, actionLabelAPath, actionLabelBPath);	
+	      	//for extracting strategy
+	    	ste = new StrategyExtraction(transPath, stratCompPath, stratMultiCompPath, stratMulti1Path, stratMulti2Path, actionLabelAPath, actionLabelBPath);	
 	    }
 			
 		public void setApplicationRequirements(int id, int cpuCores, double cpuLoads, double cpuSpeed, int totalMemory, int freeMemory){
@@ -133,66 +132,134 @@ public class CompositionalMultiPlanner {
 		   
 		}
 		
+		/**
+		 * To check and synthesis the model
+		 * @throws PrismLangException
+		 * @throws PrismException
+		 */
 		public void checkModelbyPrismEx() throws PrismLangException, PrismException{		
 		   		    
 		    try {
+		    	//create instance for non-compositional multi-objective properties synthesis
+		    	smg = new SMGModelChecker(prism);
+		    	
+		    	//set the constants parameters
+		    	modulesFile.setUndefinedConstants(conf.getDefinedValues());  
+		    	
+		    	//building a model representation for non-compositional synthesis
+			    model = prismEx.buildModel(modulesFile, prism.getSimulator());
+		    
+				System.out.println("Number of states (Model Building) :"+model.getNumStates());
+	    		System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
+	    	
+		    	//parse the specifications to smg instance    	
 		    	smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
+		    	
+		    	//create instance for compositional synthesis with parsing the specifications
 	    	    csmg = new CompositionalSMGModelChecker(prism, modulesFile, propertiesFile, prism.getSimulator());
-	    	    //csmg = new CompositionalSMGModelChecker(prism, modulesFile, propertiesFile, simEngine);
 			} catch (PrismException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		    
+		     
 		    csmg.setComputeParetoSet(false);
 		    csmg.setGenerateStrategy(true);
+		    smg.setComputeParetoSet(false);
 		    smg.setGenerateStrategy(true);
 		    
-		    System.out.println("Planning is based on compositional games");
-	    	rsRwd1 = smg.check(model, propertiesFile.getProperty(1)); //max reward of cpu speed of G0
-			rsRwd2 = smg.check(model, propertiesFile.getProperty(2)); //max reward of cpu load of G0
-			rsRwd3 = smg.check(model, propertiesFile.getProperty(3)); //max reward of cpu speed of G1
-			rsRwd4 = smg.check(model, propertiesFile.getProperty(4)); //max reward of cpu load of G1
+		    System.out.println("Synthesizing expected max rewards.....");
+		   
+		    if (smg.geterrorOnNonConverge() == false) {
+		    	rsRwd1 = smg.check(model, propertiesFile.getProperty(this.maxCpuSpeedG0)); //max reward of cpu speed of G0
+		    	rsRwd2 = smg.check(model, propertiesFile.getProperty(this.maxCpuLoadG0)); //max reward of cpu load of G0
+		    	rsRwd3 = smg.check(model, propertiesFile.getProperty(this.maxCpuSpeedG1)); //max reward of cpu speed of G1
+		    	rsRwd4 = smg.check(model, propertiesFile.getProperty(this.maxCpuLoadG1)); //max reward of cpu load of G1
+		    
+		    	System.out.println("The result from model checking (SMG) is :"+ rsRwd1.getResult()); 
+		    	System.out.println("The result from model checking (SMG) is :"+ rsRwd2.getResult()); 
+		    	System.out.println("The result from model checking (SMG) is :"+ rsRwd3.getResult()); 
+		    	System.out.println("The result from model checking (SMG) is :"+ rsRwd4.getResult()); 
+		    	 
+		    	conf.setUpperBoundsMultiObjectives((double)rsRwd1.getResult(), (double)rsRwd2.getResult(), (double)rsRwd3.getResult(), (double)rsRwd4.getResult());   	
+		    }
+		    else {
+			 	System.out.println("Not able to synthesize the expected max rewards, so set to the defaults.....");
+			 	conf.setDefaultUpperBoundsMultiObjectives();
+		    }
+		    		    
+		    //set the constant parameters for properties
+		    propertiesFile.setUndefinedConstants(conf.getDefinedProperties());
 			
-			//assign the UB rewards to the compositional properties
-			conf.setUpperBoundsMultiObjectives((double)rsRwd1.getResult(), (double)rsRwd2.getResult(), (double)rsRwd3.getResult(), (double)rsRwd4.getResult());
-			propertiesFile.setUndefinedConstants(conf.getDefinedProperties());
-			
-			//need to reset the propertiesFile due to new values for the properties
+		    //need to reset the propertiesFile due to new values for the properties
 			smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
 			
-			rsComp= csmg.check(propertiesFile.getProperty(5));
-			boolean compStatus = (boolean) rsComp.getResult();
-			if (compStatus) {
-				rsMulti1 = smg.check(model, propertiesFile.getProperty(8));
-				rsMulti2 = smg.check(model, propertiesFile.getProperty(9));
-				//resultCSMG = csmg.check(propertiesFile.getProperty(9));
-			}else {
-				System.out.println("Not able to get a composition");
-			}
-					    
-			//System.out.println("Planning is based on compositional games");
-			//resultCSMG = csmg.check(propertiesFile.getProperty(0));
+			System.out.println("Synthesizing compositional games.....");
 			
+			//set the default synthesis status to true
+			this.synthesisStatus=true;
+			
+			//synthesize the compositional of implication
+			rsComp= csmg.check(propertiesFile.getProperty(compImpli));
+			if ((boolean)rsComp.getResult()) {
+				System.out.println("Compositional implication synthesis is success");	
+				System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
+			}else {
+				System.out.println("The assumed properties are not satisfied...");
+			}
+			
+			//synthesize the compositional of conjunction
+			rsMultiComp = smg.check(model, propertiesFile.getProperty(compMultiObj));
+				
+			if((boolean)rsMultiComp.getResult()) {
+				System.out.println("Compositional multi-objective is success");
+				System.out.println("The result from model checking (SMG) is :"+ rsMultiComp.getResult());
+			}else {
+				System.out.println("Perform multi-objective on each component game");
+				rsMulti1 = smg.check(model, propertiesFile.getProperty(MultiObj1));
+				rsMulti2 = smg.check(model, propertiesFile.getProperty(MultiObj2));
+				System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult());
+		    	System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult()); 
+		    	
+		    	//the only reason to cause overall synthesis to return false to the requester
+				if ((boolean)rsMulti1.getResult() || (boolean)rsMulti2.getResult()) {			
+					this.synthesisStatus=false;
+				}	
+			}	
 		}	
 	    
+		/**
+		 * To return the strategy generation status of compositional synthesis
+		 * @return
+		 */
+		public boolean getCompositionalSynthesisStatus() {
+			return this.synthesisStatus;
+		}
+		
 	    public void outcomefromModelChecking()
-	    {
-	    	// System.out.println("The result from model checking (SMG) is :"+ rsProb.getResult()); 
+	    { 
+	    	try{
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd1.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd2.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd3.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd4.getResult()); 
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
 	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult());
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult());
-	    	// System.out.println("The result from model checking (SMG) is :"+ resultCSMG.getResult()); 
+	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult()); 
+	    	}
+	    	catch (NullPointerException e) {
+	    		e.printStackTrace();
+	    	}
 	    }
 	    
 	    public void outcomefromModelBuilding()
 	    {
-	    	System.out.println("Number of states (Model Building) :"+model.getNumStates());
-	    	System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
+	    	if (model != null) {
+	    		System.out.println("Number of states (Model Building) :"+model.getNumStates());
+	    		System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
+	    	}
+	    	else
+	    		System.out.println("cannot build model representation...");
 	    }
 	       
 	     
@@ -202,13 +269,15 @@ public class CompositionalMultiPlanner {
 	     */
 	    public void exportTrans() throws PrismException
 	    {
-	    	if (this.stage == 0){
-	    		File transFile = new File(transPath1);
+	    	//if (this.stage == 0){
+	    		File transFile = new File(transPath);
 	       		model.exportToPrismExplicitTra(transFile);
-	    	}else{
-	    		File transFile = new File(transPath2);
-	    		model.exportToPrismExplicitTra(transFile);
-	    	}
+	    	//}
+	    	
+	    	//else{
+	    	//	File transFile = new File(transPath2);
+	    	//	model.exportToPrismExplicitTra(transFile);
+	    	//}
 	    	
 	    }
 	    
@@ -220,15 +289,30 @@ public class CompositionalMultiPlanner {
 	    public void exportStrategy()
 	    {
 	    	//assign the pointer from SMGModelChecker to strategy
-	    	System.out.println("exporting the strategy");
-	    	//strategy =  rsCSMG.getStrategy(); // smc.getStrategy();
-	    	strategy = rsComp.getStrategy();
+	    	System.out.println("exporting all strategies profiles...");
 	    	
-	    	if (this.stage == 0) {
-	    	//export to .adv file
-	    	strategy.exportToFile(stratPath1);
-	    	}else {
-	    		strategy.exportToFile(stratPath2);
+	    	//exporting the strategies for compositional of implication
+	    	if(rsComp!=null && (boolean)rsComp.getResult()) {
+	    		stratComp = rsComp.getStrategy();
+	    		stratComp.exportToFile(stratCompPath);
+	    	}
+	    	
+	    	//exporting the strategies for compositional of conjunction
+	    	if(rsMultiComp!=null && (boolean)rsMultiComp.getResult()) {
+	    		stratMultiComp = rsMultiComp.getStrategy();
+	    		stratMultiComp.exportToFile(stratMultiCompPath);
+	    	}
+	    	
+	    	//exporting the strategies for multi-objective of game 0
+	    	if(rsMulti1!=null && (boolean)rsMulti1.getResult()) {
+	    		stratMulti1 = rsMulti1.getStrategy();
+	    		stratMulti1.exportToFile(stratMulti1Path);
+	    	}
+	    	
+	    	//exporting the strategies for multi-objective of game 1
+	    	if(rsMulti2!=null && (boolean)rsMulti2.getResult()) {
+	    		stratMulti2 = rsMulti2.getStrategy();
+		    	stratMulti2.exportToFile(stratMulti2Path);
 	    	}
 	    	
 	    }
@@ -267,7 +351,7 @@ public class CompositionalMultiPlanner {
 			ste.readSingleActionLabelFile();
 			ste.displayActionLabelAList();
 			ste.readTransitionFile();
-			ste.readSingleStrategyFile();
+			ste.readMultiCompfromOneStrategiesProfile();
 			
 			ste.findSingleDecision();
 			ste.displayStrategies();
@@ -286,16 +370,11 @@ public class CompositionalMultiPlanner {
 	    public void extractStrategy() 
 	    {   
 	    	try {
-			//ste.readMappingFile();
 			ste.readActionLabelFile();
 			ste.displayActionLabelAList();
 			ste.displayActionLabelBList();
-			//ste.getAllMappingList();
 			ste.readTransitionFile();
-			//ste.getAllTrasitionList();
-			ste.readStrategyFile();
-			//ste.getAllStrategyList();
-			
+			ste.readCompfromTwoStrategiesProfile();		
 			ste.findDecision();
 			ste.displayStrategies();
 			
@@ -314,19 +393,17 @@ public class CompositionalMultiPlanner {
 	     */
 	    public void generate()
 	    {        
-	    	
-	    	 
 	         //build and check the model
 	         try {
-				buildModelbyPrismEx();
+			//	buildModelbyPrismEx();
 				checkModelbyPrismEx();
 			} catch (PrismException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	              
-	         outcomefromModelBuilding();
-	         outcomefromModelChecking();
+	      //   outcomefromModelBuilding();
+	     //    outcomefromModelChecking();
 	        
 	        try {
 				exportTrans();
@@ -339,8 +416,8 @@ public class CompositionalMultiPlanner {
 	       	
 	       	//get the adaptation strategy
 	       	try {
- 				//extractStrategy();
- 				extractSingleStrategy();
+ 				extractStrategy();
+ 				//extractSingleStrategy();
  			} 
  			catch (IllegalArgumentException e) {
  				e.printStackTrace();
@@ -368,8 +445,8 @@ public class CompositionalMultiPlanner {
 
 	    	//0-means the initial stage
 	    	//1-means the adaptation stage
-	    	int stage = 1;
-	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(stage); 		
+	    	//int stage = 1;
+	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(); 		
 			
 	 		
 	 		plan.setApplicationRequirements(0, 1, 30.0, 300.0, 20, 20);
@@ -399,7 +476,7 @@ public class CompositionalMultiPlanner {
 	 			plan.getDecision(0);
 	 			tm.stop();
 	 			time[i] = tm.getDuration();
-	 			plan.simulatePath();
+	 			//plan.simulatePath();
 	 	    }
 	 		
 	 		long total = 0;
