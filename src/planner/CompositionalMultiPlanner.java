@@ -269,16 +269,8 @@ public class CompositionalMultiPlanner {
 	     */
 	    public void exportTrans() throws PrismException
 	    {
-	    	//if (this.stage == 0){
-	    		File transFile = new File(transPath);
-	       		model.exportToPrismExplicitTra(transFile);
-	    	//}
-	    	
-	    	//else{
-	    	//	File transFile = new File(transPath2);
-	    	//	model.exportToPrismExplicitTra(transFile);
-	    	//}
-	    	
+    		File transFile = new File(transPath);
+       		model.exportToPrismExplicitTra(transFile);
 	    }
 	    
 	    
@@ -371,13 +363,12 @@ public class CompositionalMultiPlanner {
 	    {   
 	    	try {
 			ste.readActionLabelFile();
-			ste.displayActionLabelAList();
-			ste.displayActionLabelBList();
+			//ste.displayActionLabelAList();
+			//ste.displayActionLabelBList();
 			ste.readTransitionFile();
-			ste.readCompfromTwoStrategiesProfile();		
-			ste.findDecision();
-			ste.displayStrategies();
-			
+			ste.readMultiCompfromOneStrategiesProfile();		
+			ste.findMultiDecision();
+			//ste.displayStrategies();
 			}
 	    	catch(IllegalArgumentException ie) {
 	    		ie.printStackTrace();
@@ -393,26 +384,18 @@ public class CompositionalMultiPlanner {
 	     */
 	    public void generate()
 	    {        
-	         //build and check the model
-	         try {
-			//	buildModelbyPrismEx();
+	     try {
+	    	 	//synthesize the model
 				checkModelbyPrismEx();
-			} catch (PrismException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	              
-	      //   outcomefromModelBuilding();
-	     //    outcomefromModelChecking();
-	        
-	        try {
+				//export the transitions
 				exportTrans();
+				//export the strategies
+				exportStrategy();
 			} catch (PrismException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        //strategy related process
-	       	exportStrategy();
+	           
 	       	
 	       	//get the adaptation strategy
 	       	try {
@@ -433,10 +416,8 @@ public class CompositionalMultiPlanner {
 	    	
 	    	ste.setNodeIdList(conf.getNodeIdList());
 	    	nodeName = ste.getDecision(decId);
-	    	//ste.setNodeIdList(conf.getNodeIdList());
-			System.out.println("Selected node name is "+nodeName);
-		//	System.out.println("Node name from substrategy 2 is "+ste.getSelectedNodeIdB());
-	      
+	    	System.out.println("Selected node name is for decision: "+decId+" is: "+nodeName);
+			      
 	    	return nodeName;
 	    }
 	     
@@ -448,7 +429,6 @@ public class CompositionalMultiPlanner {
 	    	//int stage = 1;
 	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(); 		
 			
-	 		
 	 		plan.setApplicationRequirements(0, 1, 30.0, 300.0, 20, 20);
 	 		plan.setApplicationRequirements(1, 1, 25.0, 600.0, 20, 20);
 	 		
@@ -460,29 +440,32 @@ public class CompositionalMultiPlanner {
 	 		plan.setNodeCapabilities(5, "NODE5", 1, 2500, 0.7, 1000, 500, "LOC5");
 	 		plan.setNodeCapabilities(6, "NODE6", 1, 2500, 0.7, 1000, 500, "LOC6");
 	 		plan.setNodeCapabilities(7, "NODE7", 1, 2500, 0.7, 1000, 500, "LOC7");
-	 		//Random rand = new Random();
+	 		
+	 		Random rand = new Random();
 	 		//int serviceType = -1;
-	 		int cycle =1;
+	 		int cycle =5;
 	 		//int goalType = 4;
 	 		//int retry = 1;
 	 		long time[] = new long[cycle];
 	 		TimeMeasure tm = new TimeMeasure();
 	 		
 	 		for (int i=0; i < cycle; i++)
-	 	    {
-	 			tm.start();
+	 	    {		 	
 	 			System.out.println("number of cycle :"+i);
+	 			tm.start();
 	 			plan.generate();
 	 			plan.getDecision(0);
+	 			plan.getDecision(1);
 	 			tm.stop();
 	 			time[i] = tm.getDuration();
 	 			//plan.simulatePath();
 	 	    }
 	 		
 	 		long total = 0;
-	 		for(int k=0; k < cycle; k++)
+	 		for(int k=0; k < cycle; k++) {
+	 			System.out.println("Total time of cycle "+k+":"+time[k]);
 	 			total +=time[k];
-	 		
+	 		}
 	 		System.out.println("total is "+total);
 	 		long avg = (total/cycle);
 	 		System.out.println("The average time is "+avg);

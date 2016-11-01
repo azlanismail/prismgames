@@ -214,35 +214,31 @@ public class StrategyExtraction {
 	}
 	
 	
+
+
 	/**
-	 * To read from single strategy profile
+	 * To read non-compositional multi-objective strategies from a single strategies profile
 	 * @throws IllegalArgumentException
 	 * @throws FileNotFoundException
 	 */
-	public void readMultiCompfromOneStrategiesProfile() throws IllegalArgumentException, FileNotFoundException {
+	public void readMultifromOneStrategiesProfile(int type) throws IllegalArgumentException, FileNotFoundException {
 		
 		substrat1States = new ArrayList<Integer>();
 		substrat1Actions = new ArrayList<Integer>();
 			
+		if (type == 1)
+			readS = new Scanner(new BufferedReader(new FileReader(this.stratMulti1Path)));
+		else
+			readS = new Scanner(new BufferedReader(new FileReader(this.stratMulti2Path)));
 		
-		readS = new Scanner(new BufferedReader(new FileReader(this.stratMultiCompPath)));
-	
 		String inRead=null;
 		int potState=0, potAction=0;
 		int stratId = 0; 
-		
+		boolean done = false;
 		while (readS.hasNextLine()) {
 			inRead = readS.nextLine();
 			
-			if (inRead.contains("StrategyIndex")) {
-				//get the strategy index
-				 String[] arr = inRead.split(" ");    
-				 stratId = Integer.parseInt(arr[1]);
-				 //System.out.println("Strategy Index is :"+arr[1]);
-			}
-			
-			//System.out.println("the data read from the file "+inRead);
-			if (inRead.equalsIgnoreCase("MemUpdMoves:") && (stratId == 1)){
+			if (inRead.equalsIgnoreCase("MemUpdMoves:")){
 				//skip four lines
 				readS.nextLine(); readS.nextLine(); readS.nextLine(); readS.nextLine();
 				inRead = readS.next();
@@ -263,16 +259,66 @@ public class StrategyExtraction {
 					//read the next integer
 					inRead = readS.next();
 				}
+				done = true;
 			}
-			if(stratId > 1) {
-				System.err.println("This reading function only caters for single strategy");
-				break;
-			}
+			if (done) break;
         }
 		readS.close();		
 	}
 
 	
+	
+	/**
+	 * To read compositional multi-objective strategies from a single strategies profile
+	 * @throws IllegalArgumentException
+	 * @throws FileNotFoundException
+	 */
+	public void readMultiCompfromOneStrategiesProfile() throws IllegalArgumentException, FileNotFoundException {
+		
+		substrat1States = new ArrayList<Integer>();
+		substrat1Actions = new ArrayList<Integer>();		
+		substrat2States = new ArrayList<Integer>();
+		substrat2Actions = new ArrayList<Integer>();
+		
+		readS = new Scanner(new BufferedReader(new FileReader(this.stratMultiCompPath)));
+	
+		String inRead=null;
+		int potState=0, potAction=0;
+		int stratId = 0; 
+		boolean done = false;
+		while (readS.hasNextLine()) {
+			inRead = readS.nextLine();
+			
+			if (inRead.equalsIgnoreCase("MemUpdMoves:")){
+				//skip four lines
+				readS.nextLine(); readS.nextLine(); readS.nextLine(); readS.nextLine();
+				inRead = readS.next();
+				while (readS.hasNextLine() && (!inRead.equalsIgnoreCase("Info:"))) {
+					//read the first index (potential decision state)
+					potState = Integer.parseInt(inRead);
+				
+					//read the second index (potential action)
+					potAction = Integer.parseInt(readS.next());
+				
+					//store into the array lists
+					substrat1States.add(potState);
+					substrat1Actions.add(potAction);
+					substrat2States.add(potState);
+					substrat2Actions.add(potAction);
+				
+					//skip the rest of the line
+					readS.nextLine();
+					
+					//read the next integer
+					inRead = readS.next();
+				}
+				done = true;
+			}
+			if (done) break;
+        }
+		readS.close();		
+	}
+
 	/**
 	 * To read from multi-strategies profile
 	 * @throws IllegalArgumentException
@@ -427,11 +473,15 @@ public class StrategyExtraction {
 				break;			
 		}//end for substrategy 1
 	 }
-		
+	
+	
+	
+	
+	
 	/**
 	 * Objective: To extract multiple selected actions from the strategy profiles
 	 */
-	public void findDecision()
+	public void findMultiDecision()
 	{
 		int maxSizeStrat1 = substrat1States.size();
 		int maxSizeStrat2 = substrat2States.size();
@@ -591,37 +641,54 @@ public class StrategyExtraction {
 		String linuxPath = "/home/azlan/git/PrismGames/";
 		String mainPath = linuxPath;
 		
-		String strategyPath = mainPath+"IOFiles/strategy";
-		String transitionPath = mainPath+"IOFiles/transition";
-      //  String mappingPath = mainPath+"IOFiles/mapping";
+		String stratCompPath = mainPath+"IOFiles/stratComp.txt";
+		String stratMultiCompPath = mainPath+"IOFiles/stratMultiComp.txt";
+		String stratMulti1Path = mainPath+"IOFiles/stratMulti1.txt";
+		String stratMulti2Path = mainPath+"IOFiles/stratMulti2.txt";
+		String transPath = mainPath+"IOFiles/transition.txt";
         String actionLabelAPath = mainPath+"IOFiles/actionlabelA";
         String actionLabelBPath = mainPath+"IOFiles/actionlabelB";
         
         //simulating the input configuration process
+        //I need these inputs to provide the node information
 		ConfigurationPlanner conf = new ConfigurationPlanner();
-		conf.setAppRequirements(1, 1, 0, 0.3, 3, 3);
-		conf.setNodeCapabilities(1, "NODE1", 3, 3, 0.5, 3, 3, "LOC1");
-		conf.setNodeCapabilities(1, "NODE2", 3, 3, 0.5, 3, 3, "LOC1");
-		conf.setNodeCapabilities(1, "NODE3", 3, 3, 0.5, 3, 3, "LOC1");	
+        conf.setAppRequirements(0, 1, 30.0, 300.0, 20, 20);
+ 		conf.setAppRequirements(1, 1, 25.0, 600.0, 20, 20);
+ 		
+ 		conf.setNodeCapabilities(0, "NODE0", 1, 200, 0.3, 1000, 500, "LOC0");
+ 		conf.setNodeCapabilities(1, "NODE1", 1, 200, 0.3, 1000, 500, "LOC1");
+ 		conf.setNodeCapabilities(2, "NODE2", 1, 2500, 0.5, 1000, 500, "LOC2");
+ 		conf.setNodeCapabilities(3, "NODE3", 1, 2500, 0.5, 1000, 500, "LOC3");
+ 		conf.setNodeCapabilities(4, "NODE4", 1, 2500, 0.7, 1000, 500, "LOC4");
+ 		conf.setNodeCapabilities(5, "NODE5", 1, 2500, 0.7, 1000, 500, "LOC5");
+ 		conf.setNodeCapabilities(6, "NODE6", 1, 2500, 0.7, 1000, 500, "LOC6");
+ 		conf.setNodeCapabilities(7, "NODE7", 1, 2500, 0.7, 1000, 500, "LOC7");
+ 		
 		
-		//StrategyExtraction ste = new StrategyExtraction(transitionPath, strategyPath, actionLabelAPath, actionLabelBPath);
+		StrategyExtraction ste = new StrategyExtraction(transPath, stratCompPath, stratMultiCompPath, stratMulti1Path, stratMulti2Path, actionLabelAPath, actionLabelBPath);	
+		ste.setNodeIdList(conf.getNodeIdList());
 		
-		//ste.readActionLabelFile();
+		ste.readActionLabelFile();
 		//ste.displayActionLabelAList();
 		//ste.displayActionLabelBList();
 
-		//ste.readTransitionFile();
+		ste.readTransitionFile();
 		//ste.getAllTrasitionList();
-		//ste.readStrategyFile();
-		
+		ste.readMultiCompfromOneStrategiesProfile();
 		//ste.getAllStrategyList();
-		
-		//ste.findDecision();
+		ste.findMultiDecision();
 		//ste.displayStrategies();
 		
-		//ste.setNodeIdList(conf.getNodeIdList());
-		//System.out.println("Node name from substrategy 1 is "+ste.getSelectedNodeIdA());
-		//System.out.println("Node name from substrategy 2 is "+ste.getSelectedNodeIdB());
+		System.out.println("Selected node from compositional multi-objective strategy: "+ste.getSelectedNodeIdA());
+		System.out.println("Selected node from compositional multi-objective strategy: "+ste.getSelectedNodeIdB());
+		
+		ste.readMultifromOneStrategiesProfile(1);
+		ste.findSingleDecision();
+		System.out.println("Selected node from non-compositional mult-objective strategy: "+ste.getSelectedNodeIdA());
+	
+		ste.readMultifromOneStrategiesProfile(2);
+		ste.findSingleDecision();
+		System.out.println("Selected node from non-compositional mult-objective strategy: "+ste.getSelectedNodeIdA());
 		
 	}
 
