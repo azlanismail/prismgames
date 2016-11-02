@@ -184,13 +184,13 @@ execa: bool init false;
 
 // P2 moves:
 [ch0a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS0:(execa'=true) & (ta'=2) + 1-AVA_RS0:(execa'=false) & (ta'=2);
-[ch1a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS1:(execa'=true) & (ta'=2) + 1-AVA_RS1:(execa'=false) & (ta'=2);
-[ch2a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS2:(execa'=true) & (ta'=2) + 1-AVA_RS2:(execa'=false) & (ta'=2);
-[ch3a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS3:(execa'=true) & (ta'=2) + 1-AVA_RS3:(execa'=false) & (ta'=2);
-[ch4a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS4:(execa'=true) & (ta'=2) + 1-AVA_RS4:(execa'=false) & (ta'=2);
-[ch5a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS5:(execa'=true) & (ta'=2) + 1-AVA_RS5:(execa'=false) & (ta'=2);
-[ch6a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS6:(execa'=true) & (ta'=2) + 1-AVA_RS6:(execa'=false) & (ta'=2);
-[ch7a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS7:(execa'=true) & (ta'=2) + 1-AVA_RS7:(execa'=false) & (ta'=2);
+[ch1a?] (ta=1) & (execa=false) & (sela=1) -> AVA_RS1:(execa'=true) & (ta'=2) + 1-AVA_RS1:(execa'=false) & (ta'=2);
+[ch2a?] (ta=1) & (execa=false) & (sela=2) -> AVA_RS2:(execa'=true) & (ta'=2) + 1-AVA_RS2:(execa'=false) & (ta'=2);
+[ch3a?] (ta=1) & (execa=false) & (sela=3) -> AVA_RS3:(execa'=true) & (ta'=2) + 1-AVA_RS3:(execa'=false) & (ta'=2);
+[ch4a?] (ta=1) & (execa=false) & (sela=4) -> AVA_RS4:(execa'=true) & (ta'=2) + 1-AVA_RS4:(execa'=false) & (ta'=2);
+[ch5a?] (ta=1) & (execa=false) & (sela=5) -> AVA_RS5:(execa'=true) & (ta'=2) + 1-AVA_RS5:(execa'=false) & (ta'=2);
+[ch6a?] (ta=1) & (execa=false) & (sela=6) -> AVA_RS6:(execa'=true) & (ta'=2) + 1-AVA_RS6:(execa'=false) & (ta'=2);
+[ch7a?] (ta=1) & (execa=false) & (sela=7) -> AVA_RS7:(execa'=true) & (ta'=2) + 1-AVA_RS7:(execa'=false) & (ta'=2);
 
 //start the move
 [be?] (ta=1) -> (ta'=2);
@@ -833,14 +833,22 @@ endrewards
 formula sum_rw_cpu_loads = APP0_CPU_LOADS + APP1_CPU_LOADS;
 //for component 1 : cpu load 
 rewards "call_ru"
-[r0b] true : RS0_CPU_LOADS + sum_rw_cpu_loads;
-[r1b] true : RS1_CPU_LOADS + sum_rw_cpu_loads;
-[r2b] true : RS2_CPU_LOADS + sum_rw_cpu_loads;
-[r3b] true : RS3_CPU_LOADS + sum_rw_cpu_loads;
-[r4b] true : RS4_CPU_LOADS + sum_rw_cpu_loads;
-[r5b] true : RS5_CPU_LOADS + sum_rw_cpu_loads;
-[r6b] true : RS6_CPU_LOADS + sum_rw_cpu_loads;
-[r7b] true : RS7_CPU_LOADS + sum_rw_cpu_loads;
+[r0a] true : RS0_CPU_LOADS + APP0_CPU_LOADS;
+[r1a] true : RS1_CPU_LOADS + APP0_CPU_LOADS;
+[r2a] true : RS2_CPU_LOADS + APP0_CPU_LOADS;
+[r3a] true : RS3_CPU_LOADS + APP0_CPU_LOADS;
+[r4a] true : RS4_CPU_LOADS + APP0_CPU_LOADS;
+[r5a] true : RS5_CPU_LOADS + APP0_CPU_LOADS;
+[r6a] true : RS6_CPU_LOADS + APP0_CPU_LOADS;
+[r7a] true : RS7_CPU_LOADS + APP0_CPU_LOADS;
+[r0b] true : RS0_CPU_LOADS + APP1_CPU_LOADS;
+[r1b] true : RS1_CPU_LOADS + APP1_CPU_LOADS;
+[r2b] true : RS2_CPU_LOADS + APP1_CPU_LOADS;
+[r3b] true : RS3_CPU_LOADS + APP1_CPU_LOADS;
+[r4b] true : RS4_CPU_LOADS + APP1_CPU_LOADS;
+[r5b] true : RS5_CPU_LOADS + APP1_CPU_LOADS;
+[r6b] true : RS6_CPU_LOADS + APP1_CPU_LOADS;
+[r7b] true : RS7_CPU_LOADS + APP1_CPU_LOADS;
 endrewards
 
 //rewards "avail_rs0"
