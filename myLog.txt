@@ -1,56 +1,54 @@
 
 Building model...
 
-Computing reachable states... 29 states
-Reachable states exploration and model construction done in 0.279 secs.
+Computing reachable states... 28 states
+Reachable states exploration and model construction done in 0.252 secs.
 Sorting reachable states list...
 
-Computing reachable states... 43 states
-Reachable states exploration and model construction done in 0.177 secs.
+Computing reachable states... 18 states
+Reachable states exploration and model construction done in 0.183 secs.
 Sorting reachable states list...
-Progress:
+product construction took 0.146829 s
 
-product construction took 0.270794 s
-
-Time for model construction: 0.773 seconds.
+Time for model construction: 0.623 seconds.
 //////////////////////////////////////////////////////////////////////////////
 //                   STARTING COMPOSITIONAL MODEL CHECKING                  //
 //////////////////////////////////////////////////////////////////////////////
 
 Building Model ... 
 
-Computing reachable states... 29 states
-Reachable states exploration and model construction done in 0.194 secs.
+Computing reachable states... 28 states
+Reachable states exploration and model construction done in 0.247 secs.
 Sorting reachable states list...
 
-Computing reachable states... 43 states
-Reachable states exploration and model construction done in 0.231 secs.
+Computing reachable states... 18 states
+Reachable states exploration and model construction done in 0.172 secs.
 Sorting reachable states list...
 
-Model checking : "q1": <<1>> (((((R{"c1_ru"}<=MAXRUA [ C ]=>R{"c2_ru"}<=MAXRUB [ C ])))))
+Model checking : "q1": <<1>> ((((R{"c1_ru"}<=MAXRU [ C ]&(R{"c2_rt"}<=MAXRU [ C ]=>R{"c1_rt"}<=MAXRT [ C ])))))
 
-Reducing multi-objective query to CNF: R{"c1_ru"}>MAXRUA [ C ]|R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
+Reducing multi-objective query to CNF: R{"c1_ru"}<=MAXRU [ C ]&R{"c2_rt"}>MAXRU [ C ]|R{"c1_rt"}<=MAXRT [ C ]
+expr: [[R{"c1_ru"}<=MAXRU [ C ]], [R{"c2_rt"}>MAXRU [ C ], R{"c1_rt"}<=MAXRT [ C ]]]
 
 Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_ru"}>MAXRUA [ C ]
+	R{"c2_rt"}>MAXRU [ C ]
 
 /////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
 Property:
-	[[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
+	[[R{"c1_ru"}<=MAXRU [ C ]], [R{"c2_rt"}>MAXRU [ C ], R{"c1_rt"}<=MAXRT [ C ]]]
 
-initial state: 10
+initial state: 11
 operation: Strategy generation
-Strategy construction took 0.114916 s
-Synthesis took 0.256536 s
+Strategy construction took 0.102085 s
+Synthesis took 0.273624 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-29
+28
 // Initial state
 InitState:
-10
+11
 // initial distribution
 Init:
 {0=1.0}
@@ -59,60 +57,39 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
+0 0 {2=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
 // second index: current corner
 // third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
-10 0 0 {0=1.0}
+0 0 2 {0=1.0}
+5 0 0 {0=1.0}
+6 0 0 {0=1.0}
 11 0 0 {0=1.0}
-11 0 1 {0=1.0}
-11 0 2 {0=1.0}
-11 0 3 {0=1.0}
-11 0 4 {0=1.0}
-11 0 5 {0=1.0}
-11 0 6 {0=1.0}
-11 0 7 {0=1.0}
-11 0 8 {0=1.0}
-19 0 0 {0=1.0}
-20 0 0 {0=1.0}
-21 0 0 {0=1.0}
+14 0 0 {0=1.0}
+14 0 1 {0=1.0}
+17 0 0 {0=1.0}
+22 0 0 {0=1.0}
+23 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-0 0 0 11 {0=1.0}
-1 0 0 20 {0=1.0}
-2 0 0 21 {0=1.0}
-10 0 0 19 {0=1.0}
-11 0 0 20 {0=1.0}
-11 0 0 21 {0=1.0}
-11 1 0 20 {0=1.0}
-11 1 0 21 {0=1.0}
-11 2 0 20 {0=1.0}
-11 2 0 21 {0=1.0}
-11 3 0 20 {0=1.0}
-11 3 0 21 {0=1.0}
-11 4 0 20 {0=1.0}
-11 4 0 21 {0=1.0}
-11 5 0 20 {0=1.0}
-11 5 0 21 {0=1.0}
-11 6 0 20 {0=1.0}
-11 6 0 21 {0=1.0}
-11 7 0 20 {0=1.0}
-11 7 0 21 {0=1.0}
-11 8 0 20 {0=1.0}
-19 0 0 0 {0=1.0}
-20 0 0 1 {0=1.0}
-21 0 0 2 {0=1.0}
+0 2 0 14 {0=1.0}
+5 0 0 22 {0=1.0}
+6 0 0 23 {0=1.0}
+11 0 0 17 {0=1.0}
+14 0 0 22 {0=1.0}
+14 0 0 23 {0=1.0}
+14 1 0 22 {0=1.0}
+17 0 0 0 {0=1.0}
+22 0 0 5 {0=1.0}
+23 0 0 6 {0=1.0}
 Info:
 
 maximum C-iterations: 500
@@ -124,38 +101,38 @@ maximum D-iterations: 500
 endstrategy
 
 
-Number of states satisfying "q1": 29 (all in model)
+Number of states satisfying "q1": 28 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.34600000000000003 seconds.
+Time for model checking: 0.336 seconds.
 
 Result: true (property satisfied in the initial state)
 
-Model checking : "q2": <<1>> (((((R{"c1_rt"}<=MAXRTA [ C ]=>R{"c2_rt"}<=MAXRTB [ C ])))))
+Model checking : "q2": <<1>> ((((R{"c2_ru"}<=MAXRU [ C ]&(R{"c1_rt"}<=MAXRT [ C ]=>R{"c2_rt"}<=MAXRT [ C ])))))
 
-Reducing multi-objective query to CNF: R{"c1_rt"}>MAXRTA [ C ]|R{"c2_rt"}<=MAXRTB [ C ]
-expr: [[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
+Reducing multi-objective query to CNF: R{"c2_ru"}<=MAXRU [ C ]&R{"c1_rt"}>MAXRT [ C ]|R{"c2_rt"}<=MAXRT [ C ]
+expr: [[R{"c2_ru"}<=MAXRU [ C ]], [R{"c1_rt"}>MAXRT [ C ], R{"c2_rt"}<=MAXRT [ C ]]]
 
 Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_rt"}>MAXRTA [ C ]
+	R{"c1_rt"}>MAXRT [ C ]
 
 /////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
 Property:
-	[[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
+	[[R{"c2_ru"}<=MAXRU [ C ]], [R{"c1_rt"}>MAXRT [ C ], R{"c2_rt"}<=MAXRT [ C ]]]
 
-initial state: 17
+initial state: 7
 operation: Strategy generation
-Strategy construction took 0.012081 s
-Synthesis took 0.086959 s
+Strategy construction took 0.009425 s
+Synthesis took 0.070189 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-43
+18
 // Initial state
 InitState:
-17
+7
 // initial distribution
 Init:
 {0=1.0}
@@ -164,39 +141,39 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
+0 0 {2=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
 // second index: current corner
 // third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
+0 0 2 {0=1.0}
+5 0 0 {0=1.0}
+6 0 0 {0=1.0}
+7 0 0 {0=1.0}
+10 0 0 {0=1.0}
+10 0 1 {0=1.0}
+11 0 0 {0=1.0}
+16 0 0 {0=1.0}
 17 0 0 {0=1.0}
-18 0 0 {0=1.0}
-18 0 1 {0=1.0}
-26 0 0 {0=1.0}
-27 0 0 {0=1.0}
-28 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-0 0 0 18 {0=1.0}
-1 0 0 27 {0=1.0}
-2 0 0 28 {0=1.0}
-17 0 0 26 {0=1.0}
-18 0 0 27 {0=1.0}
-18 1 0 27 {0=1.0}
-18 1 0 28 {0=1.0}
-26 0 0 0 {0=1.0}
-27 0 0 1 {0=1.0}
-28 0 0 2 {0=1.0}
+0 2 0 10 {0=1.0}
+5 0 0 16 {0=1.0}
+6 0 0 17 {0=1.0}
+7 0 0 11 {0=1.0}
+10 0 0 16 {0=1.0}
+10 1 0 16 {0=1.0}
+10 1 0 17 {0=1.0}
+11 0 0 0 {0=1.0}
+16 0 0 5 {0=1.0}
+17 0 0 6 {0=1.0}
 Info:
 
 maximum C-iterations: 500
@@ -208,11 +185,11 @@ maximum D-iterations: 500
 endstrategy
 
 
-Number of states satisfying "q2": 43 (all in model)
+Number of states satisfying "q2": 18 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.099 seconds.
+Time for model checking: 0.08600000000000001 seconds.
 
 Result: true (property satisfied in the initial state)
 //////////////////////////////////////////////////////////////////////////////
@@ -220,25 +197,25 @@ Result: true (property satisfied in the initial state)
 //////////////////////////////////////////////////////////////////////////////
 
 
-Model checking completed in 0.887 secs.
+Model checking completed in 0.8620000000000001 secs.
 
 Result: true
 
-Reducing multi-objective query to CNF: R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
+Reducing multi-objective query to CNF: R{"c1max_rt"}<=MAXRT [ C ]&R{"c1sum_ru"}<=MAXRU [ C ]&R{"c2max_rt"}<=MAXRT [ C ]&R{"c2sum_ru"}<=MAXRU [ C ]
+expr: [[R{"c1max_rt"}<=MAXRT [ C ]], [R{"c1sum_ru"}<=MAXRU [ C ]], [R{"c2max_rt"}<=MAXRT [ C ]], [R{"c2sum_ru"}<=MAXRU [ C ]]]
 /////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
 Property:
-	[[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
+	[[R{"c1max_rt"}<=MAXRT [ C ]], [R{"c1sum_ru"}<=MAXRU [ C ]], [R{"c2max_rt"}<=MAXRT [ C ]], [R{"c2sum_ru"}<=MAXRU [ C ]]]
 
 initial state: 0
 operation: Strategy generation
-Strategy construction took 0.070561 s
-Synthesis took 0.920604 s
+Strategy construction took 0.094868 s
+Synthesis took 0.929911 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-706
+383
 // Initial state
 InitState:
 0
@@ -250,18 +227,30 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-2 0 {3=1.0}
-3 0 {3=1.0}
-25 0 {3=1.0}
-39 0 {3=1.0}
-134 0 {3=1.0}
-135 0 {0=1.0}
-136 0 {3=1.0}
-137 0 {0=1.0}
-510 0 {0=1.0}
-511 0 {0=1.0}
-512 0 {0=1.0}
-513 0 {0=1.0}
+2 0 {1=1.0}
+3 0 {1=1.0}
+15 0 {1=1.0}
+30 0 {1=1.0}
+46 0 {0=1.0}
+47 0 {1=1.0}
+48 0 {0=1.0}
+49 0 {1=1.0}
+75 0 {1=1.0}
+76 0 {0=1.0}
+77 0 {1=1.0}
+78 0 {0=1.0}
+194 0 {0=1.0}
+195 0 {0=1.0}
+196 0 {0=1.0}
+198 0 {0=1.0}
+201 0 {0=1.0}
+202 0 {0=1.0}
+317 0 {0=1.0}
+318 0 {0=1.0}
+319 0 {0=1.0}
+320 0 {0=1.0}
+321 0 {0=1.0}
+322 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
@@ -270,31 +259,61 @@ MemUpdStates:
 0 0 0 {0=1.0}
 1 0 0 {0=1.0}
 1 0 1 {0=1.0}
-2 0 3 {0=1.0}
-3 0 3 {0=1.0}
-7 0 0 {0=1.0}
-15 0 0 {0=1.0}
+2 0 1 {0=1.0}
+3 0 1 {0=1.0}
+5 0 0 {0=1.0}
+5 0 1 {0=1.0}
+10 0 0 {0=1.0}
+10 0 1 {0=1.0}
 15 0 1 {0=1.0}
-25 0 3 {0=1.0}
-39 0 3 {0=1.0}
-40 0 0 {0=1.0}
-40 0 1 {0=1.0}
-41 0 0 {0=1.0}
-41 0 1 {0=1.0}
-85 0 0 {0=1.0}
-85 0 1 {0=1.0}
-134 0 3 {0=1.0}
-135 0 0 {0=1.0}
-136 0 3 {0=1.0}
-137 0 0 {0=1.0}
-251 0 0 {0=1.0}
-251 0 1 {0=1.0}
-252 0 0 {0=1.0}
-253 0 0 {0=1.0}
-510 0 0 {0=1.0}
-511 0 0 {0=1.0}
-512 0 0 {0=1.0}
-513 0 0 {0=1.0}
+16 0 0 {0=1.0}
+16 0 1 {0=1.0}
+17 0 0 {0=1.0}
+17 0 1 {0=1.0}
+30 0 1 {0=1.0}
+31 0 0 {0=1.0}
+31 0 1 {0=1.0}
+32 0 0 {0=1.0}
+32 0 1 {0=1.0}
+44 0 0 {0=1.0}
+44 0 1 {0=1.0}
+44 0 2 {0=1.0}
+46 0 0 {0=1.0}
+47 0 1 {0=1.0}
+48 0 0 {0=1.0}
+49 0 1 {0=1.0}
+75 0 1 {0=1.0}
+76 0 0 {0=1.0}
+77 0 1 {0=1.0}
+78 0 0 {0=1.0}
+103 0 0 {0=1.0}
+103 0 1 {0=1.0}
+104 0 0 {0=1.0}
+104 0 1 {0=1.0}
+105 0 0 {0=1.0}
+105 0 1 {0=1.0}
+106 0 0 {0=1.0}
+106 0 1 {0=1.0}
+107 0 0 {0=1.0}
+107 0 1 {0=1.0}
+194 0 0 {0=1.0}
+195 0 0 {0=1.0}
+196 0 0 {0=1.0}
+197 0 0 {0=1.0}
+197 0 1 {0=1.0}
+198 0 0 {0=1.0}
+199 0 0 {0=1.0}
+199 0 1 {0=1.0}
+200 0 0 {0=1.0}
+200 0 1 {0=1.0}
+201 0 0 {0=1.0}
+202 0 0 {0=1.0}
+317 0 0 {0=1.0}
+318 0 0 {0=1.0}
+319 0 0 {0=1.0}
+320 0 0 {0=1.0}
+321 0 0 {0=1.0}
+322 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
@@ -304,33 +323,69 @@ MemUpdMoves:
 0 0 0 1 {0=1.0}
 1 0 0 2 {0=1.0}
 1 1 0 3 {0=1.0}
-2 3 0 7 {0=1.0}
-3 3 0 15 {0=1.0}
-7 0 0 25 {0=1.0}
-15 0 0 39 {0=1.0}
-15 1 0 40 {0=1.0}
-15 1 0 41 {0=1.0}
-25 3 0 85 {0=1.0}
-39 3 0 85 {0=1.0}
-40 0 0 134 {0=1.0}
-40 1 0 135 {0=1.0}
-41 0 0 136 {0=1.0}
-41 1 0 137 {0=1.0}
-85 0 0 251 {0=1.0}
-85 1 0 252 {0=1.0}
-85 1 0 253 {0=1.0}
-134 3 0 252 {0=1.0}
-135 0 0 40 {0=1.0}
-136 3 0 253 {0=1.0}
-137 0 0 41 {0=1.0}
-251 0 0 510 {0=1.0}
-251 1 0 511 {0=1.0}
-252 0 0 512 {0=1.0}
-253 0 0 513 {0=1.0}
-510 0 0 251 {0=1.0}
-511 0 0 251 {0=1.0}
-512 0 0 252 {0=1.0}
-513 0 0 253 {0=1.0}
+2 1 0 5 {0=1.0}
+3 1 0 10 {0=1.0}
+5 0 0 15 {0=1.0}
+5 1 0 16 {0=1.0}
+5 1 0 17 {0=1.0}
+10 0 0 30 {0=1.0}
+10 1 0 32 {0=1.0}
+10 1 0 31 {0=1.0}
+15 1 0 44 {0=1.0}
+16 0 0 46 {0=1.0}
+16 1 0 47 {0=1.0}
+17 0 0 48 {0=1.0}
+17 1 0 49 {0=1.0}
+30 1 0 44 {0=1.0}
+31 0 0 75 {0=1.0}
+31 1 0 76 {0=1.0}
+32 0 0 77 {0=1.0}
+32 1 0 78 {0=1.0}
+44 0 0 103 {0=1.0}
+44 1 0 104 {0=1.0}
+44 1 0 105 {0=1.0}
+44 2 0 106 {0=1.0}
+44 2 0 107 {0=1.0}
+46 0 0 16 {0=1.0}
+47 1 0 106 {0=1.0}
+48 0 0 17 {0=1.0}
+49 1 0 107 {0=1.0}
+75 1 0 104 {0=1.0}
+76 0 0 31 {0=1.0}
+77 1 0 105 {0=1.0}
+78 0 0 32 {0=1.0}
+103 0 0 194 {0=1.0}
+103 1 0 195 {0=1.0}
+104 0 0 196 {0=1.0}
+104 1 0 197 {0=1.0}
+104 1 0 103 {0=1.0}
+105 0 0 198 {0=1.0}
+105 1 0 199 {0=1.0}
+105 1 0 200 {0=1.0}
+106 0 0 201 {0=1.0}
+106 1 0 103 {0=1.0}
+106 1 0 199 {0=1.0}
+107 0 0 202 {0=1.0}
+107 1 0 197 {0=1.0}
+107 1 0 200 {0=1.0}
+194 0 0 103 {0=1.0}
+195 0 0 103 {0=1.0}
+196 0 0 104 {0=1.0}
+197 0 0 317 {0=1.0}
+197 1 0 318 {0=1.0}
+198 0 0 105 {0=1.0}
+199 0 0 319 {0=1.0}
+199 1 0 320 {0=1.0}
+200 0 0 321 {0=1.0}
+200 1 0 322 {0=1.0}
+201 0 0 106 {0=1.0}
+202 0 0 107 {0=1.0}
+317 0 0 197 {0=1.0}
+318 0 0 197 {0=1.0}
+319 0 0 199 {0=1.0}
+320 0 0 199 {0=1.0}
+321 0 0 200 {0=1.0}
+322 0 0 200 {0=1.0}
 Info:
 
 maximum C-iterations: 500
@@ -340,415 +395,872 @@ maximum C-iterations: 500
 endstrategy
 
 
-Number of states satisfying <<1>> (((R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]))): 706 (all in model)
+Number of states satisfying <<1>> (((R{"c1max_rt"}<=MAXRT [ C ]&R{"c1sum_ru"}<=MAXRU [ C ]&R{"c2max_rt"}<=MAXRT [ C ]&R{"c2sum_ru"}<=MAXRU [ C ]))): 383 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.9520000000000001 seconds.
+Time for model checking: 0.9740000000000001 seconds.
 
 Result: true (property satisfied in the initial state)
 
 Building model...
 
-Computing reachable states... 29 states
-Reachable states exploration and model construction done in 0.23800000000000002 secs.
+Computing reachable states... 28 states
+Reachable states exploration and model construction done in 0.23500000000000001 secs.
 Sorting reachable states list...
 
-Computing reachable states... 43 states
+Computing reachable states... 18 states
+Reachable states exploration and model construction done in 0.14 secs.
+Sorting reachable states list...
+product construction took 0.127236 s
+
+Time for model construction: 0.521 seconds.
+//////////////////////////////////////////////////////////////////////////////
+//                   STARTING COMPOSITIONAL MODEL CHECKING                  //
+//////////////////////////////////////////////////////////////////////////////
+
+Building Model ... 
+
+Computing reachable states... 28 states
+Reachable states exploration and model construction done in 0.07800000000000001 secs.
+Sorting reachable states list...
+
+Computing reachable states... 18 states
+Reachable states exploration and model construction done in 0.15300000000000002 secs.
+Sorting reachable states list...
+
+Model checking : "q1": <<1>> ((((R{"c1_ru"}<=MAXRU [ C ]&(R{"c2_rt"}<=MAXRU [ C ]=>R{"c1_rt"}<=MAXRT [ C ])))))
+
+Reducing multi-objective query to CNF: R{"c1_ru"}<=MAXRU [ C ]&R{"c2_rt"}>MAXRU [ C ]|R{"c1_rt"}<=MAXRT [ C ]
+expr: [[R{"c1_ru"}<=MAXRU [ C ]], [R{"c2_rt"}>MAXRU [ C ], R{"c1_rt"}<=MAXRT [ C ]]]
+
+Warning: Strict inequalities ignored and turned into nonstrict inequalities:
+	R{"c2_rt"}>MAXRU [ C ]
+
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c1_ru"}<=MAXRU [ C ]], [R{"c2_rt"}>MAXRU [ C ], R{"c1_rt"}<=MAXRT [ C ]]]
+
+initial state: 11
+operation: Strategy generation
+Strategy construction took 0.012005 s
+Synthesis took 0.163875 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+28
+// Initial state
+InitState:
+11
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {2=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 2 {0=1.0}
+5 0 0 {0=1.0}
+6 0 0 {0=1.0}
+11 0 0 {0=1.0}
+14 0 0 {0=1.0}
+14 0 1 {0=1.0}
+17 0 0 {0=1.0}
+22 0 0 {0=1.0}
+23 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 2 0 14 {0=1.0}
+5 0 0 22 {0=1.0}
+6 0 0 23 {0=1.0}
+11 0 0 17 {0=1.0}
+14 0 0 22 {0=1.0}
+14 0 0 23 {0=1.0}
+14 1 0 22 {0=1.0}
+17 0 0 0 {0=1.0}
+22 0 0 5 {0=1.0}
+23 0 0 6 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+maximum D-iterations: 500
+	D-iteration offset: 1
+endstrategy
+
+
+Number of states satisfying "q1": 28 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.17 seconds.
+
+Result: true (property satisfied in the initial state)
+
+Model checking : "q2": <<1>> ((((R{"c2_ru"}<=MAXRU [ C ]&(R{"c1_rt"}<=MAXRT [ C ]=>R{"c2_rt"}<=MAXRT [ C ])))))
+
+Reducing multi-objective query to CNF: R{"c2_ru"}<=MAXRU [ C ]&R{"c1_rt"}>MAXRT [ C ]|R{"c2_rt"}<=MAXRT [ C ]
+expr: [[R{"c2_ru"}<=MAXRU [ C ]], [R{"c1_rt"}>MAXRT [ C ], R{"c2_rt"}<=MAXRT [ C ]]]
+
+Warning: Strict inequalities ignored and turned into nonstrict inequalities:
+	R{"c1_rt"}>MAXRT [ C ]
+
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c2_ru"}<=MAXRU [ C ]], [R{"c1_rt"}>MAXRT [ C ], R{"c2_rt"}<=MAXRT [ C ]]]
+
+initial state: 7
+operation: Strategy generation
+Strategy construction took 0.004353 s
+Synthesis took 0.047243 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+18
+// Initial state
+InitState:
+7
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {2=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 2 {0=1.0}
+5 0 0 {0=1.0}
+6 0 0 {0=1.0}
+7 0 0 {0=1.0}
+10 0 0 {0=1.0}
+10 0 1 {0=1.0}
+11 0 0 {0=1.0}
+16 0 0 {0=1.0}
+17 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 2 0 10 {0=1.0}
+5 0 0 16 {0=1.0}
+6 0 0 17 {0=1.0}
+7 0 0 11 {0=1.0}
+10 0 0 16 {0=1.0}
+10 1 0 16 {0=1.0}
+10 1 0 17 {0=1.0}
+11 0 0 0 {0=1.0}
+16 0 0 5 {0=1.0}
+17 0 0 6 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+maximum D-iterations: 500
+	D-iteration offset: 1
+endstrategy
+
+
+Number of states satisfying "q2": 18 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.063 seconds.
+
+Result: true (property satisfied in the initial state)
+//////////////////////////////////////////////////////////////////////////////
+//                   COMPLETED COMPOSITIONAL MODEL CHECKING                 //
+//////////////////////////////////////////////////////////////////////////////
+
+
+Model checking completed in 0.47000000000000003 secs.
+
+Result: true
+
+Reducing multi-objective query to CNF: R{"c1max_rt"}<=MAXRT [ C ]&R{"c1sum_ru"}<=MAXRU [ C ]&R{"c2max_rt"}<=MAXRT [ C ]&R{"c2sum_ru"}<=MAXRU [ C ]
+expr: [[R{"c1max_rt"}<=MAXRT [ C ]], [R{"c1sum_ru"}<=MAXRU [ C ]], [R{"c2max_rt"}<=MAXRT [ C ]], [R{"c2sum_ru"}<=MAXRU [ C ]]]
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c1max_rt"}<=MAXRT [ C ]], [R{"c1sum_ru"}<=MAXRU [ C ]], [R{"c2max_rt"}<=MAXRT [ C ]], [R{"c2sum_ru"}<=MAXRU [ C ]]]
+
+initial state: 0
+operation: Strategy generation
+Strategy construction took 0.116587 s
+Synthesis took 0.890788 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+383
+// Initial state
+InitState:
+0
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+2 0 {1=1.0}
+3 0 {1=1.0}
+15 0 {1=1.0}
+30 0 {1=1.0}
+46 0 {0=1.0}
+47 0 {1=1.0}
+48 0 {0=1.0}
+49 0 {1=1.0}
+75 0 {1=1.0}
+76 0 {0=1.0}
+77 0 {1=1.0}
+78 0 {0=1.0}
+194 0 {0=1.0}
+195 0 {0=1.0}
+196 0 {0=1.0}
+198 0 {0=1.0}
+201 0 {0=1.0}
+202 0 {0=1.0}
+317 0 {0=1.0}
+318 0 {0=1.0}
+319 0 {0=1.0}
+320 0 {0=1.0}
+321 0 {0=1.0}
+322 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+1 0 1 {0=1.0}
+2 0 1 {0=1.0}
+3 0 1 {0=1.0}
+5 0 0 {0=1.0}
+5 0 1 {0=1.0}
+10 0 0 {0=1.0}
+10 0 1 {0=1.0}
+15 0 1 {0=1.0}
+16 0 0 {0=1.0}
+16 0 1 {0=1.0}
+17 0 0 {0=1.0}
+17 0 1 {0=1.0}
+30 0 1 {0=1.0}
+31 0 0 {0=1.0}
+31 0 1 {0=1.0}
+32 0 0 {0=1.0}
+32 0 1 {0=1.0}
+44 0 0 {0=1.0}
+44 0 1 {0=1.0}
+44 0 2 {0=1.0}
+46 0 0 {0=1.0}
+47 0 1 {0=1.0}
+48 0 0 {0=1.0}
+49 0 1 {0=1.0}
+75 0 1 {0=1.0}
+76 0 0 {0=1.0}
+77 0 1 {0=1.0}
+78 0 0 {0=1.0}
+103 0 0 {0=1.0}
+103 0 1 {0=1.0}
+104 0 0 {0=1.0}
+104 0 1 {0=1.0}
+105 0 0 {0=1.0}
+105 0 1 {0=1.0}
+106 0 0 {0=1.0}
+106 0 1 {0=1.0}
+107 0 0 {0=1.0}
+107 0 1 {0=1.0}
+194 0 0 {0=1.0}
+195 0 0 {0=1.0}
+196 0 0 {0=1.0}
+197 0 0 {0=1.0}
+197 0 1 {0=1.0}
+198 0 0 {0=1.0}
+199 0 0 {0=1.0}
+199 0 1 {0=1.0}
+200 0 0 {0=1.0}
+200 0 1 {0=1.0}
+201 0 0 {0=1.0}
+202 0 0 {0=1.0}
+317 0 0 {0=1.0}
+318 0 0 {0=1.0}
+319 0 0 {0=1.0}
+320 0 0 {0=1.0}
+321 0 0 {0=1.0}
+322 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 0 0 1 {0=1.0}
+1 0 0 2 {0=1.0}
+1 1 0 3 {0=1.0}
+2 1 0 5 {0=1.0}
+3 1 0 10 {0=1.0}
+5 0 0 15 {0=1.0}
+5 1 0 16 {0=1.0}
+5 1 0 17 {0=1.0}
+10 0 0 30 {0=1.0}
+10 1 0 32 {0=1.0}
+10 1 0 31 {0=1.0}
+15 1 0 44 {0=1.0}
+16 0 0 46 {0=1.0}
+16 1 0 47 {0=1.0}
+17 0 0 48 {0=1.0}
+17 1 0 49 {0=1.0}
+30 1 0 44 {0=1.0}
+31 0 0 75 {0=1.0}
+31 1 0 76 {0=1.0}
+32 0 0 77 {0=1.0}
+32 1 0 78 {0=1.0}
+44 0 0 103 {0=1.0}
+44 1 0 104 {0=1.0}
+44 1 0 105 {0=1.0}
+44 2 0 106 {0=1.0}
+44 2 0 107 {0=1.0}
+46 0 0 16 {0=1.0}
+47 1 0 106 {0=1.0}
+48 0 0 17 {0=1.0}
+49 1 0 107 {0=1.0}
+75 1 0 104 {0=1.0}
+76 0 0 31 {0=1.0}
+77 1 0 105 {0=1.0}
+78 0 0 32 {0=1.0}
+103 0 0 194 {0=1.0}
+103 1 0 195 {0=1.0}
+104 0 0 196 {0=1.0}
+104 1 0 197 {0=1.0}
+104 1 0 103 {0=1.0}
+105 0 0 198 {0=1.0}
+105 1 0 199 {0=1.0}
+105 1 0 200 {0=1.0}
+106 0 0 201 {0=1.0}
+106 1 0 103 {0=1.0}
+106 1 0 199 {0=1.0}
+107 0 0 202 {0=1.0}
+107 1 0 197 {0=1.0}
+107 1 0 200 {0=1.0}
+194 0 0 103 {0=1.0}
+195 0 0 103 {0=1.0}
+196 0 0 104 {0=1.0}
+197 0 0 317 {0=1.0}
+197 1 0 318 {0=1.0}
+198 0 0 105 {0=1.0}
+199 0 0 319 {0=1.0}
+199 1 0 320 {0=1.0}
+200 0 0 321 {0=1.0}
+200 1 0 322 {0=1.0}
+201 0 0 106 {0=1.0}
+202 0 0 107 {0=1.0}
+317 0 0 197 {0=1.0}
+318 0 0 197 {0=1.0}
+319 0 0 199 {0=1.0}
+320 0 0 199 {0=1.0}
+321 0 0 200 {0=1.0}
+322 0 0 200 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+endstrategy
+
+
+Number of states satisfying <<1>> (((R{"c1max_rt"}<=MAXRT [ C ]&R{"c1sum_ru"}<=MAXRU [ C ]&R{"c2max_rt"}<=MAXRT [ C ]&R{"c2sum_ru"}<=MAXRU [ C ]))): 383 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.924 seconds.
+
+Result: true (property satisfied in the initial state)
+
+Building model...
+
+Computing reachable states... 28 states
+Reachable states exploration and model construction done in 0.18600000000000003 secs.
+Sorting reachable states list...
+
+Computing reachable states... 18 states
+Reachable states exploration and model construction done in 0.169 secs.
+Sorting reachable states list...
+product construction took 0.180783 s
+
+Time for model construction: 0.545 seconds.
+//////////////////////////////////////////////////////////////////////////////
+//                   STARTING COMPOSITIONAL MODEL CHECKING                  //
+//////////////////////////////////////////////////////////////////////////////
+
+Building Model ... 
+
+Computing reachable states... 28 states
 Reachable states exploration and model construction done in 0.168 secs.
 Sorting reachable states list...
-Progress:
 
-product construction took 0.667919 s
+Computing reachable states... 18 states
+Reachable states exploration and model construction done in 0.158 secs.
+Sorting reachable states list...
 
-Time for model construction: 1.088 seconds.
+Model checking : "q1": <<1>> ((((R{"c1_ru"}<=MAXRU [ C ]&(R{"c2_rt"}<=MAXRU [ C ]=>R{"c1_rt"}<=MAXRT [ C ])))))
+
+Reducing multi-objective query to CNF: R{"c1_ru"}<=MAXRU [ C ]&R{"c2_rt"}>MAXRU [ C ]|R{"c1_rt"}<=MAXRT [ C ]
+expr: [[R{"c1_ru"}<=MAXRU [ C ]], [R{"c2_rt"}>MAXRU [ C ], R{"c1_rt"}<=MAXRT [ C ]]]
+
+Warning: Strict inequalities ignored and turned into nonstrict inequalities:
+	R{"c2_rt"}>MAXRU [ C ]
+
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c1_ru"}<=MAXRU [ C ]], [R{"c2_rt"}>MAXRU [ C ], R{"c1_rt"}<=MAXRT [ C ]]]
+
+initial state: 11
+operation: Strategy generation
+Strategy construction took 0.016165 s
+Synthesis took 0.111836 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+28
+// Initial state
+InitState:
+11
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {2=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 2 {0=1.0}
+5 0 0 {0=1.0}
+6 0 0 {0=1.0}
+11 0 0 {0=1.0}
+14 0 0 {0=1.0}
+14 0 1 {0=1.0}
+17 0 0 {0=1.0}
+22 0 0 {0=1.0}
+23 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 2 0 14 {0=1.0}
+5 0 0 22 {0=1.0}
+6 0 0 23 {0=1.0}
+11 0 0 17 {0=1.0}
+14 0 0 22 {0=1.0}
+14 0 0 23 {0=1.0}
+14 1 0 22 {0=1.0}
+17 0 0 0 {0=1.0}
+22 0 0 5 {0=1.0}
+23 0 0 6 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+maximum D-iterations: 500
+	D-iteration offset: 1
+endstrategy
+
+
+Number of states satisfying "q1": 28 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.12000000000000001 seconds.
+
+Result: true (property satisfied in the initial state)
+
+Model checking : "q2": <<1>> ((((R{"c2_ru"}<=MAXRU [ C ]&(R{"c1_rt"}<=MAXRT [ C ]=>R{"c2_rt"}<=MAXRT [ C ])))))
+
+Reducing multi-objective query to CNF: R{"c2_ru"}<=MAXRU [ C ]&R{"c1_rt"}>MAXRT [ C ]|R{"c2_rt"}<=MAXRT [ C ]
+expr: [[R{"c2_ru"}<=MAXRU [ C ]], [R{"c1_rt"}>MAXRT [ C ], R{"c2_rt"}<=MAXRT [ C ]]]
+
+Warning: Strict inequalities ignored and turned into nonstrict inequalities:
+	R{"c1_rt"}>MAXRT [ C ]
+
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c2_ru"}<=MAXRU [ C ]], [R{"c1_rt"}>MAXRT [ C ], R{"c2_rt"}<=MAXRT [ C ]]]
+
+initial state: 7
+operation: Strategy generation
+Strategy construction took 0.003239 s
+Synthesis took 0.048700 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+18
+// Initial state
+InitState:
+7
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {2=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 2 {0=1.0}
+5 0 0 {0=1.0}
+6 0 0 {0=1.0}
+7 0 0 {0=1.0}
+10 0 0 {0=1.0}
+10 0 1 {0=1.0}
+11 0 0 {0=1.0}
+16 0 0 {0=1.0}
+17 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 2 0 10 {0=1.0}
+5 0 0 16 {0=1.0}
+6 0 0 17 {0=1.0}
+7 0 0 11 {0=1.0}
+10 0 0 16 {0=1.0}
+10 1 0 16 {0=1.0}
+10 1 0 17 {0=1.0}
+11 0 0 0 {0=1.0}
+16 0 0 5 {0=1.0}
+17 0 0 6 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+maximum D-iterations: 500
+	D-iteration offset: 1
+endstrategy
+
+
+Number of states satisfying "q2": 18 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.053000000000000005 seconds.
+
+Result: true (property satisfied in the initial state)
 //////////////////////////////////////////////////////////////////////////////
-//                   STARTING COMPOSITIONAL MODEL CHECKING                  //
+//                   COMPLETED COMPOSITIONAL MODEL CHECKING                 //
 //////////////////////////////////////////////////////////////////////////////
 
-Building Model ... 
 
-Computing reachable states... 29 states
+Model checking completed in 0.507 secs.
+
+Result: true
+
+Reducing multi-objective query to CNF: R{"c1max_rt"}<=MAXRT [ C ]&R{"c1sum_ru"}<=MAXRU [ C ]&R{"c2max_rt"}<=MAXRT [ C ]&R{"c2sum_ru"}<=MAXRU [ C ]
+expr: [[R{"c1max_rt"}<=MAXRT [ C ]], [R{"c1sum_ru"}<=MAXRU [ C ]], [R{"c2max_rt"}<=MAXRT [ C ]], [R{"c2sum_ru"}<=MAXRU [ C ]]]
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"c1max_rt"}<=MAXRT [ C ]], [R{"c1sum_ru"}<=MAXRU [ C ]], [R{"c2max_rt"}<=MAXRT [ C ]], [R{"c2sum_ru"}<=MAXRU [ C ]]]
+
+initial state: 0
+operation: Strategy generation
+Strategy construction took 0.092657 s
+Synthesis took 0.901048 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+383
+// Initial state
+InitState:
+0
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+2 0 {1=1.0}
+3 0 {1=1.0}
+15 0 {1=1.0}
+30 0 {1=1.0}
+46 0 {0=1.0}
+47 0 {1=1.0}
+48 0 {0=1.0}
+49 0 {1=1.0}
+75 0 {1=1.0}
+76 0 {0=1.0}
+77 0 {1=1.0}
+78 0 {0=1.0}
+194 0 {0=1.0}
+195 0 {0=1.0}
+196 0 {0=1.0}
+198 0 {0=1.0}
+201 0 {0=1.0}
+202 0 {0=1.0}
+317 0 {0=1.0}
+318 0 {0=1.0}
+319 0 {0=1.0}
+320 0 {0=1.0}
+321 0 {0=1.0}
+322 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+1 0 1 {0=1.0}
+2 0 1 {0=1.0}
+3 0 1 {0=1.0}
+5 0 0 {0=1.0}
+5 0 1 {0=1.0}
+10 0 0 {0=1.0}
+10 0 1 {0=1.0}
+15 0 1 {0=1.0}
+16 0 0 {0=1.0}
+16 0 1 {0=1.0}
+17 0 0 {0=1.0}
+17 0 1 {0=1.0}
+30 0 1 {0=1.0}
+31 0 0 {0=1.0}
+31 0 1 {0=1.0}
+32 0 0 {0=1.0}
+32 0 1 {0=1.0}
+44 0 0 {0=1.0}
+44 0 1 {0=1.0}
+44 0 2 {0=1.0}
+46 0 0 {0=1.0}
+47 0 1 {0=1.0}
+48 0 0 {0=1.0}
+49 0 1 {0=1.0}
+75 0 1 {0=1.0}
+76 0 0 {0=1.0}
+77 0 1 {0=1.0}
+78 0 0 {0=1.0}
+103 0 0 {0=1.0}
+103 0 1 {0=1.0}
+104 0 0 {0=1.0}
+104 0 1 {0=1.0}
+105 0 0 {0=1.0}
+105 0 1 {0=1.0}
+106 0 0 {0=1.0}
+106 0 1 {0=1.0}
+107 0 0 {0=1.0}
+107 0 1 {0=1.0}
+194 0 0 {0=1.0}
+195 0 0 {0=1.0}
+196 0 0 {0=1.0}
+197 0 0 {0=1.0}
+197 0 1 {0=1.0}
+198 0 0 {0=1.0}
+199 0 0 {0=1.0}
+199 0 1 {0=1.0}
+200 0 0 {0=1.0}
+200 0 1 {0=1.0}
+201 0 0 {0=1.0}
+202 0 0 {0=1.0}
+317 0 0 {0=1.0}
+318 0 0 {0=1.0}
+319 0 0 {0=1.0}
+320 0 0 {0=1.0}
+321 0 0 {0=1.0}
+322 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 0 0 1 {0=1.0}
+1 0 0 2 {0=1.0}
+1 1 0 3 {0=1.0}
+2 1 0 5 {0=1.0}
+3 1 0 10 {0=1.0}
+5 0 0 15 {0=1.0}
+5 1 0 16 {0=1.0}
+5 1 0 17 {0=1.0}
+10 0 0 30 {0=1.0}
+10 1 0 32 {0=1.0}
+10 1 0 31 {0=1.0}
+15 1 0 44 {0=1.0}
+16 0 0 46 {0=1.0}
+16 1 0 47 {0=1.0}
+17 0 0 48 {0=1.0}
+17 1 0 49 {0=1.0}
+30 1 0 44 {0=1.0}
+31 0 0 75 {0=1.0}
+31 1 0 76 {0=1.0}
+32 0 0 77 {0=1.0}
+32 1 0 78 {0=1.0}
+44 0 0 103 {0=1.0}
+44 1 0 104 {0=1.0}
+44 1 0 105 {0=1.0}
+44 2 0 106 {0=1.0}
+44 2 0 107 {0=1.0}
+46 0 0 16 {0=1.0}
+47 1 0 106 {0=1.0}
+48 0 0 17 {0=1.0}
+49 1 0 107 {0=1.0}
+75 1 0 104 {0=1.0}
+76 0 0 31 {0=1.0}
+77 1 0 105 {0=1.0}
+78 0 0 32 {0=1.0}
+103 0 0 194 {0=1.0}
+103 1 0 195 {0=1.0}
+104 0 0 196 {0=1.0}
+104 1 0 197 {0=1.0}
+104 1 0 103 {0=1.0}
+105 0 0 198 {0=1.0}
+105 1 0 199 {0=1.0}
+105 1 0 200 {0=1.0}
+106 0 0 201 {0=1.0}
+106 1 0 103 {0=1.0}
+106 1 0 199 {0=1.0}
+107 0 0 202 {0=1.0}
+107 1 0 197 {0=1.0}
+107 1 0 200 {0=1.0}
+194 0 0 103 {0=1.0}
+195 0 0 103 {0=1.0}
+196 0 0 104 {0=1.0}
+197 0 0 317 {0=1.0}
+197 1 0 318 {0=1.0}
+198 0 0 105 {0=1.0}
+199 0 0 319 {0=1.0}
+199 1 0 320 {0=1.0}
+200 0 0 321 {0=1.0}
+200 1 0 322 {0=1.0}
+201 0 0 106 {0=1.0}
+202 0 0 107 {0=1.0}
+317 0 0 197 {0=1.0}
+318 0 0 197 {0=1.0}
+319 0 0 199 {0=1.0}
+320 0 0 199 {0=1.0}
+321 0 0 200 {0=1.0}
+322 0 0 200 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+endstrategy
+
+
+Number of states satisfying <<1>> (((R{"c1max_rt"}<=MAXRT [ C ]&R{"c1sum_ru"}<=MAXRU [ C ]&R{"c2max_rt"}<=MAXRT [ C ]&R{"c2sum_ru"}<=MAXRU [ C ]))): 383 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.916 seconds.
+
+Result: true (property satisfied in the initial state)
+
+Building model...
+
+Computing reachable states... 28 states
+Reachable states exploration and model construction done in 0.17400000000000002 secs.
+Sorting reachable states list...
+
+Computing reachable states... 18 states
 Reachable states exploration and model construction done in 0.11 secs.
 Sorting reachable states list...
+product construction took 0.078005 s
 
-Computing reachable states... 43 states
-Reachable states exploration and model construction done in 0.17800000000000002 secs.
-Sorting reachable states list...
-
-Model checking : "q1": <<1>> (((((R{"c1_ru"}<=MAXRUA [ C ]=>R{"c2_ru"}<=MAXRUB [ C ])))))
-
-Reducing multi-objective query to CNF: R{"c1_ru"}>MAXRUA [ C ]|R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
-
-Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_ru"}>MAXRUA [ C ]
-
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
-
-initial state: 10
-operation: Strategy generation
-Strategy construction took 0.020215 s
-Synthesis took 0.100530 s
-strategy: $SU.strat-v0.1
-// Stochastic Memory Update Strategy
-start strategy
-States:
-29
-// Initial state
-InitState:
-10
-// initial distribution
-Init:
-{0=1.0}
-// next state function
-// note: only P1 states
-Next:
-// first index: current state
-// second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
-// memory update function: player states
-MemUpdStates:
-// first index: current state
-// second index: current corner
-// third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
-10 0 0 {0=1.0}
-11 0 0 {0=1.0}
-11 0 1 {0=1.0}
-11 0 2 {0=1.0}
-11 0 3 {0=1.0}
-11 0 4 {0=1.0}
-11 0 5 {0=1.0}
-11 0 6 {0=1.0}
-11 0 7 {0=1.0}
-11 0 8 {0=1.0}
-19 0 0 {0=1.0}
-20 0 0 {0=1.0}
-21 0 0 {0=1.0}
-// memory update function: moves
-MemUpdMoves:
-// first index: current state
-// second index: current move
-// third index: curent corner (at move)
-// fourth index: next state
-0 0 0 11 {0=1.0}
-1 0 0 20 {0=1.0}
-2 0 0 21 {0=1.0}
-10 0 0 19 {0=1.0}
-11 0 0 20 {0=1.0}
-11 0 0 21 {0=1.0}
-11 1 0 20 {0=1.0}
-11 1 0 21 {0=1.0}
-11 2 0 20 {0=1.0}
-11 2 0 21 {0=1.0}
-11 3 0 20 {0=1.0}
-11 3 0 21 {0=1.0}
-11 4 0 20 {0=1.0}
-11 4 0 21 {0=1.0}
-11 5 0 20 {0=1.0}
-11 5 0 21 {0=1.0}
-11 6 0 20 {0=1.0}
-11 6 0 21 {0=1.0}
-11 7 0 20 {0=1.0}
-11 7 0 21 {0=1.0}
-11 8 0 20 {0=1.0}
-19 0 0 0 {0=1.0}
-20 0 0 1 {0=1.0}
-21 0 0 2 {0=1.0}
-Info:
-
-maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-maximum D-iterations: 500
-	D-iteration offset: 1
-endstrategy
-
-
-Number of states satisfying "q1": 29 (all in model)
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 0.113 seconds.
-
-Result: true (property satisfied in the initial state)
-
-Model checking : "q2": <<1>> (((((R{"c1_rt"}<=MAXRTA [ C ]=>R{"c2_rt"}<=MAXRTB [ C ])))))
-
-Reducing multi-objective query to CNF: R{"c1_rt"}>MAXRTA [ C ]|R{"c2_rt"}<=MAXRTB [ C ]
-expr: [[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
-
-Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_rt"}>MAXRTA [ C ]
-
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
-
-initial state: 17
-operation: Strategy generation
-Strategy construction took 0.006425 s
-Synthesis took 0.048914 s
-strategy: $SU.strat-v0.1
-// Stochastic Memory Update Strategy
-start strategy
-States:
-43
-// Initial state
-InitState:
-17
-// initial distribution
-Init:
-{0=1.0}
-// next state function
-// note: only P1 states
-Next:
-// first index: current state
-// second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
-// memory update function: player states
-MemUpdStates:
-// first index: current state
-// second index: current corner
-// third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
-17 0 0 {0=1.0}
-18 0 0 {0=1.0}
-18 0 1 {0=1.0}
-26 0 0 {0=1.0}
-27 0 0 {0=1.0}
-28 0 0 {0=1.0}
-// memory update function: moves
-MemUpdMoves:
-// first index: current state
-// second index: current move
-// third index: curent corner (at move)
-// fourth index: next state
-0 0 0 18 {0=1.0}
-1 0 0 27 {0=1.0}
-2 0 0 28 {0=1.0}
-17 0 0 26 {0=1.0}
-18 0 0 27 {0=1.0}
-18 1 0 27 {0=1.0}
-18 1 0 28 {0=1.0}
-26 0 0 0 {0=1.0}
-27 0 0 1 {0=1.0}
-28 0 0 2 {0=1.0}
-Info:
-
-maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-maximum D-iterations: 500
-	D-iteration offset: 1
-endstrategy
-
-
-Number of states satisfying "q2": 43 (all in model)
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 0.061000000000000006 seconds.
-
-Result: true (property satisfied in the initial state)
-//////////////////////////////////////////////////////////////////////////////
-//                   COMPLETED COMPOSITIONAL MODEL CHECKING                 //
-//////////////////////////////////////////////////////////////////////////////
-
-
-Model checking completed in 0.47500000000000003 secs.
-
-Result: true
-
-Reducing multi-objective query to CNF: R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
-
-initial state: 0
-operation: Strategy generation
-Strategy construction took 0.068522 s
-Synthesis took 0.772139 s
-strategy: $SU.strat-v0.1
-// Stochastic Memory Update Strategy
-start strategy
-States:
-706
-// Initial state
-InitState:
-0
-// initial distribution
-Init:
-{0=1.0}
-// next state function
-// note: only P1 states
-Next:
-// first index: current state
-// second index: current corner
-2 0 {3=1.0}
-3 0 {3=1.0}
-25 0 {3=1.0}
-39 0 {3=1.0}
-134 0 {3=1.0}
-135 0 {0=1.0}
-136 0 {3=1.0}
-137 0 {0=1.0}
-510 0 {0=1.0}
-511 0 {0=1.0}
-512 0 {0=1.0}
-513 0 {0=1.0}
-// memory update function: player states
-MemUpdStates:
-// first index: current state
-// second index: current corner
-// third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-1 0 1 {0=1.0}
-2 0 3 {0=1.0}
-3 0 3 {0=1.0}
-7 0 0 {0=1.0}
-15 0 0 {0=1.0}
-15 0 1 {0=1.0}
-25 0 3 {0=1.0}
-39 0 3 {0=1.0}
-40 0 0 {0=1.0}
-40 0 1 {0=1.0}
-41 0 0 {0=1.0}
-41 0 1 {0=1.0}
-85 0 0 {0=1.0}
-85 0 1 {0=1.0}
-134 0 3 {0=1.0}
-135 0 0 {0=1.0}
-136 0 3 {0=1.0}
-137 0 0 {0=1.0}
-251 0 0 {0=1.0}
-251 0 1 {0=1.0}
-252 0 0 {0=1.0}
-253 0 0 {0=1.0}
-510 0 0 {0=1.0}
-511 0 0 {0=1.0}
-512 0 0 {0=1.0}
-513 0 0 {0=1.0}
-// memory update function: moves
-MemUpdMoves:
-// first index: current state
-// second index: current move
-// third index: curent corner (at move)
-// fourth index: next state
-0 0 0 1 {0=1.0}
-1 0 0 2 {0=1.0}
-1 1 0 3 {0=1.0}
-2 3 0 7 {0=1.0}
-3 3 0 15 {0=1.0}
-7 0 0 25 {0=1.0}
-15 0 0 39 {0=1.0}
-15 1 0 40 {0=1.0}
-15 1 0 41 {0=1.0}
-25 3 0 85 {0=1.0}
-39 3 0 85 {0=1.0}
-40 0 0 134 {0=1.0}
-40 1 0 135 {0=1.0}
-41 0 0 136 {0=1.0}
-41 1 0 137 {0=1.0}
-85 0 0 251 {0=1.0}
-85 1 0 252 {0=1.0}
-85 1 0 253 {0=1.0}
-134 3 0 252 {0=1.0}
-135 0 0 40 {0=1.0}
-136 3 0 253 {0=1.0}
-137 0 0 41 {0=1.0}
-251 0 0 510 {0=1.0}
-251 1 0 511 {0=1.0}
-252 0 0 512 {0=1.0}
-253 0 0 513 {0=1.0}
-510 0 0 251 {0=1.0}
-511 0 0 251 {0=1.0}
-512 0 0 252 {0=1.0}
-513 0 0 253 {0=1.0}
-Info:
-
-maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-endstrategy
-
-
-Number of states satisfying <<1>> (((R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]))): 706 (all in model)
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 0.798 seconds.
-
-Result: true (property satisfied in the initial state)
-
-Building model...
-
-Computing reachable states... 29 states
-Reachable states exploration and model construction done in 0.20500000000000002 secs.
-Sorting reachable states list...
-
-Computing reachable states... 43 states
-Reachable states exploration and model construction done in 0.15400000000000003 secs.
-Sorting reachable states list...
-Progress:
-
-product construction took 0.308111 s
-
-Time for model construction: 0.677 seconds.
+Time for model construction: 0.37100000000000005 seconds.
 //////////////////////////////////////////////////////////////////////////////
 //                   STARTING COMPOSITIONAL MODEL CHECKING                  //
 //////////////////////////////////////////////////////////////////////////////
 
 Building Model ... 
 
-Computing reachable states... 29 states
-Reachable states exploration and model construction done in 0.07600000000000001 secs.
+Computing reachable states... 28 states
+Reachable states exploration and model construction done in 0.15600000000000003 secs.
 Sorting reachable states list...
 
-Computing reachable states... 43 states
-Reachable states exploration and model construction done in 0.12100000000000001 secs.
+Computing reachable states... 18 states
+Reachable states exploration and model construction done in 0.115 secs.
 Sorting reachable states list...
 
-Model checking : "q1": <<1>> (((((R{"c1_ru"}<=MAXRUA [ C ]=>R{"c2_ru"}<=MAXRUB [ C ])))))
+Model checking : "q1": <<1>> ((((R{"c1_ru"}<=MAXRU [ C ]&(R{"c2_rt"}<=MAXRU [ C ]=>R{"c1_rt"}<=MAXRT [ C ])))))
 
-Reducing multi-objective query to CNF: R{"c1_ru"}>MAXRUA [ C ]|R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
+Reducing multi-objective query to CNF: R{"c1_ru"}<=MAXRU [ C ]&R{"c2_rt"}>MAXRU [ C ]|R{"c1_rt"}<=MAXRT [ C ]
+expr: [[R{"c1_ru"}<=MAXRU [ C ]], [R{"c2_rt"}>MAXRU [ C ], R{"c1_rt"}<=MAXRT [ C ]]]
 
 Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_ru"}>MAXRUA [ C ]
+	R{"c2_rt"}>MAXRU [ C ]
 
 /////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
 Property:
-	[[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
+	[[R{"c1_ru"}<=MAXRU [ C ]], [R{"c2_rt"}>MAXRU [ C ], R{"c1_rt"}<=MAXRT [ C ]]]
 
-initial state: 10
+initial state: 11
 operation: Strategy generation
-Strategy construction took 0.038352 s
-Synthesis took 0.135115 s
+Strategy construction took 0.002005 s
+Synthesis took 0.103815 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-29
+28
 // Initial state
 InitState:
-10
+11
 // initial distribution
 Init:
 {0=1.0}
@@ -757,60 +1269,39 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
+0 0 {2=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
 // second index: current corner
 // third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
-10 0 0 {0=1.0}
+0 0 2 {0=1.0}
+5 0 0 {0=1.0}
+6 0 0 {0=1.0}
 11 0 0 {0=1.0}
-11 0 1 {0=1.0}
-11 0 2 {0=1.0}
-11 0 3 {0=1.0}
-11 0 4 {0=1.0}
-11 0 5 {0=1.0}
-11 0 6 {0=1.0}
-11 0 7 {0=1.0}
-11 0 8 {0=1.0}
-19 0 0 {0=1.0}
-20 0 0 {0=1.0}
-21 0 0 {0=1.0}
+14 0 0 {0=1.0}
+14 0 1 {0=1.0}
+17 0 0 {0=1.0}
+22 0 0 {0=1.0}
+23 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-0 0 0 11 {0=1.0}
-1 0 0 20 {0=1.0}
-2 0 0 21 {0=1.0}
-10 0 0 19 {0=1.0}
-11 0 0 20 {0=1.0}
-11 0 0 21 {0=1.0}
-11 1 0 20 {0=1.0}
-11 1 0 21 {0=1.0}
-11 2 0 20 {0=1.0}
-11 2 0 21 {0=1.0}
-11 3 0 20 {0=1.0}
-11 3 0 21 {0=1.0}
-11 4 0 20 {0=1.0}
-11 4 0 21 {0=1.0}
-11 5 0 20 {0=1.0}
-11 5 0 21 {0=1.0}
-11 6 0 20 {0=1.0}
-11 6 0 21 {0=1.0}
-11 7 0 20 {0=1.0}
-11 7 0 21 {0=1.0}
-11 8 0 20 {0=1.0}
-19 0 0 0 {0=1.0}
-20 0 0 1 {0=1.0}
-21 0 0 2 {0=1.0}
+0 2 0 14 {0=1.0}
+5 0 0 22 {0=1.0}
+6 0 0 23 {0=1.0}
+11 0 0 17 {0=1.0}
+14 0 0 22 {0=1.0}
+14 0 0 23 {0=1.0}
+14 1 0 22 {0=1.0}
+17 0 0 0 {0=1.0}
+22 0 0 5 {0=1.0}
+23 0 0 6 {0=1.0}
 Info:
 
 maximum C-iterations: 500
@@ -822,38 +1313,38 @@ maximum D-iterations: 500
 endstrategy
 
 
-Number of states satisfying "q1": 29 (all in model)
+Number of states satisfying "q1": 28 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.14900000000000002 seconds.
+Time for model checking: 0.11 seconds.
 
 Result: true (property satisfied in the initial state)
 
-Model checking : "q2": <<1>> (((((R{"c1_rt"}<=MAXRTA [ C ]=>R{"c2_rt"}<=MAXRTB [ C ])))))
+Model checking : "q2": <<1>> ((((R{"c2_ru"}<=MAXRU [ C ]&(R{"c1_rt"}<=MAXRT [ C ]=>R{"c2_rt"}<=MAXRT [ C ])))))
 
-Reducing multi-objective query to CNF: R{"c1_rt"}>MAXRTA [ C ]|R{"c2_rt"}<=MAXRTB [ C ]
-expr: [[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
+Reducing multi-objective query to CNF: R{"c2_ru"}<=MAXRU [ C ]&R{"c1_rt"}>MAXRT [ C ]|R{"c2_rt"}<=MAXRT [ C ]
+expr: [[R{"c2_ru"}<=MAXRU [ C ]], [R{"c1_rt"}>MAXRT [ C ], R{"c2_rt"}<=MAXRT [ C ]]]
 
 Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_rt"}>MAXRTA [ C ]
+	R{"c1_rt"}>MAXRT [ C ]
 
 /////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
 Property:
-	[[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
+	[[R{"c2_ru"}<=MAXRU [ C ]], [R{"c1_rt"}>MAXRT [ C ], R{"c2_rt"}<=MAXRT [ C ]]]
 
-initial state: 17
+initial state: 7
 operation: Strategy generation
-Strategy construction took 0.009861 s
-Synthesis took 0.073031 s
+Strategy construction took 0.012212 s
+Synthesis took 0.065888 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-43
+18
 // Initial state
 InitState:
-17
+7
 // initial distribution
 Init:
 {0=1.0}
@@ -862,39 +1353,39 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
+0 0 {2=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
 // second index: current corner
 // third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
+0 0 2 {0=1.0}
+5 0 0 {0=1.0}
+6 0 0 {0=1.0}
+7 0 0 {0=1.0}
+10 0 0 {0=1.0}
+10 0 1 {0=1.0}
+11 0 0 {0=1.0}
+16 0 0 {0=1.0}
 17 0 0 {0=1.0}
-18 0 0 {0=1.0}
-18 0 1 {0=1.0}
-26 0 0 {0=1.0}
-27 0 0 {0=1.0}
-28 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-0 0 0 18 {0=1.0}
-1 0 0 27 {0=1.0}
-2 0 0 28 {0=1.0}
-17 0 0 26 {0=1.0}
-18 0 0 27 {0=1.0}
-18 1 0 27 {0=1.0}
-18 1 0 28 {0=1.0}
-26 0 0 0 {0=1.0}
-27 0 0 1 {0=1.0}
-28 0 0 2 {0=1.0}
+0 2 0 10 {0=1.0}
+5 0 0 16 {0=1.0}
+6 0 0 17 {0=1.0}
+7 0 0 11 {0=1.0}
+10 0 0 16 {0=1.0}
+10 1 0 16 {0=1.0}
+10 1 0 17 {0=1.0}
+11 0 0 0 {0=1.0}
+16 0 0 5 {0=1.0}
+17 0 0 6 {0=1.0}
 Info:
 
 maximum C-iterations: 500
@@ -906,11 +1397,11 @@ maximum D-iterations: 500
 endstrategy
 
 
-Number of states satisfying "q2": 43 (all in model)
+Number of states satisfying "q2": 18 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.085 seconds.
+Time for model checking: 0.069 seconds.
 
 Result: true (property satisfied in the initial state)
 //////////////////////////////////////////////////////////////////////////////
@@ -918,25 +1409,25 @@ Result: true (property satisfied in the initial state)
 //////////////////////////////////////////////////////////////////////////////
 
 
-Model checking completed in 0.43700000000000006 secs.
+Model checking completed in 0.47600000000000003 secs.
 
 Result: true
 
-Reducing multi-objective query to CNF: R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
+Reducing multi-objective query to CNF: R{"c1max_rt"}<=MAXRT [ C ]&R{"c1sum_ru"}<=MAXRU [ C ]&R{"c2max_rt"}<=MAXRT [ C ]&R{"c2sum_ru"}<=MAXRU [ C ]
+expr: [[R{"c1max_rt"}<=MAXRT [ C ]], [R{"c1sum_ru"}<=MAXRU [ C ]], [R{"c2max_rt"}<=MAXRT [ C ]], [R{"c2sum_ru"}<=MAXRU [ C ]]]
 /////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
 Property:
-	[[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
+	[[R{"c1max_rt"}<=MAXRT [ C ]], [R{"c1sum_ru"}<=MAXRU [ C ]], [R{"c2max_rt"}<=MAXRT [ C ]], [R{"c2sum_ru"}<=MAXRU [ C ]]]
 
 initial state: 0
 operation: Strategy generation
-Strategy construction took 0.048275 s
-Synthesis took 0.766358 s
+Strategy construction took 0.064110 s
+Synthesis took 0.927653 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-706
+383
 // Initial state
 InitState:
 0
@@ -948,18 +1439,30 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-2 0 {3=1.0}
-3 0 {3=1.0}
-25 0 {3=1.0}
-39 0 {3=1.0}
-134 0 {3=1.0}
-135 0 {0=1.0}
-136 0 {3=1.0}
-137 0 {0=1.0}
-510 0 {0=1.0}
-511 0 {0=1.0}
-512 0 {0=1.0}
-513 0 {0=1.0}
+2 0 {1=1.0}
+3 0 {1=1.0}
+15 0 {1=1.0}
+30 0 {1=1.0}
+46 0 {0=1.0}
+47 0 {1=1.0}
+48 0 {0=1.0}
+49 0 {1=1.0}
+75 0 {1=1.0}
+76 0 {0=1.0}
+77 0 {1=1.0}
+78 0 {0=1.0}
+194 0 {0=1.0}
+195 0 {0=1.0}
+196 0 {0=1.0}
+198 0 {0=1.0}
+201 0 {0=1.0}
+202 0 {0=1.0}
+317 0 {0=1.0}
+318 0 {0=1.0}
+319 0 {0=1.0}
+320 0 {0=1.0}
+321 0 {0=1.0}
+322 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
@@ -968,380 +1471,61 @@ MemUpdStates:
 0 0 0 {0=1.0}
 1 0 0 {0=1.0}
 1 0 1 {0=1.0}
-2 0 3 {0=1.0}
-3 0 3 {0=1.0}
-7 0 0 {0=1.0}
-15 0 0 {0=1.0}
-15 0 1 {0=1.0}
-25 0 3 {0=1.0}
-39 0 3 {0=1.0}
-40 0 0 {0=1.0}
-40 0 1 {0=1.0}
-41 0 0 {0=1.0}
-41 0 1 {0=1.0}
-85 0 0 {0=1.0}
-85 0 1 {0=1.0}
-134 0 3 {0=1.0}
-135 0 0 {0=1.0}
-136 0 3 {0=1.0}
-137 0 0 {0=1.0}
-251 0 0 {0=1.0}
-251 0 1 {0=1.0}
-252 0 0 {0=1.0}
-253 0 0 {0=1.0}
-510 0 0 {0=1.0}
-511 0 0 {0=1.0}
-512 0 0 {0=1.0}
-513 0 0 {0=1.0}
-// memory update function: moves
-MemUpdMoves:
-// first index: current state
-// second index: current move
-// third index: curent corner (at move)
-// fourth index: next state
-0 0 0 1 {0=1.0}
-1 0 0 2 {0=1.0}
-1 1 0 3 {0=1.0}
-2 3 0 7 {0=1.0}
-3 3 0 15 {0=1.0}
-7 0 0 25 {0=1.0}
-15 0 0 39 {0=1.0}
-15 1 0 40 {0=1.0}
-15 1 0 41 {0=1.0}
-25 3 0 85 {0=1.0}
-39 3 0 85 {0=1.0}
-40 0 0 134 {0=1.0}
-40 1 0 135 {0=1.0}
-41 0 0 136 {0=1.0}
-41 1 0 137 {0=1.0}
-85 0 0 251 {0=1.0}
-85 1 0 252 {0=1.0}
-85 1 0 253 {0=1.0}
-134 3 0 252 {0=1.0}
-135 0 0 40 {0=1.0}
-136 3 0 253 {0=1.0}
-137 0 0 41 {0=1.0}
-251 0 0 510 {0=1.0}
-251 1 0 511 {0=1.0}
-252 0 0 512 {0=1.0}
-253 0 0 513 {0=1.0}
-510 0 0 251 {0=1.0}
-511 0 0 251 {0=1.0}
-512 0 0 252 {0=1.0}
-513 0 0 253 {0=1.0}
-Info:
-
-maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-endstrategy
-
-
-Number of states satisfying <<1>> (((R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]))): 706 (all in model)
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 0.782 seconds.
-
-Result: true (property satisfied in the initial state)
-
-Building model...
-
-Computing reachable states... 29 states
-Reachable states exploration and model construction done in 0.14500000000000002 secs.
-Sorting reachable states list...
-
-Computing reachable states... 43 states
-Reachable states exploration and model construction done in 0.134 secs.
-Sorting reachable states list...
-Progress:
-
-product construction took 0.267692 s
-
-Time for model construction: 0.553 seconds.
-//////////////////////////////////////////////////////////////////////////////
-//                   STARTING COMPOSITIONAL MODEL CHECKING                  //
-//////////////////////////////////////////////////////////////////////////////
-
-Building Model ... 
-
-Computing reachable states... 29 states
-Reachable states exploration and model construction done in 0.048 secs.
-Sorting reachable states list...
-
-Computing reachable states... 43 states
-Reachable states exploration and model construction done in 0.29400000000000004 secs.
-Sorting reachable states list...
-
-Model checking : "q1": <<1>> (((((R{"c1_ru"}<=MAXRUA [ C ]=>R{"c2_ru"}<=MAXRUB [ C ])))))
-
-Reducing multi-objective query to CNF: R{"c1_ru"}>MAXRUA [ C ]|R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
-
-Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_ru"}>MAXRUA [ C ]
-
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
-
-initial state: 10
-operation: Strategy generation
-Strategy construction took 0.006411 s
-Synthesis took 0.054191 s
-strategy: $SU.strat-v0.1
-// Stochastic Memory Update Strategy
-start strategy
-States:
-29
-// Initial state
-InitState:
-10
-// initial distribution
-Init:
-{0=1.0}
-// next state function
-// note: only P1 states
-Next:
-// first index: current state
-// second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
-// memory update function: player states
-MemUpdStates:
-// first index: current state
-// second index: current corner
-// third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
+2 0 1 {0=1.0}
+3 0 1 {0=1.0}
+5 0 0 {0=1.0}
+5 0 1 {0=1.0}
 10 0 0 {0=1.0}
-11 0 0 {0=1.0}
-11 0 1 {0=1.0}
-11 0 2 {0=1.0}
-11 0 3 {0=1.0}
-11 0 4 {0=1.0}
-11 0 5 {0=1.0}
-11 0 6 {0=1.0}
-11 0 7 {0=1.0}
-11 0 8 {0=1.0}
-19 0 0 {0=1.0}
-20 0 0 {0=1.0}
-21 0 0 {0=1.0}
-// memory update function: moves
-MemUpdMoves:
-// first index: current state
-// second index: current move
-// third index: curent corner (at move)
-// fourth index: next state
-0 0 0 11 {0=1.0}
-1 0 0 20 {0=1.0}
-2 0 0 21 {0=1.0}
-10 0 0 19 {0=1.0}
-11 0 0 20 {0=1.0}
-11 0 0 21 {0=1.0}
-11 1 0 20 {0=1.0}
-11 1 0 21 {0=1.0}
-11 2 0 20 {0=1.0}
-11 2 0 21 {0=1.0}
-11 3 0 20 {0=1.0}
-11 3 0 21 {0=1.0}
-11 4 0 20 {0=1.0}
-11 4 0 21 {0=1.0}
-11 5 0 20 {0=1.0}
-11 5 0 21 {0=1.0}
-11 6 0 20 {0=1.0}
-11 6 0 21 {0=1.0}
-11 7 0 20 {0=1.0}
-11 7 0 21 {0=1.0}
-11 8 0 20 {0=1.0}
-19 0 0 0 {0=1.0}
-20 0 0 1 {0=1.0}
-21 0 0 2 {0=1.0}
-Info:
-
-maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-maximum D-iterations: 500
-	D-iteration offset: 1
-endstrategy
-
-
-Number of states satisfying "q1": 29 (all in model)
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 0.056 seconds.
-
-Result: true (property satisfied in the initial state)
-
-Model checking : "q2": <<1>> (((((R{"c1_rt"}<=MAXRTA [ C ]=>R{"c2_rt"}<=MAXRTB [ C ])))))
-
-Reducing multi-objective query to CNF: R{"c1_rt"}>MAXRTA [ C ]|R{"c2_rt"}<=MAXRTB [ C ]
-expr: [[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
-
-Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_rt"}>MAXRTA [ C ]
-
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
-
-initial state: 17
-operation: Strategy generation
-Strategy construction took 0.006284 s
-Synthesis took 0.032182 s
-strategy: $SU.strat-v0.1
-// Stochastic Memory Update Strategy
-start strategy
-States:
-43
-// Initial state
-InitState:
-17
-// initial distribution
-Init:
-{0=1.0}
-// next state function
-// note: only P1 states
-Next:
-// first index: current state
-// second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
-// memory update function: player states
-MemUpdStates:
-// first index: current state
-// second index: current corner
-// third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
-17 0 0 {0=1.0}
-18 0 0 {0=1.0}
-18 0 1 {0=1.0}
-26 0 0 {0=1.0}
-27 0 0 {0=1.0}
-28 0 0 {0=1.0}
-// memory update function: moves
-MemUpdMoves:
-// first index: current state
-// second index: current move
-// third index: curent corner (at move)
-// fourth index: next state
-0 0 0 18 {0=1.0}
-1 0 0 27 {0=1.0}
-2 0 0 28 {0=1.0}
-17 0 0 26 {0=1.0}
-18 0 0 27 {0=1.0}
-18 1 0 27 {0=1.0}
-18 1 0 28 {0=1.0}
-26 0 0 0 {0=1.0}
-27 0 0 1 {0=1.0}
-28 0 0 2 {0=1.0}
-Info:
-
-maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-maximum D-iterations: 500
-	D-iteration offset: 1
-endstrategy
-
-
-Number of states satisfying "q2": 43 (all in model)
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 0.037000000000000005 seconds.
-
-Result: true (property satisfied in the initial state)
-//////////////////////////////////////////////////////////////////////////////
-//                   COMPLETED COMPOSITIONAL MODEL CHECKING                 //
-//////////////////////////////////////////////////////////////////////////////
-
-
-Model checking completed in 0.441 secs.
-
-Result: true
-
-Reducing multi-objective query to CNF: R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
-
-initial state: 0
-operation: Strategy generation
-Strategy construction took 0.045291 s
-Synthesis took 0.649605 s
-strategy: $SU.strat-v0.1
-// Stochastic Memory Update Strategy
-start strategy
-States:
-706
-// Initial state
-InitState:
-0
-// initial distribution
-Init:
-{0=1.0}
-// next state function
-// note: only P1 states
-Next:
-// first index: current state
-// second index: current corner
-2 0 {3=1.0}
-3 0 {3=1.0}
-25 0 {3=1.0}
-39 0 {3=1.0}
-134 0 {3=1.0}
-135 0 {0=1.0}
-136 0 {3=1.0}
-137 0 {0=1.0}
-510 0 {0=1.0}
-511 0 {0=1.0}
-512 0 {0=1.0}
-513 0 {0=1.0}
-// memory update function: player states
-MemUpdStates:
-// first index: current state
-// second index: current corner
-// third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-1 0 1 {0=1.0}
-2 0 3 {0=1.0}
-3 0 3 {0=1.0}
-7 0 0 {0=1.0}
-15 0 0 {0=1.0}
+10 0 1 {0=1.0}
 15 0 1 {0=1.0}
-25 0 3 {0=1.0}
-39 0 3 {0=1.0}
-40 0 0 {0=1.0}
-40 0 1 {0=1.0}
-41 0 0 {0=1.0}
-41 0 1 {0=1.0}
-85 0 0 {0=1.0}
-85 0 1 {0=1.0}
-134 0 3 {0=1.0}
-135 0 0 {0=1.0}
-136 0 3 {0=1.0}
-137 0 0 {0=1.0}
-251 0 0 {0=1.0}
-251 0 1 {0=1.0}
-252 0 0 {0=1.0}
-253 0 0 {0=1.0}
-510 0 0 {0=1.0}
-511 0 0 {0=1.0}
-512 0 0 {0=1.0}
-513 0 0 {0=1.0}
+16 0 0 {0=1.0}
+16 0 1 {0=1.0}
+17 0 0 {0=1.0}
+17 0 1 {0=1.0}
+30 0 1 {0=1.0}
+31 0 0 {0=1.0}
+31 0 1 {0=1.0}
+32 0 0 {0=1.0}
+32 0 1 {0=1.0}
+44 0 0 {0=1.0}
+44 0 1 {0=1.0}
+44 0 2 {0=1.0}
+46 0 0 {0=1.0}
+47 0 1 {0=1.0}
+48 0 0 {0=1.0}
+49 0 1 {0=1.0}
+75 0 1 {0=1.0}
+76 0 0 {0=1.0}
+77 0 1 {0=1.0}
+78 0 0 {0=1.0}
+103 0 0 {0=1.0}
+103 0 1 {0=1.0}
+104 0 0 {0=1.0}
+104 0 1 {0=1.0}
+105 0 0 {0=1.0}
+105 0 1 {0=1.0}
+106 0 0 {0=1.0}
+106 0 1 {0=1.0}
+107 0 0 {0=1.0}
+107 0 1 {0=1.0}
+194 0 0 {0=1.0}
+195 0 0 {0=1.0}
+196 0 0 {0=1.0}
+197 0 0 {0=1.0}
+197 0 1 {0=1.0}
+198 0 0 {0=1.0}
+199 0 0 {0=1.0}
+199 0 1 {0=1.0}
+200 0 0 {0=1.0}
+200 0 1 {0=1.0}
+201 0 0 {0=1.0}
+202 0 0 {0=1.0}
+317 0 0 {0=1.0}
+318 0 0 {0=1.0}
+319 0 0 {0=1.0}
+320 0 0 {0=1.0}
+321 0 0 {0=1.0}
+322 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
@@ -1351,33 +1535,69 @@ MemUpdMoves:
 0 0 0 1 {0=1.0}
 1 0 0 2 {0=1.0}
 1 1 0 3 {0=1.0}
-2 3 0 7 {0=1.0}
-3 3 0 15 {0=1.0}
-7 0 0 25 {0=1.0}
-15 0 0 39 {0=1.0}
-15 1 0 40 {0=1.0}
-15 1 0 41 {0=1.0}
-25 3 0 85 {0=1.0}
-39 3 0 85 {0=1.0}
-40 0 0 134 {0=1.0}
-40 1 0 135 {0=1.0}
-41 0 0 136 {0=1.0}
-41 1 0 137 {0=1.0}
-85 0 0 251 {0=1.0}
-85 1 0 252 {0=1.0}
-85 1 0 253 {0=1.0}
-134 3 0 252 {0=1.0}
-135 0 0 40 {0=1.0}
-136 3 0 253 {0=1.0}
-137 0 0 41 {0=1.0}
-251 0 0 510 {0=1.0}
-251 1 0 511 {0=1.0}
-252 0 0 512 {0=1.0}
-253 0 0 513 {0=1.0}
-510 0 0 251 {0=1.0}
-511 0 0 251 {0=1.0}
-512 0 0 252 {0=1.0}
-513 0 0 253 {0=1.0}
+2 1 0 5 {0=1.0}
+3 1 0 10 {0=1.0}
+5 0 0 15 {0=1.0}
+5 1 0 16 {0=1.0}
+5 1 0 17 {0=1.0}
+10 0 0 30 {0=1.0}
+10 1 0 32 {0=1.0}
+10 1 0 31 {0=1.0}
+15 1 0 44 {0=1.0}
+16 0 0 46 {0=1.0}
+16 1 0 47 {0=1.0}
+17 0 0 48 {0=1.0}
+17 1 0 49 {0=1.0}
+30 1 0 44 {0=1.0}
+31 0 0 75 {0=1.0}
+31 1 0 76 {0=1.0}
+32 0 0 77 {0=1.0}
+32 1 0 78 {0=1.0}
+44 0 0 103 {0=1.0}
+44 1 0 104 {0=1.0}
+44 1 0 105 {0=1.0}
+44 2 0 106 {0=1.0}
+44 2 0 107 {0=1.0}
+46 0 0 16 {0=1.0}
+47 1 0 106 {0=1.0}
+48 0 0 17 {0=1.0}
+49 1 0 107 {0=1.0}
+75 1 0 104 {0=1.0}
+76 0 0 31 {0=1.0}
+77 1 0 105 {0=1.0}
+78 0 0 32 {0=1.0}
+103 0 0 194 {0=1.0}
+103 1 0 195 {0=1.0}
+104 0 0 196 {0=1.0}
+104 1 0 197 {0=1.0}
+104 1 0 103 {0=1.0}
+105 0 0 198 {0=1.0}
+105 1 0 199 {0=1.0}
+105 1 0 200 {0=1.0}
+106 0 0 201 {0=1.0}
+106 1 0 103 {0=1.0}
+106 1 0 199 {0=1.0}
+107 0 0 202 {0=1.0}
+107 1 0 197 {0=1.0}
+107 1 0 200 {0=1.0}
+194 0 0 103 {0=1.0}
+195 0 0 103 {0=1.0}
+196 0 0 104 {0=1.0}
+197 0 0 317 {0=1.0}
+197 1 0 318 {0=1.0}
+198 0 0 105 {0=1.0}
+199 0 0 319 {0=1.0}
+199 1 0 320 {0=1.0}
+200 0 0 321 {0=1.0}
+200 1 0 322 {0=1.0}
+201 0 0 106 {0=1.0}
+202 0 0 107 {0=1.0}
+317 0 0 197 {0=1.0}
+318 0 0 197 {0=1.0}
+319 0 0 199 {0=1.0}
+320 0 0 199 {0=1.0}
+321 0 0 200 {0=1.0}
+322 0 0 200 {0=1.0}
 Info:
 
 maximum C-iterations: 500
@@ -1387,359 +1607,10 @@ maximum C-iterations: 500
 endstrategy
 
 
-Number of states satisfying <<1>> (((R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]))): 706 (all in model)
+Number of states satisfying <<1>> (((R{"c1max_rt"}<=MAXRT [ C ]&R{"c1sum_ru"}<=MAXRU [ C ]&R{"c2max_rt"}<=MAXRT [ C ]&R{"c2sum_ru"}<=MAXRU [ C ]))): 383 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.662 seconds.
-
-Result: true (property satisfied in the initial state)
-
-Building model...
-
-Computing reachable states... 29 states
-Reachable states exploration and model construction done in 0.12300000000000001 secs.
-Sorting reachable states list...
-
-Computing reachable states... 43 states
-Reachable states exploration and model construction done in 0.135 secs.
-Sorting reachable states list...
-Progress:
-
-product construction took 0.254933 s
-
-Time for model construction: 0.523 seconds.
-//////////////////////////////////////////////////////////////////////////////
-//                   STARTING COMPOSITIONAL MODEL CHECKING                  //
-//////////////////////////////////////////////////////////////////////////////
-
-Building Model ... 
-
-Computing reachable states... 29 states
-Reachable states exploration and model construction done in 0.07400000000000001 secs.
-Sorting reachable states list...
-
-Computing reachable states... 43 states
-Reachable states exploration and model construction done in 0.08700000000000001 secs.
-Sorting reachable states list...
-
-Model checking : "q1": <<1>> (((((R{"c1_ru"}<=MAXRUA [ C ]=>R{"c2_ru"}<=MAXRUB [ C ])))))
-
-Reducing multi-objective query to CNF: R{"c1_ru"}>MAXRUA [ C ]|R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
-
-Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_ru"}>MAXRUA [ C ]
-
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"c1_ru"}>MAXRUA [ C ], R{"c2_ru"}<=MAXRUB [ C ]]]
-
-initial state: 10
-operation: Strategy generation
-Strategy construction took 0.015310 s
-Synthesis took 0.105344 s
-strategy: $SU.strat-v0.1
-// Stochastic Memory Update Strategy
-start strategy
-States:
-29
-// Initial state
-InitState:
-10
-// initial distribution
-Init:
-{0=1.0}
-// next state function
-// note: only P1 states
-Next:
-// first index: current state
-// second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
-// memory update function: player states
-MemUpdStates:
-// first index: current state
-// second index: current corner
-// third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
-10 0 0 {0=1.0}
-11 0 0 {0=1.0}
-11 0 1 {0=1.0}
-11 0 2 {0=1.0}
-11 0 3 {0=1.0}
-11 0 4 {0=1.0}
-11 0 5 {0=1.0}
-11 0 6 {0=1.0}
-11 0 7 {0=1.0}
-11 0 8 {0=1.0}
-19 0 0 {0=1.0}
-20 0 0 {0=1.0}
-21 0 0 {0=1.0}
-// memory update function: moves
-MemUpdMoves:
-// first index: current state
-// second index: current move
-// third index: curent corner (at move)
-// fourth index: next state
-0 0 0 11 {0=1.0}
-1 0 0 20 {0=1.0}
-2 0 0 21 {0=1.0}
-10 0 0 19 {0=1.0}
-11 0 0 20 {0=1.0}
-11 0 0 21 {0=1.0}
-11 1 0 20 {0=1.0}
-11 1 0 21 {0=1.0}
-11 2 0 20 {0=1.0}
-11 2 0 21 {0=1.0}
-11 3 0 20 {0=1.0}
-11 3 0 21 {0=1.0}
-11 4 0 20 {0=1.0}
-11 4 0 21 {0=1.0}
-11 5 0 20 {0=1.0}
-11 5 0 21 {0=1.0}
-11 6 0 20 {0=1.0}
-11 6 0 21 {0=1.0}
-11 7 0 20 {0=1.0}
-11 7 0 21 {0=1.0}
-11 8 0 20 {0=1.0}
-19 0 0 0 {0=1.0}
-20 0 0 1 {0=1.0}
-21 0 0 2 {0=1.0}
-Info:
-
-maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-maximum D-iterations: 500
-	D-iteration offset: 1
-endstrategy
-
-
-Number of states satisfying "q1": 29 (all in model)
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 0.111 seconds.
-
-Result: true (property satisfied in the initial state)
-
-Model checking : "q2": <<1>> (((((R{"c1_rt"}<=MAXRTA [ C ]=>R{"c2_rt"}<=MAXRTB [ C ])))))
-
-Reducing multi-objective query to CNF: R{"c1_rt"}>MAXRTA [ C ]|R{"c2_rt"}<=MAXRTB [ C ]
-expr: [[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
-
-Warning: Strict inequalities ignored and turned into nonstrict inequalities:
-	R{"c1_rt"}>MAXRTA [ C ]
-
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"c1_rt"}>MAXRTA [ C ], R{"c2_rt"}<=MAXRTB [ C ]]]
-
-initial state: 17
-operation: Strategy generation
-Strategy construction took 0.001833 s
-Synthesis took 0.064980 s
-strategy: $SU.strat-v0.1
-// Stochastic Memory Update Strategy
-start strategy
-States:
-43
-// Initial state
-InitState:
-17
-// initial distribution
-Init:
-{0=1.0}
-// next state function
-// note: only P1 states
-Next:
-// first index: current state
-// second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
-// memory update function: player states
-MemUpdStates:
-// first index: current state
-// second index: current corner
-// third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
-17 0 0 {0=1.0}
-18 0 0 {0=1.0}
-18 0 1 {0=1.0}
-26 0 0 {0=1.0}
-27 0 0 {0=1.0}
-28 0 0 {0=1.0}
-// memory update function: moves
-MemUpdMoves:
-// first index: current state
-// second index: current move
-// third index: curent corner (at move)
-// fourth index: next state
-0 0 0 18 {0=1.0}
-1 0 0 27 {0=1.0}
-2 0 0 28 {0=1.0}
-17 0 0 26 {0=1.0}
-18 0 0 27 {0=1.0}
-18 1 0 27 {0=1.0}
-18 1 0 28 {0=1.0}
-26 0 0 0 {0=1.0}
-27 0 0 1 {0=1.0}
-28 0 0 2 {0=1.0}
-Info:
-
-maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-maximum D-iterations: 500
-	D-iteration offset: 1
-endstrategy
-
-
-Number of states satisfying "q2": 43 (all in model)
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 0.07100000000000001 seconds.
-
-Result: true (property satisfied in the initial state)
-//////////////////////////////////////////////////////////////////////////////
-//                   COMPLETED COMPOSITIONAL MODEL CHECKING                 //
-//////////////////////////////////////////////////////////////////////////////
-
-
-Model checking completed in 0.34800000000000003 secs.
-
-Result: true
-
-Reducing multi-objective query to CNF: R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]
-expr: [[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"c1_ru"}<=MAXRUA [ C ]], [R{"c2_ru"}<=MAXRUB [ C ]]]
-
-initial state: 0
-operation: Strategy generation
-Strategy construction took 0.038193 s
-Synthesis took 0.662141 s
-strategy: $SU.strat-v0.1
-// Stochastic Memory Update Strategy
-start strategy
-States:
-706
-// Initial state
-InitState:
-0
-// initial distribution
-Init:
-{0=1.0}
-// next state function
-// note: only P1 states
-Next:
-// first index: current state
-// second index: current corner
-2 0 {3=1.0}
-3 0 {3=1.0}
-25 0 {3=1.0}
-39 0 {3=1.0}
-134 0 {3=1.0}
-135 0 {0=1.0}
-136 0 {3=1.0}
-137 0 {0=1.0}
-510 0 {0=1.0}
-511 0 {0=1.0}
-512 0 {0=1.0}
-513 0 {0=1.0}
-// memory update function: player states
-MemUpdStates:
-// first index: current state
-// second index: current corner
-// third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-1 0 1 {0=1.0}
-2 0 3 {0=1.0}
-3 0 3 {0=1.0}
-7 0 0 {0=1.0}
-15 0 0 {0=1.0}
-15 0 1 {0=1.0}
-25 0 3 {0=1.0}
-39 0 3 {0=1.0}
-40 0 0 {0=1.0}
-40 0 1 {0=1.0}
-41 0 0 {0=1.0}
-41 0 1 {0=1.0}
-85 0 0 {0=1.0}
-85 0 1 {0=1.0}
-134 0 3 {0=1.0}
-135 0 0 {0=1.0}
-136 0 3 {0=1.0}
-137 0 0 {0=1.0}
-251 0 0 {0=1.0}
-251 0 1 {0=1.0}
-252 0 0 {0=1.0}
-253 0 0 {0=1.0}
-510 0 0 {0=1.0}
-511 0 0 {0=1.0}
-512 0 0 {0=1.0}
-513 0 0 {0=1.0}
-// memory update function: moves
-MemUpdMoves:
-// first index: current state
-// second index: current move
-// third index: curent corner (at move)
-// fourth index: next state
-0 0 0 1 {0=1.0}
-1 0 0 2 {0=1.0}
-1 1 0 3 {0=1.0}
-2 3 0 7 {0=1.0}
-3 3 0 15 {0=1.0}
-7 0 0 25 {0=1.0}
-15 0 0 39 {0=1.0}
-15 1 0 40 {0=1.0}
-15 1 0 41 {0=1.0}
-25 3 0 85 {0=1.0}
-39 3 0 85 {0=1.0}
-40 0 0 134 {0=1.0}
-40 1 0 135 {0=1.0}
-41 0 0 136 {0=1.0}
-41 1 0 137 {0=1.0}
-85 0 0 251 {0=1.0}
-85 1 0 252 {0=1.0}
-85 1 0 253 {0=1.0}
-134 3 0 252 {0=1.0}
-135 0 0 40 {0=1.0}
-136 3 0 253 {0=1.0}
-137 0 0 41 {0=1.0}
-251 0 0 510 {0=1.0}
-251 1 0 511 {0=1.0}
-252 0 0 512 {0=1.0}
-253 0 0 513 {0=1.0}
-510 0 0 251 {0=1.0}
-511 0 0 251 {0=1.0}
-512 0 0 252 {0=1.0}
-513 0 0 253 {0=1.0}
-Info:
-
-maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-endstrategy
-
-
-Number of states satisfying <<1>> (((R{"c1_ru"}<=MAXRUA [ C ]&R{"c2_ru"}<=MAXRUB [ C ]))): 706 (all in model)
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 0.675 seconds.
+Time for model checking: 0.9440000000000001 seconds.
 
 Result: true (property satisfied in the initial state)

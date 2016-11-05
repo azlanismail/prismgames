@@ -783,6 +783,10 @@ formula rwd_r7_cpu_loads = RS7_CPU_LOADS + APP0_CPU_LOADS + APP1_CPU_LOADS;
 //--------------------
 formula max_rw_cpu_speed = max(APP0_CPU_SPEED, APP1_CPU_SPEED);
 
+
+//------------------------
+//formula success_a = (sela > -1 ? true : false);
+//formula success_b = (selb > -1 ? true : false);
 //==============================================
 //REWARD STRUCTURE - FOR DIFFERENT CLOUD
 
@@ -839,17 +843,28 @@ endrewards
 //==============================================
 //REWARD STRUCTURE - FOR THE SAME CLOUD
 
-
 //for component 1 : cpu speed 
-rewards "call_rt" 
-[r0b] true : RS0_CPU_LOADS + max_rw_cpu_speed;
-[r1b] true : RS1_CPU_LOADS + max_rw_cpu_speed;
-[r2b] true : RS2_CPU_LOADS + max_rw_cpu_speed;
-[r3b] true : RS3_CPU_LOADS + max_rw_cpu_speed;
-[r4b] true : RS4_CPU_LOADS + max_rw_cpu_speed;
-[r5b] true : RS5_CPU_LOADS + max_rw_cpu_speed;
-[r6b] true : RS6_CPU_LOADS + max_rw_cpu_speed;
-[r7b] true : RS7_CPU_LOADS + max_rw_cpu_speed;
+rewards "c1max_rt" 
+[r0a] true : max_rw_cpu_speed;
+[r1a] true : max_rw_cpu_speed;
+[r2a] true : max_rw_cpu_speed;
+[r3a] true : max_rw_cpu_speed;
+[r4a] true : max_rw_cpu_speed;
+[r5a] true : max_rw_cpu_speed;
+[r6a] true : max_rw_cpu_speed;
+[r7a] true : max_rw_cpu_speed;
+endrewards
+
+//for component 2 : cpu speed 
+rewards "c2max_rt" 
+[r0b] true : max_rw_cpu_speed;
+[r1b] true : max_rw_cpu_speed;
+[r2b] true : max_rw_cpu_speed;
+[r3b] true : max_rw_cpu_speed;
+[r4b] true : max_rw_cpu_speed;
+[r5b] true : max_rw_cpu_speed;
+[r6b] true : max_rw_cpu_speed;
+[r7b] true : max_rw_cpu_speed;
 endrewards
 
 
@@ -878,46 +893,16 @@ rewards "c2sum_ru"
 [r7b] true : rwd_r7_cpu_loads;
 endrewards
 
-//rewards "avail_rs0"
-//[ch0a] true: availa_rs0;
-//[ch0b] true: availb_rs0;
-//endrewards
-
-//rewards "avail_rs1"
-//[ch1a] true: availa_rs1;
-//[ch1b] true: availb_rs1;
-//endrewards
-
-//rewards "avail_rs2"
-//[ch2a] true: availa_rs2;
-//[ch2b] true: availb_rs2;
-//endrewards
-
-//rewards "avail_rs3"
-//[ch3a] true: availa_rs3;
-//[ch3b] true: availb_rs3;
-//endrewards
-
-//rewards "avail_rs4"
-//[ch4a] true: availa_rs4;
-//[ch4b] true: availb_rs4;
-//endrewards
 
 
-//rewards "avail_rs5"
-//[ch5a] true: availa_rs5;
-//[ch5b] true: availb_rs5;
+//rewards "avail1_rs"
+//success_a=true : 1;
 //endrewards
 
-//rewards "avail_rs6"
-//[ch6a] true: availa_rs6;
-//[ch6b] true: availb_rs6;
+//rewards "avail2_rs"
+//success_b=true : 1;
 //endrewards
 
-//rewards "avail_rs7"
-//[ch7a] true: availa_rs7;
-//[ch7b] true: availb_rs7;
-//endrewards
 
 //==========================================
 //LABELS

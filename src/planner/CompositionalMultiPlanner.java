@@ -2,6 +2,7 @@ package planner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Random;
 
 import explicit.Model;
@@ -52,8 +53,8 @@ public class CompositionalMultiPlanner {
 		String desktopPath = "H:/git/MultiPlanner/PlanningComp2/";
 		String linuxPath = "/home/azlan/git/PrismGames/";
 		String mainPath = linuxPath;
-		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v24.prism";
-		String propPath = mainPath+"Prismfiles/propCloudAdaptive.props";
+		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v26.prism";
+		String propPath = mainPath+"Prismfiles/propCloudAdaptive_v1.props";
 		String modelConstPath = mainPath+"IOFiles/ModelConstants.txt";
 		String propConstPath = mainPath+"IOFiles/PropConstants.txt";
 		String stratCompPath = mainPath+"IOFiles/stratComp.txt";
@@ -71,7 +72,10 @@ public class CompositionalMultiPlanner {
 	    
 	    //Defining the type of property
 	    int maxCpuSpeedG0=1, maxCpuLoadG0=2, maxCpuSpeedG1=3, maxCpuLoadG1=4;
-	    int compImpli=5, MultiObj1=8, MultiObj2=9, compMultiObj=10;
+	    int compImpli=5;
+	    int MultiObj1=8;
+	    // int MultiObj2=0; not needed at the moment
+	    int compMultiObj=9;
 
 		//Defining internal attributes for the planner
 		private int stage;
@@ -214,17 +218,20 @@ public class CompositionalMultiPlanner {
 			if((boolean)rsMultiComp.getResult()) {
 				System.out.println("Compositional multi-objective is success");
 				System.out.println("The result from model checking (SMG) is :"+ rsMultiComp.getResult());
+				this.synthesisStatus=true;
 			}else {
 				System.out.println("Perform multi-objective on each component game");
 				rsMulti1 = smg.check(model, propertiesFile.getProperty(MultiObj1));
-				rsMulti2 = smg.check(model, propertiesFile.getProperty(MultiObj2));
+				//rsMulti2 = smg.check(model, propertiesFile.getProperty(MultiObj2));
 				System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult());
-		    	System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult()); 
+		    	//System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult()); 
 		    	
 		    	//the only reason to cause overall synthesis to return false to the requester
-				if ((boolean)rsMulti1.getResult() || (boolean)rsMulti2.getResult()) {			
+				if (!(boolean)rsMulti1.getResult() || !(boolean)rsMulti2.getResult()) {			
 					this.synthesisStatus=false;
 				}	
+				else
+					this.synthesisStatus=true;
 			}	
 		}	
 	    
@@ -429,8 +436,8 @@ public class CompositionalMultiPlanner {
 	    	//int stage = 1;
 	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(); 		
 			
-	 		plan.setApplicationRequirements(0, 1, 30.0, 300.0, 20, 20);
-	 		plan.setApplicationRequirements(1, 1, 25.0, 600.0, 20, 20);
+	 		plan.setApplicationRequirements(0, 1,10.0, 300.0, 20, 20);
+	 		plan.setApplicationRequirements(1, 1,15.0, 600.0, 20, 20);
 	 		
 	 		plan.setNodeCapabilities(0, "NODE0", 1, 200, 0.3, 1000, 500, "LOC0");
 	 		plan.setNodeCapabilities(1, "NODE1", 1, 200, 0.3, 1000, 500, "LOC1");
@@ -443,31 +450,57 @@ public class CompositionalMultiPlanner {
 	 		
 	 		Random rand = new Random();
 	 		//int serviceType = -1;
-	 		int cycle =5;
+	 		int cycle =4;
 	 		//int goalType = 4;
 	 		//int retry = 1;
 	 		long time[] = new long[cycle];
 	 		TimeMeasure tm = new TimeMeasure();
-	 		
+	 		String res0[] = new String[cycle];
+	 		String res1[] = new String[cycle];
+	 		boolean statusRes[] = new boolean[cycle];
 	 		for (int i=0; i < cycle; i++)
 	 	    {		 	
 	 			System.out.println("number of cycle :"+i);
 	 			tm.start();
 	 			plan.generate();
-	 			plan.getDecision(0);
-	 			plan.getDecision(1);
-	 			tm.stop();
+	 			statusRes[i] = plan.getCompositionalSynthesisStatus();
+	 			if (statusRes[i]) {
+	 				res0[i] = plan.getDecision(0);
+	 				res1[i] = plan.getDecision(1);
+	 			}else {
+	 				res0[i] = "Fail";
+	 				res1[i] = "Fail";
+	 			}
+	 				tm.stop();
 	 			time[i] = tm.getDuration();
 	 			//plan.simulatePath();
 	 	    }
 	 		
-	 		long total = 0;
-	 		for(int k=0; k < cycle; k++) {
-	 			System.out.println("Total time of cycle "+k+":"+time[k]);
-	 			total +=time[k];
-	 		}
-	 		System.out.println("total is "+total);
-	 		long avg = (total/cycle);
-	 		System.out.println("The average time is "+avg);
+	 		
+	 		
+	 		
+	 		try {
+				collectData(time, cycle, statusRes, res0, res1);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	 	}
+	     
+	     public static void collectData(long time[], int cycle, boolean statusRes[], String res0[], String res1[]) throws FileNotFoundException {
+	    	 File outfile = new File("/home/azlan/git/PrismGames/IOFiles/log.txt");
+
+             PrintWriter pw = new PrintWriter(outfile);
+
+            long total = 0;
+            pw.println("recorded data: cycle, time, status, result1, result2");
+ 	 		for(int k=0; k < cycle; k++) {
+ 	 			pw.println(" "+k+" "+time[k]+" "+statusRes[k]+" "+res0[k]+" "+res1[k]);
+ 	 			total +=time[k];
+ 	 		}
+ 	 		long avg = (total/cycle);
+ 	 		pw.println("Average "+avg);
+ 	 	
+             pw.close();
+	     }
 }
