@@ -1,6 +1,7 @@
-recorded data: cycle, time, result1, result2
- 0 true 2901 NODE3 NODE3
- 1 true 2145 NODE3 NODE3
- 2 true 2057 NODE3 NODE3
- 3 true 1863 NODE3 NODE3
-Average 2241
+recorded data: cycle, time, status, result1, result2
+ 0 1138 true NODE3 null
+ 1 518 true NODE3 null
+ 2 491 true NODE3 null
+ 3 470 true NODE3 null
+ 4 395 true NODE3 null
+Average 602

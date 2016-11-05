@@ -201,16 +201,16 @@ public class CompositionalMultiPlanner {
 			System.out.println("Synthesizing compositional games.....");
 			
 			//set the default synthesis status to true
-			this.synthesisStatus=true;
+			//this.synthesisStatus=true;
 			
 			//synthesize the compositional of implication
-			rsComp= csmg.check(propertiesFile.getProperty(compImpli));
-			if ((boolean)rsComp.getResult()) {
-				System.out.println("Compositional implication synthesis is success");	
-				System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
-			}else {
-				System.out.println("The assumed properties are not satisfied...");
-			}
+			//rsComp= csmg.check(propertiesFile.getProperty(compImpli));
+			//if ((boolean)rsComp.getResult()) {
+			//	System.out.println("Compositional implication synthesis is success");	
+			///	System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
+			//}else {
+			//	System.out.println("The assumed properties are not satisfied...");
+			//}
 			
 			//synthesize the compositional of conjunction
 			rsMultiComp = smg.check(model, propertiesFile.getProperty(compMultiObj));
@@ -403,7 +403,6 @@ public class CompositionalMultiPlanner {
 				e.printStackTrace();
 			}
 	           
-	       	
 	       	//get the adaptation strategy
 	       	try {
  				extractStrategy();
@@ -423,7 +422,7 @@ public class CompositionalMultiPlanner {
 	    	
 	    	ste.setNodeIdList(conf.getNodeIdList());
 	    	nodeName = ste.getDecision(decId);
-	    	System.out.println("Selected node name is for decision: "+decId+" is: "+nodeName);
+	    	System.out.println("Selected node name is for decision "+decId+" is: "+nodeName);
 			      
 	    	return nodeName;
 	    }
@@ -436,9 +435,9 @@ public class CompositionalMultiPlanner {
 	    	//int stage = 1;
 	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(); 		
 			
-	 		plan.setApplicationRequirements(0, 1,10.0, 300.0, 20, 20);
-	 		plan.setApplicationRequirements(1, 1,15.0, 600.0, 20, 20);
-	 		
+	 		//plan.setApplicationRequirements(0, 1,10.0, 300.0, 20, 20);
+	 		//plan.setApplicationRequirements(1, 1,15.0, 600.0, 20, 20);
+	 
 	 		plan.setNodeCapabilities(0, "NODE0", 1, 200, 0.3, 1000, 500, "LOC0");
 	 		plan.setNodeCapabilities(1, "NODE1", 1, 200, 0.3, 1000, 500, "LOC1");
 	 		plan.setNodeCapabilities(2, "NODE2", 1, 2500, 0.5, 1000, 500, "LOC2");
@@ -450,17 +449,25 @@ public class CompositionalMultiPlanner {
 	 		
 	 		Random rand = new Random();
 	 		//int serviceType = -1;
-	 		int cycle =4;
+	 		int cycle =5;
 	 		//int goalType = 4;
 	 		//int retry = 1;
-	 		long time[] = new long[cycle];
+	 		
+	 		long time[] = new long[cycle]; //log the execution time
 	 		TimeMeasure tm = new TimeMeasure();
-	 		String res0[] = new String[cycle];
-	 		String res1[] = new String[cycle];
-	 		boolean statusRes[] = new boolean[cycle];
+	 		String res0[] = new String[cycle]; //log the selection
+	 		String res1[] = new String[cycle]; //log the selection
+	 		boolean statusRes[] = new boolean[cycle]; //log the synthesis status
+	 		
+	 		double cpuloads0, cpuloads1; //to randomize cpu loads
 	 		for (int i=0; i < cycle; i++)
 	 	    {		 	
 	 			System.out.println("number of cycle :"+i);
+	 			cpuloads0 = rand.nextInt(40);
+	 			cpuloads1 = rand.nextInt(40);
+	 			plan.setApplicationRequirements(0, 1,cpuloads0, 300.0, 20, 20);
+		 		plan.setApplicationRequirements(1, 1,cpuloads1, 600.0, 20, 20);
+		 	
 	 			tm.start();
 	 			plan.generate();
 	 			statusRes[i] = plan.getCompositionalSynthesisStatus();
