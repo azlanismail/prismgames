@@ -1,0 +1,6 @@
+recorded data: cycle, time, result1, result2
+ 0 true 2901 NODE3 NODE3
+ 1 true 2145 NODE3 NODE3
+ 2 true 2057 NODE3 NODE3
+ 3 true 1863 NODE3 NODE3
+Average 2241
