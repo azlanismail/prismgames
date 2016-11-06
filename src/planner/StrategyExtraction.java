@@ -300,7 +300,7 @@ public class StrategyExtraction {
 					//read the second index (potential action)
 					potAction = Integer.parseInt(readS.next());
 				
-					//store into the array lists
+					//store the same data into two arrays
 					substrat1States.add(potState);
 					substrat1Actions.add(potAction);
 					substrat2States.add(potState);

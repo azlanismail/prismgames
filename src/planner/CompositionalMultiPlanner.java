@@ -55,8 +55,8 @@ public class CompositionalMultiPlanner {
 		String mainPath = linuxPath;
 		String modelPath = mainPath+"Prismfiles/compCollaborateModel_v26.prism";
 		String propPath = mainPath+"Prismfiles/propCloudAdaptive_v1.props";
-		String modelConstPath = mainPath+"IOFiles/ModelConstants.txt";
-		String propConstPath = mainPath+"IOFiles/PropConstants.txt";
+		//String modelConstPath = mainPath+"IOFiles/ModelConstants.txt";
+		//String propConstPath = mainPath+"IOFiles/PropConstants.txt";
 		String stratCompPath = mainPath+"IOFiles/stratComp.txt";
 		String stratMultiCompPath = mainPath+"IOFiles/stratMultiComp.txt";
 		String stratMulti1Path = mainPath+"IOFiles/stratMulti1.txt";
@@ -75,7 +75,7 @@ public class CompositionalMultiPlanner {
 	    int compImpli=5;
 	    int MultiObj1=8;
 	    // int MultiObj2=0; not needed at the moment
-	    int compMultiObj=9;
+	    int compMultiObj=10;
 
 		//Defining internal attributes for the planner
 		private int stage;
@@ -116,8 +116,8 @@ public class CompositionalMultiPlanner {
 			conf.setAppRequirements(id, cpuCores, cpuLoads, cpuSpeed, totalMemory, freeMemory);
 		}
 		
-		public void setNodeCapabilities(int id, String name, int cpuCores, double cpuSpeed, double cpuLoads, int totalMemory, int freeMemory, String location){
-			conf.setNodeCapabilities(id, name, cpuCores, cpuSpeed, cpuLoads, totalMemory, freeMemory, location);
+		public void setNodeCapabilities(int id, String name, int cpuCores, double cpuLoads, double cpuSpeed, int totalMemory, int freeMemory, String location){
+			conf.setNodeCapabilities(id, name, cpuCores, cpuLoads, cpuSpeed, totalMemory, freeMemory, location);
 		}
 
 		public void buildModelbyPrismEx() throws PrismLangException, PrismException
@@ -152,10 +152,11 @@ public class CompositionalMultiPlanner {
 		    	
 		    	//building a model representation for non-compositional synthesis
 			    model = prismEx.buildModel(modulesFile, prism.getSimulator());
-		    
-				System.out.println("Number of states (Model Building) :"+model.getNumStates());
-	    		System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
-	    	
+		       
+			    if(model != null){
+			    	System.out.println("Number of states (Model Building) :"+model.getNumStates());
+			    	System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
+			    }
 		    	//parse the specifications to smg instance    	
 		    	smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
 		    	
@@ -172,9 +173,10 @@ public class CompositionalMultiPlanner {
 		    smg.setComputeParetoSet(false);
 		    smg.setGenerateStrategy(true);
 		    
-		    System.out.println("Synthesizing expected max rewards.....");
+		   
 		   
 		    if (smg.geterrorOnNonConverge() == false) {
+		    	System.out.println("Synthesizing expected max rewards.....");
 		    	rsRwd1 = smg.check(model, propertiesFile.getProperty(this.maxCpuSpeedG0)); //max reward of cpu speed of G0
 		    	rsRwd2 = smg.check(model, propertiesFile.getProperty(this.maxCpuLoadG0)); //max reward of cpu load of G0
 		    	rsRwd3 = smg.check(model, propertiesFile.getProperty(this.maxCpuSpeedG1)); //max reward of cpu speed of G1
@@ -199,18 +201,18 @@ public class CompositionalMultiPlanner {
 			smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
 			
 			System.out.println("Synthesizing compositional games.....");
-			
+			boolean synMultiComp=false, synMulti1=false, synMulti2=false;
 			//set the default synthesis status to true
 			//this.synthesisStatus=true;
 			
 			//synthesize the compositional of implication
-			//rsComp= csmg.check(propertiesFile.getProperty(compImpli));
-			//if ((boolean)rsComp.getResult()) {
-			//	System.out.println("Compositional implication synthesis is success");	
-			///	System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
-			//}else {
-			//	System.out.println("The assumed properties are not satisfied...");
-			//}
+			rsComp=csmg.check(propertiesFile.getProperty(compImpli));
+			if ((boolean)rsComp.getResult()) {
+				System.out.println("Compositional implication synthesis is success");	
+				System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
+			}else {
+				System.out.println("The assumed properties are not satisfied...");
+			}
 			
 			//synthesize the compositional of conjunction
 			rsMultiComp = smg.check(model, propertiesFile.getProperty(compMultiObj));
@@ -218,7 +220,7 @@ public class CompositionalMultiPlanner {
 			if((boolean)rsMultiComp.getResult()) {
 				System.out.println("Compositional multi-objective is success");
 				System.out.println("The result from model checking (SMG) is :"+ rsMultiComp.getResult());
-				this.synthesisStatus=true;
+				synMultiComp=true;
 			}else {
 				System.out.println("Perform multi-objective on each component game");
 				rsMulti1 = smg.check(model, propertiesFile.getProperty(MultiObj1));
@@ -227,12 +229,18 @@ public class CompositionalMultiPlanner {
 		    	//System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult()); 
 		    	
 		    	//the only reason to cause overall synthesis to return false to the requester
-				if (!(boolean)rsMulti1.getResult() || !(boolean)rsMulti2.getResult()) {			
-					this.synthesisStatus=false;
+				if (rsMulti1.getResult()!=null && (boolean)rsMulti1.getResult()) {			
+					synMulti1=true;
 				}	
 				else
-					this.synthesisStatus=true;
+					synMulti1=true;
 			}	
+			
+			if (synMultiComp | synMulti1 | synMulti2) {
+				System.out.println("at least one type of synthesis is success....");
+				this.synthesisStatus = true;
+			}else
+				this.synthesisStatus = false;
 		}	
 	    
 		/**
@@ -242,33 +250,7 @@ public class CompositionalMultiPlanner {
 		public boolean getCompositionalSynthesisStatus() {
 			return this.synthesisStatus;
 		}
-		
-	    public void outcomefromModelChecking()
-	    { 
-	    	try{
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd1.getResult()); 
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd2.getResult()); 
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd3.getResult()); 
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsRwd4.getResult()); 
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult());
-	    	 System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult()); 
-	    	}
-	    	catch (NullPointerException e) {
-	    		e.printStackTrace();
-	    	}
-	    }
-	    
-	    public void outcomefromModelBuilding()
-	    {
-	    	if (model != null) {
-	    		System.out.println("Number of states (Model Building) :"+model.getNumStates());
-	    		System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
-	    	}
-	    	else
-	    		System.out.println("cannot build model representation...");
-	    }
-	       
+			       
 	     
 	    /**
 	     * Objective: It extracts the transitions which have been synthesized
@@ -438,18 +420,18 @@ public class CompositionalMultiPlanner {
 	 		//plan.setApplicationRequirements(0, 1,10.0, 300.0, 20, 20);
 	 		//plan.setApplicationRequirements(1, 1,15.0, 600.0, 20, 20);
 	 
-	 		plan.setNodeCapabilities(0, "NODE0", 1, 200, 0.3, 1000, 500, "LOC0");
-	 		plan.setNodeCapabilities(1, "NODE1", 1, 200, 0.3, 1000, 500, "LOC1");
-	 		plan.setNodeCapabilities(2, "NODE2", 1, 2500, 0.5, 1000, 500, "LOC2");
-	 		plan.setNodeCapabilities(3, "NODE3", 1, 2500, 0.5, 1000, 500, "LOC3");
-	 		plan.setNodeCapabilities(4, "NODE4", 1, 2500, 0.7, 1000, 500, "LOC4");
-	 		plan.setNodeCapabilities(5, "NODE5", 1, 2500, 0.7, 1000, 500, "LOC5");
-	 		plan.setNodeCapabilities(6, "NODE6", 1, 2500, 0.7, 1000, 500, "LOC6");
-	 		plan.setNodeCapabilities(7, "NODE7", 1, 2500, 0.7, 1000, 500, "LOC7");
+	 		//plan.setNodeCapabilities(0, "NODE0", 1, 200, 0.3, 1000, 500, "LOC0");
+	 		//plan.setNodeCapabilities(1, "NODE1", 1, 200, 0.3, 1000, 500, "LOC1");
+	 		//plan.setNodeCapabilities(2, "NODE2", 1, 2500, 0.5, 1000, 500, "LOC2");
+	 		//plan.setNodeCapabilities(3, "NODE3", 1, 2500, 0.5, 1000, 500, "LOC3");
+	 		//plan.setNodeCapabilities(4, "NODE4", 1, 2500, 0.7, 1000, 500, "LOC4");
+	 		//plan.setNodeCapabilities(5, "NODE5", 1, 2500, 0.7, 1000, 500, "LOC5");
+	 		//plan.setNodeCapabilities(6, "NODE6", 1, 2500, 0.7, 1000, 500, "LOC6");
+	 		//plan.setNodeCapabilities(7, "NODE7", 1, 2500, 0.7, 1000, 500, "LOC7");
 	 		
 	 		Random rand = new Random();
 	 		//int serviceType = -1;
-	 		int cycle =5;
+	 		int cycle = 5;
 	 		//int goalType = 4;
 	 		//int retry = 1;
 	 		
@@ -459,14 +441,34 @@ public class CompositionalMultiPlanner {
 	 		String res1[] = new String[cycle]; //log the selection
 	 		boolean statusRes[] = new boolean[cycle]; //log the synthesis status
 	 		
-	 		double cpuloads0, cpuloads1; //to randomize cpu loads
+	 		double cpulApp0, cpulApp1; //to randomize cpu loads
+	 		double cpulRs0, cpulRs1, cpulRs2, cpulRs3, cpulRs4, cpulRs5, cpulRs6, cpulRs7; 
 	 		for (int i=0; i < cycle; i++)
 	 	    {		 	
 	 			System.out.println("number of cycle :"+i);
-	 			cpuloads0 = rand.nextInt(40);
-	 			cpuloads1 = rand.nextInt(40);
-	 			plan.setApplicationRequirements(0, 1,cpuloads0, 300.0, 20, 20);
-		 		plan.setApplicationRequirements(1, 1,cpuloads1, 600.0, 20, 20);
+	 			cpulApp0 = rand.nextInt(20);
+	 			cpulApp1 = rand.nextInt(30);
+	 			cpulRs0 = rand.nextInt(50);
+	 			cpulRs1 = rand.nextInt(50);
+	 			cpulRs2 = rand.nextInt(50);
+	 			cpulRs3 = rand.nextInt(50);
+	 			cpulRs4 = rand.nextInt(50);
+	 			cpulRs5 = rand.nextInt(50);
+	 			cpulRs6 = rand.nextInt(50);
+	 			cpulRs7 = rand.nextInt(50);
+	 			
+	 			plan.setApplicationRequirements(0, 1,cpulApp0, 300.0, 20, 20);
+		 		plan.setApplicationRequirements(1, 1,cpulApp1, 600.0, 20, 20);
+		 		
+		 		plan.setNodeCapabilities(0, "NODE0", 1, cpulRs0, 200, 1000, 500, "LOC0");
+		 		plan.setNodeCapabilities(1, "NODE1", 1, cpulRs1, 200, 1000, 500, "LOC1");
+		 		plan.setNodeCapabilities(2, "NODE2", 1, cpulRs2, 2500, 1000, 500, "LOC2");
+		 		plan.setNodeCapabilities(3, "NODE3", 1, cpulRs3, 2500, 1000, 500, "LOC3");
+		 		plan.setNodeCapabilities(4, "NODE4", 1, cpulRs4, 2500, 1000, 500, "LOC4");
+		 		plan.setNodeCapabilities(5, "NODE5", 1, cpulRs5, 2500, 1000, 500, "LOC5");
+		 		plan.setNodeCapabilities(6, "NODE6", 1, cpulRs6, 2500, 1000, 500, "LOC6");
+		 		plan.setNodeCapabilities(7, "NODE7", 1, cpulRs7, 2500, 1000, 500, "LOC7");
+		 		
 		 	
 	 			tm.start();
 	 			plan.generate();

@@ -179,19 +179,13 @@ execa: bool init false;
 
 
 //terminate the process
-[enda!] (ta=0) -> (ta'=2);
-[enda!] (ta=0) & (goala=true) -> (ta'=2);
+//[enda!] (ta=0) -> (ta'=2);
+//[enda!] (ta=0) & (goala=true) -> (ta'=2);
 [enda!] (ta=0) & (goala=true) & (execa=true) -> (ta'=2);
 
 // P2 moves:
-[ch0a?] (ta=1) & (execa=false) & (sela=0) -> AVA_RS0:(execa'=true) & (ta'=2) + 1-AVA_RS0:(execa'=false) & (ta'=2);
-[ch1a?] (ta=1) & (execa=false) & (sela=1) -> AVA_RS1:(execa'=true) & (ta'=2) + 1-AVA_RS1:(execa'=false) & (ta'=2);
-[ch2a?] (ta=1) & (execa=false) & (sela=2) -> AVA_RS2:(execa'=true) & (ta'=2) + 1-AVA_RS2:(execa'=false) & (ta'=2);
-[ch3a?] (ta=1) & (execa=false) & (sela=3) -> AVA_RS3:(execa'=true) & (ta'=2) + 1-AVA_RS3:(execa'=false) & (ta'=2);
-[ch4a?] (ta=1) & (execa=false) & (sela=4) -> AVA_RS4:(execa'=true) & (ta'=2) + 1-AVA_RS4:(execa'=false) & (ta'=2);
-[ch5a?] (ta=1) & (execa=false) & (sela=5) -> AVA_RS5:(execa'=true) & (ta'=2) + 1-AVA_RS5:(execa'=false) & (ta'=2);
-[ch6a?] (ta=1) & (execa=false) & (sela=6) -> AVA_RS6:(execa'=true) & (ta'=2) + 1-AVA_RS6:(execa'=false) & (ta'=2);
-[ch7a?] (ta=1) & (execa=false) & (sela=7) -> AVA_RS7:(execa'=true) & (ta'=2) + 1-AVA_RS7:(execa'=false) & (ta'=2);
+[oka?] (ta=1) & (execa=false) & (goala=true) -> AVA_RS0:(execa'=true) & (ta'=2) + 1-AVA_RS0:(execa'=false) & (ta'=2);
+[noa?] (ta=1) & (execa=false) & (goala=true) -> (execa'=false) & (ta'=2);
 
 //start the move
 [be?] (ta=1) -> (ta'=2);
@@ -226,19 +220,13 @@ execb: bool init false;
 [r7b!] (tb=0) & (goalb=false) & (app1_rs7_sat_ml_all=true) -> (goalb'=true) & (selb'=7) & (tb'=1);
 
 //terminate the process
-[endb!] (tb=0) -> (tb'=2);
-[endb!] (tb=0) & (goalb=true) -> (tb'=2);
+//[endb!] (tb=0) -> (tb'=2);
+//[endb!] (tb=0) & (goalb=true) -> (tb'=2);
 [endb!] (tb=0) & (goalb=true) & (execb=true) -> (tb'=2);
 
 // P2 moves:
-[ch0b?] (tb=1) & (execb=false) & (selb=0) -> AVB_RS0:(execb'=true) & (tb'=2) + 1-AVB_RS0:(execb'=false) & (tb'=2);
-[ch1b?] (tb=1) & (execb=false) & (selb=1) -> AVB_RS1:(execb'=true) & (tb'=2) + 1-AVB_RS1:(execb'=false) & (tb'=2);
-[ch2b?] (tb=1) & (execb=false) & (selb=2) -> AVB_RS2:(execb'=true) & (tb'=2) + 1-AVB_RS2:(execb'=false) & (tb'=2);
-[ch3b?] (tb=1) & (execb=false) & (selb=3) -> AVB_RS3:(execb'=true) & (tb'=2) + 1-AVB_RS3:(execb'=false) & (tb'=2);
-[ch4b?] (tb=1) & (execb=false) & (selb=4) -> AVB_RS4:(execb'=true) & (tb'=2) + 1-AVB_RS4:(execb'=false) & (tb'=2);
-[ch5b?] (tb=1) & (execb=false) & (selb=5) -> AVB_RS5:(execb'=true) & (tb'=2) + 1-AVB_RS5:(execb'=false) & (tb'=2);
-[ch6b?] (tb=1) & (execb=false) & (selb=6) -> AVB_RS6:(execb'=true) & (tb'=2) + 1-AVB_RS6:(execb'=false) & (tb'=2);
-[ch7b?] (tb=1) & (execb=false) & (selb=7) -> AVB_RS7:(execb'=true) & (tb'=2) + 1-AVB_RS7:(execb'=false) & (tb'=2);
+[okb?] (tb=1) & (execb=false) & (goalb=true) -> AVB_RS0:(execb'=true) & (tb'=2) + 1-AVB_RS0:(execb'=false) & (tb'=2);
+[nob?] (tb=1) & (execb=false) & (goalb=true) -> (execb'=false) & (tb'=2);
 
 //start the move
 [be?] (tb=1) -> (tb'=2);

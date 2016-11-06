@@ -63,7 +63,7 @@ public class ConfigurationPlanner {
 		vm.addValue(md_freeMemory, freeMemory);
 	}
 	
-	public void setNodeCapabilities(int id, String name, int cpuCores, double cpuSpeed, double cpuLoads, int totalMemory, int freeMemory, String location){
+	public void setNodeCapabilities(int id, String name, int cpuCores, double cpuLoads, double cpuSpeed, int totalMemory, int freeMemory, String location){
 		//set the following:
 		String md_id = "RS"+id+"_ID";
 		String md_name = "RS"+id+"_NAME";
