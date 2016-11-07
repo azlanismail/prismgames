@@ -1,28 +1,28 @@
 
 Building model...
 
-Computing reachable states... 8 states
-Reachable states exploration and model construction done in 0.013000000000000001 secs.
+Computing reachable states... 23 states
+Reachable states exploration and model construction done in 0.009000000000000001 secs.
 Sorting reachable states list...
 
-Computing reachable states... 8 states
-Reachable states exploration and model construction done in 0.008 secs.
+Computing reachable states... 23 states
+Reachable states exploration and model construction done in 0.069 secs.
 Sorting reachable states list...
-product construction took 0.000365 s
+product construction took 0.011290 s
 
-Time for model construction: 0.023000000000000003 seconds.
+Time for model construction: 0.09000000000000001 seconds.
 //////////////////////////////////////////////////////////////////////////////
 //                   STARTING COMPOSITIONAL MODEL CHECKING                  //
 //////////////////////////////////////////////////////////////////////////////
 
 Building Model ... 
 
-Computing reachable states... 8 states
-Reachable states exploration and model construction done in 0.009000000000000001 secs.
+Computing reachable states... 23 states
+Reachable states exploration and model construction done in 0.016 secs.
 Sorting reachable states list...
 
-Computing reachable states... 8 states
-Reachable states exploration and model construction done in 0.030000000000000002 secs.
+Computing reachable states... 23 states
+Reachable states exploration and model construction done in 0.009000000000000001 secs.
 Sorting reachable states list...
 
 Model checking : "q1": <<1>> ((R{"c2_ru"}<=MAXRU [ C ]=>R{"c1_ru"}<=MAXRU [ C ]))
@@ -37,18 +37,18 @@ Warning: Strict inequalities ignored and turned into nonstrict inequalities:
 Property:
 	[[R{"c2_ru"}>MAXRU [ C ], R{"c1_ru"}<=MAXRU [ C ]]]
 
-initial state: 3
+initial state: 9
 operation: Strategy generation
-Strategy construction took 0.000406 s
-Synthesis took 0.003454 s
+Strategy construction took 0.000577 s
+Synthesis took 0.013747 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-8
+23
 // Initial state
 InitState:
-3
+9
 // initial distribution
 Init:
 {0=1.0}
@@ -57,39 +57,39 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-0 0 {0=1.0}
-1 0 {0=1.0}
-2 0 {0=1.0}
+0 0 {2=1.0}
+5 0 {0=1.0}
+6 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
 // second index: current corner
 // third index: next move
-0 0 0 {0=1.0}
-1 0 0 {0=1.0}
-2 0 0 {0=1.0}
-3 0 0 {0=1.0}
-4 0 0 {0=1.0}
-4 0 1 {0=1.0}
+0 0 2 {0=1.0}
 5 0 0 {0=1.0}
 6 0 0 {0=1.0}
-7 0 0 {0=1.0}
+9 0 0 {0=1.0}
+12 0 0 {0=1.0}
+12 0 1 {0=1.0}
+14 0 0 {0=1.0}
+19 0 0 {0=1.0}
+20 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-0 0 0 4 {0=1.0}
-1 0 0 6 {0=1.0}
-2 0 0 7 {0=1.0}
-3 0 0 5 {0=1.0}
-4 0 0 6 {0=1.0}
-4 0 0 7 {0=1.0}
-4 1 0 6 {0=1.0}
-5 0 0 0 {0=1.0}
-6 0 0 1 {0=1.0}
-7 0 0 2 {0=1.0}
+0 2 0 12 {0=1.0}
+5 0 0 19 {0=1.0}
+6 0 0 20 {0=1.0}
+9 0 0 14 {0=1.0}
+12 0 0 19 {0=1.0}
+12 0 0 20 {0=1.0}
+12 1 0 19 {0=1.0}
+14 0 0 0 {0=1.0}
+19 0 0 5 {0=1.0}
+20 0 0 6 {0=1.0}
 Info:
 
 maximum C-iterations: 500
@@ -101,11 +101,11 @@ maximum D-iterations: 500
 endstrategy
 
 
-Number of states satisfying "q1": 8 (all in model)
+Number of states satisfying "q1": 23 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.004 seconds.
+Time for model checking: 0.014 seconds.
 
 Result: true (property satisfied in the initial state)
 
@@ -121,18 +121,18 @@ Warning: Strict inequalities ignored and turned into nonstrict inequalities:
 Property:
 	[[R{"c2_rt"}>MAXRT [ C ], R{"c1_rt"}<=MAXRT [ C ]]]
 
-initial state: 3
+initial state: 9
 operation: Strategy generation
-Strategy construction took 0.000455 s
-Synthesis took 0.011282 s
+Strategy construction took 0.000615 s
+Synthesis took 0.011632 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-8
+23
 // Initial state
 InitState:
-3
+9
 // initial distribution
 Init:
 {0=1.0}
@@ -152,28 +152,28 @@ MemUpdStates:
 0 0 0 {0=1.0}
 1 0 0 {0=1.0}
 2 0 0 {0=1.0}
-3 0 0 {0=1.0}
-4 0 0 {0=1.0}
-4 0 1 {0=1.0}
-5 0 0 {0=1.0}
-6 0 0 {0=1.0}
-7 0 0 {0=1.0}
+9 0 0 {0=1.0}
+10 0 0 {0=1.0}
+10 0 1 {0=1.0}
+14 0 0 {0=1.0}
+15 0 0 {0=1.0}
+16 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-0 0 0 4 {0=1.0}
-1 0 0 6 {0=1.0}
-2 0 0 7 {0=1.0}
-3 0 0 5 {0=1.0}
-4 0 0 6 {0=1.0}
-4 1 0 6 {0=1.0}
-4 1 0 7 {0=1.0}
-5 0 0 0 {0=1.0}
-6 0 0 1 {0=1.0}
-7 0 0 2 {0=1.0}
+0 0 0 10 {0=1.0}
+1 0 0 15 {0=1.0}
+2 0 0 16 {0=1.0}
+9 0 0 14 {0=1.0}
+10 0 0 15 {0=1.0}
+10 1 0 16 {0=1.0}
+10 1 0 15 {0=1.0}
+14 0 0 0 {0=1.0}
+15 0 0 1 {0=1.0}
+16 0 0 2 {0=1.0}
 Info:
 
 maximum C-iterations: 500
@@ -185,7 +185,7 @@ maximum D-iterations: 500
 endstrategy
 
 
-Number of states satisfying "q2": 8 (all in model)
+Number of states satisfying "q2": 23 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
@@ -197,7 +197,7 @@ Result: true (property satisfied in the initial state)
 //////////////////////////////////////////////////////////////////////////////
 
 
-Model checking completed in 0.055 secs.
+Model checking completed in 0.051000000000000004 secs.
 
 Result: true
 
@@ -209,14 +209,14 @@ Property:
 
 initial state: 0
 operation: Strategy generation
-Synthesis took 0.035118 s
+Synthesis took 0.317510 s
 strategy: null
 
-Number of states satisfying <<1>> ((R{"max_rt"}<=MAXRT [ C ]&R{"sum_ru"}<=MAXRU [ C ])): 37
+Number of states satisfying <<1>> ((R{"max_rt"}<=MAXRT [ C ]&R{"sum_ru"}<=MAXRU [ C ])): 400
 
 Property satisfied in 0 of 1 initial states.
 
-Time for model checking: 0.03900000000000001 seconds.
+Time for model checking: 0.318 seconds.
 
 Result: false (property not satisfied in the initial state)
 
@@ -228,13 +228,13 @@ Property:
 
 initial state: 0
 operation: Strategy generation
-Strategy construction took 0.022835 s
-Synthesis took 0.045845 s
+Strategy construction took 0.009668 s
+Synthesis took 0.108269 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-41
+404
 // Initial state
 InitState:
 0
@@ -246,82 +246,86 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-2 0 {0=1.0}
+2 0 {2=1.0}
 3 0 {0=1.0}
-6 0 {0=1.0}
-9 0 {0=1.0}
-13 0 {0=1.0}
-14 0 {0=1.0}
-15 0 {0=1.0}
-16 0 {0=1.0}
-17 0 {0=1.0}
 18 0 {0=1.0}
-19 0 {0
-Number of states satisfying <<1>> ((R{"max_rt"}<=MAXRT [ C ]&R{"su
-Number of states satisfying <<1>> ((R{"max_rt"}<=MAXRT [ C ]&R{"sum_ru"}<=MAXRU [ C ])): 44 (all in model)
+24 0 {2=1.0}
+56 0 {0=1.0}
+57 0 {0=1.0}
+58 0 {0=1.0}
+59 0 {0=1.0}
+68
+Number of states satisfying <<1>> ((R{"max_rt"}<=MAXRT [ C ]&R{"sum_ru"}<=MAXRU [ C ])): 20 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.065 seconds.
+Time for model checking: 0.053000000000000005 seconds.
 
 Result: true (property satisfied in the initial state)
-ty satisfied in the initial state)
-0=1.0}
-2 0 0 {0=1.0}
+7 seconds.
+
+Result: true (property satisfied in the initial state)
+state)
+
+rd index: next move
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+1 0 1 {0=1.0}
+2 0 2 {0=1.0}
 3 0 0 {0=1.0}
-4 0 0 {0=1.0}
-4 0 1 {0=1.0}
-5 0 0 {0=1.0}
-5 0 1 {0=1.0}
 6 0 0 {0=1.0}
-7 0 0 {0=1.0}
-7 0 1 {0=1.0}
+6 0 1 {0=1.0}
 8 0 0 {0=1.0}
 8 0 1 {0=1.0}
-9 0 0 {0=1.0}
-10 0 0 {0=1.0}
-10 0 1 {0=1.0}
-11 0 0 {0=1.0}
-11 0 1 {0=1.0}
-12 0 0 {0=1.0}
-12 0 1 {0=1.0}
-12 0 2 {0=1.0}
-13 0 0 {0=1.0}
-14 0 0 {0=1.0}
-15 0 0 {0=1.0}
-16 0 0 {0=1.0}
-17 0 0 {0=1.0}
 18 0 0 {0=1.0}
 19 0 0 {0=1.0}
+19 0 1 {0=1.0}
 20 0 0 {0=1.0}
-21 0 0 {0=1.0}
-21 0 1 {0=1.0}
-22 0 0 {0=1.0}
-22 0 1 {0=1.0}
-23 0 0 {0=1.0}
-23 0 1 {0=1.0}
-24 0 0 {0=1.0}
-24 0 1 {0=1.0}
+20 0 1 {0=1.0}
+24 0 2 {0=1.0}
 25 0 0 {0=1.0}
 25 0 1 {0=1.0}
 26 0 0 {0=1.0}
-27 0 0 {0=1.0}
-28 0 0 {0=1.0}
-29 0 0 {0=1.0}
-29 0 1 {0=1.0}
-30 0 0 {0=1.0}
-31 0 0 {0=1.0}
-31 0 1 {0=1.0}
-32 0 0 {0=1.0}
-32 0 1 {0=1.0}
-33 0 0 {0=1.0}
-34 0 0 {0=1.0}
-35 0 0 {0=1.0}
-36 0 0 {0=1.0}
-37 0 0 {0=1.0}
-38 0 0 {0=1.0}
-39 0 0 {0=1.0}
-40 0 0 {0=1.0}
+26 0 1 {0=1.0}
+52 0 0 {0=1.0}
+52 0 1 {0=1.0}
+52 0 2 {0=1.0}
+56 0 0 {0=1.0}
+57 0 0 {0=1.0}
+58 0 0 {0=1.0}
+59 0 0 {0=1.0}
+68 0 2 {0=1.0}
+69 0 0 {0=1.0}
+70 0 2 {0=1.0}
+71 0 0 {0=1.0}
+124 0 0 {0=1.0}
+124 0 1 {0=1.0}
+125 0 0 {0=1.0}
+125 0 1 {0=1.0}
+126 0 0 {0=1.0}
+126 0 1 {0=1.0}
+127 0 0 {0=1.0}
+127 0 1 {0=1.0}
+128 0 0 {0=1.0}
+128 0 1 {0=1.0}
+236 0 0 {0=1.0}
+237 0 0 {0=1.0}
+238 0 0 {0=1.0}
+239 0 0 {0=1.0}
+239 0 1 {0=1.0}
+240 0 0 {0=1.0}
+240 0 1 {0=1.0}
+241 0 0 {0=1.0}
+242 0 0 {0=1.0}
+242 0 1 {0=1.0}
+243 0 0 {0=1.0}
+244 0 0 {0=1.0}
+356 0 0 {0=1.0}
+357 0 0 {0=1.0}
+358 0 0 {0=1.0}
+359 0 0 {0=1.0}
+360 0 0 {0=1.0}
+361 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
@@ -331,87 +335,88 @@ MemUpdMoves:
 0 0 0 1 {0=1.0}
 1 0 0 2 {0=1.0}
 1 1 0 3 {0=1.0}
-2 0 0 4 {0=1.0}
-3 0 0 5 {0=1.0}
-4 0 0 6 {0=1.0}
-4 1 0 7 {0=1.0}
-4 1 0 8 {0=1.0}
-5 0 0 9 {0=1.0}
-5 1 0 10 {0=1.0}
-5 1 0 11 {0=1.0}
-6 0 0 12 {0=1.0}
-7 0 0 13 {0=1.0}
-7 1 0 14 {0=1.0}
-8 0 0 15 {0=1.0}
-8 1 0 16 {0=1.0}
-9 0 0 12 {0=1.0}
-10 0 0 17 {0=1.0}
-10 1 0 18 {0=1.0}
-11 0 0 19 {0=1.0}
-11 1 0 20 {0=1.0}
-12 0 0 21 {0=1.0}
-12 1 0 22 {0=1.0}
-12 1 0 23 {0=1.0}
-12 2 0 24 {0=1.0}
-12 2 0 25 {0=1.0}
-13 0 0 7 {0=1.0}
-14 0 0 24 {0=1.0}
-15 0 0 8 {0=1.0}
-16 0 0 25 {0=1.0}
-17 0 0 22 {0=1.0}
-18 0 0 10 {0=1.0}
-19 0 0 23 {0=1.0}
-20 0 0 11 {0=1.0}
-21 0 0 26 {0=1.0}
-21 1 0 27 {0=1.0}
-22 0 0 28 {0=1.0}
-22 1 0 21 {0=1.0}
-22 1 0 29 {0=1.0}
-23 0 0 30 {0=1.0}
-23 1 0 32 {0=1.0}
-23 1 0 31 {0=1.0}
-24 0 0 33 {0=1.0}
-24 1 0 21 {0=1.0}
-24 1 0 31 {0=1.0}
-25 0 0 34 {0=1.0}
-25 1 0 32 {0=1.0}
-25 1 0 29 {0=1.0}
-26 0 0 21 {0=1.0}
-27 0 0 21 {0=1.0}
-28 0 0 22 {0=1.0}
-29 0 0 35 {0=1.0}
-29 1 0 36 {0=1.0}
-30 0 0 23 {0=1.0}
-31 0 0 37 {0=1.0}
-31 1 0 38 {0=1.0}
-32 0 0 39 {0=1.0}
-32 1 0 40 {0=1.0}
-33 0 0 24 {0=1.0}
-34 0 0 25 {0=1.0}
-35 0 0 29 {0=1.0}
-36 0 0 29 {0=1.0}
-37 0 0 31 {0=1.0}
-38 0 0 31 {0=1.0}
-39 0 0 32 {0=1.0}
-40 0 0 32 {0=1.0}
-Info:
+2 2 0 6 {0=1.0}
+3 0 0 8 {0=1.0}
+6 0 0 18 {0=1.0}
+6 1 0 19 {0=1.0}
+6 1 0 20 {0=1.0}
+8 0 0 24 {0=1.0}
+8 1 0 25 {0=1.0}
+8 1 0 26 {0=1.0}
+18 0 0 52 {0=1.0}
+19 0 0 56 {0=1.0}
+19 1 0 57 {0=1.0}
+20 0 0 58 {0=1.0}
+20 1 0 59 {0=1.0}
+24 2 0 52 {0=1.0}
+25 0 0 68 {0=1.0}
+25 1 0 69 {0=1.0}
+26 0 0 70 {0=1.0}
+26 1 0 71 {0=1.0}
+52 0 0 124 {0=1.0}
+52 1 0 125 {0=1.0}
+52 1 0 126 {0=1.0}
+52 2 0 128 {0=1.0}
+52 2 0 127 {0=1.0}
+56 0 0 19 {0=1.0}
+57 0 0 127 {0=1.0}
+58 0 0 20 {0=1.0}
+59 0 0 128 {0=1.0}
+68 2 0 125 {0=1.0}
+69 0 0 25 {0=1.0}
+70 2 0 126 {0=1.0}
+71 0 0 26 {0=1.0}
+124 0 0 236 {0=1.0}
+124 1 0 237 {0=1.0}
+125 0 0 238 {0=1.0}
+125 1 0 240 {0=1.0}
+125 1 0 239 {0=1.0}
+126 0 0 241 {0=1.0}
+126 1 0 242 {0=1.0}
+126 1 0 124 {0=1.0}
+127 0 0 243 {0=1.0}
+127 1 0 124 {0=1.0}
+127 1 0 239 {0=1.0}
+128 0 0 244 {0=1.0}
+128 1 0 240 {0=1.0}
+128 1 0 242 {0=1.0}
+236 0 0 124 {0=1.0}
+237 0 0 124 {0=1.0}
+238 0 0 125 {0=1.0}
+239 0 0 356 {0=1.0}
+239 1 0 357 {0=1.0}
+240 0 0 358 {0=1.0}
+240 1 0 359 {0=1.0}
+241 0 0 126 {0=1.0}
+242 0 0 360 {0=1.0}
+242 1 0 361 {0=1.0}
+243 0 0 127 {0=1.0}
+244 0 0 128 {0=1.0}
+356 0 0 239 {0=1.0}
+357 0 0 239 
+Nu
+Number of states satisfying <<1>> ((R
+Number o
+Number of s
+Number of states satisfying <<1>> ((R{"c1_r
+Number of states satisfying <<1>> ((R{"c1_ru"}<=MAXRU [ C ]&R{"c1_rt"}<=MAXRT [ C ])): 220 (all in model)
 
-maximum C-iterations: 500
-	relative termination thres
-Number of states satisfying <<1>> ((R{"c1_ru"}<=MAXRU [
-Number of states satisfying <<1>> ((R{"c1_ru"}<=MAXRU [ C ]&R{"c1_rt"}<=MAXRT [ C ])): 41 (all in model)
-
-Property satisfied in 
-Number of states satisfying <<1>> ((R{"c1_ru"}<=MAXRU [ C ]&R{"c1_rt"}<=MAXRT [ C ])): 609 (all in model)
+P
+Number of states satisfying <<1>> ((R{"c1_ru"}<=MAXRU [ C ]&R{"c1_rt"}<=MAXRT [ C ])): 948 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.679 seconds.
+Time for model checking: 0.9570000000000001 seconds.
 
 Result: true (property satisfied in the initial state)
-or model checking: 0.78 seconds.
-
-Result: true (property satisfied in the initial state)
-perty satisfied in the initial state)
-operty satisfied in the initial state)
-e initial state)
+the initial state)
+tate)
+ the initial state)
+)
+itial state)
+ied in the initial state)
+nitial state)
+al state)
+ initial state)
+nitial state)
+ the initial state)

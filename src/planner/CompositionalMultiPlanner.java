@@ -435,7 +435,7 @@ public class CompositionalMultiPlanner {
 	 		//plan.setNodeCapabilities(7, "NODE7", 1, 2500, 0.7, 1000, 500, "LOC7");
 	 		
 	 		Random rand = new Random();
-	 		int cycle = 200;
+	 		int cycle = 100;
 	 		int maxResource = 8;
 	 		//int goalType = 4;		
 	 	
@@ -445,8 +445,8 @@ public class CompositionalMultiPlanner {
 	 		String res1[] = new String[cycle]; //log the selection
 	 		boolean statusRes[] = new boolean[cycle]; //log the synthesis status
 	 		
-	 		double cpulApp0, cpulApp1; //to randomize cpu loads 
-	 		double cpulRs, cpusRs;
+	 		double cpulApp0, cpulApp1, cpusApp0, cpusApp1; //to randomize values for applications
+	 		double cpulRs, cpusRs; //to randomize values for resources
 	 		
 	 		CompositionalMultiPlanner plan; // = new CompositionalMultiPlanner[cycle]; 
 	 		
@@ -455,10 +455,12 @@ public class CompositionalMultiPlanner {
 	 			System.out.println("number of cycle :"+i);
 	 			plan= new CompositionalMultiPlanner();
 	 			cpulApp0 = rand.nextInt(20);
-	 			cpulApp1 = rand.nextInt(30);			
+	 			cpulApp1 = rand.nextInt(30);		
+	 			cpusApp0 = rand.nextInt(300) + 100;
+	 			cpusApp1 = rand.nextInt(300) + 100;
 	 			
-	 			plan.setApplicationRequirements(0, 1,cpulApp0, 300.0, 20, 20);
-		 		plan.setApplicationRequirements(1, 1,cpulApp1, 600.0, 20, 20);
+	 			plan.setApplicationRequirements(0, 1,cpulApp0, cpusApp0, 20, 20);
+		 		plan.setApplicationRequirements(1, 1,cpulApp1, cpusApp1, 20, 20);
 		 		
 		 		for(int j=0; j < maxResource; j++) {
 		 			cpulRs = rand.nextInt(50) + 10;
@@ -505,8 +507,9 @@ public class CompositionalMultiPlanner {
             int countSame=0, countDif=0, same=-1;
             int countA[] = new int[maxR];
             int countB[] = new int[maxR];
+            int val=0;
             pw.println("recorded data: cycle, time, status, result1, result2, similar");
- 	 		for(int k=0; k <= cycle; k++) {
+ 	 		for(int k=0; k < cycle; k++) {
  	 			if(res0[k] == res1[k]) {
  	 				countSame+=1;
  	 				same=1;
@@ -515,10 +518,19 @@ public class CompositionalMultiPlanner {
  	 				same=0;
  	 			}
  	 			pw.println(" "+k+" "+time[k]+" "+statusRes[k]+" "+res0[k]+" "+res1[k]+" "+same);
- 	 			countA[getResourceId(res0, k)] +=1;
- 	 			countB[getResourceId(res1, k)] +=1;
+ 	 			if (res0[k] != null){
+ 	 				System.out.println("res0: "+res0[k]);
+ 	 				val = getResourceId(res0, k);
+ 	 				System.out.println("res0: "+val);
+ 	 				countA[val] +=1;
+ 	 			}
+ 	 			if (res1[k] != null){
+ 	 				System.out.println("res1: "+res1[k]);
+ 	 				val = getResourceId(res1, k);
+ 	 				System.out.println("res1: "+val);
+ 	 				countB[val] +=1;
+ 	 			}
  	 			total +=time[k];
- 	 				
  	 		}
  	 		pw.println();
  	 		for(int j=0; j < countA.length; j++) {
