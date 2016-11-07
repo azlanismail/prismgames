@@ -150,9 +150,10 @@ public class CompositionalMultiPlanner {
 		    	//set the constants parameters
 		    	modulesFile.setUndefinedConstants(conf.getDefinedValues());  
 		    	
+		    	System.out.println("Building the model representation.....");
 		    	//building a model representation for non-compositional synthesis
 			    model = prismEx.buildModel(modulesFile, prism.getSimulator());
-		       
+		      
 			    if(model != null){
 			    	System.out.println("Number of states (Model Building) :"+model.getNumStates());
 			    	System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
@@ -192,7 +193,7 @@ public class CompositionalMultiPlanner {
 		    else {
 			 	System.out.println("Not able to synthesize the expected max rewards, so set to the defaults.....");
 			 	conf.setDefaultUpperBoundsMultiObjectives();
-		    }
+		   }
 		    		    
 		    //set the constant parameters for properties
 		    propertiesFile.setUndefinedConstants(conf.getDefinedProperties());
@@ -224,6 +225,7 @@ public class CompositionalMultiPlanner {
 			}else {
 				System.out.println("Perform multi-objective on each component game");
 				rsMulti1 = smg.check(model, propertiesFile.getProperty(MultiObj1));
+
 				//rsMulti2 = smg.check(model, propertiesFile.getProperty(MultiObj2));
 				System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult());
 		    	//System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult()); 
@@ -233,14 +235,16 @@ public class CompositionalMultiPlanner {
 					synMulti1=true;
 				}	
 				else
-					synMulti1=true;
+					synMulti1=false;
 			}	
 			
 			if (synMultiComp | synMulti1 | synMulti2) {
 				System.out.println("at least one type of synthesis is success....");
 				this.synthesisStatus = true;
-			}else
+			}else {
+				System.out.println("All synthesis fail");
 				this.synthesisStatus = false;
+			}
 		}	
 	    
 		/**
@@ -415,8 +419,9 @@ public class CompositionalMultiPlanner {
 	    	//0-means the initial stage
 	    	//1-means the adaptation stage
 	    	//int stage = 1;
-	 		CompositionalMultiPlanner plan = new CompositionalMultiPlanner(); 		
-			
+	 		//CompositionalMultiPlanner plan = new CompositionalMultiPlanner(); 
+	    	 
+	 		
 	 		//plan.setApplicationRequirements(0, 1,10.0, 300.0, 20, 20);
 	 		//plan.setApplicationRequirements(1, 1,15.0, 600.0, 20, 20);
 	 
@@ -430,45 +435,36 @@ public class CompositionalMultiPlanner {
 	 		//plan.setNodeCapabilities(7, "NODE7", 1, 2500, 0.7, 1000, 500, "LOC7");
 	 		
 	 		Random rand = new Random();
-	 		//int serviceType = -1;
-	 		int cycle = 5;
-	 		//int goalType = 4;
-	 		//int retry = 1;
-	 		
-	 		long time[] = new long[cycle]; //log the execution time
+	 		int cycle = 200;
+	 		int maxResource = 8;
+	 		//int goalType = 4;		
+	 	
 	 		TimeMeasure tm = new TimeMeasure();
+	 		long time[] = new long[cycle]; //log the execution time
 	 		String res0[] = new String[cycle]; //log the selection
 	 		String res1[] = new String[cycle]; //log the selection
 	 		boolean statusRes[] = new boolean[cycle]; //log the synthesis status
 	 		
-	 		double cpulApp0, cpulApp1; //to randomize cpu loads
-	 		double cpulRs0, cpulRs1, cpulRs2, cpulRs3, cpulRs4, cpulRs5, cpulRs6, cpulRs7; 
+	 		double cpulApp0, cpulApp1; //to randomize cpu loads 
+	 		double cpulRs, cpusRs;
+	 		
+	 		CompositionalMultiPlanner plan; // = new CompositionalMultiPlanner[cycle]; 
+	 		
 	 		for (int i=0; i < cycle; i++)
 	 	    {		 	
 	 			System.out.println("number of cycle :"+i);
+	 			plan= new CompositionalMultiPlanner();
 	 			cpulApp0 = rand.nextInt(20);
-	 			cpulApp1 = rand.nextInt(30);
-	 			cpulRs0 = rand.nextInt(50);
-	 			cpulRs1 = rand.nextInt(50);
-	 			cpulRs2 = rand.nextInt(50);
-	 			cpulRs3 = rand.nextInt(50);
-	 			cpulRs4 = rand.nextInt(50);
-	 			cpulRs5 = rand.nextInt(50);
-	 			cpulRs6 = rand.nextInt(50);
-	 			cpulRs7 = rand.nextInt(50);
+	 			cpulApp1 = rand.nextInt(30);			
 	 			
 	 			plan.setApplicationRequirements(0, 1,cpulApp0, 300.0, 20, 20);
 		 		plan.setApplicationRequirements(1, 1,cpulApp1, 600.0, 20, 20);
 		 		
-		 		plan.setNodeCapabilities(0, "NODE0", 1, cpulRs0, 200, 1000, 500, "LOC0");
-		 		plan.setNodeCapabilities(1, "NODE1", 1, cpulRs1, 200, 1000, 500, "LOC1");
-		 		plan.setNodeCapabilities(2, "NODE2", 1, cpulRs2, 2500, 1000, 500, "LOC2");
-		 		plan.setNodeCapabilities(3, "NODE3", 1, cpulRs3, 2500, 1000, 500, "LOC3");
-		 		plan.setNodeCapabilities(4, "NODE4", 1, cpulRs4, 2500, 1000, 500, "LOC4");
-		 		plan.setNodeCapabilities(5, "NODE5", 1, cpulRs5, 2500, 1000, 500, "LOC5");
-		 		plan.setNodeCapabilities(6, "NODE6", 1, cpulRs6, 2500, 1000, 500, "LOC6");
-		 		plan.setNodeCapabilities(7, "NODE7", 1, cpulRs7, 2500, 1000, 500, "LOC7");
-		 		
+		 		for(int j=0; j < maxResource; j++) {
+		 			cpulRs = rand.nextInt(50) + 10;
+		 			cpusRs = rand.nextInt(400) + 600;
+		 			plan.setNodeCapabilities(j, "NODE"+j, 1, cpulRs, cpusRs, 1000, 500, "LOC"+j);
+		 		}
 		 	
 	 			tm.start();
 	 			plan.generate();
@@ -483,33 +479,74 @@ public class CompositionalMultiPlanner {
 	 				tm.stop();
 	 			time[i] = tm.getDuration();
 	 			//plan.simulatePath();
-	 	    }
-	 		
-	 		
+	 	    }//end of for
 	 		
 	 		
 	 		try {
-				collectData(time, cycle, statusRes, res0, res1);
-			} catch (FileNotFoundException e) {
+				analyzeData(time, cycle, statusRes, res0, res1);
+			}
+	 		catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	 		catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	 	}
 	     
-	     public static void collectData(long time[], int cycle, boolean statusRes[], String res0[], String res1[]) throws FileNotFoundException {
+	     public static void analyzeData(long time[], int cycle, boolean statusRes[], String res0[], String res1[]) throws FileNotFoundException {
 	    	 File outfile = new File("/home/azlan/git/PrismGames/IOFiles/log.txt");
 
              PrintWriter pw = new PrintWriter(outfile);
 
             long total = 0;
-            pw.println("recorded data: cycle, time, status, result1, result2");
- 	 		for(int k=0; k < cycle; k++) {
- 	 			pw.println(" "+k+" "+time[k]+" "+statusRes[k]+" "+res0[k]+" "+res1[k]);
+            int maxR=9;
+            int countSame=0, countDif=0, same=-1;
+            int countA[] = new int[maxR];
+            int countB[] = new int[maxR];
+            pw.println("recorded data: cycle, time, status, result1, result2, similar");
+ 	 		for(int k=0; k <= cycle; k++) {
+ 	 			if(res0[k] == res1[k]) {
+ 	 				countSame+=1;
+ 	 				same=1;
+ 	 			}else {
+ 	 				countDif+=1;
+ 	 				same=0;
+ 	 			}
+ 	 			pw.println(" "+k+" "+time[k]+" "+statusRes[k]+" "+res0[k]+" "+res1[k]+" "+same);
+ 	 			countA[getResourceId(res0, k)] +=1;
+ 	 			countB[getResourceId(res1, k)] +=1;
  	 			total +=time[k];
+ 	 				
  	 		}
+ 	 		pw.println();
+ 	 		for(int j=0; j < countA.length; j++) {
+ 	 			pw.println(" "+j+" "+countA[j]+" "+countB[j]);	
+ 	 		}
+ 	 		pw.println("Same Collab:"+countSame);
+ 	 		pw.println("Diff Collab:"+countDif);
  	 		long avg = (total/cycle);
- 	 		pw.println("Average "+avg);
- 	 	
-             pw.close();
+ 	 		pw.println("Average: "+avg);
+ 	 		
+            pw.close();
+	     }
+	     
+	     public static int getResourceId(String[] result, int index) {
+	    	 
+	    	 int id=-1;
+	    	 
+	    	 if(result[index].equalsIgnoreCase("NODE0")) id = 0;
+	    	 else if (result[index].equalsIgnoreCase("NODE1"))	id = 1;
+	    	 else if (result[index].equalsIgnoreCase("NODE2"))	id = 2;
+	    	 else if (result[index].equalsIgnoreCase("NODE3"))	id = 3;
+	    	 else if (result[index].equalsIgnoreCase("NODE4"))	id = 4;
+	    	 else if (result[index].equalsIgnoreCase("NODE5"))	id = 5;
+	    	 else if (result[index].equalsIgnoreCase("NODE6"))	id = 6;
+	    	 else if (result[index].equalsIgnoreCase("NODE7"))	id = 7;
+	    	 else
+	    		 id = 8;
+	    	 
+	    	 return id;
 	     }
 }
