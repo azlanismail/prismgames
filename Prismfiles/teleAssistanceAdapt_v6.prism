@@ -117,8 +117,8 @@ const double SV_DRUG2_FR = 0.01;
 
 //======================================================
 //to control the turn
-const TE=0;
-const TP=1;
+const int TE=0;
+const int TP=1;
 global t:[TE..TP] init TP;
 
 //to constraint the selection

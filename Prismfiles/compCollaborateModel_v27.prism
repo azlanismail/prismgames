@@ -33,20 +33,20 @@ const int MAX_CLOUD_LOAD = 50; //UB for cpu load of a cloud
 
 //=============================
 //APPLICATION REQUIREMENTS
-const int APP0_ID; //= 0;
-const int APP0_CPU_CORES; // = 1;
-const double APP0_CPU_LOADS; // = 30;
-const double APP0_CPU_SPEED; // = 300;
-const int APP0_TOTALMEMORY; // = 20;
-const int APP0_FREEMEMORY; // = 20;
+const int APP0_ID = 0;
+const int APP0_CPU_CORES = 1;
+const double APP0_CPU_LOADS = 10;
+const double APP0_CPU_SPEED = 300;
+const int APP0_TOTALMEMORY = 20;
+const int APP0_FREEMEMORY = 20;
 //const int APP0_LOCATION = 1;
 
-const int APP1_ID; // = 1;
-const int APP1_CPU_CORES; // = 1;
-const double APP1_CPU_LOADS; // = 25;
-const double APP1_CPU_SPEED; // = 600;
-const int APP1_TOTALMEMORY; // = 20;
-const int APP1_FREEMEMORY; // = 20;
+const int APP1_ID = 1;
+const int APP1_CPU_CORES = 1;
+const double APP1_CPU_LOADS = 15;
+const double APP1_CPU_SPEED = 400;
+const int APP1_TOTALMEMORY = 20;
+const int APP1_FREEMEMORY = 20;
 //const int APP1_LOCATION = 1;
 
 
@@ -54,7 +54,7 @@ const int APP1_FREEMEMORY; // = 20;
 //RESOURCE PROFILES
 const int RS0_ID = 0;
 const int RS0_CPU_CORES = 1;
-const double RS0_CPU_LOADS; // = 65;
+const double RS0_CPU_LOADS = 70;
 const double RS0_CPU_LOADS_A = 35;
 const double RS0_CPU_LOADS_B = 35;
 const double RS0_CPU_SPEED = 2000;
@@ -64,7 +64,7 @@ const int RS0_LOCATION = 0;
 
 const int RS1_ID = 1;
 const int RS1_CPU_CORES = 1;
-const double RS1_CPU_LOADS; // = 60;
+const double RS1_CPU_LOADS = 60;
 const double RS1_CPU_LOADS_A = 15;
 const double RS1_CPU_LOADS_B = 15;
 const double RS1_CPU_SPEED = 2000;
@@ -74,7 +74,7 @@ const int RS1_LOCATION = 1;
 
 const int RS2_ID = 2;
 const int RS2_CPU_CORES = 1;
-const double RS2_CPU_LOADS; // = 35;
+const double RS2_CPU_LOADS = 50;
 const double RS2_CPU_LOADS_A = 10;
 const double RS2_CPU_LOADS_B = 25;
 const double RS2_CPU_SPEED = 2593;
@@ -84,7 +84,7 @@ const int RS2_LOCATION = 2;
 
 const int RS3_ID = 3;
 const int RS3_CPU_CORES = 1;
-const double RS3_CPU_LOADS; // = 30;
+const double RS3_CPU_LOADS = 40;
 const double RS3_CPU_LOADS_A = 10;
 const double RS3_CPU_LOADS_B = 20;
 const double RS3_CPU_SPEED = 2593;
@@ -94,7 +94,7 @@ const int RS3_LOCATION = 3;
 
 const int RS4_ID = 4;
 const int RS4_CPU_CORES = 1;
-const double RS4_CPU_LOADS; // = 30;
+const double RS4_CPU_LOADS = 30;
 const double RS4_CPU_LOADS_A = 20;
 const double RS4_CPU_LOADS_B = 10;
 const double RS4_CPU_SPEED = 2593;
@@ -104,7 +104,7 @@ const int RS4_LOCATION = 4;
 
 const int RS5_ID = 5;
 const int RS5_CPU_CORES = 1;
-const double RS5_CPU_LOADS; // = 40;
+const double RS5_CPU_LOADS = 20;
 const double RS5_CPU_LOADS_A = 25;
 const double RS5_CPU_LOADS_B = 15;
 const double RS5_CPU_SPEED = 2593;
@@ -114,7 +114,7 @@ const int RS5_LOCATION = 5;
 
 const int RS6_ID = 6;
 const int RS6_CPU_CORES = 1;
-const double RS6_CPU_LOADS; // = 60;
+const double RS6_CPU_LOADS = 10;
 const double RS6_CPU_LOADS_A = 30;
 const double RS6_CPU_LOADS_B = 30;
 const double RS6_CPU_SPEED = 2593;
@@ -124,7 +124,7 @@ const int RS6_LOCATION = 6;
 
 const int RS7_ID = 7;
 const int RS7_CPU_CORES = 1;
-const double RS7_CPU_LOADS; // = 40;
+const double RS7_CPU_LOADS = 5;
 const double RS7_CPU_LOADS_A = 20;
 const double RS7_CPU_LOADS_B = 20;
 const double RS7_CPU_SPEED = 2000;
