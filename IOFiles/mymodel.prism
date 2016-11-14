@@ -1,0 +1,81 @@
+smg
+//=========Player definition=======
+player p1
+planner,[r0],[r1],[r2],[r3],[r4],[r5],[r6],[r7],[end]
+endplayer
+
+player p2
+environment,
+[e0],[e1],
+endplayer
+
+//=========User Requirements=======
+const int A0_ID = 0;
+const int A0_Q1 = 5;	//max duration
+const double A0_Q2 = 0.6; //reliability
+const double A0_Q3 = 10.0; //max cost
+const double WG_COST = 0.3; //weight for cost
+const double WG_DUR = 0.3; //weight for duration
+const double WG_REL = 0.4; //weight for reliability
+
+//=========Resource Profiles=======
+const int MAX_SV=8
+const int MAX_EV=2
+
+const int RS0_ID;
+const int RS0_Q1;	//duration 1
+const int RS0_Q2;	//duration 2
+const double RS0_Q3;	//duration 1
+const double RS0_Q4;	//reliability 2
+const double RS0_Q5;	//cost
+const bool RS0_Q6;	//availability status
+const int RS1_ID;
+const int RS1_Q1;	//duration 1
+const int RS1_Q2;	//duration 2
+const double RS1_Q3;	//duration 1
+const double RS1_Q4;	//reliability 2
+const double RS1_Q5;	//cost
+const bool RS1_Q6;	//availability status
+const int RS2_ID;
+const int RS2_Q1;	//duration 1
+const int RS2_Q2;	//duration 2
+const double RS2_Q3;	//duration 1
+const double RS2_Q4;	//reliability 2
+const double RS2_Q5;	//cost
+const bool RS2_Q6;	//availability status
+const int RS3_ID;
+const int RS3_Q1;	//duration 1
+const int RS3_Q2;	//duration 2
+const double RS3_Q3;	//duration 1
+const double RS3_Q4;	//reliability 2
+const double RS3_Q5;	//cost
+const bool RS3_Q6;	//availability status
+const int RS4_ID;
+const int RS4_Q1;	//duration 1
+const int RS4_Q2;	//duration 2
+const double RS4_Q3;	//duration 1
+const double RS4_Q4;	//reliability 2
+const double RS4_Q5;	//cost
+const bool RS4_Q6;	//availability status
+const int RS5_ID;
+const int RS5_Q1;	//duration 1
+const int RS5_Q2;	//duration 2
+const double RS5_Q3;	//duration 1
+const double RS5_Q4;	//reliability 2
+const double RS5_Q5;	//cost
+const bool RS5_Q6;	//availability status
+const int RS6_ID;
+const int RS6_Q1;	//duration 1
+const int RS6_Q2;	//duration 2
+const double RS6_Q3;	//duration 1
+const double RS6_Q4;	//reliability 2
+const double RS6_Q5;	//cost
+const bool RS6_Q6;	//availability status
+const int RS7_ID;
+const int RS7_Q1;	//duration 1
+const int RS7_Q2;	//duration 2
+const double RS7_Q3;	//duration 1
+const double RS7_Q4;	//reliability 2
+const double RS7_Q5;	//cost
+const bool RS7_Q6;	//availability status
+
