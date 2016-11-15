@@ -11,9 +11,9 @@ endplayer
 
 //=========User Requirements=======
 const int A0_ID = 0;
-const int A0_Q1 = 5;	//max duration
-const double A0_Q2 = 0.6; //reliability
-const double A0_Q3 = 10.0; //max cost
+const int A0_DUR = 5;	//max duration
+const double A0_REL = 0.6; //reliability
+const double A0_COST = 10.0; //max cost
 const double WG_COST = 0.3; //weight for cost
 const double WG_DUR = 0.3; //weight for duration
 const double WG_REL = 0.4; //weight for reliability
@@ -23,59 +23,170 @@ const int MAX_SV=8
 const int MAX_EV=2
 
 const int RS0_ID;
-const int RS0_Q1;	//duration 1
-const int RS0_Q2;	//duration 2
-const double RS0_Q3;	//duration 1
-const double RS0_Q4;	//reliability 2
-const double RS0_Q5;	//cost
-const bool RS0_Q6;	//availability status
+const int RS0_DUR0;	//duration 1
+const int RS0_DUR1;	//duration 2
+const double RS0_REL0;	//reliability 1
+const double RS0_REL1;	//reliability 2
+const double RS0_COST;	//cost
+const bool RS0_AVAIL;	//availability status
+
 const int RS1_ID;
-const int RS1_Q1;	//duration 1
-const int RS1_Q2;	//duration 2
-const double RS1_Q3;	//duration 1
-const double RS1_Q4;	//reliability 2
-const double RS1_Q5;	//cost
-const bool RS1_Q6;	//availability status
+const int RS1_DUR0;	//duration 1
+const int RS1_DUR1;	//duration 2
+const double RS1_REL0;	//reliability 1
+const double RS1_REL1;	//reliability 2
+const double RS1_COST;	//cost
+const bool RS1_AVAIL;	//availability status
+
 const int RS2_ID;
-const int RS2_Q1;	//duration 1
-const int RS2_Q2;	//duration 2
-const double RS2_Q3;	//duration 1
-const double RS2_Q4;	//reliability 2
-const double RS2_Q5;	//cost
-const bool RS2_Q6;	//availability status
+const int RS2_DUR0;	//duration 1
+const int RS2_DUR1;	//duration 2
+const double RS2_REL0;	//reliability 1
+const double RS2_REL1;	//reliability 2
+const double RS2_COST;	//cost
+const bool RS2_AVAIL;	//availability status
+
 const int RS3_ID;
-const int RS3_Q1;	//duration 1
-const int RS3_Q2;	//duration 2
-const double RS3_Q3;	//duration 1
-const double RS3_Q4;	//reliability 2
-const double RS3_Q5;	//cost
-const bool RS3_Q6;	//availability status
+const int RS3_DUR0;	//duration 1
+const int RS3_DUR1;	//duration 2
+const double RS3_REL0;	//reliability 1
+const double RS3_REL1;	//reliability 2
+const double RS3_COST;	//cost
+const bool RS3_AVAIL;	//availability status
+
 const int RS4_ID;
-const int RS4_Q1;	//duration 1
-const int RS4_Q2;	//duration 2
-const double RS4_Q3;	//duration 1
-const double RS4_Q4;	//reliability 2
-const double RS4_Q5;	//cost
-const bool RS4_Q6;	//availability status
+const int RS4_DUR0;	//duration 1
+const int RS4_DUR1;	//duration 2
+const double RS4_REL0;	//reliability 1
+const double RS4_REL1;	//reliability 2
+const double RS4_COST;	//cost
+const bool RS4_AVAIL;	//availability status
+
 const int RS5_ID;
-const int RS5_Q1;	//duration 1
-const int RS5_Q2;	//duration 2
-const double RS5_Q3;	//duration 1
-const double RS5_Q4;	//reliability 2
-const double RS5_Q5;	//cost
-const bool RS5_Q6;	//availability status
+const int RS5_DUR0;	//duration 1
+const int RS5_DUR1;	//duration 2
+const double RS5_REL0;	//reliability 1
+const double RS5_REL1;	//reliability 2
+const double RS5_COST;	//cost
+const bool RS5_AVAIL;	//availability status
+
 const int RS6_ID;
-const int RS6_Q1;	//duration 1
-const int RS6_Q2;	//duration 2
-const double RS6_Q3;	//duration 1
-const double RS6_Q4;	//reliability 2
-const double RS6_Q5;	//cost
-const bool RS6_Q6;	//availability status
+const int RS6_DUR0;	//duration 1
+const int RS6_DUR1;	//duration 2
+const double RS6_REL0;	//reliability 1
+const double RS6_REL1;	//reliability 2
+const double RS6_COST;	//cost
+const bool RS6_AVAIL;	//availability status
+
 const int RS7_ID;
-const int RS7_Q1;	//duration 1
-const int RS7_Q2;	//duration 2
-const double RS7_Q3;	//duration 1
-const double RS7_Q4;	//reliability 2
-const double RS7_Q5;	//cost
-const bool RS7_Q6;	//availability status
+const int RS7_DUR0;	//duration 1
+const int RS7_DUR1;	//duration 2
+const double RS7_REL0;	//reliability 1
+const double RS7_REL1;	//reliability 2
+const double RS7_COST;	//cost
+const bool RS7_AVAIL;	//availability status
+
+
+//=========Global Parameters=======
+const int TE=0;
+const int TP=1;
+global t:[TE..TP] init TP;	//to control the turn
+global goal : bool init false;	//to determine the selection
+global exec : bool init false;	//to determine the execution
+global end : bool init false;	//(absorbing state)
+
+//=========Module for Player 1=======
+module planner
+sel:[-1..MAX_SV] init -1;
+//P1 moves :
+[r0] (t=TP) & (goal=false) & (a0_rs0_sat_ml_all=true) -> (goal'=true) & (sel'=0) & (t'=TE);
+[r1] (t=TP) & (goal=false) & (a0_rs1_sat_ml_all=true) -> (goal'=true) & (sel'=1) & (t'=TE);
+[r2] (t=TP) & (goal=false) & (a0_rs2_sat_ml_all=true) -> (goal'=true) & (sel'=2) & (t'=TE);
+[r3] (t=TP) & (goal=false) & (a0_rs3_sat_ml_all=true) -> (goal'=true) & (sel'=3) & (t'=TE);
+[r4] (t=TP) & (goal=false) & (a0_rs4_sat_ml_all=true) -> (goal'=true) & (sel'=4) & (t'=TE);
+[r5] (t=TP) & (goal=false) & (a0_rs5_sat_ml_all=true) -> (goal'=true) & (sel'=5) & (t'=TE);
+[r6] (t=TP) & (goal=false) & (a0_rs6_sat_ml_all=true) -> (goal'=true) & (sel'=6) & (t'=TE);
+[r7] (t=TP) & (goal=false) & (a0_rs7_sat_ml_all=true) -> (goal'=true) & (sel'=7) & (t'=TE);
+[end] (t=TP) & (end=false) & (goal=true) -> (end'=true) & (t'=TE);
+[end] (t=TP) & (end=false) & (exec=true) & (goal=true) -> (end'=true) & (t'=TE);
+endmodule
+
+//=========Module for Player 2=======
+module environment
+ev:[-1..MAX_EV] init -1;
+//P2 moves :
+[e0] (t=TE) & (exec=false) & (goal=true) -> succ_rs0:(exec'=true) & (ev'=0) & (t'=TP) + 1-succ_rs0:(exec'=false) & (t'=TP);
+[e1] (t=TE) & (exec=false) & (goal=true) -> succ_rs1:(exec'=true) & (ev'=1) & (t'=TP) + 1-succ_rs1:(exec'=false) & (t'=TP);
+endmodule
+
+//=========Assign reliability values=======
+formula succ_rs0 = ( sel = 0 ? RS0_REL0 : ( sel = 1 ? RS1_REL0 : ( sel = 2 ? RS2_REL0 : ( sel = 3 ? RS3_REL0 : ( sel = 4 ? RS4_REL0 : ( sel = 5 ? RS5_REL0 : ( sel = 6 ? RS6_REL0 : ( sel = 7 ? RS7_REL0 :0.0))))))));
+formula succ_rs1 = ( sel = 0 ? RS0_REL1 : ( sel = 1 ? RS1_REL1 : ( sel = 2 ? RS2_REL1 : ( sel = 3 ? RS3_REL1 : ( sel = 4 ? RS4_REL1 : ( sel = 5 ? RS5_REL1 : ( sel = 6 ? RS6_REL1 : ( sel = 7 ? RS7_REL1 :0.0))))))));
+//=========QoS Constraints Checking=======
+//=====Application 0 and RS0
+formula a0_rs0_sat_dur0 = ( (A0_DUR <= RS0_DUR0) ? true:false);
+formula a0_rs0_sat_dur1 = ( (A0_DUR <= RS0_DUR1) ? true:false);
+formula a0_rs0_sat_rel0 = ( (A0_DUR <= RS0_REL0) ? true:false);
+formula a0_rs0_sat_rel1 = ( (A0_DUR <= RS0_REL1) ? true:false);
+formula a0_rs0_sat_cost = ( (A0_COST <= RS0_COST) ? true:false);
+formula a0_rs0_sat_avail = RS0_AVAIL;
+formula a0_rs0_sat_ml_all = a0_rs0_sat_avail;
+//=====Application 0 and RS1
+formula a0_rs1_sat_dur0 = ( (A0_DUR <= RS1_DUR0) ? true:false);
+formula a0_rs1_sat_dur1 = ( (A0_DUR <= RS1_DUR1) ? true:false);
+formula a0_rs1_sat_rel0 = ( (A0_DUR <= RS1_REL0) ? true:false);
+formula a0_rs1_sat_rel1 = ( (A0_DUR <= RS1_REL1) ? true:false);
+formula a0_rs1_sat_cost = ( (A0_COST <= RS1_COST) ? true:false);
+formula a0_rs1_sat_avail = RS1_AVAIL;
+formula a0_rs1_sat_ml_all = a0_rs1_sat_avail;
+//=====Application 0 and RS2
+formula a0_rs2_sat_dur0 = ( (A0_DUR <= RS2_DUR0) ? true:false);
+formula a0_rs2_sat_dur1 = ( (A0_DUR <= RS2_DUR1) ? true:false);
+formula a0_rs2_sat_rel0 = ( (A0_DUR <= RS2_REL0) ? true:false);
+formula a0_rs2_sat_rel1 = ( (A0_DUR <= RS2_REL1) ? true:false);
+formula a0_rs2_sat_cost = ( (A0_COST <= RS2_COST) ? true:false);
+formula a0_rs2_sat_avail = RS2_AVAIL;
+formula a0_rs2_sat_ml_all = a0_rs2_sat_avail;
+//=====Application 0 and RS3
+formula a0_rs3_sat_dur0 = ( (A0_DUR <= RS3_DUR0) ? true:false);
+formula a0_rs3_sat_dur1 = ( (A0_DUR <= RS3_DUR1) ? true:false);
+formula a0_rs3_sat_rel0 = ( (A0_DUR <= RS3_REL0) ? true:false);
+formula a0_rs3_sat_rel1 = ( (A0_DUR <= RS3_REL1) ? true:false);
+formula a0_rs3_sat_cost = ( (A0_COST <= RS3_COST) ? true:false);
+formula a0_rs3_sat_avail = RS3_AVAIL;
+formula a0_rs3_sat_ml_all = a0_rs3_sat_avail;
+//=====Application 0 and RS4
+formula a0_rs4_sat_dur0 = ( (A0_DUR <= RS4_DUR0) ? true:false);
+formula a0_rs4_sat_dur1 = ( (A0_DUR <= RS4_DUR1) ? true:false);
+formula a0_rs4_sat_rel0 = ( (A0_DUR <= RS4_REL0) ? true:false);
+formula a0_rs4_sat_rel1 = ( (A0_DUR <= RS4_REL1) ? true:false);
+formula a0_rs4_sat_cost = ( (A0_COST <= RS4_COST) ? true:false);
+formula a0_rs4_sat_avail = RS4_AVAIL;
+formula a0_rs4_sat_ml_all = a0_rs4_sat_avail;
+//=====Application 0 and RS5
+formula a0_rs5_sat_dur0 = ( (A0_DUR <= RS5_DUR0) ? true:false);
+formula a0_rs5_sat_dur1 = ( (A0_DUR <= RS5_DUR1) ? true:false);
+formula a0_rs5_sat_rel0 = ( (A0_DUR <= RS5_REL0) ? true:false);
+formula a0_rs5_sat_rel1 = ( (A0_DUR <= RS5_REL1) ? true:false);
+formula a0_rs5_sat_cost = ( (A0_COST <= RS5_COST) ? true:false);
+formula a0_rs5_sat_avail = RS5_AVAIL;
+formula a0_rs5_sat_ml_all = a0_rs5_sat_avail;
+//=====Application 0 and RS6
+formula a0_rs6_sat_dur0 = ( (A0_DUR <= RS6_DUR0) ? true:false);
+formula a0_rs6_sat_dur1 = ( (A0_DUR <= RS6_DUR1) ? true:false);
+formula a0_rs6_sat_rel0 = ( (A0_DUR <= RS6_REL0) ? true:false);
+formula a0_rs6_sat_rel1 = ( (A0_DUR <= RS6_REL1) ? true:false);
+formula a0_rs6_sat_cost = ( (A0_COST <= RS6_COST) ? true:false);
+formula a0_rs6_sat_avail = RS6_AVAIL;
+formula a0_rs6_sat_ml_all = a0_rs6_sat_avail;
+//=====Application 0 and RS7
+formula a0_rs7_sat_dur0 = ( (A0_DUR <= RS7_DUR0) ? true:false);
+formula a0_rs7_sat_dur1 = ( (A0_DUR <= RS7_DUR1) ? true:false);
+formula a0_rs7_sat_rel0 = ( (A0_DUR <= RS7_REL0) ? true:false);
+formula a0_rs7_sat_rel1 = ( (A0_DUR <= RS7_REL1) ? true:false);
+formula a0_rs7_sat_cost = ( (A0_COST <= RS7_COST) ? true:false);
+formula a0_rs7_sat_avail = RS7_AVAIL;
+formula a0_rs7_sat_ml_all = a0_rs7_sat_avail;
+
+//=========Utility-based Decision Making=======
 

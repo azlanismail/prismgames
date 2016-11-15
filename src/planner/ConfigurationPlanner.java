@@ -63,6 +63,27 @@ public class ConfigurationPlanner {
 		vm.addValue(md_freeMemory, freeMemory);
 	}
 	
+	public void setServAppRequirements(int id, int cpuCores, double cpuLoads, double cpuSpeed, int totalMemory, int freeMemory) {
+		//set the following:
+		
+		String md_id = "A"+id+"_ID";
+		String md_dur = "A"+id+"_DUR";
+		String md_rel = "A"+id+"_REL";
+		String md_cost = "A"+id+"_COST";
+		String md_wgcost = "A"+id+"WG_COST";
+		String md_wgdur = "A"+id+"WG_DUR";
+		String md_wgrel = "A"+id+"WG_REL";
+		
+		
+		System.out.println("the received requirements are, id:"+id+", cpu cores:"+cpuCores+", cpu loads:"+cpuLoads+", cpu speed:"+cpuSpeed);
+		vm.addValue(md_id, id);
+		vm.addValue(md_dur, cpuCores);
+		vm.addValue(md_rel, cpuLoads);
+		vm.addValue(md_cost, cpuSpeed);
+		vm.addValue(md_wgcost, totalMemory);
+		vm.addValue(md_wgdur, freeMemory);
+		vm.addValue(md_wgrel, freeMemory);
+	}
 	public void setNodeCapabilities(int id, String name, int cpuCores, double cpuLoads, double cpuSpeed, int totalMemory, int freeMemory, String location){
 		//set the following:
 		String md_id = "RS"+id+"_ID";
