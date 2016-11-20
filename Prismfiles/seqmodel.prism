@@ -1,0 +1,361 @@
+smg
+//=========Player definition=======
+player p1
+planner,[n0r0],[n0r1],[n0r2],[n0r3],[n0r4],[n0r5],[n0r6],[n0r7],[n0r8],[n0r9][n1r0][n1r1][n1r2][n1r3][n1r4][n1r5][n1r6][n1r7][n1r8][n1r9]
+endplayer
+
+player p2
+environment,[n0r0][n0r1][n0r2][n0r3][n0r4][n1r0],[n1r1],[n1r2],[n1r3],[n1r4]
+endplayer
+
+//=========User Requirements=======
+const int A0_ID = 0;
+const int A0_DUR = 5;	//max duration
+const double A0_REL = 0.6; //reliability
+const double A0_COST = 10.0; //max cost
+const double A0_WG_COST = 0.3; //weight for cost
+const double A0_WG_DUR = 0.3; //weight for duration
+const double A0_WG_REL = 0.4; //weight for reliability
+
+//=========Resource Profiles=======
+cost int MXN=2;
+const int N0_MAX_SV=10;	//finite number of services
+const int N0_MAX_EV=5;	//finite number of computing nodes
+const int N1_MAX_SV=10;	//finite number of services
+const int N1_MAX_EV=5;	//finite number of computing nodes
+
+const int N0_RS0_ID;
+const double N0_RS0_COST;	//cost
+const bool N0_RS0_AVAIL;	//availability status
+const int N0_RS0_DUR0;	//duration 0;
+const int N0_RS0_DUR1;	//duration 1;
+const int N0_RS0_DUR2;	//duration 2;
+const int N0_RS0_DUR3;	//duration 3;
+const int N0_RS0_DUR4;	//duration 4;
+const int N0_RS0_REL0;	//reliability 0;
+const int N0_RS0_REL1;	//reliability 1;
+const int N0_RS0_REL2;	//reliability 2;
+const int N0_RS0_REL3;	//reliability 3;
+const int N0_RS0_REL4;	//reliability 4;
+
+const int N0_RS1_ID;
+const double N0_RS1_COST;	//cost
+const bool N0_RS1_AVAIL;	//availability status
+const int N0_RS1_DUR0;	//duration 0;
+const int N0_RS1_DUR1;	//duration 1;
+const int N0_RS1_DUR2;	//duration 2;
+const int N0_RS1_DUR3;	//duration 3;
+const int N0_RS1_DUR4;	//duration 4;
+const int N0_RS1_REL0;	//reliability 0;
+const int N0_RS1_REL1;	//reliability 1;
+const int N0_RS1_REL2;	//reliability 2;
+const int N0_RS1_REL3;	//reliability 3;
+const int N0_RS1_REL4;	//reliability 4;
+
+const int N0_RS2_ID;
+const double N0_RS2_COST;	//cost
+const bool N0_RS2_AVAIL;	//availability status
+const int N0_RS2_DUR0;	//duration 0;
+const int N0_RS2_DUR1;	//duration 1;
+const int N0_RS2_DUR2;	//duration 2;
+const int N0_RS2_DUR3;	//duration 3;
+const int N0_RS2_DUR4;	//duration 4;
+const int N0_RS2_REL0;	//reliability 0;
+const int N0_RS2_REL1;	//reliability 1;
+const int N0_RS2_REL2;	//reliability 2;
+const int N0_RS2_REL3;	//reliability 3;
+const int N0_RS2_REL4;	//reliability 4;
+
+const int N0_RS3_ID;
+const double N0_RS3_COST;	//cost
+const bool N0_RS3_AVAIL;	//availability status
+const int N0_RS3_DUR0;	//duration 0;
+const int N0_RS3_DUR1;	//duration 1;
+const int N0_RS3_DUR2;	//duration 2;
+const int N0_RS3_DUR3;	//duration 3;
+const int N0_RS3_DUR4;	//duration 4;
+const int N0_RS3_REL0;	//reliability 0;
+const int N0_RS3_REL1;	//reliability 1;
+const int N0_RS3_REL2;	//reliability 2;
+const int N0_RS3_REL3;	//reliability 3;
+const int N0_RS3_REL4;	//reliability 4;
+
+const int N0_RS4_ID;
+const double N0_RS4_COST;	//cost
+const bool N0_RS4_AVAIL;	//availability status
+const int N0_RS4_DUR0;	//duration 0;
+const int N0_RS4_DUR1;	//duration 1;
+const int N0_RS4_DUR2;	//duration 2;
+const int N0_RS4_DUR3;	//duration 3;
+const int N0_RS4_DUR4;	//duration 4;
+const int N0_RS4_REL0;	//reliability 0;
+const int N0_RS4_REL1;	//reliability 1;
+const int N0_RS4_REL2;	//reliability 2;
+const int N0_RS4_REL3;	//reliability 3;
+const int N0_RS4_REL4;	//reliability 4;
+
+const int N0_RS5_ID;
+const double N0_RS5_COST;	//cost
+const bool N0_RS5_AVAIL;	//availability status
+const int N0_RS5_DUR0;	//duration 0;
+const int N0_RS5_DUR1;	//duration 1;
+const int N0_RS5_DUR2;	//duration 2;
+const int N0_RS5_DUR3;	//duration 3;
+const int N0_RS5_DUR4;	//duration 4;
+const int N0_RS5_REL0;	//reliability 0;
+const int N0_RS5_REL1;	//reliability 1;
+const int N0_RS5_REL2;	//reliability 2;
+const int N0_RS5_REL3;	//reliability 3;
+const int N0_RS5_REL4;	//reliability 4;
+
+const int N0_RS6_ID;
+const double N0_RS6_COST;	//cost
+const bool N0_RS6_AVAIL;	//availability status
+const int N0_RS6_DUR0;	//duration 0;
+const int N0_RS6_DUR1;	//duration 1;
+const int N0_RS6_DUR2;	//duration 2;
+const int N0_RS6_DUR3;	//duration 3;
+const int N0_RS6_DUR4;	//duration 4;
+const int N0_RS6_REL0;	//reliability 0;
+const int N0_RS6_REL1;	//reliability 1;
+const int N0_RS6_REL2;	//reliability 2;
+const int N0_RS6_REL3;	//reliability 3;
+const int N0_RS6_REL4;	//reliability 4;
+
+const int N0_RS7_ID;
+const double N0_RS7_COST;	//cost
+const bool N0_RS7_AVAIL;	//availability status
+const int N0_RS7_DUR0;	//duration 0;
+const int N0_RS7_DUR1;	//duration 1;
+const int N0_RS7_DUR2;	//duration 2;
+const int N0_RS7_DUR3;	//duration 3;
+const int N0_RS7_DUR4;	//duration 4;
+const int N0_RS7_REL0;	//reliability 0;
+const int N0_RS7_REL1;	//reliability 1;
+const int N0_RS7_REL2;	//reliability 2;
+const int N0_RS7_REL3;	//reliability 3;
+const int N0_RS7_REL4;	//reliability 4;
+
+const int N0_RS8_ID;
+const double N0_RS8_COST;	//cost
+const bool N0_RS8_AVAIL;	//availability status
+const int N0_RS8_DUR0;	//duration 0;
+const int N0_RS8_DUR1;	//duration 1;
+const int N0_RS8_DUR2;	//duration 2;
+const int N0_RS8_DUR3;	//duration 3;
+const int N0_RS8_DUR4;	//duration 4;
+const int N0_RS8_REL0;	//reliability 0;
+const int N0_RS8_REL1;	//reliability 1;
+const int N0_RS8_REL2;	//reliability 2;
+const int N0_RS8_REL3;	//reliability 3;
+const int N0_RS8_REL4;	//reliability 4;
+
+const int N0_RS9_ID;
+const double N0_RS9_COST;	//cost
+const bool N0_RS9_AVAIL;	//availability status
+const int N0_RS9_DUR0;	//duration 0;
+const int N0_RS9_DUR1;	//duration 1;
+const int N0_RS9_DUR2;	//duration 2;
+const int N0_RS9_DUR3;	//duration 3;
+const int N0_RS9_DUR4;	//duration 4;
+const int N0_RS9_REL0;	//reliability 0;
+const int N0_RS9_REL1;	//reliability 1;
+const int N0_RS9_REL2;	//reliability 2;
+const int N0_RS9_REL3;	//reliability 3;
+const int N0_RS9_REL4;	//reliability 4;
+
+const int N1_RS0_ID;
+const double N1_RS0_COST;	//cost
+const bool N1_RS0_AVAIL;	//availability status
+const int N1_RS0_DUR0;	//duration 0;
+const int N1_RS0_DUR1;	//duration 1;
+const int N1_RS0_DUR2;	//duration 2;
+const int N1_RS0_DUR3;	//duration 3;
+const int N1_RS0_DUR4;	//duration 4;
+const int N1_RS0_REL0;	//reliability 0;
+const int N1_RS0_REL1;	//reliability 1;
+const int N1_RS0_REL2;	//reliability 2;
+const int N1_RS0_REL3;	//reliability 3;
+const int N1_RS0_REL4;	//reliability 4;
+
+const int N1_RS1_ID;
+const double N1_RS1_COST;	//cost
+const bool N1_RS1_AVAIL;	//availability status
+const int N1_RS1_DUR0;	//duration 0;
+const int N1_RS1_DUR1;	//duration 1;
+const int N1_RS1_DUR2;	//duration 2;
+const int N1_RS1_DUR3;	//duration 3;
+const int N1_RS1_DUR4;	//duration 4;
+const int N1_RS1_REL0;	//reliability 0;
+const int N1_RS1_REL1;	//reliability 1;
+const int N1_RS1_REL2;	//reliability 2;
+const int N1_RS1_REL3;	//reliability 3;
+const int N1_RS1_REL4;	//reliability 4;
+
+const int N1_RS2_ID;
+const double N1_RS2_COST;	//cost
+const bool N1_RS2_AVAIL;	//availability status
+const int N1_RS2_DUR0;	//duration 0;
+const int N1_RS2_DUR1;	//duration 1;
+const int N1_RS2_DUR2;	//duration 2;
+const int N1_RS2_DUR3;	//duration 3;
+const int N1_RS2_DUR4;	//duration 4;
+const int N1_RS2_REL0;	//reliability 0;
+const int N1_RS2_REL1;	//reliability 1;
+const int N1_RS2_REL2;	//reliability 2;
+const int N1_RS2_REL3;	//reliability 3;
+const int N1_RS2_REL4;	//reliability 4;
+
+const int N1_RS3_ID;
+const double N1_RS3_COST;	//cost
+const bool N1_RS3_AVAIL;	//availability status
+const int N1_RS3_DUR0;	//duration 0;
+const int N1_RS3_DUR1;	//duration 1;
+const int N1_RS3_DUR2;	//duration 2;
+const int N1_RS3_DUR3;	//duration 3;
+const int N1_RS3_DUR4;	//duration 4;
+const int N1_RS3_REL0;	//reliability 0;
+const int N1_RS3_REL1;	//reliability 1;
+const int N1_RS3_REL2;	//reliability 2;
+const int N1_RS3_REL3;	//reliability 3;
+const int N1_RS3_REL4;	//reliability 4;
+
+const int N1_RS4_ID;
+const double N1_RS4_COST;	//cost
+const bool N1_RS4_AVAIL;	//availability status
+const int N1_RS4_DUR0;	//duration 0;
+const int N1_RS4_DUR1;	//duration 1;
+const int N1_RS4_DUR2;	//duration 2;
+const int N1_RS4_DUR3;	//duration 3;
+const int N1_RS4_DUR4;	//duration 4;
+const int N1_RS4_REL0;	//reliability 0;
+const int N1_RS4_REL1;	//reliability 1;
+const int N1_RS4_REL2;	//reliability 2;
+const int N1_RS4_REL3;	//reliability 3;
+const int N1_RS4_REL4;	//reliability 4;
+
+const int N1_RS5_ID;
+const double N1_RS5_COST;	//cost
+const bool N1_RS5_AVAIL;	//availability status
+const int N1_RS5_DUR0;	//duration 0;
+const int N1_RS5_DUR1;	//duration 1;
+const int N1_RS5_DUR2;	//duration 2;
+const int N1_RS5_DUR3;	//duration 3;
+const int N1_RS5_DUR4;	//duration 4;
+const int N1_RS5_REL0;	//reliability 0;
+const int N1_RS5_REL1;	//reliability 1;
+const int N1_RS5_REL2;	//reliability 2;
+const int N1_RS5_REL3;	//reliability 3;
+const int N1_RS5_REL4;	//reliability 4;
+
+const int N1_RS6_ID;
+const double N1_RS6_COST;	//cost
+const bool N1_RS6_AVAIL;	//availability status
+const int N1_RS6_DUR0;	//duration 0;
+const int N1_RS6_DUR1;	//duration 1;
+const int N1_RS6_DUR2;	//duration 2;
+const int N1_RS6_DUR3;	//duration 3;
+const int N1_RS6_DUR4;	//duration 4;
+const int N1_RS6_REL0;	//reliability 0;
+const int N1_RS6_REL1;	//reliability 1;
+const int N1_RS6_REL2;	//reliability 2;
+const int N1_RS6_REL3;	//reliability 3;
+const int N1_RS6_REL4;	//reliability 4;
+
+const int N1_RS7_ID;
+const double N1_RS7_COST;	//cost
+const bool N1_RS7_AVAIL;	//availability status
+const int N1_RS7_DUR0;	//duration 0;
+const int N1_RS7_DUR1;	//duration 1;
+const int N1_RS7_DUR2;	//duration 2;
+const int N1_RS7_DUR3;	//duration 3;
+const int N1_RS7_DUR4;	//duration 4;
+const int N1_RS7_REL0;	//reliability 0;
+const int N1_RS7_REL1;	//reliability 1;
+const int N1_RS7_REL2;	//reliability 2;
+const int N1_RS7_REL3;	//reliability 3;
+const int N1_RS7_REL4;	//reliability 4;
+
+const int N1_RS8_ID;
+const double N1_RS8_COST;	//cost
+const bool N1_RS8_AVAIL;	//availability status
+const int N1_RS8_DUR0;	//duration 0;
+const int N1_RS8_DUR1;	//duration 1;
+const int N1_RS8_DUR2;	//duration 2;
+const int N1_RS8_DUR3;	//duration 3;
+const int N1_RS8_DUR4;	//duration 4;
+const int N1_RS8_REL0;	//reliability 0;
+const int N1_RS8_REL1;	//reliability 1;
+const int N1_RS8_REL2;	//reliability 2;
+const int N1_RS8_REL3;	//reliability 3;
+const int N1_RS8_REL4;	//reliability 4;
+
+const int N1_RS9_ID;
+const double N1_RS9_COST;	//cost
+const bool N1_RS9_AVAIL;	//availability status
+const int N1_RS9_DUR0;	//duration 0;
+const int N1_RS9_DUR1;	//duration 1;
+const int N1_RS9_DUR2;	//duration 2;
+const int N1_RS9_DUR3;	//duration 3;
+const int N1_RS9_DUR4;	//duration 4;
+const int N1_RS9_REL0;	//reliability 0;
+const int N1_RS9_REL1;	//reliability 1;
+const int N1_RS9_REL2;	//reliability 2;
+const int N1_RS9_REL3;	//reliability 3;
+const int N1_RS9_REL4;	//reliability 4;
+
+
+//=========Global Parameters=======
+const int TE=0;	//plater 2 state
+const int TP=1;	//player 1 state
+const int TS=2;	//coordinator state
+global t:[TE..TS] init TS;	//to control the turn
+global end : bool init false;	//(absorbing state)
+global n:[0..MXN-1] init 0;  //to control the sequence
+
+//=========Module for Player 1=======
+module planner
+n0:[-1..N0_MAX_SV-1] init -1;
+n1:[-1..N1_MAX_SV-1] init -1;
+//P1 moves :
+[] (t=TS) & (n < MXN) -> (t'=TP);
+[] (t=TS) & (n >= MXN) -> (end'=true);
+[n0r0] (t=TP) & (n=0) & (a0_n0_rs0_sat_all=true) -> (n0'=0) & (t'=TE);
+[n0r1] (t=TP) & (n=0) & (a0_n0_rs1_sat_all=true) -> (n0'=1) & (t'=TE);
+[n0r2] (t=TP) & (n=0) & (a0_n0_rs2_sat_all=true) -> (n0'=2) & (t'=TE);
+[n0r3] (t=TP) & (n=0) & (a0_n0_rs3_sat_all=true) -> (n0'=3) & (t'=TE);
+[n0r4] (t=TP) & (n=0) & (a0_n0_rs4_sat_all=true) -> (n0'=4) & (t'=TE);
+[n0r5] (t=TP) & (n=0) & (a0_n0_rs5_sat_all=true) -> (n0'=5) & (t'=TE);
+[n0r6] (t=TP) & (n=0) & (a0_n0_rs6_sat_all=true) -> (n0'=6) & (t'=TE);
+[n0r7] (t=TP) & (n=0) & (a0_n0_rs7_sat_all=true) -> (n0'=7) & (t'=TE);
+[n0r8] (t=TP) & (n=0) & (a0_n0_rs8_sat_all=true) -> (n0'=8) & (t'=TE);
+[n0r9] (t=TP) & (n=0) & (a0_n0_rs9_sat_all=true) -> (n0'=9) & (t'=TE);
+[n1r0] (t=TP) & (n=1) & (a0_n1_rs0_sat_all=true) -> (n1'=0) & (t'=TE);
+[n1r1] (t=TP) & (n=1) & (a0_n1_rs1_sat_all=true) -> (n1'=1) & (t'=TE);
+[n1r2] (t=TP) & (n=1) & (a0_n1_rs2_sat_all=true) -> (n1'=2) & (t'=TE);
+[n1r3] (t=TP) & (n=1) & (a0_n1_rs3_sat_all=true) -> (n1'=3) & (t'=TE);
+[n1r4] (t=TP) & (n=1) & (a0_n1_rs4_sat_all=true) -> (n1'=4) & (t'=TE);
+[n1r5] (t=TP) & (n=1) & (a0_n1_rs5_sat_all=true) -> (n1'=5) & (t'=TE);
+[n1r6] (t=TP) & (n=1) & (a0_n1_rs6_sat_all=true) -> (n1'=6) & (t'=TE);
+[n1r7] (t=TP) & (n=1) & (a0_n1_rs7_sat_all=true) -> (n1'=7) & (t'=TE);
+[n1r8] (t=TP) & (n=1) & (a0_n1_rs8_sat_all=true) -> (n1'=8) & (t'=TE);
+[n1r9] (t=TP) & (n=1) & (a0_n1_rs9_sat_all=true) -> (n1'=9) & (t'=TE);
+endmodule
+
+//=========Module for Player 2=======
+module environment
+n0ev:[-1..N0_MAX_EV] init -1;
+n1ev:[-1..N1_MAX_EV] init -1;
+//P2 moves :
+[n0e0] (t=TE) & (n=0) -> n0ev0_rel:(n0ev'=0) & (t'=TS) & (n'=n+1) + 1-n0ev0_rel:(n0ev'=-1) & (t'=TS);
+[n0e1] (t=TE) & (n=0) -> n0ev1_rel:(n0ev'=1) & (t'=TS) & (n'=n+1) + 1-n0ev1_rel:(n0ev'=-1) & (t'=TS);
+[n0e2] (t=TE) & (n=0) -> n0ev2_rel:(n0ev'=2) & (t'=TS) & (n'=n+1) + 1-n0ev2_rel:(n0ev'=-1) & (t'=TS);
+[n0e3] (t=TE) & (n=0) -> n0ev3_rel:(n0ev'=3) & (t'=TS) & (n'=n+1) + 1-n0ev3_rel:(n0ev'=-1) & (t'=TS);
+[n0e4] (t=TE) & (n=0) -> n0ev4_rel:(n0ev'=4) & (t'=TS) & (n'=n+1) + 1-n0ev4_rel:(n0ev'=-1) & (t'=TS);
+[n1e0] (t=TE) & (n=1) -> n1ev0_rel:(n1ev'=0) & (t'=TS) & (n'=n+1) + 1-n1ev0_rel:(n1ev'=-1) & (t'=TS);
+[n1e1] (t=TE) & (n=1) -> n1ev1_rel:(n1ev'=1) & (t'=TS) & (n'=n+1) + 1-n1ev1_rel:(n1ev'=-1) & (t'=TS);
+[n1e2] (t=TE) & (n=1) -> n1ev2_rel:(n1ev'=2) & (t'=TS) & (n'=n+1) + 1-n1ev2_rel:(n1ev'=-1) & (t'=TS);
+[n1e3] (t=TE) & (n=1) -> n1ev3_rel:(n1ev'=3) & (t'=TS) & (n'=n+1) + 1-n1ev3_rel:(n1ev'=-1) & (t'=TS);
+[n1e4] (t=TE) & (n=1) -> n1ev4_rel:(n1ev'=4) & (t'=TS) & (n'=n+1) + 1-n1ev4_rel:(n1ev'=-1) & (t'=TS);
+endmodule
+

@@ -1,0 +1,441 @@
+smg
+
+//=======================================
+// player for the controller
+player p1 
+planner, [n0r0],[n0r1],[n0r2],[n1r0],[n1r1]
+endplayer
+
+//player for the environment
+player p2 
+environment, [n0e0],[n0e1],[n1e0],[n1e1]
+endplayer
+
+
+//===========================
+//USER-DEFINED PARAMETERS
+const double MAXUT = 0.7; //UB for the utility value
+const int GOAL_TY = 5; //UB for collaborators (for filtering)
+const int GOAL_TY_Q1 = 1; //performance violation
+const int GOAL_TY_Q2 = 2; //availability
+const int GOAL_TY_Q3 = 3; //safety
+const int GOAL_TY_UT = 4; //utility-based
+const int GOAL_TY_ML = 5; //multi
+
+
+//============================
+//PROBING PARAMETERS
+
+
+//=============================
+//USER REQUIREMENTS
+const int A0_ID = 0;
+const int A0_DUR = 5;	//max duration
+const double A0_REL = 0.6; //reliability
+const double A0_COST = 10.0; //max cost
+const double WG_COST = 0.3; //weight for cost
+const double WG_DUR = 0.3; //weight for duration
+const double WG_REL = 0.4; //weight for reliability
+
+//===============================
+//RESOURCE PROFILES
+
+const int MXN=2;		//finite number of nodes
+const int N0_MAX_SV = 3; 	//finite number of services
+const int N0_MAX_EV = 2;	//finite number of computing nodes
+
+const int N1_MAX_SV = 2; 	//finite number of services
+const int N1_MAX_EV = 2;	//finite number of computing nodes
+
+const int N0_RS0_ID = 0;
+const int N0_RS0_DUR1 = 20;	//duration 1
+const int N0_RS0_DUR2 = 30;	//duration 2
+const double N0_RS0_REL1 = 0.6;  //reliability 1
+const double N0_RS0_REL2 = 0.4;  //reliability 2
+const double N0_RS0_COST = 20.0;  //cost
+const bool N0_RS0_AVAIL = true;  //availability status
+
+
+const int N0_RS1_ID = 1;
+const int N0_RS1_DUR1 = 20;	//duration 1
+const int N0_RS1_DUR2 = 30;	//duration 2
+const double N0_RS1_REL1 = 0.6;  //reliability 1
+const double N0_RS1_REL2 = 0.4;  //reliability 2
+const double N0_RS1_COST = 30.0;  //cost
+const bool N0_RS1_AVAIL = true;  //availability status
+
+
+const int N0_RS2_ID = 2;
+const int N0_RS2_DUR1 = 20;	//duration 1
+const int N0_RS2_DUR2 = 30;	//duration 2
+const double N0_RS2_REL1 = 0.6;  //reliability 1
+const double N0_RS2_REL2 = 0.4;  //reliability 2
+const double N0_RS2_COST = 40.0;  //cost
+const bool N0_RS2_AVAIL = true;  //availability status
+
+
+const int N1_RS0_ID = 0;
+const int N1_RS0_DUR1 = 20;	//duration 1
+const int N1_RS0_DUR2 = 30;	//duration 2
+const double N1_RS0_REL1 = 0.6;  //reliability 1
+const double N1_RS0_REL2 = 0.4;  //reliability 2
+const double N1_RS0_COST = 50.0;  //cost
+const bool N1_RS0_AVAIL = true;  //availability status
+
+
+const int N1_RS1_ID = 1;
+const int N1_RS1_DUR1 = 20;	//duration 1
+const int N1_RS1_DUR2 = 30;	//duration 2
+const double N1_RS1_REL1 = 0.6;  //reliability 1
+const double N1_RS1_REL2 = 0.4;  //reliability 2
+const double N1_RS1_COST = 10.0;  //cost
+const bool N1_RS1_AVAIL = true;  //availability status
+
+
+//=======================================
+//GLOBAL PARAMETERS
+const int TE=0;
+const int TP=1;
+const int TS=2;
+global t:[TE..TS] init TS;	//to control the turn
+
+global end : bool init false;	//(absorbing state)
+
+global n:[0..MXN-1] init 0;  //to control the sequence
+
+
+//=======================================
+//MODULE FOR PLAYER 1
+module planner     
+n0:[-1..N0_MAX_SV-1] init -1;
+n1:[-1..N1_MAX_SV-1] init -1;
+
+//Scheduler moves:
+[] (t=TS) & (n < MXN) -> (t'=TP);
+[] (t=TS) & (n >= MXN) -> (end'=true);
+ 
+// P1 moves:
+[n0r0] (t=TP) & (n=0) & (a0_n0_rs0_sat_all=true) -> (n0'=0) & (t'=TE);
+[n0r1] (t=TP) & (n=0) & (a0_n0_rs1_sat_all=true) -> (n0'=1) & (t'=TE);
+[n0r2] (t=TP) & (n=0) & (a0_n0_rs2_sat_all=true) -> (n0'=2) & (t'=TE);
+
+[n1r0] (t=TP) & (n=1) & (a0_n1_rs0_sat_all=true) -> (n1'=0) & (t'=TE);
+[n1r1] (t=TP) & (n=1) & (a0_n1_rs1_sat_all=true) -> (n1'=1) & (t'=TE);
+endmodule
+
+//=============================================
+//=============================================
+module environment
+n0ev:[-1..N0_MAX_EV-1] init -1;
+n1ev:[-1..N1_MAX_EV-1] init -1;
+//simulate the probability execution
+[n0e0] (t=TE) & (n=0) -> n0ev0_rel:(n0ev'=0) & (t'=TS) & (n'=n+1) + 1-n0ev0_rel:(n0ev'=-1) & (t'=TS);
+[n0e1] (t=TE) & (n=0) -> n0ev1_rel:(n0ev'=1) & (t'=TS) & (n'=n+1) + 1-n0ev1_rel:(n0ev'=-1) & (t'=TS);
+	
+[n1e0] (t=TE) & (n=1) -> n1ev0_rel:(n1ev'=0) & (t'=TS) & (n'=n+1) + 1-n1ev0_rel:(n1ev'=-1) & (t'=TS);
+[n1e1] (t=TE) & (n=1) -> n1ev1_rel:(n1ev'=1) & (t'=TS) & (n'=n+1) + 1-n1ev1_rel:(n1ev'=-1) & (t'=TS);
+
+endmodule
+
+//=============================================
+//SET RELIABILITY VALUES
+
+formula n0ev0_rel = 
+		( n0 = 0 ? N0_RS0_REL1 :
+		( n0 = 1 ? N0_RS1_REL1 :
+		( n0 = 2 ? N0_RS2_REL1 : 0.0 )));
+
+formula n0ev1_rel = 
+		( n0 = 0 ? N0_RS0_REL2 :
+		( n0 = 1 ? N0_RS1_REL2 :
+		( n0 = 2 ? N0_RS2_REL2 : 0.0 )));
+		   
+formula n1ev0_rel = 
+		( n1 = 0 ? N1_RS0_REL1 :
+		( n1 = 1 ? N1_RS1_REL1 : 0.0 ));
+
+formula n1ev1_rel = 
+		( n1 = 0 ? N1_RS0_REL2 :
+		( n1 = 1 ? N1_RS1_REL2 : 0.0 ));
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS0
+
+//check for duration 1
+formula a0_n0_rs0_dur1 = ( (A0_DUR <= N0_RS0_DUR1) ? true:false);
+
+//check for duration 2
+formula a0_n0_rs0_dur2 = ( (A0_DUR <= N0_RS0_DUR2) ? true:false);
+
+//check for reliability 1
+formula a0_n0_rs0_rel1 = ( (A0_REL <= N0_RS0_REL1) ? true:false);
+
+//check for reliability 2
+formula a0_n0_rs0_rel2 = ( (A0_REL <= N0_RS0_REL2) ? true:false);
+
+//check for cost
+formula a0_n0_rs0_cost = ( (A0_COST <= N0_RS0_COST) ? true:false);
+
+//check for availability
+formula a0_n0_rs0_avail = N0_RS0_AVAIL;
+
+formula a0_n0_rs0_sat_all = a0_n0_rs0_avail;
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS1
+
+//check for duration 1
+formula a0_n0_rs1_dur1 = ( (A0_DUR <= N0_RS1_DUR1) ? true:false);
+
+//check for duration 2
+formula a0_n0_rs1_dur2 = ( (A0_DUR <= N0_RS1_DUR2) ? true:false);
+
+//check for reliability 1
+formula a0_n0_rs1_rel1 = ( (A0_REL <= N0_RS1_REL1) ? true:false);
+
+//check for reliability 2
+formula a0_n0_rs1_rel2 = ( (A0_REL <= N0_RS1_REL2) ? true:false);
+
+//check for cost
+formula a0_n0_rs1_cost = ( (A0_COST <= N0_RS1_COST) ? true:false);
+
+//check for availability
+formula a0_n0_rs1_avail = N0_RS1_AVAIL;
+
+formula a0_n0_rs1_sat_all = a0_n0_rs1_avail;
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS2
+
+//check for duration 1
+formula a0_n0_rs2_dur1 = ( (A0_DUR <= N0_RS2_DUR1) ? true:false);
+
+//check for duration 2
+formula a0_n0_rs2_dur2 = ( (A0_DUR <= N0_RS2_DUR2) ? true:false);
+
+//check for reliability 1
+formula a0_n0_rs2_rel1 = ( (A0_REL <= N0_RS2_REL1) ? true:false);
+
+//check for reliability 2
+formula a0_n0_rs2_rel2 = ( (A0_REL <= N0_RS2_REL2) ? true:false);
+
+//check for cost
+formula a0_n0_rs2_cost = ( (A0_COST <= N0_RS2_COST) ? true:false);
+
+//check for availability
+formula a0_n0_rs2_avail = N0_RS2_AVAIL;
+
+formula a0_n0_rs2_sat_all = a0_n0_rs2_avail;
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS3
+
+//check for duration 1
+formula a0_n1_rs0_dur1 = ( (A0_DUR <= N1_RS0_DUR1) ? true:false);
+
+//check for duration 2
+formula a0_n1_rs0_dur2 = ( (A0_DUR <= N1_RS0_DUR2) ? true:false);
+
+//check for reliability 1
+formula a0_n1_rs0_rel1 = ( (A0_REL <= N1_RS0_REL1) ? true:false);
+
+//check for reliability 2
+formula a0_n1_rs0_rel2 = ( (A0_REL <= N1_RS0_REL2) ? true:false);
+
+//check for cost
+formula a0_n1_rs0_cost = ( (A0_COST <= N1_RS0_COST) ? true:false);
+
+//check for availability
+formula a0_n1_rs0_avail = N1_RS0_AVAIL;
+
+formula a0_n1_rs0_sat_all = a0_n1_rs0_avail;
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS1
+
+//check for duration 1
+formula a0_n1_rs1_dur1 = ( (A0_DUR <= N1_RS1_DUR1) ? true:false);
+
+//check for duration 2
+formula a0_n1_rs1_dur2 = ( (A0_DUR <= N1_RS1_DUR2) ? true:false);
+
+//check for reliability 1
+formula a0_n1_rs1_rel1 = ( (A0_REL <= N1_RS1_REL1) ? true:false);
+
+//check for reliability 2
+formula a0_n1_rs1_rel2 = ( (A0_REL <= N1_RS1_REL2) ? true:false);
+
+//check for cost
+formula a0_n1_rs1_cost = ( (A0_COST <= N1_RS1_COST) ? true:false);
+
+//check for availability
+formula a0_n1_rs1_avail = N1_RS1_AVAIL;
+
+formula a0_n1_rs1_sat_all = a0_n1_rs1_avail;
+
+
+//==============================================
+// UTILITY-BASED DECISION MAKING - SAW TECHNIQUE FOR N0
+
+//get the cost of selected node
+formula n0_rs_cost = 
+		( n0 = 0 ? N0_RS0_COST :
+		( n0 = 1 ? N0_RS1_COST :
+		( n0 = 2 ? N0_RS2_COST : 0.0 )));
+
+//computing the utility value 
+formula n0_mx_cost = max(N0_RS0_COST,N0_RS1_COST,N0_RS2_COST);
+formula n0_mn_cost = min(N0_RS0_COST,N0_RS1_COST,N0_RS2_COST);
+formula n0_uv_cost = (n0_mx_cost - n0_rs_cost) / (n0_mx_cost - n0_mn_cost);
+
+//get the first duration of selected node
+formula n0_rs_dur1 = 
+ 		( (n0 = 0 & n0ev=0) ? N0_RS0_DUR1 :
+		( (n0 = 1 & n0ev=0) ? N0_RS1_DUR1 :
+		( (n0 = 2 & n0ev=0) ? N0_RS2_DUR1 : 0.0 )));
+
+//get the second duration of selected node
+formula n0_rs_dur2 = 
+		( (n0 = 0 & n0ev=1) ? N0_RS0_DUR2 :
+		( (n0 = 1 & n0ev=1) ? N0_RS1_DUR2 :
+		( (n0 = 2 & n0ev=1) ? N0_RS2_DUR2 : 0.0 )));
+
+//computing the utility value 
+formula n0_mx_dur1 = max(N0_RS0_DUR1,N0_RS1_DUR1,N0_RS2_DUR1);
+formula n0_mn_dur1 = min(N0_RS0_DUR1,N0_RS1_DUR1,N0_RS2_DUR1);
+formula n0_uv_dur1 = (n0_mx_dur1 - n0_rs_dur1) / (n0_mx_dur1 - n0_mn_dur1);
+
+//computing the utility value 
+formula n0_mx_dur2 = max(N0_RS0_DUR2,N0_RS1_DUR2,N0_RS2_DUR2);
+formula n0_mn_dur2 = min(N0_RS0_DUR2,N0_RS1_DUR2,N0_RS2_DUR2);
+formula n0_uv_dur2 = (n0_mx_dur2 - n0_rs_dur2) / (n0_mx_dur2 - n0_mn_dur2);
+
+//get the first reliability of selected node
+formula n0_rs_rel1 = 
+		( (n0=0 & n0ev=0) ? N0_RS0_REL1 :
+		( (n0=1 & n0ev=0) ? N0_RS1_REL1 :
+		( (n0=2 & n0ev=0) ? N0_RS2_REL1 : 0.0 )));
+
+//get the second reliability of selected node
+formula n0_rs_rel2 = 
+		( (n0=0 & n0ev=1) ? N0_RS0_REL2 :
+		( (n0=1 & n0ev=1) ? N0_RS1_REL2 :
+		( (n0=2 & n0ev=1) ? N0_RS2_REL2 : 0.0 )));
+
+//computing the utility value 
+formula n0_mx_rel1 = max(N0_RS0_REL1,N0_RS1_REL1,N0_RS2_REL1);
+formula n0_mn_rel1 = min(N0_RS0_REL1,N0_RS1_REL1,N0_RS2_REL1);
+formula n0_uv_rel1 = (n0_mx_rel1 - n0_rs_rel1) / (n0_mx_rel1 - n0_mn_rel1);
+
+//computing the utility value 
+formula n0_mx_rel2 = max(N0_RS0_REL2,N0_RS1_REL2,N0_RS2_REL2);
+formula n0_mn_rel2 = min(N0_RS0_REL2,N0_RS1_REL2,N0_RS2_REL2);
+formula n0_uv_rel2 = (n0_mx_rel2 - n0_rs_rel2) / (n0_mx_rel2 - n0_mn_rel2);
+
+formula n0_ut_cost = (n0_uv_cost > 0.0 ? n0_uv_cost: 0.0) ;
+formula n0_ut_dur1 = (n0_uv_dur1 > 0.0 ? n0_uv_dur1: 0.0);
+formula n0_ut_dur2 = (n0_uv_dur2 > 0.0 ? n0_uv_dur2: 0.0);
+formula n0_ut_rel1 = (n0_uv_rel1 > 0.0 ? n0_uv_rel1: 0.0);
+formula n0_ut_rel2 = (n0_uv_rel2 > 0.0 ? n0_uv_rel2: 0.0);
+
+//compute the overall utility value
+formula n0_ut_all = (n0ev=0 ? (n0_ut_cost * WG_COST + n0_ut_dur1 * WG_DUR + n0_ut_rel1 * WG_REL):
+		 (n0ev=1 ? (n0_ut_cost * WG_COST + n0_ut_dur2 * WG_DUR + n0_ut_rel2 * WG_REL):0.0));
+
+
+//==============================================
+// UTILITY-BASED DECISION MAKING - SAW TECHNIQUE FOR N1
+
+//get the cost of selected node
+formula n1_rs_cost = 
+		( n1 = 0 ? N1_RS0_COST :
+		( n1 = 1 ? N1_RS1_COST : 0.0 ));
+
+//computing the utility value 
+formula n1_mx_cost = max(N1_RS0_COST,N1_RS1_COST);
+formula n1_mn_cost = min(N1_RS0_COST,N1_RS1_COST);
+formula n1_uv_cost = (n1_mx_cost - n1_rs_cost) / (n1_mx_cost - n1_mn_cost);
+
+//get the first duration of selected node
+formula n1_rs_dur1 = 
+ 		( (n1 = 0 & n1ev=0) ? N1_RS0_DUR1 :
+		( (n1 = 1 & n1ev=0) ? N1_RS1_DUR1 : 0.0 ));
+
+//get the second duration of selected node
+formula n1_rs_dur2 = 
+		( (n1 = 0 & n1ev=1) ? N1_RS0_DUR2 :
+		( (n1 = 1 & n1ev=1) ? N1_RS1_DUR2 : 0.0 ));
+
+//computing the utility value 
+formula n1_mx_dur1 = max(N1_RS0_DUR1,N1_RS1_DUR1);
+formula n1_mn_dur1 = min(N1_RS0_DUR1,N1_RS1_DUR1);
+formula n1_uv_dur1 = (n1_mx_dur1 - n1_rs_dur1) / (n1_mx_dur1 - n1_mn_dur1);
+
+//computing the utility value 
+formula n1_mx_dur2 = max(N1_RS0_DUR2,N1_RS1_DUR2);
+formula n1_mn_dur2 = min(N1_RS0_DUR2,N1_RS1_DUR2);
+formula n1_uv_dur2 = (n1_mx_dur2 - n1_rs_dur2) / (n1_mx_dur2 - n1_mn_dur2);
+
+//get the first reliability of selected node
+formula n1_rs_rel1 = 
+		( (n1=0 & n1ev=0) ? N1_RS0_REL1 :
+		( (n1=1 & n1ev=0) ? N1_RS1_REL1 : 0.0 ));
+
+//get the second reliability of selected node
+formula n1_rs_rel2 = 
+		( (n1=0 & n1ev=1) ? N1_RS0_REL2 :
+		( (n1=1 & n1ev=1) ? N1_RS1_REL2 : 0.0 ));
+
+//computing the utility value 
+formula n1_mx_rel1 = max(N1_RS0_REL1,N1_RS1_REL1);
+formula n1_mn_rel1 = min(N1_RS0_REL1,N1_RS1_REL1);
+formula n1_uv_rel1 = (n1_mx_rel1 - n1_rs_rel1) / (n1_mx_rel1 - n1_mn_rel1);
+
+//computing the utility value 
+formula n1_mx_rel2 = max(N1_RS0_REL2,N1_RS1_REL2);
+formula n1_mn_rel2 = min(N1_RS0_REL2,N1_RS1_REL2);
+formula n1_uv_rel2 = (n1_mx_rel2 - n1_rs_rel2) / (n1_mx_rel2 - n1_mn_rel2);
+
+formula n1_ut_cost = (n1_uv_cost > 0.0 ? n1_uv_cost: 0.0) ;
+formula n1_ut_dur1 = (n1_uv_dur1 > 0.0 ? n1_uv_dur1: 0.0);
+formula n1_ut_dur2 = (n1_uv_dur2 > 0.0 ? n1_uv_dur2: 0.0);
+formula n1_ut_rel1 = (n1_uv_rel1 > 0.0 ? n1_uv_rel1: 0.0);
+formula n1_ut_rel2 = (n1_uv_rel2 > 0.0 ? n1_uv_rel2: 0.0);
+
+//compute the overall utility value
+formula n1_ut_all = (n1ev=0 ? (n1_ut_cost * WG_COST + n1_ut_dur1 * WG_DUR + n1_ut_rel1 * WG_REL):
+		 (n1ev=1 ? (n1_ut_cost * WG_COST + n1_ut_dur2 * WG_DUR + n1_ut_rel2 * WG_REL):0.0));
+
+//==============================================
+//REWARD STRUCTURE 
+
+rewards "cost"
+[] true: n0_rs_cost;
+[] true: n1_rs_cost;
+endrewards
+
+rewards "time"
+[] true: n0_rs_dur1;
+[] true: n0_rs_dur2;
+[] true: n1_rs_dur1;
+[] true: n1_rs_dur2;
+endrewards
+
+rewards "reliability"
+[] true: n0_rs_rel1;
+[] true: n0_rs_rel2;
+[] true: n1_rs_rel1;
+[] true: n1_rs_rel2;
+endrewards
+
+rewards "utility"
+[] true: n0_ut_all;
+[] true: n1_ut_all;
+endrewards
+//==========================================
+//LABELS
+label "done" = (end=true);
