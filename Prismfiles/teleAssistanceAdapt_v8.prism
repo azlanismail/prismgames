@@ -3,7 +3,7 @@ smg
 //=======================================
 // player for the controller
 player p1 
-planner, [n0r0],[n0r1],[n0r2],[n1r0],[n1r1]
+planner, [n0r0],[n0r1],[n0r2],[n1r0],[n1r1],[be],[end]
 endplayer
 
 //player for the environment
@@ -111,8 +111,9 @@ n0:[-1..N0_MAX_SV-1] init -1;
 n1:[-1..N1_MAX_SV-1] init -1;
 
 //Scheduler moves:
-[] (t=TS) & (n < MXN) -> (t'=TP);
-[] (t=TS) & (n >= MXN) -> (end'=true);
+[be] (t=TS) & (n < MXN) -> (t'=TP);
+[end] (t=TS) & (n >= MXN) -> (end'=true);
+//[] (t=TS) & (end=true) -> true;
  
 // P1 moves:
 [n0r0] (t=TP) & (n=0) & (a0_n0_rs0_sat_all=true) -> (n0'=0) & (t'=TE);
@@ -129,11 +130,12 @@ module environment
 n0ev:[-1..N0_MAX_EV-1] init -1;
 n1ev:[-1..N1_MAX_EV-1] init -1;
 //simulate the probability execution
-[n0e0] (t=TE) & (n=0) -> n0ev0_rel:(n0ev'=0) & (t'=TS) & (n'=n+1) + 1-n0ev0_rel:(n0ev'=-1) & (t'=TS);
-[n0e1] (t=TE) & (n=0) -> n0ev1_rel:(n0ev'=1) & (t'=TS) & (n'=n+1) + 1-n0ev1_rel:(n0ev'=-1) & (t'=TS);
+[n0e0] (t=TE) & (n=0) -> n0ev0_rel:(n0ev'=0) & (t'=TS) & (n'=n+1) + 1-n0ev0_rel:(n0ev'=-1) & (t'=TS) & (n'=n+1);
+[n0e1] (t=TE) & (n=0) -> n0ev1_rel:(n0ev'=1) & (t'=TS) & (n'=n+1) + 1-n0ev1_rel:(n0ev'=-1) & (t'=TS) & (n'=n+1);
 	
-[n1e0] (t=TE) & (n=1) -> n1ev0_rel:(n1ev'=0) & (t'=TS) & (n'=n+1) + 1-n1ev0_rel:(n1ev'=-1) & (t'=TS);
-[n1e1] (t=TE) & (n=1) -> n1ev1_rel:(n1ev'=1) & (t'=TS) & (n'=n+1) + 1-n1ev1_rel:(n1ev'=-1) & (t'=TS);
+[n1e0] (t=TE) & (n=1) -> n1ev0_rel:(n1ev'=0) & (t'=TS) & (n'=n+1) + 1-n1ev0_rel:(n1ev'=-1) & (t'=TS) & (n'=n+1);
+[n1e1] (t=TE) & (n=1) -> n1ev1_rel:(n1ev'=1) & (t'=TS) & (n'=n+1) + 1-n1ev1_rel:(n1ev'=-1) & (t'=TS) & (n'=n+1);
+
 
 endmodule
 
@@ -336,7 +338,7 @@ formula n0_mx_rel2 = max(N0_RS0_REL2,N0_RS1_REL2,N0_RS2_REL2);
 formula n0_mn_rel2 = min(N0_RS0_REL2,N0_RS1_REL2,N0_RS2_REL2);
 formula n0_uv_rel2 = (n0_mx_rel2 - n0_rs_rel2) / (n0_mx_rel2 - n0_mn_rel2);
 
-formula n0_ut_cost = (n0_uv_cost > 0.0 ? n0_uv_cost: 0.0) ;
+formula n0_ut_cost = (n0_uv_cost > 0.0 ? n0_uv_cost: 0.0);
 formula n0_ut_dur1 = (n0_uv_dur1 > 0.0 ? n0_uv_dur1: 0.0);
 formula n0_ut_dur2 = (n0_uv_dur2 > 0.0 ? n0_uv_dur2: 0.0);
 formula n0_ut_rel1 = (n0_uv_rel1 > 0.0 ? n0_uv_rel1: 0.0);
