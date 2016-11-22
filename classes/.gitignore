@@ -1,4 +1,9 @@
+/README.txt
+/acceptance/
+/automata/
 /bin/
+/cex/
+/common/
 /dd/
 /dv/
 /explicit/
@@ -6,6 +11,7 @@
 /jdd/
 /jltl2ba/
 /jltl2dstar/
+/libppl_java.so
 /manifest.txt
 /mtbdd/
 /nsis_script.nsi
@@ -14,6 +20,8 @@
 /param/
 /parser/
 /pepa/
+/planner/
+/ppl_java.jar
 /prism/
 /pta/
 /scripts/
@@ -22,10 +30,3 @@
 /sparse/
 /strat/
 /userinterface/
-/acceptance/
-/automata/
-/cex/
-/common/
-/libppl_java.so
-/planner/
-/ppl_java.jar

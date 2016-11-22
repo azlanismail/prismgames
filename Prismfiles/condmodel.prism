@@ -25,52 +25,52 @@ const int N1_MAX_SV=3;	//finite number of services
 const int N1_MAX_EV=2;	//finite number of computing nodes
 
 const int N0_RS0_ID = 0;
-const int N0_RS0_COST = 14;	//cost
+const int N0_RS0_COST = 33;	//cost
 const bool N0_RS0_AVAIL = true;	//availability status
-const int N0_RS0_DUR0 = 2;	//duration 0;
-const int N0_RS0_DUR1 = 27;	//duration 1;
-const double N0_RS0_REL0 = 0.053363016222984117;	//reliability 0;
-const double N0_RS0_REL1 = 0.08194300330735027;	//reliability 1;
+const int N0_RS0_DUR0 = 54;	//duration 0;
+const int N0_RS0_DUR1 = 14;	//duration 1;
+const double N0_RS0_REL0 = 0.5256993933989065;	//reliability 0;
+const double N0_RS0_REL1 = 0.6083485935075041;	//reliability 1;
 
 const int N0_RS1_ID = 1;
-const int N0_RS1_COST = 24;	//cost
+const int N0_RS1_COST = 47;	//cost
 const bool N0_RS1_AVAIL = true;	//availability status
-const int N0_RS1_DUR0 = 46;	//duration 0;
-const int N0_RS1_DUR1 = 61;	//duration 1;
-const double N0_RS1_REL0 = 0.7464469641210153;	//reliability 0;
-const double N0_RS1_REL1 = 0.12130886187773537;	//reliability 1;
+const int N0_RS1_DUR0 = 32;	//duration 0;
+const int N0_RS1_DUR1 = 95;	//duration 1;
+const double N0_RS1_REL0 = 0.18565093697988155;	//reliability 0;
+const double N0_RS1_REL1 = 0.10003138022550084;	//reliability 1;
 
 const int N0_RS2_ID = 2;
-const int N0_RS2_COST = 36;	//cost
+const int N0_RS2_COST = 18;	//cost
 const bool N0_RS2_AVAIL = true;	//availability status
 const int N0_RS2_DUR0 = 99;	//duration 0;
-const int N0_RS2_DUR1 = 90;	//duration 1;
-const double N0_RS2_REL0 = 0.8634553483017915;	//reliability 0;
-const double N0_RS2_REL1 = 0.60428378657566;	//reliability 1;
+const int N0_RS2_DUR1 = 69;	//duration 1;
+const double N0_RS2_REL0 = 0.1390514505490924;	//reliability 0;
+const double N0_RS2_REL1 = 0.9910446973788464;	//reliability 1;
 
 const int N1_RS0_ID = 0;
-const int N1_RS0_COST = 25;	//cost
+const int N1_RS0_COST = 54;	//cost
 const bool N1_RS0_AVAIL = true;	//availability status
-const int N1_RS0_DUR0 = 75;	//duration 0;
-const int N1_RS0_DUR1 = 42;	//duration 1;
-const double N1_RS0_REL0 = 0.9784461682150403;	//reliability 0;
-const double N1_RS0_REL1 = 0.49888215465128116;	//reliability 1;
+const int N1_RS0_DUR0 = 53;	//duration 0;
+const int N1_RS0_DUR1 = 99;	//duration 1;
+const double N1_RS0_REL0 = 0.8512087054947332;	//reliability 0;
+const double N1_RS0_REL1 = 0.42243209991117214;	//reliability 1;
 
 const int N1_RS1_ID = 1;
-const int N1_RS1_COST = 11;	//cost
+const int N1_RS1_COST = 56;	//cost
 const bool N1_RS1_AVAIL = true;	//availability status
-const int N1_RS1_DUR0 = 97;	//duration 0;
-const int N1_RS1_DUR1 = 74;	//duration 1;
-const double N1_RS1_REL0 = 0.9379422413923945;	//reliability 0;
-const double N1_RS1_REL1 = 0.1981911774984595;	//reliability 1;
+const int N1_RS1_DUR0 = 38;	//duration 0;
+const int N1_RS1_DUR1 = 6;	//duration 1;
+const double N1_RS1_REL0 = 0.49672769727838395;	//reliability 0;
+const double N1_RS1_REL1 = 0.35612566710127;	//reliability 1;
 
 const int N1_RS2_ID = 2;
-const int N1_RS2_COST = 21;	//cost
+const int N1_RS2_COST = 40;	//cost
 const bool N1_RS2_AVAIL = true;	//availability status
-const int N1_RS2_DUR0 = 13;	//duration 0;
-const int N1_RS2_DUR1 = 93;	//duration 1;
-const double N1_RS2_REL0 = 0.7490915054999793;	//reliability 0;
-const double N1_RS2_REL1 = 0.5408691508516649;	//reliability 1;
+const int N1_RS2_DUR0 = 52;	//duration 0;
+const int N1_RS2_DUR1 = 68;	//duration 1;
+const double N1_RS2_REL0 = 0.6628532863016433;	//reliability 0;
+const double N1_RS2_REL1 = 0.09981857724326815;	//reliability 1;
 
 
 //=========Global Parameters=======
@@ -86,8 +86,9 @@ module planner
 n0:[-1..N0_MAX_SV-1] init -1;
 n1:[-1..N1_MAX_SV-1] init -1;
 //P1's coordinator :
-//for single or sequential pattern
-[be] (t=TS) & (n < MXN) -> (t'=TP);
+//for conditional pattern
+[be] (t=TS) & (n < MXN) -> (n'=0) & (t'=TP);
+[be] (t=TS) & (n < MXN) -> (n'=1) & (t'=TP);
 [end] (t=TS) & (n >= MXN) & (end=false) -> (end'=true); //for ending the selection
 [ter] (t=TS) & (n >= MXN) & (end=true) -> true;	//for absorbing state
 //P1 moves :
@@ -103,11 +104,11 @@ endmodule
 module environment
 n0ev:[-1..N0_MAX_EV] init -1;
 n1ev:[-1..N1_MAX_EV] init -1;
-//P2 moves for single or sequential pattern:
-[n0e0] (t=TE) & (n=0) -> n0ev0_rel:(n0ev'=0) & (t'=TS) & (n'=n+1) + 1-n0ev0_rel:(n0ev'=-1) & (t'=TS) & (n'=n+1);
-[n0e1] (t=TE) & (n=0) -> n0ev1_rel:(n0ev'=1) & (t'=TS) & (n'=n+1) + 1-n0ev1_rel:(n0ev'=-1) & (t'=TS) & (n'=n+1);
-[n1e0] (t=TE) & (n=1) -> n1ev0_rel:(n1ev'=0) & (t'=TS) & (n'=n+1) + 1-n1ev0_rel:(n1ev'=-1) & (t'=TS) & (n'=n+1);
-[n1e1] (t=TE) & (n=1) -> n1ev1_rel:(n1ev'=1) & (t'=TS) & (n'=n+1) + 1-n1ev1_rel:(n1ev'=-1) & (t'=TS) & (n'=n+1);
+//P2 moves for conditional pattern:
+[n0e0] (t=TE) & (n=0) -> n0ev0_rel:(n0ev'=0) & (t'=TS) & (n'=MXN) + 1-n0ev0_rel:(n0ev'=-1) & (t'=TS) & (n'=MXN);
+[n0e1] (t=TE) & (n=0) -> n0ev1_rel:(n0ev'=1) & (t'=TS) & (n'=MXN) + 1-n0ev1_rel:(n0ev'=-1) & (t'=TS) & (n'=MXN);
+[n1e0] (t=TE) & (n=1) -> n1ev0_rel:(n1ev'=0) & (t'=TS) & (n'=MXN) + 1-n1ev0_rel:(n1ev'=-1) & (t'=TS) & (n'=MXN);
+[n1e1] (t=TE) & (n=1) -> n1ev1_rel:(n1ev'=1) & (t'=TS) & (n'=MXN) + 1-n1ev1_rel:(n1ev'=-1) & (t'=TS) & (n'=MXN);
 endmodule
 
 //=========Assign reliability values=======

@@ -12,7 +12,7 @@ const int MINRT = 40;
 
 <<p1>> R{"utility"}max=? [ F "done" ]
 
-<<p1>> (((R{"cost"}<=MAXCS [ C ]&R{"time"}<=MAXRT [ C ])))
+<<p1>> (R{"cost"}<=MAXCS [C ]&R{"time"}<=MAXRT [C ])
 
 <<p1>> R{"cost"}max=? [ F "done" ]
 
@@ -20,5 +20,5 @@ const int MINRT = 40;
 
 <<p1>> R{"time"}max=? [ F "done" ]
 
-<<p1>> (((R{"cost"}>MINCS [ C ]&R{"time"}>MINRT [ C ])))
+<<p1>> ((((R{"cost"}>MINCS [ C ]&R{"time"}>MINRT [ C ]))))
 

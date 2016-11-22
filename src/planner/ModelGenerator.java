@@ -16,14 +16,17 @@ public class ModelGenerator {
 	File outfile;
 	PrintWriter pw;
 	
+	//model configuration
 	private int numNode; //number of activity/task/node in the service composition
 	private int maxActionP1; //finite number of candidates to be selected
 	private int maxActionP2; //finite number of resources
-	private String p1;
-	private String p2;
-	private String mod1;
-	private String mod2;
-	
+	private String p1;	//to define the name of P1
+	private String p2;	//to define the name of P2
+	private String mod1;	//to define the name of P1's module
+	private String mod2;	//to define the name of P2's module
+	private boolean setValuesStatus;	//to define null parameters or parameters with values
+	private int pattern;	//to determine the type of pattern; 0-single, 1-seq, 2-or, 3-parallel
+	//requirements
 	private int idR;
 	private int costR;
 	private int durR;
@@ -32,16 +35,37 @@ public class ModelGenerator {
 	private double wdurR;
 	private double wrelR;
 	
+	//service profiles
 	private int[][] cost;
 	private boolean[][] avail;
 	private int[][][] dur;
-	private double[][][] rel;;
+	private double[][][] rel;
 	
-	private boolean setValuesStatus = false;
 	
-	public ModelGenerator(String path) throws FileNotFoundException {
-		outfile = new File(path);
-		pw = new PrintWriter(outfile);
+	public ModelGenerator() {
+		
+	}
+	
+	public ModelGenerator(String path) {
+		try {
+			outfile = new File(path);
+			pw = new PrintWriter(outfile);
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void setPath(String path) {
+		try {
+			outfile = new File(path);
+			pw = new PrintWriter(outfile);
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void setParamsNames(String p1Name, String p2Name, String mod1, String mod2) {
@@ -70,6 +94,10 @@ public class ModelGenerator {
 		avail = new boolean[numNode][maxActionP1];
 		dur = new int[numNode][maxActionP1][maxActionP2];
 		rel = new double[numNode][maxActionP1][maxActionP2];
+	}
+	
+	public void setPattern(int p) {
+		this.pattern = p;
 	}
 	
 	/**
@@ -361,6 +389,9 @@ public class ModelGenerator {
 	 	pw.close();
     }
 
+	/**
+	 * To generate sequence-based stochastic games model 
+	 */
 	public void generateSeqModel()  {
    	 	
    	 	pw.println("smg");
@@ -716,16 +747,744 @@ public class ModelGenerator {
 	 	pw.close();
     }
 	
+	
+	/**
+	 * To generate branching-based stochastic games model 
+	 */
+	public void generateCondModel()  {
+   	 	
+   	 	pw.println("smg");
+   	 	pw.println("//=========Player definition=======");
+   	 	pw.println("player "+p1);
+   	 	pw.print(""+mod1+",");
+   	 	for(int n=0; n < numNode; n++) {
+   	 		for(int i=0; i < maxActionP1; i++) {
+   	 			pw.print("[n"+n+"r"+i+"],");
+   	 		}
+		}
+   	 	pw.println("[be],[end]");
+   	 	pw.println("endplayer");
+   	 	pw.println();
+   	 	
+   	 	pw.println("player "+p2);
+   	 	pw.print(""+mod2);
+   	 	for(int n=0; n < numNode; n++) {
+	   	 	if (n != numNode) {
+				pw.print(",");
+			}
+   	 		for(int i=0; i < maxActionP2; i++) {
+   	 			pw.print("[n"+n+"e"+i+"]");
+   	 			if (i != maxActionP2-1) {
+   	 			pw.print(",");
+   	 			}
+   	 		}
+		}
+   	 	pw.println();
+   	 	pw.println("endplayer");
+   	 	pw.println();
+	 	
+   		pw.println("//=========User Requirements=======");
+   		if (this.setValuesStatus) {
+		 	pw.println("const int A0_ID = 0;");
+		 	pw.println("const int A0_DUR = "+this.durR+"; //cost"); 
+		 	pw.println("const double A0_REL = "+this.relR+"; //reliability");
+		 	pw.println("const double A0_COST= "+this.costR+"; //max cost");
+		 	pw.println("const double A0_WG_COST = "+this.wcostR+"; //weight for cost");
+		 	pw.println("const double A0_WG_DUR = "+this.wdurR+"; //weight for duration");
+		 	pw.println("const double A0_WG_REL = "+this.wrelR+"; //weight for reliability");
+		 	pw.println();
+   		}
+   		else {
+   		 	pw.println("const int A0_ID; // = 0;");
+   		 	pw.println("const int A0_DUR; // = 5;	//max duration");
+   		 	pw.println("const double A0_REL; // = 0.6; //reliability");
+   		 	pw.println("const double A0_COST; // = 10.0; //max cost");
+   		 	pw.println("const double A0_WG_COST; // = 0.3; //weight for cost");
+   		 	pw.println("const double A0_WG_DUR; // = 0.3; //weight for duration");
+   		 	pw.println("const double A0_WG_REL; // = 0.4; //weight for reliability");
+   		 	pw.println();
+   		}
+   		
+   		
+	 	pw.println("//=========Resource Profiles=======");
+	 	pw.println("const int MXN="+numNode+";");
+	 	for(int n=0; n < numNode; n++) {
+	 		pw.println("const int N"+n+"_MAX_SV="+maxActionP1+";	//finite number of services");		
+	 		pw.println("const int N"+n+"_MAX_EV="+maxActionP2+";	//finite number of computing nodes");		
+	 	}
+	 	pw.println();
+	 	
+	 	if(this.setValuesStatus) {
+		 	for (int n=0; n < numNode; n++) {
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.println("const int N"+n+"_RS"+i+"_ID = "+i+";");
+			 		pw.println("const int N"+n+"_RS"+i+"_COST = "+this.cost[n][i]+";	//cost");
+			 		pw.println("const bool N"+n+"_RS"+i+"_AVAIL = "+this.avail[n][i]+";	//availability status");
+			 		for(int j=0; j < maxActionP2; j++) {
+			 			pw.println("const int N"+n+"_RS"+i+"_DUR"+j+" = "+this.dur[n][i][j]+";	//duration "+j+";");
+			 		}
+			 		for(int j=0; j < maxActionP2; j++) {
+			 			pw.println("const double N"+n+"_RS"+i+"_REL"+j+" = "+this.rel[n][i][j]+";	//reliability "+j+";");
+			 		}
+			 		pw.println();
+			 	}
+		 	}
+		 	pw.println();
+	 	}
+	 	else {
+	 		for (int n=0; n < numNode; n++) {
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.println("const int N"+n+"_RS"+i+"_ID;");
+			 		pw.println("const int N"+n+"_RS"+i+"_COST;	//cost");
+			 		pw.println("const bool N"+n+"_RS"+i+"_AVAIL;	//availability status");
+			 		for(int j=0; j < maxActionP2; j++) {
+			 			pw.println("const int N"+n+"_RS"+i+"_DUR"+j+";	//duration "+j+";");
+			 		}
+			 		for(int j=0; j < maxActionP2; j++) {
+			 			pw.println("const double N"+n+"_RS"+i+"_REL"+j+";	//reliability "+j+";");
+			 		}
+			 		pw.println();
+			 	}
+		 	}
+		 	pw.println();
+	 	}
+	 		
+		pw.println("//=========Global Parameters=======");
+	 	pw.println("const int TE=0;	//plater 2 state");	
+	 	pw.println("const int TP=1;	//player 1 state");
+		pw.println("const int TS=2;	//coordinator state");
+	 	pw.println("global t:[TE..TS] init TS;	//to control the turn");
+	 	pw.println("global end : bool init false;	//(absorbing state)");		
+	 	pw.println("global n:[0..MXN] init 0;  //to control the sequence");
+	 	pw.println();		
+	
+
+		pw.println("//=========Module for Player 1=======");
+	 	pw.println("module "+mod1);
+	 	for(int n=0; n < numNode; n++) {
+	 		pw.println("n"+n+":[-1..N"+n+"_MAX_SV-1] init -1;");
+	 	}
+	 	
+	 	pw.println("//P1 moves :");
+	 	for(int n=0; n < numNode; n++) {
+	 		pw.println("[be] (t=TS) & (n < MXN) -> (n'="+n+") & (t'=TP);");
+	 	}
+	 	pw.println("[end] (t=TS) & (n >= MXN) -> (end'=true);");
+	 	for(int n=0; n < numNode; n++) {
+		 	for(int i=0; i < maxActionP1; i++) {
+		 		pw.println("[n"+n+"r"+i+"] (t=TP) & (n="+n+") & (a0_n"+n+"_rs"+i+"_sat_all=true) -> (n"+n+"'="+i+") & (t'=TE);");
+		 	}
+	 	}
+	 	pw.println("endmodule");
+	 	pw.println();
+	 	
+	 	pw.println("//=========Module for Player 2=======");
+	 	pw.println("module "+mod2);
+	 	for(int n=0; n < numNode; n++) {
+	 		pw.println("n"+n+"ev:[-1..N"+n+"_MAX_EV] init -1;");
+	 	}
+	 	pw.println("//P2 moves :");	
+	 	for(int n=0; n < numNode; n++) {
+		 	for(int i=0; i < maxActionP2; i++) {
+		 		pw.println("[n"+n+"e"+i+"] (t=TE) & (n="+n+") -> n"+n+"ev"+i+"_rel:(n"+n+"ev'="+i+") & (t'=TS) & (n'=MXN) + 1-n"+n+"ev"+i+"_rel:(n"+n+"ev'=-1) & (t'=TS) & (n'=MXN);");			
+		 	}
+	 	}
+	 	pw.println("endmodule");
+	 	pw.println();
+	 	
+	 	pw.println("//=========Assign reliability values=======");
+	 	for(int n=0; n < numNode; n++) {
+		 	for(int i=0; i < maxActionP2; i++) {
+		 		pw.print("formula n"+n+"ev"+i+"_rel =");
+		 		for(int j=0; j < maxActionP1; j++) {
+		 			pw.print(" ( n"+n+" = "+j+" ? N"+n+"_RS"+j+"_REL"+i+" :");
+		 		}
+		 		pw.print("0.0");
+		 		for(int j=0; j < maxActionP1; j++) {
+		 			pw.print(")");
+		 		}
+		 	 	pw.print(";");
+		 	 	pw.println();
+		 	}
+		 	pw.println();
+	 	}
+ 		pw.println();
+	 	
+ 	 	pw.println("//=========QoS Constraints Checking=======");
+ 	 	for(int n=0; n < numNode; n++) {
+		 	for(int i=0; i < maxActionP1; i++){
+		 		pw.println("//=====Application 0, Node"+n+" and RS"+i);
+		 		for(int j=0; j < maxActionP2; j++) {
+		 			pw.println("formula a0_n"+n+"_rs"+i+"_sat_dur"+j+" = ( (A0_DUR <= N"+n+"_RS"+i+"_DUR"+j+") ? true:false);");
+		 		}
+		 		for(int j=0; j < maxActionP2; j++) {
+		 			pw.println("formula a0_n"+n+"_rs"+i+"_sat_rel"+j+" = ( (A0_DUR <= N"+n+"_RS"+i+"_REL"+j+") ? true:false);");
+		 		}
+		 		pw.println("formula a0_n"+n+"_rs"+i+"_sat_cost = ( (A0_COST <= N"+n+"_RS"+i+"_COST) ? true:false);");
+		 		pw.println("formula a0_n"+n+"_rs"+i+"_sat_avail = N"+n+"_RS"+i+"_AVAIL;");
+		 		pw.println("formula a0_n"+n+"_rs"+i+"_sat_all = a0_n"+n+"_rs"+i+"_sat_avail;");
+		 		pw.println();
+		 	}
+ 	 	}
+	 	pw.println();
+ 			 	
+	 	pw.println("//=========Utility-based Decision Making=======");
+	 	
+	 	for(int n=0; n < numNode; n++) {
+	 		pw.println("//get the cost of selected node..");
+	 		pw.print("formula n"+n+"_rs_cost =");
+		 	for(int i=0; i < maxActionP1; i++) {
+		 		pw.print("( n"+n+" = "+i+" ? N"+n+"_RS"+i+"_COST :");
+		 	}
+		 	pw.print("0.0");
+	 		for(int i=0; i < maxActionP1; i++) {
+	 			pw.print(")");
+	 		}
+		 	pw.println(";");
+		 	
+		 	pw.println("//Computing the utility value..");
+		 	pw.print("formula n"+n+"_mx_cost = max(");
+		 	for(int i=0; i < maxActionP1; i++) {
+		 		pw.print("N"+n+"_RS"+i+"_COST");
+		 		if (i != maxActionP1-1)
+		 			pw.print(",");
+		 	}
+		 	pw.println(");");
+		 	pw.print("formula n"+n+"_mn_cost = min(");
+		 	for(int i=0; i < maxActionP1; i++) {
+		 		pw.print("N"+n+"_RS"+i+"_COST");
+		 		if (i != maxActionP1-1)
+		 			pw.print(",");
+		 	}
+		 	pw.println(");");
+		 	pw.println("formula n"+n+"_uv_cost = (n"+n+"_mx_cost - n"+n+"_rs_cost) / (n"+n+"_mx_cost - n"+n+"_mn_cost);");
+		 	pw.println();
+		 	
+	// 	} //end of n
+	 	
+	 	//Preparing the utility function for duration
+	 //	for(int n=0; n < numNode; n++) {
+	 		pw.println("//get the duration of selected node..");
+		 	for(int j=0; j < maxActionP2; j++) {
+		 		pw.print("formula n"+n+"_rs_dur"+j+"=");
+		 		for(int i=0; i < maxActionP1; i++) {
+		 			pw.print("( (n"+n+" = "+i+" & n"+n+"ev = "+j+") ? N"+n+"_RS"+i+"_DUR"+j+" :");
+		 		}
+		 		pw.print("0.0");
+		 		for(int i=0; i < maxActionP1; i++) {
+		 			pw.print(")");
+		 		}
+		 		pw.println(";");
+		 		
+		 		//compute max and min value
+			 	pw.println("//Computing the utility value..");
+			 	pw.print("formula n"+n+"_mx_dur"+j+" = max(");
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.print("N"+n+"_RS"+i+"_DUR"+j);
+			 		if (i != maxActionP1-1)
+			 			pw.print(",");
+			 	}
+			 	pw.println(");");
+			 	pw.print("formula n"+n+"_mn_dur"+j+" = min(");
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.print("N"+n+"_RS"+i+"_DUR"+j);
+			 		if (i != maxActionP1-1)
+			 			pw.print(",");
+			 	}
+			 	pw.println(");");
+			 	
+			 	//compute the utility value
+			 	pw.println("formula n"+n+"_uv_dur"+j+" = (n"+n+"_mx_dur"+j+" - n"+n+"_rs_dur"+j+") / (n"+n+"_mx_dur"+j+" - n"+n+"_mn_dur"+j+");");
+			 	pw.println();
+		 		
+		 	}
+	// 	}//end of n
+	 	
+	  	
+	 	
+	 	//Preparing utility function for reliability
+	// 	for(int n=0; n < numNode; n++) {
+	 		pw.println("//get the reliability of selected node..");
+			for(int j=0; j < maxActionP2; j++) {
+		 		pw.print("formula n"+n+"_rs_rel"+j+"=");
+		 		for(int i=0; i < maxActionP1; i++) {
+		 			pw.print("( (n"+n+" = "+i+" & n"+n+"ev = "+j+") ? N"+n+"_RS"+i+"_REL"+j+" :");
+		 		}
+		 		pw.print("0.0");
+		 		for(int i=0; i < maxActionP1; i++) {
+		 			pw.print(")");
+		 		}
+		 		pw.println(";");
+		 		
+		 		//compute the max
+			 	pw.println("//Computing the utility value..");
+			 	pw.print("formula n"+n+"_mx_rel"+j+" = max(");
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.print("N"+n+"_RS"+i+"_REL"+j);
+			 		if (i != maxActionP1-1)
+			 			pw.print(",");
+			 	}
+			 	pw.println(");");
+			 	//compute the min
+			 	pw.print("formula n"+n+"_mn_rel"+j+" = min(");
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.print("N"+n+"_RS"+i+"_REL"+j);
+			 		if (i != maxActionP1-1)
+			 			pw.print(",");
+			 	}
+			 	pw.println(");");
+			 	
+			 	//compute utility value
+			 	pw.println("formula n"+n+"_uv_rel"+j+" = (n"+n+"_mx_rel"+j+" - n"+n+"_rs_rel"+j+") / (n"+n+"_mx_rel"+j+" - n"+n+"_mn_rel"+j+");");
+			 	pw.println();	
+		 	}
+			pw.println();
+	// 	}//end of n
+	 	
+		pw.println("//Preventing from non-evaluated problem..");
+		//for(int n=0; n <numNode; n++) {
+			pw.println("formula n"+n+"_ut_cost = (n"+n+"_uv_cost > 0.0 ? n"+n+"_uv_cost: 0.0);");
+			for(int j=0; j < maxActionP2; j++) {
+				pw.println("formula n"+n+"_ut_dur"+j+" = (n"+n+"_uv_dur"+j+" > 0.0 ? n"+n+"_uv_dur"+j+": 0.0);");
+			}
+			for(int j=0; j < maxActionP2; j++) {
+				pw.println("formula n"+n+"_ut_rel"+j+" = (n"+n+"_uv_rel"+j+" > 0.0 ? n"+n+"_uv_rel"+j+": 0.0);");
+			}
+		 	pw.println();
+		
+		
+			pw.println("//Compute the overall utility value..");
+			pw.print("formula n"+n+"_ut_all = ");
+			for (int j=0; j < maxActionP2; j++) {
+				pw.print("(n"+n+"ev="+j+" ? (n"+n+"_ut_cost * A0_WG_COST + n"+n+"_ut_dur"+j+" * A0_WG_DUR + n"+n+"_ut_rel"+j+" * A0_WG_REL):");
+			}
+			pw.print("0.0");
+			for (int j=0; j < maxActionP2; j++) {
+				pw.print(")");
+			}
+			pw.println(";");
+		 	pw.println();
+		}//end of n
+	 
+	 	pw.println("//=========Reward Structure=======");
+	 	pw.println("rewards \"cost\"");
+	 	for(int n=0; n<numNode; n++) {
+		 	pw.println("[end] true: n"+n+"_rs_cost;"); 	
+	 	}//end of n
+	 	pw.println("endrewards");
+	 	
+		pw.println("rewards \"time\"");
+		for(int n=0; n<numNode; n++) {
+		 	for(int j=0; j < maxActionP2; j++) {
+		 		pw.println("[end] true: n"+n+"_rs_dur"+j+";");
+		 	}
+		}//end of n
+	 	pw.println("endrewards");
+	
+		pw.println("rewards \"reliability\"");
+		for(int n=0; n<numNode; n++) {
+			for(int j=0; j < maxActionP2; j++) {
+		 		pw.println("[end] true: n"+n+"_rs_rel"+j+";");
+		 	}	
+		}
+		pw.println("endrewards");
+	
+		pw.println("rewards \"utility\"");
+		for(int n=0; n<numNode; n++) {
+		 	pw.println("[end] true: n"+n+"_ut_all;");
+	 	}//end of n
+		pw.println("endrewards");
+	 	pw.println();
+	 	
+	 	pw.println("//=========Labels=======");
+	 	pw.println("label \"done\" = (end=true);");
+	 	
+	 	pw.close();
+    }
+	
+	
+	/**
+	 * To generate a generic stochastic games model for service selection 
+	 */
+	public void generateSGModel()  {
+   	 	
+   	 	pw.println("smg");
+   	 	pw.println("//=========Player definition=======");
+   	 	pw.println("player "+p1);
+   	 	pw.print(""+mod1+",");
+   	 	for(int n=0; n < numNode; n++) {
+   	 		for(int i=0; i < maxActionP1; i++) {
+   	 			pw.print("[n"+n+"r"+i+"],");
+   	 		}
+		}
+   	 	pw.println("[be],[end],[ter]");
+   	 	pw.println("endplayer");
+   	 	pw.println();
+   	 	
+   	 	pw.println("player "+p2);
+   	 	pw.print(""+mod2);
+   	 	for(int n=0; n < numNode; n++) {
+	   	 	if (n != numNode) {
+				pw.print(",");
+			}
+   	 		for(int i=0; i < maxActionP2; i++) {
+   	 			pw.print("[n"+n+"e"+i+"]");
+   	 			if (i != maxActionP2-1) {
+   	 			pw.print(",");
+   	 			}
+   	 		}
+		}
+   	 	pw.println();
+   	 	pw.println("endplayer");
+   	 	pw.println();
+	 	
+   		pw.println("//=========User Requirements=======");
+   		if (this.setValuesStatus) {
+		 	pw.println("const int A0_ID = 0;");
+		 	pw.println("const int A0_DUR = "+this.durR+"; //cost"); 
+		 	pw.println("const double A0_REL = "+this.relR+"; //reliability");
+		 	pw.println("const double A0_COST= "+this.costR+"; //max cost");
+		 	pw.println("const double A0_WG_COST = "+this.wcostR+"; //weight for cost");
+		 	pw.println("const double A0_WG_DUR = "+this.wdurR+"; //weight for duration");
+		 	pw.println("const double A0_WG_REL = "+this.wrelR+"; //weight for reliability");
+		 	pw.println();
+   		}
+   		else {
+   		 	pw.println("const int A0_ID; // = 0;");
+   		 	pw.println("const int A0_DUR; // = 5;	//max duration");
+   		 	pw.println("const double A0_REL; // = 0.6; //reliability");
+   		 	pw.println("const double A0_COST; // = 10.0; //max cost");
+   		 	pw.println("const double A0_WG_COST; // = 0.3; //weight for cost");
+   		 	pw.println("const double A0_WG_DUR; // = 0.3; //weight for duration");
+   		 	pw.println("const double A0_WG_REL; // = 0.4; //weight for reliability");
+   		 	pw.println();
+   		}
+   		
+   		
+	 	pw.println("//=========Resource Profiles=======");
+	 	pw.println("const int MXN="+numNode+";");
+	 	for(int n=0; n < numNode; n++) {
+	 		pw.println("const int N"+n+"_MAX_SV="+maxActionP1+";	//finite number of services");		
+	 		pw.println("const int N"+n+"_MAX_EV="+maxActionP2+";	//finite number of computing nodes");		
+	 	}
+	 	pw.println();
+	 	
+	 	if(this.setValuesStatus) {
+		 	for (int n=0; n < numNode; n++) {
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.println("const int N"+n+"_RS"+i+"_ID = "+i+";");
+			 		pw.println("const int N"+n+"_RS"+i+"_COST = "+this.cost[n][i]+";	//cost");
+			 		pw.println("const bool N"+n+"_RS"+i+"_AVAIL = "+this.avail[n][i]+";	//availability status");
+			 		for(int j=0; j < maxActionP2; j++) {
+			 			pw.println("const int N"+n+"_RS"+i+"_DUR"+j+" = "+this.dur[n][i][j]+";	//duration "+j+";");
+			 		}
+			 		for(int j=0; j < maxActionP2; j++) {
+			 			pw.println("const double N"+n+"_RS"+i+"_REL"+j+" = "+this.rel[n][i][j]+";	//reliability "+j+";");
+			 		}
+			 		pw.println();
+			 	}
+		 	}
+		 	pw.println();
+	 	}
+	 	else {
+	 		for (int n=0; n < numNode; n++) {
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.println("const int N"+n+"_RS"+i+"_ID;");
+			 		pw.println("const int N"+n+"_RS"+i+"_COST;	//cost");
+			 		pw.println("const bool N"+n+"_RS"+i+"_AVAIL;	//availability status");
+			 		for(int j=0; j < maxActionP2; j++) {
+			 			pw.println("const int N"+n+"_RS"+i+"_DUR"+j+";	//duration "+j+";");
+			 		}
+			 		for(int j=0; j < maxActionP2; j++) {
+			 			pw.println("const double N"+n+"_RS"+i+"_REL"+j+";	//reliability "+j+";");
+			 		}
+			 		pw.println();
+			 	}
+		 	}
+		 	pw.println();
+	 	}
+	 		
+		pw.println("//=========Global Parameters=======");
+	 	pw.println("const int TE=0;	//plater 2 state");	
+	 	pw.println("const int TP=1;	//player 1 state");
+		pw.println("const int TS=2;	//coordinator state");
+	 	pw.println("global t:[TE..TS] init TS;	//to control the turn");
+	 	pw.println("global end : bool init false;	//(absorbing state)");		
+	 	pw.println("global n:[0..MXN] init 0;  //to control the sequence");
+	 	pw.println();		
+	
+
+		pw.println("//=========Module for Player 1=======");
+	 	pw.println("module "+mod1);
+	 	for(int n=0; n < numNode; n++) {
+	 		pw.println("n"+n+":[-1..N"+n+"_MAX_SV-1] init -1;");
+	 	}
+	 	
+	 	pw.println("//P1's coordinator :");
+	 	
+	 	if(this.pattern <= 1) {
+	 		//if single or sequential pattern
+	 		pw.println("//for single or sequential pattern");
+	 		pw.println("[be] (t=TS) & (n < MXN) -> (t'=TP);");
+	 	}
+	 	
+	 	if (this.pattern == 2) {
+	 		//if conditional pattern
+	 		pw.println("//for conditional pattern");
+		 	for(int n=0; n < numNode; n++) {
+		 		pw.println("[be] (t=TS) & (n < MXN) -> (n'="+n+") & (t'=TP);");
+		 	}
+		}
+	 	pw.println("[end] (t=TS) & (n >= MXN) & (end=false) -> (end'=true); //for ending the selection");
+ 		pw.println("[ter] (t=TS) & (n >= MXN) & (end=true) -> true;	//for absorbing state");
+ 		
+	 	pw.println("//P1 moves :");
+	 	for(int n=0; n < numNode; n++) {
+		 	for(int i=0; i < maxActionP1; i++) {
+		 		pw.println("[n"+n+"r"+i+"] (t=TP) & (n="+n+") & (a0_n"+n+"_rs"+i+"_sat_all=true) -> (n"+n+"'="+i+") & (t'=TE);");
+		 	}
+	 	}
+	 	pw.println("endmodule");
+	 	pw.println();
+	 	
+	 	pw.println("//=========Module for Player 2=======");
+	 	pw.println("module "+mod2);
+	 	for(int n=0; n < numNode; n++) {
+	 		pw.println("n"+n+"ev:[-1..N"+n+"_MAX_EV] init -1;");
+	 	}
+	 	
+	 	if (pattern <= 1) {
+			pw.println("//P2 moves for single or sequential pattern:");	
+		 	for(int n=0; n < numNode; n++) {
+			 	for(int i=0; i < maxActionP2; i++) {
+			 		pw.println("[n"+n+"e"+i+"] (t=TE) & (n="+n+") -> n"+n+"ev"+i+"_rel:(n"+n+"ev'="+i+") & (t'=TS) & (n'=n+1) + 1-n"+n+"ev"+i+"_rel:(n"+n+"ev'=-1) & (t'=TS) & (n'=n+1);");			
+			 	}
+		 	}
+	 	}
+	 	if (pattern == 2) {
+		 	pw.println("//P2 moves for conditional pattern:");	
+		 	for(int n=0; n < numNode; n++) {
+			 	for(int i=0; i < maxActionP2; i++) {
+			 		pw.println("[n"+n+"e"+i+"] (t=TE) & (n="+n+") -> n"+n+"ev"+i+"_rel:(n"+n+"ev'="+i+") & (t'=TS) & (n'=MXN) + 1-n"+n+"ev"+i+"_rel:(n"+n+"ev'=-1) & (t'=TS) & (n'=MXN);");			
+			 	}
+		 	}
+	 	}
+	 	pw.println("endmodule");
+	 	pw.println();
+	 	
+	 	pw.println("//=========Assign reliability values=======");
+	 	for(int n=0; n < numNode; n++) {
+		 	for(int i=0; i < maxActionP2; i++) {
+		 		pw.print("formula n"+n+"ev"+i+"_rel =");
+		 		for(int j=0; j < maxActionP1; j++) {
+		 			pw.print(" ( n"+n+" = "+j+" ? N"+n+"_RS"+j+"_REL"+i+" :");
+		 		}
+		 		pw.print("0.0");
+		 		for(int j=0; j < maxActionP1; j++) {
+		 			pw.print(")");
+		 		}
+		 	 	pw.print(";");
+		 	 	pw.println();
+		 	}
+		 	pw.println();
+	 	}
+ 		pw.println();
+	 	
+ 	 	pw.println("//=========QoS Constraints Checking=======");
+ 	 	for(int n=0; n < numNode; n++) {
+		 	for(int i=0; i < maxActionP1; i++){
+		 		pw.println("//=====Application 0, Node"+n+" and RS"+i);
+		 		for(int j=0; j < maxActionP2; j++) {
+		 			pw.println("formula a0_n"+n+"_rs"+i+"_sat_dur"+j+" = ( (A0_DUR <= N"+n+"_RS"+i+"_DUR"+j+") ? true:false);");
+		 		}
+		 		for(int j=0; j < maxActionP2; j++) {
+		 			pw.println("formula a0_n"+n+"_rs"+i+"_sat_rel"+j+" = ( (A0_DUR <= N"+n+"_RS"+i+"_REL"+j+") ? true:false);");
+		 		}
+		 		pw.println("formula a0_n"+n+"_rs"+i+"_sat_cost = ( (A0_COST <= N"+n+"_RS"+i+"_COST) ? true:false);");
+		 		pw.println("formula a0_n"+n+"_rs"+i+"_sat_avail = N"+n+"_RS"+i+"_AVAIL;");
+		 		pw.println("formula a0_n"+n+"_rs"+i+"_sat_all = a0_n"+n+"_rs"+i+"_sat_avail;");
+		 		pw.println();
+		 	}
+ 	 	}
+	 	pw.println();
+ 			 	
+	 	pw.println("//=========Utility-based Decision Making=======");
+	 	
+	 	for(int n=0; n < numNode; n++) {
+	 		pw.println("//get the cost of selected node..");
+	 		pw.print("formula n"+n+"_rs_cost =");
+		 	for(int i=0; i < maxActionP1; i++) {
+		 		pw.print("( n"+n+" = "+i+" ? N"+n+"_RS"+i+"_COST :");
+		 	}
+		 	pw.print("0.0");
+	 		for(int i=0; i < maxActionP1; i++) {
+	 			pw.print(")");
+	 		}
+		 	pw.println(";");
+		 	
+		 	pw.println("//Computing the utility value..");
+		 	pw.print("formula n"+n+"_mx_cost = max(");
+		 	for(int i=0; i < maxActionP1; i++) {
+		 		pw.print("N"+n+"_RS"+i+"_COST");
+		 		if (i != maxActionP1-1)
+		 			pw.print(",");
+		 	}
+		 	pw.println(");");
+		 	pw.print("formula n"+n+"_mn_cost = min(");
+		 	for(int i=0; i < maxActionP1; i++) {
+		 		pw.print("N"+n+"_RS"+i+"_COST");
+		 		if (i != maxActionP1-1)
+		 			pw.print(",");
+		 	}
+		 	pw.println(");");
+		 	pw.println("formula n"+n+"_uv_cost = (n"+n+"_mx_cost - n"+n+"_rs_cost) / (n"+n+"_mx_cost - n"+n+"_mn_cost);");
+		 	pw.println();
+		 	
+		 	//get the duration of selected node...
+	 		pw.println("//get the duration of selected node..");
+		 	for(int j=0; j < maxActionP2; j++) {
+		 		pw.print("formula n"+n+"_rs_dur"+j+"=");
+		 		for(int i=0; i < maxActionP1; i++) {
+		 			pw.print("( (n"+n+" = "+i+" & n"+n+"ev = "+j+") ? N"+n+"_RS"+i+"_DUR"+j+" :");
+		 		}
+		 		pw.print("0.0");
+		 		for(int i=0; i < maxActionP1; i++) {
+		 			pw.print(")");
+		 		}
+		 		pw.println(";");
+		 		
+		 		//compute max and min value
+			 	pw.println("//Computing the utility value..");
+			 	pw.print("formula n"+n+"_mx_dur"+j+" = max(");
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.print("N"+n+"_RS"+i+"_DUR"+j);
+			 		if (i != maxActionP1-1)
+			 			pw.print(",");
+			 	}
+			 	pw.println(");");
+			 	pw.print("formula n"+n+"_mn_dur"+j+" = min(");
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.print("N"+n+"_RS"+i+"_DUR"+j);
+			 		if (i != maxActionP1-1)
+			 			pw.print(",");
+			 	}
+			 	pw.println(");");
+			 	
+			 	//compute the utility value
+			 	pw.println("formula n"+n+"_uv_dur"+j+" = (n"+n+"_mx_dur"+j+" - n"+n+"_rs_dur"+j+") / (n"+n+"_mx_dur"+j+" - n"+n+"_mn_dur"+j+");");
+			 	pw.println();
+		 		
+		 	}
+	
+	 		pw.println("//get the reliability of selected node..");
+			for(int j=0; j < maxActionP2; j++) {
+		 		pw.print("formula n"+n+"_rs_rel"+j+"=");
+		 		for(int i=0; i < maxActionP1; i++) {
+		 			pw.print("( (n"+n+" = "+i+" & n"+n+"ev = "+j+") ? N"+n+"_RS"+i+"_REL"+j+" :");
+		 		}
+		 		pw.print("0.0");
+		 		for(int i=0; i < maxActionP1; i++) {
+		 			pw.print(")");
+		 		}
+		 		pw.println(";");
+		 		
+		 		//compute the max
+			 	pw.println("//Computing the utility value..");
+			 	pw.print("formula n"+n+"_mx_rel"+j+" = max(");
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.print("N"+n+"_RS"+i+"_REL"+j);
+			 		if (i != maxActionP1-1)
+			 			pw.print(",");
+			 	}
+			 	pw.println(");");
+			 	//compute the min
+			 	pw.print("formula n"+n+"_mn_rel"+j+" = min(");
+			 	for(int i=0; i < maxActionP1; i++) {
+			 		pw.print("N"+n+"_RS"+i+"_REL"+j);
+			 		if (i != maxActionP1-1)
+			 			pw.print(",");
+			 	}
+			 	pw.println(");");
+			 	
+			 	//compute utility value
+			 	pw.println("formula n"+n+"_uv_rel"+j+" = (n"+n+"_mx_rel"+j+" - n"+n+"_rs_rel"+j+") / (n"+n+"_mx_rel"+j+" - n"+n+"_mn_rel"+j+");");
+			 	pw.println();	
+		 	}
+			pw.println();
+	
+	 	
+			pw.println("//Preventing from non-evaluated problem..");
+			pw.println("formula n"+n+"_ut_cost = (n"+n+"_uv_cost > 0.0 ? n"+n+"_uv_cost: 0.0);");
+			for(int j=0; j < maxActionP2; j++) {
+				pw.println("formula n"+n+"_ut_dur"+j+" = (n"+n+"_uv_dur"+j+" > 0.0 ? n"+n+"_uv_dur"+j+": 0.0);");
+			}
+			for(int j=0; j < maxActionP2; j++) {
+				pw.println("formula n"+n+"_ut_rel"+j+" = (n"+n+"_uv_rel"+j+" > 0.0 ? n"+n+"_uv_rel"+j+": 0.0);");
+			}
+		 	pw.println();
+		
+		
+			pw.println("//Compute the overall utility value..");
+			pw.print("formula n"+n+"_ut_all = ");
+			for (int j=0; j < maxActionP2; j++) {
+				pw.print("(n"+n+"ev="+j+" ? (n"+n+"_ut_cost * A0_WG_COST + n"+n+"_ut_dur"+j+" * A0_WG_DUR + n"+n+"_ut_rel"+j+" * A0_WG_REL):");
+			}
+			pw.print("0.0");
+			for (int j=0; j < maxActionP2; j++) {
+				pw.print(")");
+			}
+			pw.println(";");
+		 	pw.println();
+		}//end of n
+	 
+	 	pw.println("//=========Reward Structure=======");
+	 	pw.println("rewards \"cost\"");
+	 	for(int n=0; n<numNode; n++) {
+		 	pw.println("[end] true: n"+n+"_rs_cost;"); 	
+	 	}//end of n
+	 	pw.println("endrewards");
+	 	
+		pw.println("rewards \"time\"");
+		for(int n=0; n<numNode; n++) {
+		 	for(int j=0; j < maxActionP2; j++) {
+		 		pw.println("[end] true: n"+n+"_rs_dur"+j+";");
+		 	}
+		}//end of n
+	 	pw.println("endrewards");
+	
+		pw.println("rewards \"reliability\"");
+		for(int n=0; n<numNode; n++) {
+			for(int j=0; j < maxActionP2; j++) {
+		 		pw.println("[end] true: n"+n+"_rs_rel"+j+";");
+		 	}	
+		}
+		pw.println("endrewards");
+	
+		pw.println("rewards \"utility\"");
+		for(int n=0; n<numNode; n++) {
+		 	pw.println("[end] true: n"+n+"_ut_all;");
+	 	}//end of n
+		pw.println("endrewards");
+	 	pw.println();
+	 	
+	 	pw.println("//=========Labels=======");
+	 	pw.println("label \"done\" = (end=true);");
+	 	
+	 	pw.close();
+    }
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		String pathSingle = "/home/azlan/git/PrismGames/Prismfiles/singlemodel.prism";
-		String pathSeq = "/home/azlan/git/PrismGames/Prismfiles/seqmodel.prism";
+		String pathSequential = "/home/azlan/git/PrismGames/Prismfiles/seqmodel.prism";
+		String pathCondition = "/home/azlan/git/PrismGames/Prismfiles/condmodel.prism";
+		String pathParallel = "/home/azlan/git/PrismGames/Prismfiles/parmodel.prism";
 		
-		int pattern = 1;
-		int numNode = 2;
-		int numofService = 50;
-		int numofResource = 5;
+		int pattern = 0;	//0-single, 1-sequential, 2-conditional, 3-parallel
+		int numNode = 1;
+		int numofService = 200;
+		int numofResource = 2;
 		
 		int durR=10, costR=20;
 		double relR=0.9, wcostR=0.3, wdurR=0.3, wrelR=0.4;
@@ -734,63 +1493,47 @@ public class ModelGenerator {
 		boolean avail=true;
 		Random rand = new Random();
 		
-		if (pattern==0) {
-			try {
-					if(numNode <= 1) {
-						ModelGenerator mdg = new ModelGenerator(pathSingle);
-						mdg.setValuesStatus(true);
-						mdg.setParamsNames("p1", "p2", "planner", "environment");
-						mdg.setUpperBounds(numNode, numofService, numofResource);
-						mdg.setUserRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-						for(int n=0; n < numNode; n++) {
-							for(int i=0; i < numofService; i++) {
-								for(int j=0; j < numofResource; j++) {
-									cost = rand.nextInt(50) + 10;
-									dur = rand.nextInt(100);
-									rel = rand.nextDouble();
-									mdg.setProfiles(n, i, j, cost, avail, dur, rel);
-								}
-							}
-						}
-						
-						mdg.generateSeqModel();
-					}
-					else
-						System.out.println("Require number of node to be 1...");
-			}
-			catch (ArrayIndexOutOfBoundsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		ModelGenerator mdg = new ModelGenerator();
+		mdg.setValuesStatus(true);
+		mdg.setPattern(pattern);
+		
+		//set all the relevant parameters
+		mdg.setParamsNames("p1", "p2", "planner", "environment");
+		mdg.setUpperBounds(numNode, numofService, numofResource);
+		mdg.setUserRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+		for(int n=0; n < numNode; n++) {
+			for(int i=0; i < numofService; i++) {
+				for(int j=0; j < numofResource; j++) {
+					cost = rand.nextInt(50) + 10;
+					dur = rand.nextInt(100);
+					rel = rand.nextDouble();
+					mdg.setProfiles(n, i, j, cost, avail, dur, rel);
+				}
 			}
 		}
-		else if (pattern==1) {
-			try {
-				ModelGenerator mdg = new ModelGenerator(pathSeq);
-				mdg.setValuesStatus(true);
-				mdg.setParamsNames("p1", "p2", "planner", "environment");
-				mdg.setUpperBounds(numNode, numofService, numofResource);
-				mdg.setUserRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-				for(int n=0; n < numNode; n++) {
-					for(int i=0; i < numofService; i++) {
-						for(int j=0; j < numofResource; j++) {
-							cost = rand.nextInt(50) + 10;
-							dur = rand.nextInt(100);
-							rel = rand.nextDouble();
-							mdg.setProfiles(n, i, j, cost, avail, dur, rel);
-						}
-					}
-				}
-				
-				mdg.generateSeqModel();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		
+		if (pattern==0) {
+			if(numNode <= 1) {
+				mdg.setPath(pathSingle);										
+				mdg.generateSGModel();
 			}
-		}else
+			else
+				System.out.println("Require number of node to be 1 for single node...");	
+		
+		}
+		
+		else if (pattern==1) {
+			//for sequential
+			mdg.setPath(pathSequential);										
+			mdg.generateSGModel();
+		}
+		
+		else if (pattern==2) {
+			//for conditional
+			mdg.setPath(pathCondition);										
+			mdg.generateSGModel();		
+		}
+		else
 			System.out.println("no pattern has been selected");
 			
 		
