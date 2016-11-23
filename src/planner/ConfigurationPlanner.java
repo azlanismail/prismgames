@@ -84,6 +84,11 @@ public class ConfigurationPlanner {
 		vm.addValue(md_wgdur, freeMemory);
 		vm.addValue(md_wgrel, freeMemory);
 	}
+	
+	public void setServiceProfiles() {
+		vm.addValue(md_id, id);
+	}
+	
 	public void setNodeCapabilities(int id, String name, int cpuCores, double cpuLoads, double cpuSpeed, int totalMemory, int freeMemory, String location){
 		//set the following:
 		String md_id = "RS"+id+"_ID";

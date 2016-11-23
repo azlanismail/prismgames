@@ -5,16 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Random;
 
-import explicit.PrismExplicit;
-import prism.Prism;
-import prism.PrismFileLog;
-import prism.PrismLangException;
-import simulator.SimulatorEngine;
+import parser.Values;
+
 
 public class ModelGenerator {
 
 	File outfile;
 	PrintWriter pw;
+	
+	//for assigning constant parameters
+	Values vm, vp;
 	
 	//model configuration
 	private int numNode; //number of activity/task/node in the service composition
@@ -26,6 +26,7 @@ public class ModelGenerator {
 	private String mod2;	//to define the name of P2's module
 	private boolean setValuesStatus;	//to define null parameters or parameters with values
 	private int pattern;	//to determine the type of pattern; 0-single, 1-seq, 2-or, 3-parallel
+	
 	//requirements
 	private int idR;
 	private int costR;
@@ -34,6 +35,13 @@ public class ModelGenerator {
 	private double wcostR;
 	private double wdurR;
 	private double wrelR;
+	
+	//service constants parameters
+	private String[][] idParams;
+	private String[][] costParams;
+	private String[][] availParams;
+	private String[][][] durParams;
+	private String[][][] relParams;
 	
 	//service profiles
 	private int[][] cost;
@@ -100,6 +108,41 @@ public class ModelGenerator {
 		this.pattern = p;
 	}
 	
+	public void setConstParams(int mxN, int mxI, int mxJ) {
+		
+		idParams = new String[mxN][mxI];
+		costParams = new String[mxN][mxI];
+		availParams = new String[mxN][mxI];
+		durParams = new String[mxN][mxI][mxJ];
+		relParams = new String[mxN][mxI][mxJ];
+		
+		for(int n=0; n < mxN; n++) {
+			for(int i=0; i < mxI; i++) {
+				this.idParams[n][i] = "N"+n+"_RS"+i+"_ID";
+				this.costParams[n][i] = "N"+n+"_RS"+i+"_COST";
+				this.availParams[n][i] = "N"+n+"_RS"+i+"_AVAIL";
+				for(int j=0; j < mxJ; j++) {
+					this.durParams[n][i][j] = "N"+n+"_RS"+i+"_DUR"+j;
+					this.relParams[n][i][j] = "N"+n+"_RS"+i+"_REL"+j;
+				}
+			}
+		}
+	}
+	
+	public void assignConstParamswithValues(int mxN, int mxI, int mxJ) {
+		for(int n=0; n < mxN; n++) {
+			for(int i=0; i < mxI; i++) {
+				vm.addValue(this.idParams[n][i], i); 
+				vm.addValue(this.costParams[n][i], this.cost[n][i]);
+				vm.addValue(this.availParams[n][i], this.avail);
+				for(int j=0; j < mxJ; j++) {
+					vm.addValue(this.durParams[n][i][j], this.dur[n][i][j]);
+					vm.addValue(this.relParams[n][i][j], this.rel[n][i][j]);
+				}
+			}
+		}
+	}
+	
 	/**
 	 * 
 	 * @param n - index of node/activity/task
@@ -120,6 +163,22 @@ public class ModelGenerator {
 		//System.out.println(""+this.cost[n][i]+","+this.avail[n][i]+","+this.dur[n][i][j]+","+this.rel[n][i][j]);
 	}
 	
+	public void setAllProfiles(int mxN, int mxI, int mxJ) {
+		Random rand = new Random();
+		int cost, dur;
+		double rel;
+		boolean avail=true;
+		for(int n=0; n < mxN; n++) {
+			for(int i=0; i < mxI; i++) {
+				for(int j=0; j < mxJ; j++) {
+					cost = rand.nextInt(50) + 10;
+					dur = rand.nextInt(100);
+					rel = rand.nextDouble();
+					setProfiles(n, i, j, cost, avail, dur, rel);
+				}
+			}
+		}
+	}
 	public void setValuesStatus(boolean status) {
 		this.setValuesStatus = status;
 	}
@@ -1257,7 +1316,7 @@ public class ModelGenerator {
 			pw.println("//P2 moves for single or sequential pattern:");	
 		 	for(int n=0; n < numNode; n++) {
 			 	for(int i=0; i < maxActionP2; i++) {
-			 		pw.println("[n"+n+"e"+i+"] (t=TE) & (n="+n+") -> n"+n+"ev"+i+"_rel:(n"+n+"ev'="+i+") & (t'=TS) & (n'=n+1) + 1-n"+n+"ev"+i+"_rel:(n"+n+"ev'=-1) & (t'=TS) & (n'=n+1);");			
+			 		pw.println("[n"+n+"e"+i+"] (t=TE) & (n="+n+") -> n"+n+"ev"+i+"_rel:(n"+n+"ev'="+i+") & (t'=TS) & (n'=n+1) + 1-n"+n+"ev"+i+"_rel:(n"+n+"ev'=-1) & (t'=TS) & (n'=MXN);");			
 			 	}
 		 	}
 	 	}
@@ -1481,18 +1540,14 @@ public class ModelGenerator {
 		String pathCondition = "/home/azlan/git/PrismGames/Prismfiles/condmodel.prism";
 		String pathParallel = "/home/azlan/git/PrismGames/Prismfiles/parmodel.prism";
 		
-		int pattern = 0;	//0-single, 1-sequential, 2-conditional, 3-parallel
-		int numNode = 1;
-		int numofService = 200;
+		int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel
+		int numNode = 2;
+		int numofService = 20;
 		int numofResource = 2;
 		
 		int durR=10, costR=20;
 		double relR=0.9, wcostR=0.3, wdurR=0.3, wrelR=0.4;
-		int dur=30, cost=15;
-		double rel=0.95;
-		boolean avail=true;
-		Random rand = new Random();
-		
+				
 		ModelGenerator mdg = new ModelGenerator();
 		mdg.setValuesStatus(true);
 		mdg.setPattern(pattern);
@@ -1501,16 +1556,8 @@ public class ModelGenerator {
 		mdg.setParamsNames("p1", "p2", "planner", "environment");
 		mdg.setUpperBounds(numNode, numofService, numofResource);
 		mdg.setUserRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-		for(int n=0; n < numNode; n++) {
-			for(int i=0; i < numofService; i++) {
-				for(int j=0; j < numofResource; j++) {
-					cost = rand.nextInt(50) + 10;
-					dur = rand.nextInt(100);
-					rel = rand.nextDouble();
-					mdg.setProfiles(n, i, j, cost, avail, dur, rel);
-				}
-			}
-		}
+		mdg.setAllProfiles(numNode, numofService, numofResource);
+		
 		
 		if (pattern==0) {
 			if(numNode <= 1) {

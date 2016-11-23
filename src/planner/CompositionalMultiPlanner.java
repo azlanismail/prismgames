@@ -81,6 +81,8 @@ public class CompositionalMultiPlanner {
 		private int stage;
 		private boolean synthesisStatus = false;
 		
+	//	public CompositionalMultiPlanner() { }
+		
 		public CompositionalMultiPlanner() {
 			//this.stage = sg;
 			initiatePlanner();
@@ -88,7 +90,15 @@ public class CompositionalMultiPlanner {
 			//setDelay();
 		}
 		
-		private void initiatePlanner(){
+		public void setModelPath(String path) {
+			
+		}
+		
+		public void setPropsPath(String path) {
+			
+		}
+		
+		public void initiatePlanner(){
 			mainLog = new PrismFileLog(logPath);
 	        prism = new Prism(mainLog , mainLog);
 	        //prismCom = new PrismComponent();
