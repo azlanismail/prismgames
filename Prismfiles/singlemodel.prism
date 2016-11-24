@@ -9,178 +9,178 @@ environment,[n0e0],[n0e1]
 endplayer
 
 //=========User Requirements=======
-const int A0_ID = 0;
-const int A0_DUR = 10; //cost
-const double A0_REL = 0.9; //reliability
-const double A0_COST= 20; //max cost
-const double A0_WG_COST = 0.3; //weight for cost
-const double A0_WG_DUR = 0.3; //weight for duration
-const double A0_WG_REL = 0.4; //weight for reliability
+const int A0_ID; // = 0;
+const int A0_DUR; // = 5;	//max duration
+const double A0_REL; // = 0.6; //reliability
+const double A0_COST; // = 10.0; //max cost
+const double A0_WG_COST; // = 0.3; //weight for cost
+const double A0_WG_DUR; // = 0.3; //weight for duration
+const double A0_WG_REL; // = 0.4; //weight for reliability
 
 //=========Resource Profiles=======
 const int MXN=1;
 const int N0_MAX_SV=20;	//finite number of services
 const int N0_MAX_EV=2;	//finite number of computing nodes
 
-const int N0_RS0_ID = 0;
-const int N0_RS0_COST = 48;	//cost
-const bool N0_RS0_AVAIL = true;	//availability status
-const int N0_RS0_DUR0 = 54;	//duration 0;
-const int N0_RS0_DUR1 = 2;	//duration 1;
-const double N0_RS0_REL0 = 0.2737894612926892;	//reliability 0;
-const double N0_RS0_REL1 = 0.0022815962409890034;	//reliability 1;
+const int N0_RS0_ID;
+const int N0_RS0_COST;	//cost
+const bool N0_RS0_AVAIL;	//availability status
+const int N0_RS0_DUR0;	//duration 0;
+const int N0_RS0_DUR1;	//duration 1;
+const double N0_RS0_REL0;	//reliability 0;
+const double N0_RS0_REL1;	//reliability 1;
 
-const int N0_RS1_ID = 1;
-const int N0_RS1_COST = 21;	//cost
-const bool N0_RS1_AVAIL = true;	//availability status
-const int N0_RS1_DUR0 = 16;	//duration 0;
-const int N0_RS1_DUR1 = 78;	//duration 1;
-const double N0_RS1_REL0 = 0.4770728775896991;	//reliability 0;
-const double N0_RS1_REL1 = 0.5459644621772255;	//reliability 1;
+const int N0_RS1_ID;
+const int N0_RS1_COST;	//cost
+const bool N0_RS1_AVAIL;	//availability status
+const int N0_RS1_DUR0;	//duration 0;
+const int N0_RS1_DUR1;	//duration 1;
+const double N0_RS1_REL0;	//reliability 0;
+const double N0_RS1_REL1;	//reliability 1;
 
-const int N0_RS2_ID = 2;
-const int N0_RS2_COST = 58;	//cost
-const bool N0_RS2_AVAIL = true;	//availability status
-const int N0_RS2_DUR0 = 15;	//duration 0;
-const int N0_RS2_DUR1 = 76;	//duration 1;
-const double N0_RS2_REL0 = 0.7549061149726707;	//reliability 0;
-const double N0_RS2_REL1 = 0.9970381907077518;	//reliability 1;
+const int N0_RS2_ID;
+const int N0_RS2_COST;	//cost
+const bool N0_RS2_AVAIL;	//availability status
+const int N0_RS2_DUR0;	//duration 0;
+const int N0_RS2_DUR1;	//duration 1;
+const double N0_RS2_REL0;	//reliability 0;
+const double N0_RS2_REL1;	//reliability 1;
 
-const int N0_RS3_ID = 3;
-const int N0_RS3_COST = 42;	//cost
-const bool N0_RS3_AVAIL = true;	//availability status
-const int N0_RS3_DUR0 = 67;	//duration 0;
-const int N0_RS3_DUR1 = 59;	//duration 1;
-const double N0_RS3_REL0 = 0.956426753617919;	//reliability 0;
-const double N0_RS3_REL1 = 0.13515603759902783;	//reliability 1;
+const int N0_RS3_ID;
+const int N0_RS3_COST;	//cost
+const bool N0_RS3_AVAIL;	//availability status
+const int N0_RS3_DUR0;	//duration 0;
+const int N0_RS3_DUR1;	//duration 1;
+const double N0_RS3_REL0;	//reliability 0;
+const double N0_RS3_REL1;	//reliability 1;
 
-const int N0_RS4_ID = 4;
-const int N0_RS4_COST = 43;	//cost
-const bool N0_RS4_AVAIL = true;	//availability status
-const int N0_RS4_DUR0 = 18;	//duration 0;
-const int N0_RS4_DUR1 = 36;	//duration 1;
-const double N0_RS4_REL0 = 0.3695418772308878;	//reliability 0;
-const double N0_RS4_REL1 = 0.5981370792238015;	//reliability 1;
+const int N0_RS4_ID;
+const int N0_RS4_COST;	//cost
+const bool N0_RS4_AVAIL;	//availability status
+const int N0_RS4_DUR0;	//duration 0;
+const int N0_RS4_DUR1;	//duration 1;
+const double N0_RS4_REL0;	//reliability 0;
+const double N0_RS4_REL1;	//reliability 1;
 
-const int N0_RS5_ID = 5;
-const int N0_RS5_COST = 23;	//cost
-const bool N0_RS5_AVAIL = true;	//availability status
-const int N0_RS5_DUR0 = 57;	//duration 0;
-const int N0_RS5_DUR1 = 61;	//duration 1;
-const double N0_RS5_REL0 = 0.18720240180107584;	//reliability 0;
-const double N0_RS5_REL1 = 0.18533048934315532;	//reliability 1;
+const int N0_RS5_ID;
+const int N0_RS5_COST;	//cost
+const bool N0_RS5_AVAIL;	//availability status
+const int N0_RS5_DUR0;	//duration 0;
+const int N0_RS5_DUR1;	//duration 1;
+const double N0_RS5_REL0;	//reliability 0;
+const double N0_RS5_REL1;	//reliability 1;
 
-const int N0_RS6_ID = 6;
-const int N0_RS6_COST = 21;	//cost
-const bool N0_RS6_AVAIL = true;	//availability status
-const int N0_RS6_DUR0 = 79;	//duration 0;
-const int N0_RS6_DUR1 = 77;	//duration 1;
-const double N0_RS6_REL0 = 0.44547243384960244;	//reliability 0;
-const double N0_RS6_REL1 = 0.9878927928967025;	//reliability 1;
+const int N0_RS6_ID;
+const int N0_RS6_COST;	//cost
+const bool N0_RS6_AVAIL;	//availability status
+const int N0_RS6_DUR0;	//duration 0;
+const int N0_RS6_DUR1;	//duration 1;
+const double N0_RS6_REL0;	//reliability 0;
+const double N0_RS6_REL1;	//reliability 1;
 
-const int N0_RS7_ID = 7;
-const int N0_RS7_COST = 21;	//cost
-const bool N0_RS7_AVAIL = true;	//availability status
-const int N0_RS7_DUR0 = 60;	//duration 0;
-const int N0_RS7_DUR1 = 16;	//duration 1;
-const double N0_RS7_REL0 = 0.2903577911930796;	//reliability 0;
-const double N0_RS7_REL1 = 0.28155529230838094;	//reliability 1;
+const int N0_RS7_ID;
+const int N0_RS7_COST;	//cost
+const bool N0_RS7_AVAIL;	//availability status
+const int N0_RS7_DUR0;	//duration 0;
+const int N0_RS7_DUR1;	//duration 1;
+const double N0_RS7_REL0;	//reliability 0;
+const double N0_RS7_REL1;	//reliability 1;
 
-const int N0_RS8_ID = 8;
-const int N0_RS8_COST = 13;	//cost
-const bool N0_RS8_AVAIL = true;	//availability status
-const int N0_RS8_DUR0 = 43;	//duration 0;
-const int N0_RS8_DUR1 = 54;	//duration 1;
-const double N0_RS8_REL0 = 0.7203970771651258;	//reliability 0;
-const double N0_RS8_REL1 = 0.7981231879523417;	//reliability 1;
+const int N0_RS8_ID;
+const int N0_RS8_COST;	//cost
+const bool N0_RS8_AVAIL;	//availability status
+const int N0_RS8_DUR0;	//duration 0;
+const int N0_RS8_DUR1;	//duration 1;
+const double N0_RS8_REL0;	//reliability 0;
+const double N0_RS8_REL1;	//reliability 1;
 
-const int N0_RS9_ID = 9;
-const int N0_RS9_COST = 46;	//cost
-const bool N0_RS9_AVAIL = true;	//availability status
-const int N0_RS9_DUR0 = 21;	//duration 0;
-const int N0_RS9_DUR1 = 61;	//duration 1;
-const double N0_RS9_REL0 = 0.2733070542372913;	//reliability 0;
-const double N0_RS9_REL1 = 0.20386216465768825;	//reliability 1;
+const int N0_RS9_ID;
+const int N0_RS9_COST;	//cost
+const bool N0_RS9_AVAIL;	//availability status
+const int N0_RS9_DUR0;	//duration 0;
+const int N0_RS9_DUR1;	//duration 1;
+const double N0_RS9_REL0;	//reliability 0;
+const double N0_RS9_REL1;	//reliability 1;
 
-const int N0_RS10_ID = 10;
-const int N0_RS10_COST = 35;	//cost
-const bool N0_RS10_AVAIL = true;	//availability status
-const int N0_RS10_DUR0 = 39;	//duration 0;
-const int N0_RS10_DUR1 = 25;	//duration 1;
-const double N0_RS10_REL0 = 0.47751416747105413;	//reliability 0;
-const double N0_RS10_REL1 = 0.3560915261949401;	//reliability 1;
+const int N0_RS10_ID;
+const int N0_RS10_COST;	//cost
+const bool N0_RS10_AVAIL;	//availability status
+const int N0_RS10_DUR0;	//duration 0;
+const int N0_RS10_DUR1;	//duration 1;
+const double N0_RS10_REL0;	//reliability 0;
+const double N0_RS10_REL1;	//reliability 1;
 
-const int N0_RS11_ID = 11;
-const int N0_RS11_COST = 39;	//cost
-const bool N0_RS11_AVAIL = true;	//availability status
-const int N0_RS11_DUR0 = 52;	//duration 0;
-const int N0_RS11_DUR1 = 13;	//duration 1;
-const double N0_RS11_REL0 = 0.27319228632856163;	//reliability 0;
-const double N0_RS11_REL1 = 0.18371790748196282;	//reliability 1;
+const int N0_RS11_ID;
+const int N0_RS11_COST;	//cost
+const bool N0_RS11_AVAIL;	//availability status
+const int N0_RS11_DUR0;	//duration 0;
+const int N0_RS11_DUR1;	//duration 1;
+const double N0_RS11_REL0;	//reliability 0;
+const double N0_RS11_REL1;	//reliability 1;
 
-const int N0_RS12_ID = 12;
-const int N0_RS12_COST = 49;	//cost
-const bool N0_RS12_AVAIL = true;	//availability status
-const int N0_RS12_DUR0 = 50;	//duration 0;
-const int N0_RS12_DUR1 = 24;	//duration 1;
-const double N0_RS12_REL0 = 0.022465955897203127;	//reliability 0;
-const double N0_RS12_REL1 = 0.8431072889474486;	//reliability 1;
+const int N0_RS12_ID;
+const int N0_RS12_COST;	//cost
+const bool N0_RS12_AVAIL;	//availability status
+const int N0_RS12_DUR0;	//duration 0;
+const int N0_RS12_DUR1;	//duration 1;
+const double N0_RS12_REL0;	//reliability 0;
+const double N0_RS12_REL1;	//reliability 1;
 
-const int N0_RS13_ID = 13;
-const int N0_RS13_COST = 52;	//cost
-const bool N0_RS13_AVAIL = true;	//availability status
-const int N0_RS13_DUR0 = 24;	//duration 0;
-const int N0_RS13_DUR1 = 79;	//duration 1;
-const double N0_RS13_REL0 = 0.1747281391001061;	//reliability 0;
-const double N0_RS13_REL1 = 0.1376067307933886;	//reliability 1;
+const int N0_RS13_ID;
+const int N0_RS13_COST;	//cost
+const bool N0_RS13_AVAIL;	//availability status
+const int N0_RS13_DUR0;	//duration 0;
+const int N0_RS13_DUR1;	//duration 1;
+const double N0_RS13_REL0;	//reliability 0;
+const double N0_RS13_REL1;	//reliability 1;
 
-const int N0_RS14_ID = 14;
-const int N0_RS14_COST = 11;	//cost
-const bool N0_RS14_AVAIL = true;	//availability status
-const int N0_RS14_DUR0 = 59;	//duration 0;
-const int N0_RS14_DUR1 = 59;	//duration 1;
-const double N0_RS14_REL0 = 0.13055935479706748;	//reliability 0;
-const double N0_RS14_REL1 = 0.057192024589124424;	//reliability 1;
+const int N0_RS14_ID;
+const int N0_RS14_COST;	//cost
+const bool N0_RS14_AVAIL;	//availability status
+const int N0_RS14_DUR0;	//duration 0;
+const int N0_RS14_DUR1;	//duration 1;
+const double N0_RS14_REL0;	//reliability 0;
+const double N0_RS14_REL1;	//reliability 1;
 
-const int N0_RS15_ID = 15;
-const int N0_RS15_COST = 26;	//cost
-const bool N0_RS15_AVAIL = true;	//availability status
-const int N0_RS15_DUR0 = 66;	//duration 0;
-const int N0_RS15_DUR1 = 81;	//duration 1;
-const double N0_RS15_REL0 = 0.35652540044991776;	//reliability 0;
-const double N0_RS15_REL1 = 0.6941309266215339;	//reliability 1;
+const int N0_RS15_ID;
+const int N0_RS15_COST;	//cost
+const bool N0_RS15_AVAIL;	//availability status
+const int N0_RS15_DUR0;	//duration 0;
+const int N0_RS15_DUR1;	//duration 1;
+const double N0_RS15_REL0;	//reliability 0;
+const double N0_RS15_REL1;	//reliability 1;
 
-const int N0_RS16_ID = 16;
-const int N0_RS16_COST = 51;	//cost
-const bool N0_RS16_AVAIL = true;	//availability status
-const int N0_RS16_DUR0 = 67;	//duration 0;
-const int N0_RS16_DUR1 = 83;	//duration 1;
-const double N0_RS16_REL0 = 0.34316893247753966;	//reliability 0;
-const double N0_RS16_REL1 = 0.7212161013986996;	//reliability 1;
+const int N0_RS16_ID;
+const int N0_RS16_COST;	//cost
+const bool N0_RS16_AVAIL;	//availability status
+const int N0_RS16_DUR0;	//duration 0;
+const int N0_RS16_DUR1;	//duration 1;
+const double N0_RS16_REL0;	//reliability 0;
+const double N0_RS16_REL1;	//reliability 1;
 
-const int N0_RS17_ID = 17;
-const int N0_RS17_COST = 21;	//cost
-const bool N0_RS17_AVAIL = true;	//availability status
-const int N0_RS17_DUR0 = 70;	//duration 0;
-const int N0_RS17_DUR1 = 74;	//duration 1;
-const double N0_RS17_REL0 = 0.5697998623548369;	//reliability 0;
-const double N0_RS17_REL1 = 0.08103566592563705;	//reliability 1;
+const int N0_RS17_ID;
+const int N0_RS17_COST;	//cost
+const bool N0_RS17_AVAIL;	//availability status
+const int N0_RS17_DUR0;	//duration 0;
+const int N0_RS17_DUR1;	//duration 1;
+const double N0_RS17_REL0;	//reliability 0;
+const double N0_RS17_REL1;	//reliability 1;
 
-const int N0_RS18_ID = 18;
-const int N0_RS18_COST = 45;	//cost
-const bool N0_RS18_AVAIL = true;	//availability status
-const int N0_RS18_DUR0 = 35;	//duration 0;
-const int N0_RS18_DUR1 = 63;	//duration 1;
-const double N0_RS18_REL0 = 0.24222824891713302;	//reliability 0;
-const double N0_RS18_REL1 = 0.5279133289216101;	//reliability 1;
+const int N0_RS18_ID;
+const int N0_RS18_COST;	//cost
+const bool N0_RS18_AVAIL;	//availability status
+const int N0_RS18_DUR0;	//duration 0;
+const int N0_RS18_DUR1;	//duration 1;
+const double N0_RS18_REL0;	//reliability 0;
+const double N0_RS18_REL1;	//reliability 1;
 
-const int N0_RS19_ID = 19;
-const int N0_RS19_COST = 49;	//cost
-const bool N0_RS19_AVAIL = true;	//availability status
-const int N0_RS19_DUR0 = 41;	//duration 0;
-const int N0_RS19_DUR1 = 4;	//duration 1;
-const double N0_RS19_REL0 = 0.20337263223407265;	//reliability 0;
-const double N0_RS19_REL1 = 0.18856456402924082;	//reliability 1;
+const int N0_RS19_ID;
+const int N0_RS19_COST;	//cost
+const bool N0_RS19_AVAIL;	//availability status
+const int N0_RS19_DUR0;	//duration 0;
+const int N0_RS19_DUR1;	//duration 1;
+const double N0_RS19_REL0;	//reliability 0;
+const double N0_RS19_REL1;	//reliability 1;
 
 
 //=========Global Parameters=======

@@ -109,6 +109,15 @@ public class StochasticPlanner {
 		conf.setNodeCapabilities(id, name, cpuCores, cpuLoads, cpuSpeed, totalMemory, freeMemory, location);
 	}
 
+	public void setUndefinedValues(Values vm) {
+		try {
+			modulesFile.setUndefinedConstants(vm);
+		} catch (PrismLangException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
+	
 	public void checkInitialModel() {		
 		    
 		 try {
@@ -134,9 +143,9 @@ public class StochasticPlanner {
 		    smg.setGenerateStrategy(true);
    	 
 		    System.out.println("Synthesizing the reward.....");
-		  	rsRwd1 = smg.check(model, propertiesFile.getProperty(0)); //max reward of cpu speed of G0
+		    rsMulti1 = smg.check(model, propertiesFile.getProperty(4)); //max reward of cpu speed of G0
 		     
-		  	System.out.println("The result from model checking (SMG) is :"+ rsRwd1.getResult()); 
+		  	System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult()); 
 		     		
 		 }//end of try
 		 catch (PrismLangException e) {
@@ -277,10 +286,14 @@ public class StochasticPlanner {
      * Objective: It extracts the transitions which have been synthesized
      * @throws PrismException
      */
-    public void exportTrans() throws PrismException
+    public void exportTrans()
     {
-		File transFile = new File(transPath);
-   		model.exportToPrismExplicitTra(transFile);
+   		try {
+			model.exportToPrismExplicitTra(new File(transPath));
+		} catch (PrismException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     
@@ -394,17 +407,14 @@ public class StochasticPlanner {
      */
     public void generate()
     {        
-     try {
+   
     	 	//synthesize the model
 			checkModelbyPrismEx();
 			//export the transitions
 			exportTrans();
 			//export the strategies
 			exportStrategy();
-		} catch (PrismException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
            
        	//get the adaptation strategy
        	try {

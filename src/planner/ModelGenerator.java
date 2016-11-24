@@ -10,8 +10,7 @@ import parser.Values;
 
 public class ModelGenerator {
 
-	File outfile;
-	PrintWriter pw;
+	PrintWriter pw, pp;
 	
 	//for assigning constant parameters
 	Values vm, vp;
@@ -56,8 +55,7 @@ public class ModelGenerator {
 	
 	public ModelGenerator(String path) {
 		try {
-			outfile = new File(path);
-			pw = new PrintWriter(outfile);
+			pw = new PrintWriter(new File(path));
 		}
 		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -65,10 +63,19 @@ public class ModelGenerator {
 		}
 	}
 	
-	public void setPath(String path) {
+	public void setModelPath(String path) {
 		try {
-			outfile = new File(path);
-			pw = new PrintWriter(outfile);
+			pw = new PrintWriter(new File(path));
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void setPropPath(String path) {
+		try {
+			pp = new PrintWriter(new File(path));
 		}
 		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -83,7 +90,7 @@ public class ModelGenerator {
 		this.mod2 = mod2;
 	}
 	
-	public void setUserRequirements(int reqId, int cost, int dur, double rel, double wcost, double wdur, double wrel) {
+	public void setRequirements(int reqId, int cost, int dur, double rel, double wcost, double wdur, double wrel) {
 		this.idR = reqId;
 		this.costR = cost;
 		this.durR = dur;
@@ -92,7 +99,7 @@ public class ModelGenerator {
 		this.wdurR = wdur;
 		this.wrelR = wrel;
 	}
-	
+	 	
 	public void setUpperBounds(int numNode, int mxActionP1, int mxActionP2) {
 		this.numNode = numNode;
 		this.maxActionP1 = mxActionP1;
@@ -108,40 +115,59 @@ public class ModelGenerator {
 		this.pattern = p;
 	}
 	
-	public void setConstParams(int mxN, int mxI, int mxJ) {
+	public void setReqParamswithValues() {
 		
-		idParams = new String[mxN][mxI];
-		costParams = new String[mxN][mxI];
-		availParams = new String[mxN][mxI];
-		durParams = new String[mxN][mxI][mxJ];
-		relParams = new String[mxN][mxI][mxJ];
+		if (vm == null) {
+			vm = new Values();
+		}
+		vm.addValue("A0_ID", this.idR); 
+		vm.addValue("A0_DUR", this.costR); 
+		vm.addValue("A0_REL", this.durR); 
+		vm.addValue("A0_COST", this.relR); 
+		vm.addValue("A0_WG_COST", this.wcostR); 
+		vm.addValue("A0_WG_DUR", this.wdurR); 
+		vm.addValue("A0_WG_REL",this.wrelR); 
+	}
+	
+	public void setServParamswithValues() {
 		
-		for(int n=0; n < mxN; n++) {
-			for(int i=0; i < mxI; i++) {
+		if (vm == null) {
+			vm = new Values();
+		}
+		
+		//constant parameters for service profiles
+		idParams = new String[this.numNode][this.maxActionP1];
+		costParams = new String[this.numNode][this.maxActionP1];
+		availParams = new String[this.numNode][this.maxActionP1];
+		durParams = new String[this.numNode][this.maxActionP1][this.maxActionP2];
+		relParams = new String[this.numNode][this.maxActionP1][this.maxActionP2];
+		
+		for(int n=0; n < this.numNode; n++) {
+			for(int i=0; i < this.maxActionP1; i++) {
 				this.idParams[n][i] = "N"+n+"_RS"+i+"_ID";
 				this.costParams[n][i] = "N"+n+"_RS"+i+"_COST";
 				this.availParams[n][i] = "N"+n+"_RS"+i+"_AVAIL";
-				for(int j=0; j < mxJ; j++) {
+				for(int j=0; j < this.maxActionP2; j++) {
 					this.durParams[n][i][j] = "N"+n+"_RS"+i+"_DUR"+j;
 					this.relParams[n][i][j] = "N"+n+"_RS"+i+"_REL"+j;
 				}
 			}
 		}
-	}
-	
-	public void assignConstParamswithValues(int mxN, int mxI, int mxJ) {
-		for(int n=0; n < mxN; n++) {
-			for(int i=0; i < mxI; i++) {
+		
+		for(int n=0; n < this.numNode; n++) {
+			for(int i=0; i < this.maxActionP1; i++) {
 				vm.addValue(this.idParams[n][i], i); 
 				vm.addValue(this.costParams[n][i], this.cost[n][i]);
-				vm.addValue(this.availParams[n][i], this.avail);
-				for(int j=0; j < mxJ; j++) {
+				vm.addValue(this.availParams[n][i], this.avail[n][i]);
+				for(int j=0; j < this.maxActionP2; j++) {
 					vm.addValue(this.durParams[n][i][j], this.dur[n][i][j]);
 					vm.addValue(this.relParams[n][i][j], this.rel[n][i][j]);
 				}
 			}
 		}
+		
 	}
+	
 	
 	/**
 	 * 
@@ -163,15 +189,16 @@ public class ModelGenerator {
 		//System.out.println(""+this.cost[n][i]+","+this.avail[n][i]+","+this.dur[n][i][j]+","+this.rel[n][i][j]);
 	}
 	
-	public void setAllProfiles(int mxN, int mxI, int mxJ) {
+	public void setAllRandomServProfiles() {
 		Random rand = new Random();
 		int cost, dur;
 		double rel;
-		boolean avail=true;
-		for(int n=0; n < mxN; n++) {
-			for(int i=0; i < mxI; i++) {
-				for(int j=0; j < mxJ; j++) {
-					cost = rand.nextInt(50) + 10;
+		boolean avail;
+		for(int n=0; n < this.numNode; n++) {
+			for(int i=0; i < this.maxActionP1; i++) {
+				cost = rand.nextInt(50) + 10;
+				avail = rand.nextBoolean();
+				for(int j=0; j < this.maxActionP2; j++) {
 					dur = rand.nextInt(100);
 					rel = rand.nextDouble();
 					setProfiles(n, i, j, cost, avail, dur, rel);
@@ -182,6 +209,11 @@ public class ModelGenerator {
 	public void setValuesStatus(boolean status) {
 		this.setValuesStatus = status;
 	}
+	
+	public Values getDefinedValues() {
+		return vm;
+	}
+	
 	public void generateSingleNodeModel()  {
    	 	
    	 	pw.println("smg");
@@ -1532,6 +1564,31 @@ public class ModelGenerator {
 	 	pw.close();
     }
 	
+	
+	public void generateProperties() {
+		
+		//pp.println("const double MAXCS = 300;");
+		//pp.println("const double MAXFR = 0.25;");
+		//pp.println("const double MAXRT = 200;");
+		
+		pp.println("const int MAXCS = "+this.costR+";");
+		pp.println("const int MAXRT = "+this.durR+";");
+		pp.println("const double MAXFR = "+this.relR+";");
+		
+		
+		//pp.println("const int MINCS = 20;");
+		//pp.println("const int MINRT = 40;");
+		//pp.println();
+		pp.println("<<p1>> R{\"cost\"}max=? [ F \"done\" ]");
+		pp.println("<<p1>> R{\"time\"}max=? [ F \"done\" ]");
+		pp.println("<<p1>> R{\"reliability\"}max=? [ F \"done\" ]");
+		pp.println("<<p1>> R{\"utility\"}max=? [ F \"done\" ]");
+		pp.println("<<p1>> (R{\"cost\"}<=MAXCS [C] & R{\"time\"}<=MAXRT [C ])");
+				
+		pp.close();
+	}
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -1555,13 +1612,13 @@ public class ModelGenerator {
 		//set all the relevant parameters
 		mdg.setParamsNames("p1", "p2", "planner", "environment");
 		mdg.setUpperBounds(numNode, numofService, numofResource);
-		mdg.setUserRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-		mdg.setAllProfiles(numNode, numofService, numofResource);
+		mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+		mdg.setAllRandomServProfiles();
 		
 		
 		if (pattern==0) {
 			if(numNode <= 1) {
-				mdg.setPath(pathSingle);										
+				mdg.setModelPath(pathSingle);										
 				mdg.generateSGModel();
 			}
 			else
@@ -1571,13 +1628,13 @@ public class ModelGenerator {
 		
 		else if (pattern==1) {
 			//for sequential
-			mdg.setPath(pathSequential);										
+			mdg.setModelPath(pathSequential);										
 			mdg.generateSGModel();
 		}
 		
 		else if (pattern==2) {
 			//for conditional
-			mdg.setPath(pathCondition);										
+			mdg.setModelPath(pathCondition);										
 			mdg.generateSGModel();		
 		}
 		else
