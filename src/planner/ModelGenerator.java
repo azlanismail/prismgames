@@ -14,6 +14,7 @@ public class ModelGenerator {
 	
 	//for assigning constant parameters
 	Values vm, vp;
+	Values[] vpar;
 	
 	//model configuration
 	private int numNode; //number of activity/task/node in the service composition
@@ -129,19 +130,24 @@ public class ModelGenerator {
 		vm.addValue("A0_WG_REL",this.wrelR); 
 	}
 	
-	public void setServParamswithValues() {
-		
-		if (vm == null) {
-			vm = new Values();
-		}
-		
+	/**
+	 * prepare the arrays to hold the identifier of the constant parameters 
+	 */
+	public void createServParams() {
 		//constant parameters for service profiles
 		idParams = new String[this.numNode][this.maxActionP1];
 		costParams = new String[this.numNode][this.maxActionP1];
 		availParams = new String[this.numNode][this.maxActionP1];
 		durParams = new String[this.numNode][this.maxActionP1][this.maxActionP2];
 		relParams = new String[this.numNode][this.maxActionP1][this.maxActionP2];
+	}
+	
+	public void setServParamswithValues() {
 		
+		if (vm == null) {
+			vm = new Values();
+		}
+				
 		for(int n=0; n < this.numNode; n++) {
 			for(int i=0; i < this.maxActionP1; i++) {
 				this.idParams[n][i] = "N"+n+"_RS"+i+"_ID";
@@ -168,7 +174,60 @@ public class ModelGenerator {
 		
 	}
 	
+	public void createValueInstances(int maxIns) {
+		if (vpar == null) {
+			vpar = new Values[maxIns];
+		}
+	}
 	
+	public void setParReqParamswithValues(int k) {
+	
+		if (vpar[k] == null) {
+			vpar[k] = new Values();
+		}
+		
+		vpar[k].addValue("A0_ID", this.idR); 
+		vpar[k].addValue("A0_DUR", this.costR); 
+		vpar[k].addValue("A0_REL", this.durR); 
+		vpar[k].addValue("A0_COST", this.relR); 
+		vpar[k].addValue("A0_WG_COST", this.wcostR); 
+		vpar[k].addValue("A0_WG_DUR", this.wdurR); 
+		vpar[k].addValue("A0_WG_REL",this.wrelR); 
+	}
+
+	public void setParServParamswithValues(int k) {
+		
+		if (vpar[k] == null) {
+			vpar[k] = new Values();
+		}
+	
+		//creating the constant parameters
+		for(int n=0; n < this.numNode; n++) {
+			for(int i=0; i < this.maxActionP1; i++) {
+				this.idParams[n][i] = "N"+n+"_RS"+i+"_ID";
+				this.costParams[n][i] = "N"+n+"_RS"+i+"_COST";
+				this.availParams[n][i] = "N"+n+"_RS"+i+"_AVAIL";
+				for(int j=0; j < this.maxActionP2; j++) {
+					this.durParams[n][i][j] = "N"+n+"_RS"+i+"_DUR"+j;
+					this.relParams[n][i][j] = "N"+n+"_RS"+i+"_REL"+j;
+				}
+			}
+		}
+		
+		//assign the values to the parameters
+		for(int n=0; n < this.numNode; n++) {
+			for(int i=0; i < this.maxActionP1; i++) {
+				vpar[k].addValue(this.idParams[n][i], i); 
+				vpar[k].addValue(this.costParams[n][i], this.cost[k][i]);
+				vpar[k].addValue(this.availParams[n][i], this.avail[k][i]);
+				for(int j=0; j < this.maxActionP2; j++) {
+					vpar[k].addValue(this.durParams[n][i][j], this.dur[k][i][j]);
+					vpar[k].addValue(this.relParams[n][i][j], this.rel[k][i][j]);
+				}
+			}
+		}
+		
+	}
 	/**
 	 * 
 	 * @param n - index of node/activity/task
@@ -206,12 +265,36 @@ public class ModelGenerator {
 			}
 		}
 	}
+	
+	public void setParofAllRandomServProfiles(int maxIns) {
+		Random rand = new Random();
+		int cost, dur;
+		double rel;
+		boolean avail;
+		for(int n=0; n < maxIns; n++) {
+			for(int i=0; i < this.maxActionP1; i++) {
+				cost = rand.nextInt(50) + 10;
+				avail = rand.nextBoolean();
+				for(int j=0; j < this.maxActionP2; j++) {
+					dur = rand.nextInt(100);
+					rel = rand.nextDouble();
+					setProfiles(n, i, j, cost, avail, dur, rel);
+				}
+			}
+		}
+	}
+	
+	
 	public void setValuesStatus(boolean status) {
 		this.setValuesStatus = status;
 	}
 	
 	public Values getDefinedValues() {
 		return vm;
+	}
+	
+	public Values getDefinedValuesforPar(int k) {
+		return vpar[k];
 	}
 	
 	public void generateSingleNodeModel()  {
@@ -1197,7 +1280,7 @@ public class ModelGenerator {
 	/**
 	 * To generate a generic stochastic games model for service selection 
 	 */
-	public void generateSGModel()  {
+	public void generateSGModel(int initialNode)  {
    	 	
    	 	pw.println("smg");
    	 	pw.println("//=========Player definition=======");
@@ -1299,9 +1382,10 @@ public class ModelGenerator {
 	 	pw.println("const int TE=0;	//plater 2 state");	
 	 	pw.println("const int TP=1;	//player 1 state");
 		pw.println("const int TS=2;	//coordinator state");
+		pw.println("const int NI="+initialNode+";	//coordinator state");
 	 	pw.println("global t:[TE..TS] init TS;	//to control the turn");
 	 	pw.println("global end : bool init false;	//(absorbing state)");		
-	 	pw.println("global n:[0..MXN] init 0;  //to control the sequence");
+	 	pw.println("global n:[0..MXN] init NI;  //to control the sequence");
 	 	pw.println();		
 	
 
@@ -1326,6 +1410,15 @@ public class ModelGenerator {
 		 		pw.println("[be] (t=TS) & (n < MXN) -> (n'="+n+") & (t'=TP);");
 		 	}
 		}
+	 	
+	 	if (this.pattern == 3) {
+	 		//if parallel pattern
+	 		pw.println("//for parallel pattern");
+		 	for(int n=0; n < numNode; n++) {
+		 		pw.println("[be] (t=TS) & (n < MXN) -> (t'=TP);");
+		 	}
+		}
+	 	
 	 	pw.println("[end] (t=TS) & (n >= MXN) & (end=false) -> (end'=true); //for ending the selection");
  		pw.println("[ter] (t=TS) & (n >= MXN) & (end=true) -> true;	//for absorbing state");
  		
@@ -1352,8 +1445,8 @@ public class ModelGenerator {
 			 	}
 		 	}
 	 	}
-	 	if (pattern == 2) {
-		 	pw.println("//P2 moves for conditional pattern:");	
+	 	if (pattern >= 2) {
+		 	pw.println("//P2 moves for conditional/parallel pattern:");	
 		 	for(int n=0; n < numNode; n++) {
 			 	for(int i=0; i < maxActionP2; i++) {
 			 		pw.println("[n"+n+"e"+i+"] (t=TE) & (n="+n+") -> n"+n+"ev"+i+"_rel:(n"+n+"ev'="+i+") & (t'=TS) & (n'=MXN) + 1-n"+n+"ev"+i+"_rel:(n"+n+"ev'=-1) & (t'=TS) & (n'=MXN);");			
@@ -1619,7 +1712,7 @@ public class ModelGenerator {
 		if (pattern==0) {
 			if(numNode <= 1) {
 				mdg.setModelPath(pathSingle);										
-				mdg.generateSGModel();
+				mdg.generateSGModel(0);
 			}
 			else
 				System.out.println("Require number of node to be 1 for single node...");	
@@ -1629,13 +1722,13 @@ public class ModelGenerator {
 		else if (pattern==1) {
 			//for sequential
 			mdg.setModelPath(pathSequential);										
-			mdg.generateSGModel();
+			mdg.generateSGModel(0);
 		}
 		
 		else if (pattern==2) {
 			//for conditional
 			mdg.setModelPath(pathCondition);										
-			mdg.generateSGModel();		
+			mdg.generateSGModel(0);		
 		}
 		else
 			System.out.println("no pattern has been selected");

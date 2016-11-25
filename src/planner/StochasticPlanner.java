@@ -75,32 +75,31 @@ public class StochasticPlanner {
 	
 	public StochasticPlanner() {  }
 	
-	public void setPaths(String modelPath, String propsPath) {
-		this.modelPath = modelPath;
-		this.propPath = propsPath;
-	}
+	
 	public void initiatePlanner(){
 		mainLog = new PrismFileLog(logPath);
         prism = new Prism(mainLog , mainLog);
         simEngine = new SimulatorEngine(prismCom, prism);
         prismEx = new PrismExplicit(mainLog, prism.getSettings());
        
-        //for parsing model and property file
-    	try {
-    			modulesFile = prism.parseModelFile(new File(modelPath));
-    			propertiesFile = prism.parsePropertiesFile(modulesFile, new File(propPath));
-		} catch (FileNotFoundException | PrismLangException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-    	
     	//for assigning values of constants
     	conf = new ConfigurationPlanner();
     	
       	//for extracting strategy
     	ste = new StrategyExtraction(transPath, stratCompPath, stratMultiCompPath, stratMulti1Path, stratMulti2Path, actionLabelAPath, actionLabelBPath);	
     }
-		
+	
+	public void parseModelandProperties(String modelPath, String propsPath) {
+		 //for parsing model and property file
+    	try {
+    			modulesFile = prism.parseModelFile(new File(modelPath));
+    			propertiesFile = prism.parsePropertiesFile(modulesFile, new File(propsPath));
+		} catch (FileNotFoundException | PrismLangException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
 	public void setApplicationRequirements(int id, int cpuCores, double cpuLoads, double cpuSpeed, int totalMemory, int freeMemory){
 		conf.setAppRequirements(id, cpuCores, cpuLoads, cpuSpeed, totalMemory, freeMemory);
 	}
@@ -142,7 +141,7 @@ public class StochasticPlanner {
 		    smg.setComputeParetoSet(false);
 		    smg.setGenerateStrategy(true);
    	 
-		    System.out.println("Synthesizing the reward.....");
+		    System.out.println("Synthesizing the model.....");
 		    rsMulti1 = smg.check(model, propertiesFile.getProperty(4)); //max reward of cpu speed of G0
 		     
 		  	System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult()); 
