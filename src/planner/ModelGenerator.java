@@ -3,6 +3,7 @@ package planner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Random;
 
 import parser.Values;
@@ -10,7 +11,7 @@ import parser.Values;
 
 public class ModelGenerator {
 
-	PrintWriter pw, pp;
+	PrintWriter pw, pp, ac;
 	
 	//for assigning constant parameters
 	Values vm, vp;
@@ -295,6 +296,36 @@ public class ModelGenerator {
 	
 	public Values getDefinedValuesforPar(int k) {
 		return vpar[k];
+	}
+	
+	public String[][] getActionLabels() { 
+		String[][] actionLabel = new String[numNode][maxActionP1];
+		for(int n=0; n < numNode; n++) {
+			for(int i=0; i < maxActionP1; i++) {
+				actionLabel[n][i] = "n"+n+"r"+i;
+			}
+		}
+		return actionLabel;
+	}
+	
+	public void exportActionLabels(String path) { 
+		
+		try {
+			ac = new PrintWriter(new File(path));
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		for(int n=0; n < numNode; n++) {
+			//ac.println("node"+n);
+			for(int i=0; i < maxActionP1; i++) {
+				ac.println("n"+n+"r"+i);
+			}
+		}
+		
+		ac.close();
 	}
 	
 	public void generateSingleNodeModel()  {

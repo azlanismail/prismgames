@@ -10,6 +10,9 @@ public class StrategyExtraction {
 
 	private String mapsPath = null;
 	private String transPath = null;
+	private String stratPath = null;
+	//private String actionLabelPath = null;
+	
 	private String stratCompPath = null;
 	private String stratMultiCompPath = null;
 	private String stratMulti1Path = null;
@@ -34,6 +37,10 @@ public class StrategyExtraction {
 	private int selAction1 = -1, selAction2 = -1;
 	private String selLabel1, selLabel2;
 	
+	public StrategyExtraction() {
+		
+	}
+	
 	/**
 	 * Constructor for multi-strategies
 	 * @param mPath
@@ -50,6 +57,13 @@ public class StrategyExtraction {
 		this.stratMulti2Path = sPath4;
 		this.actionLabelAPath = aPath;
 		this.actionLabelBPath = bPath;
+	}
+	
+	public void setPath(String tPath, String sPath, String aPath) {
+		this.transPath = tPath;
+		this.stratPath = sPath;
+		this.actionLabelAPath = aPath;
+		
 	}
 	
 	//this function is no longer used
@@ -70,6 +84,7 @@ public class StrategyExtraction {
 		readM.close();
 	}
 	
+	
 	public void setNodeIdList(ArrayList<String> nodeId) {
 		nodeIdlist = new ArrayList<String>();
 		this.nodeIdlist = nodeId;
@@ -80,10 +95,15 @@ public class StrategyExtraction {
 	 * @throws IllegalArgumentException
 	 * @throws FileNotFoundException
 	 */
-	public void readSingleActionLabelFile() throws IllegalArgumentException, FileNotFoundException {
+	public void readSingleActionLabelFile()  {
 		actionLabelA = new ArrayList<String>();
 		
-		readA = new Scanner(new BufferedReader(new FileReader(this.actionLabelAPath)));
+		try {
+			readA = new Scanner(new BufferedReader(new FileReader(this.actionLabelAPath)));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		String label = null;
 	
@@ -151,12 +171,17 @@ public class StrategyExtraction {
 			System.out.println("The list for action label B is empty");
 	}
 
-	public void readTransitionFile() throws IllegalArgumentException, FileNotFoundException {
+	public void readTransitionFile()  {
 		transStates = new ArrayList<Integer>();
 		transActions = new ArrayList<Integer>();
 		transLabels = new ArrayList<String>();
 		
-		readT = new Scanner(new BufferedReader(new FileReader(this.transPath)));
+		try {
+			readT = new Scanner(new BufferedReader(new FileReader(this.transPath)));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		int state=0, action=0;
 		String label = null;
@@ -213,7 +238,58 @@ public class StrategyExtraction {
 		}
 	}
 	
+	/**
+	 * Specifically created for service-based scenario
+	 * @param type
+	 */
+	public void readMultiStrategiesProfile()  {
+		
+		substrat1States = new ArrayList<Integer>();
+		substrat1Actions = new ArrayList<Integer>();
+			
+		
+		try {
+			readS = new Scanner(new BufferedReader(new FileReader(this.stratPath)));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
+		
+		String inRead=null;
+		int potState=0, potAction=0;
+		int stratId = 0; 
+		boolean done = false;
+		while (readS.hasNextLine()) {
+			inRead = readS.nextLine();
+			
+			if (inRead.equalsIgnoreCase("MemUpdMoves:")){
+				//skip four lines
+				readS.nextLine(); readS.nextLine(); readS.nextLine(); readS.nextLine();
+				inRead = readS.next();
+				while (readS.hasNextLine() && (!inRead.equalsIgnoreCase("Info:"))) {
+					//read the first index (potential decision state)
+					potState = Integer.parseInt(inRead);
+				
+					//read the second index (potential action)
+					potAction = Integer.parseInt(readS.next());
+				
+					//store into the array lists
+					substrat1States.add(potState);
+					substrat1Actions.add(potAction);
+				
+					//skip the rest of the line
+					readS.nextLine();
+					
+					//read the next integer
+					inRead = readS.next();
+				}
+				done = true;
+			}
+			if (done) break;
+        }
+		readS.close();		
+	}
 
 
 	/**
@@ -221,15 +297,27 @@ public class StrategyExtraction {
 	 * @throws IllegalArgumentException
 	 * @throws FileNotFoundException
 	 */
-	public void readMultifromOneStrategiesProfile(int type) throws IllegalArgumentException, FileNotFoundException {
+	public void readMultifromOneStrategiesProfile(int type)  {
 		
 		substrat1States = new ArrayList<Integer>();
 		substrat1Actions = new ArrayList<Integer>();
 			
-		if (type == 1)
-			readS = new Scanner(new BufferedReader(new FileReader(this.stratMulti1Path)));
-		else
-			readS = new Scanner(new BufferedReader(new FileReader(this.stratMulti2Path)));
+		if (type == 1) {
+			try {
+				readS = new Scanner(new BufferedReader(new FileReader(this.stratMulti1Path)));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			try {
+				readS = new Scanner(new BufferedReader(new FileReader(this.stratMulti2Path)));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		String inRead=null;
 		int potState=0, potAction=0;
@@ -472,6 +560,9 @@ public class StrategyExtraction {
 			if (found)
 				break;			
 		}//end for substrategy 1
+		
+		if(!found)
+			System.out.println("No decision....");
 	 }
 	
 	

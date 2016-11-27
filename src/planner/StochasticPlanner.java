@@ -54,13 +54,13 @@ public class StochasticPlanner {
 	String mainPath = linuxPath;
 	String modelPath; // = mainPath+"Prismfiles/compCollaborateModel_v26.prism";
 	String propPath; // = mainPath+"Prismfiles/propCloudAdaptive_v1.props";
-	String stratCompPath = mainPath+"IOFiles/stratComp.txt";
-	String stratMultiCompPath = mainPath+"IOFiles/stratMultiComp.txt";
-	String stratMulti1Path = mainPath+"IOFiles/stratMulti1.txt";
-	String stratMulti2Path = mainPath+"IOFiles/stratMulti2.txt";
-	String transPath = mainPath+"IOFiles/transition.txt";
-	String actionLabelAPath = mainPath+"IOFiles/actionlabelA";
-    String actionLabelBPath = mainPath+"IOFiles/actionlabelB";
+	//String stratCompPath = mainPath+"IOFiles/stratComp.txt";
+	//String stratMultiCompPath = mainPath+"IOFiles/stratMultiComp.txt";
+	//String stratMulti1Path = mainPath+"IOFiles/stratMulti1.txt";
+	//String stratMulti2Path = mainPath+"IOFiles/stratMulti2.txt";
+	//String transPath = mainPath+"IOFiles/transition.txt";
+	//String actionLabelAPath = mainPath+"IOFiles/actionlabelA";
+   // String actionLabelBPath = mainPath+"IOFiles/actionlabelB";
     
     //Defining the type of property
     int maxCpuSpeedG0=1, maxCpuLoadG0=2, maxCpuSpeedG1=3, maxCpuLoadG1=4;
@@ -83,10 +83,10 @@ public class StochasticPlanner {
         prismEx = new PrismExplicit(mainLog, prism.getSettings());
        
     	//for assigning values of constants
-    	conf = new ConfigurationPlanner();
+    	//conf = new ConfigurationPlanner();
     	
       	//for extracting strategy
-    	ste = new StrategyExtraction(transPath, stratCompPath, stratMultiCompPath, stratMulti1Path, stratMulti2Path, actionLabelAPath, actionLabelBPath);	
+    	//ste = new StrategyExtraction(transPath, stratCompPath, stratMultiCompPath, stratMulti1Path, stratMulti2Path, actionLabelAPath, actionLabelBPath);	
     }
 	
 	public void parseModelandProperties(String modelPath, String propsPath) {
@@ -141,7 +141,7 @@ public class StochasticPlanner {
 		    smg.setComputeParetoSet(false);
 		    smg.setGenerateStrategy(true);
    	 
-		    System.out.println("Synthesizing the model.....");
+		    System.out.println("Synthesizing based on multi-objective properties.....");
 		    rsMulti1 = smg.check(model, propertiesFile.getProperty(4)); //max reward of cpu speed of G0
 		     
 		  	System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult()); 
@@ -279,13 +279,13 @@ public class StochasticPlanner {
 	public boolean getCompositionalSynthesisStatus() {
 		return this.synthesisStatus;
 	}
-		       
-     
+
+	    
     /**
      * Objective: It extracts the transitions which have been synthesized
      * @throws PrismException
      */
-    public void exportTrans()
+    public void exportTrans(String transPath)
     {
    		try {
 			model.exportToPrismExplicitTra(new File(transPath));
@@ -295,42 +295,16 @@ public class StochasticPlanner {
 		}
     }
     
-    
-   /**
-    * Objective: To export the synthesize strategy into an external file
-    * @param straFile
-    */
-    public void exportStrategy()
-    {
-    	//assign the pointer from SMGModelChecker to strategy
-    	System.out.println("exporting all strategies profiles...");
-    	
-    	//exporting the strategies for compositional of implication
-    	if(rsComp!=null && (boolean)rsComp.getResult()) {
-    		stratComp = rsComp.getStrategy();
-    		stratComp.exportToFile(stratCompPath);
-    	}
-    	
-    	//exporting the strategies for compositional of conjunction
-    	if(rsMultiComp!=null && (boolean)rsMultiComp.getResult()) {
-    		stratMultiComp = rsMultiComp.getStrategy();
-    		stratMultiComp.exportToFile(stratMultiCompPath);
-    	}
-    	
-    	//exporting the strategies for multi-objective of game 0
+    public void exportStrategy(String sPath)
+    {   	
+    	//exporting the strategies for multi-objective
     	if(rsMulti1!=null && (boolean)rsMulti1.getResult()) {
     		stratMulti1 = rsMulti1.getStrategy();
-    		stratMulti1.exportToFile(stratMulti1Path);
-    	}
-    	
-    	//exporting the strategies for multi-objective of game 1
-    	if(rsMulti2!=null && (boolean)rsMulti2.getResult()) {
-    		stratMulti2 = rsMulti2.getStrategy();
-	    	stratMulti2.exportToFile(stratMulti2Path);
-    	}
-    	
+    		stratMulti1.exportToFile(sPath);
+    	}	
     }
     
+       
     public void simulatePath() {
     	try{
     		simEngine = prism.getSimulator();
@@ -400,30 +374,7 @@ public class StochasticPlanner {
     	}
     }
    
-        
-    /**
-     * Objective: To generate the adaptation plan
-     */
-    public void generate()
-    {        
-   
-    	 	//synthesize the model
-			checkModelbyPrismEx();
-			//export the transitions
-			exportTrans();
-			//export the strategies
-			exportStrategy();
-		
-           
-       	//get the adaptation strategy
-       	try {
-			extractStrategy();
-			//extractSingleStrategy();
-		} 
-		catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		}
-    }//end of synthesis
+       
     
     public int getMaxResource() {
     	return conf.getMaxResource();
@@ -478,7 +429,7 @@ public class StochasticPlanner {
 	 		}
 	 	
  			tm.start();
- 			plan.generate();
+ 			//plan.generate();
  			statusRes[i] = plan.getCompositionalSynthesisStatus();
  			if (statusRes[i]) {
  				res0[i] = plan.getDecision(0);

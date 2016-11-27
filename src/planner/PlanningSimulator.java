@@ -11,8 +11,12 @@ public class PlanningSimulator {
 		
 		String propPath = "/home/azlan/git/PrismGames/Prismfiles/propSBSPlanner.props";
 		
-		int pattern = 3;	//0-single, 1-sequential, 2-conditional, 3-parallel
-		int numNode = 4;
+		String transPath = "/home/azlan/git/PrismGames/IOFiles/transitions.txt";
+		String stratPath = "/home/azlan/git/PrismGames/IOFiles/strategies.txt";
+		String actLabelPath = "/home/azlan/git/PrismGames/IOFiles/labels.txt";
+		
+		int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel
+		int numNode = 2;
 		int numofService = 20;
 		int numofResource = 2;
 		
@@ -26,7 +30,8 @@ public class PlanningSimulator {
 		//Create a SG-Planner instance
 		StochasticPlanner sp = new StochasticPlanner();
 		
-		
+		//Create a strategy extraction instance
+		StrategyExtraction se = new StrategyExtraction();
 		
 		
 		//create the model and synthesize according to a pattern
@@ -57,8 +62,8 @@ public class PlanningSimulator {
 				sp.parseModelandProperties(singlePath, propPath);
 				sp.setUndefinedValues(mdg.getDefinedValues());
 				sp.checkInitialModel();
-				sp.exportTrans();
-				sp.exportStrategy();
+				sp.exportTrans(transPath);
+				sp.exportStrategy(stratPath);
 				
 			}
 			else
@@ -68,36 +73,52 @@ public class PlanningSimulator {
 		
 		else if (pattern==1) {
 			//for sequential
-			//set all the relevant parameters
+			
+			//configuring model parameters and values
 			System.out.println("Solving sequential pattern...");
+			mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
+			mdg.setPattern(pattern);
 			mdg.setParamsNames("p1", "p2", "planner", "environment");
 			mdg.setUpperBounds(numNode, numofService, numofResource);
-			mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-			mdg.setAllRandomServProfiles();
-			mdg.setValuesStatus(false); 
-			mdg.setPattern(pattern);
+		
 			
 			//create the specifications
+			System.out.println("Generating model and properties specifications...");
 			mdg.setModelPath(seqPath);										
 			mdg.setPropPath(propPath);
 			mdg.generateSGModel(0);
-			System.out.println("Model specification has been generated...");
 			mdg.generateProperties();
-			System.out.println("Properties specification has been generated...");
+						
+			//export the actions (for strategy extraction)
+			System.out.println("Exporting action labels...");
+			mdg.exportActionLabels(actLabelPath);
 			
-			//assign parameters with values
+			//creating and assigning values to parameters
+			System.out.println("Creating and assigning values to parameters...");
+			mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+			mdg.setAllRandomServProfiles();
 			mdg.createServParams();
 			mdg.setReqParamswithValues();
 			mdg.setServParamswithValues();
 			
-			//synthesize and extract
+			//synthesis
+			System.out.println("Synthesizing model...");
 			sp.initiatePlanner();
 			sp.parseModelandProperties(seqPath, propPath);
 			sp.setUndefinedValues(mdg.getDefinedValues());
 			sp.checkInitialModel();
-			sp.exportTrans();
-			sp.exportStrategy();
 			
+			//exporting
+			System.out.println("Exporting transitions and strategies...");
+			sp.exportTrans(transPath);
+			sp.exportStrategy(stratPath);
+			
+			//extraction
+			//se.setPath(transPath, stratPath, actLabelPath);
+			//se.readSingleActionLabelFile();
+			//se.readTransitionFile();
+			//se.readMultiStrategiesProfile();	
+			//se.findSingleDecision();
 		}
 		
 		else if (pattern==2) {
@@ -130,8 +151,8 @@ public class PlanningSimulator {
 			sp.parseModelandProperties(condPath, propPath);
 			sp.setUndefinedValues(mdg.getDefinedValues());
 			sp.checkInitialModel();
-			sp.exportTrans();
-			sp.exportStrategy();
+			sp.exportTrans(transPath);
+			sp.exportStrategy(stratPath);
 					
 		}
 		else if (pattern==3) {
