@@ -145,7 +145,13 @@ public class StochasticPlanner {
 		    rsMulti1 = smg.check(model, propertiesFile.getProperty(4)); //max reward of cpu speed of G0
 		     
 		  	System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult()); 
-		     		
+		    
+		  	if ((boolean)rsMulti1.getResult()) {
+				this.synthesisStatus = true;
+			}else {
+				this.synthesisStatus = false;
+			}
+		  	
 		 }//end of try
 		 catch (PrismLangException e) {
 				// TODO Auto-generated catch block
@@ -276,7 +282,7 @@ public class StochasticPlanner {
 	 * To return the strategy generation status of compositional synthesis
 	 * @return
 	 */
-	public boolean getCompositionalSynthesisStatus() {
+	public boolean getSynthesisStatus() {
 		return this.synthesisStatus;
 	}
 
@@ -430,7 +436,7 @@ public class StochasticPlanner {
 	 	
  			tm.start();
  			//plan.generate();
- 			statusRes[i] = plan.getCompositionalSynthesisStatus();
+ 			statusRes[i] = plan.getSynthesisStatus();
  			if (statusRes[i]) {
  				res0[i] = plan.getDecision(0);
  				res1[i] = plan.getDecision(1);

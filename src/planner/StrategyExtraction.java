@@ -70,6 +70,11 @@ public class StrategyExtraction {
 		
 	}
 	
+	public void setPath(String tPath, String sPath) {
+		this.transPath = tPath;
+		this.stratPath = sPath;
+	}
+	
 	public void setNumofDecision(int numNode) {
 		this.numofDec = numNode;
 	}
@@ -587,7 +592,67 @@ public class StrategyExtraction {
 	}
 	
 	/**
-	 * Objective: To extract a single selected action from a single strategy profile
+	 * Objective: To extract selected actions for sequential structure
+	 */
+	public void findParSolutions(int n)
+	{
+		int maxSizeStrat1 = substrat1States.size();
+		int maxTrans = transStates.size();
+		int stateFromStrat1=0, stateFromTrans1=0, actionFromTrans1=0, actionFromStrat1=0;
+		String labelFromTrans1 = null;
+		boolean found;
+		
+		//repeat based on the number of node
+	//	for(int n=0; n < this.numofDec; n++) {
+			found = false;
+			//search through strategies profile
+			for(int s=0; s < maxSizeStrat1; s++) {
+				
+				//get the state from the strategy list
+				stateFromStrat1 = substrat1States.get(s);
+				actionFromStrat1 = substrat1Actions.get(s);
+				
+				//search through transition list
+				for(int t=0; t < maxTrans; t++) {
+					stateFromTrans1 = transStates.get(t);
+					actionFromTrans1 = transActions.get(t);
+					
+					//check if the state is similar
+					if (stateFromTrans1 == stateFromStrat1)	{
+						//check if the action is similar
+						if (actionFromTrans1 == actionFromStrat1) {
+							//get the label from transition list
+							labelFromTrans1 = transLabels.get(t);
+							
+							for(int i=0; i < this.actionLabel[n].length; i++) {
+								//check if the label is an action label
+								if (actionLabel[n][i].contains(labelFromTrans1)) {
+									this.decStateStrat1 = stateFromStrat1;
+									this.selAction1 = actionFromStrat1;
+									this.selLabel1 = labelFromTrans1;
+									//System.out.println("Decision state :"+stateFromStrat1+" with action :"+labelFromTrans1);
+									found = true;
+									break;
+								}
+							}//end of labels for							
+						}//end of checking the actions
+					}//end of checking the state
+					if (found)
+						break;	
+				}//end of transition for
+				if (found)
+					break;	
+			}//end of strategies for
+			if(!found)
+				System.out.println("No decision for Node "+n);
+			else
+				System.out.println("Decision node: "+n+", state :"+stateFromStrat1+" , action :"+labelFromTrans1);
+		//}//end of number of node for	
+	 }
+	
+	
+	/**
+	 * Objective: To extract selected actions for sequential structure
 	 */
 	public void findSolutions()
 	{
@@ -642,13 +707,9 @@ public class StrategyExtraction {
 				System.out.println("No decision for Node "+n);
 			else
 				System.out.println("Decision node: "+n+", state :"+stateFromStrat1+" , action :"+labelFromTrans1);
-		}//end of number of node for
-		
-	
-		
-		
-		
+		}//end of number of node for	
 	 }
+	
 	
 	/**
 	 * Objective: To extract a single selected action from a single strategy profile

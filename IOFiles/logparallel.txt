@@ -1,0 +1,8 @@
+recorded data: cycle, time, status
+ 0 8487 true
+ 1 5559 true
+ 2 4639 true
+ 3 4445 true
+ 4 4449 true
+
+Average: 5515

@@ -2,10 +2,10 @@ $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-695
+58
 // Initial state
 InitState:
-100
+9
 // initial distribution
 Init:
 {0=1.0}
@@ -14,14 +14,14 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-99 0 {0=1.0}
-100 0 {0=1.0}
-101 0 {0=1.0}
-102 0 {0=1.0}
-103 0 {0=1.0}
-398 0 {0=1.0}
-399 0 {0=1.0}
-400 0 {0=1.0}
+8 0 {0=1.0}
+9 0 {0=1.0}
+10 0 {0=1.0}
+11 0 {0=1.0}
+12 0 {0=1.0}
+34 0 {0=1.0}
+35 0 {0=1.0}
+36 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
@@ -29,32 +29,32 @@ MemUpdStates:
 // third index: next move
 0 0 0 {0=1.0}
 0 0 1 {0=1.0}
-99 0 0 {0=1.0}
-100 0 0 {0=1.0}
-101 0 0 {0=1.0}
-102 0 0 {0=1.0}
-103 0 0 {0=1.0}
-398 0 0 {0=1.0}
-399 0 0 {0=1.0}
-400 0 0 {0=1.0}
+8 0 0 {0=1.0}
+9 0 0 {0=1.0}
+10 0 0 {0=1.0}
+11 0 0 {0=1.0}
+12 0 0 {0=1.0}
+34 0 0 {0=1.0}
+35 0 0 {0=1.0}
+36 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-0 0 0 101 {0=1.0}
-0 0 0 102 {0=1.0}
-0 1 0 101 {0=1.0}
-0 1 0 103 {0=1.0}
-99 0 0 0 {0=1.0}
-100 0 0 99 {0=1.0}
-101 0 0 398 {0=1.0}
-102 0 0 399 {0=1.0}
-103 0 0 400 {0=1.0}
-398 0 0 398 {0=1.0}
-399 0 0 399 {0=1.0}
-400 0 0 400 {0=1.0}
+0 0 0 10 {0=1.0}
+0 0 0 11 {0=1.0}
+0 1 0 10 {0=1.0}
+0 1 0 12 {0=1.0}
+8 0 0 0 {0=1.0}
+9 0 0 8 {0=1.0}
+10 0 0 34 {0=1.0}
+11 0 0 35 {0=1.0}
+12 0 0 36 {0=1.0}
+34 0 0 34 {0=1.0}
+35 0 0 35 {0=1.0}
+36 0 0 36 {0=1.0}
 Info:
 
 maximum C-iterations: 500
