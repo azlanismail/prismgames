@@ -37,6 +37,10 @@ public class StrategyExtraction {
 	private int selAction1 = -1, selAction2 = -1;
 	private String selLabel1, selLabel2;
 	
+	private int numofDec;
+	private ArrayList<ArrayList<String>> actLabel;
+	private String[][] actionLabel;
+	
 	public StrategyExtraction() {
 		
 	}
@@ -64,6 +68,14 @@ public class StrategyExtraction {
 		this.stratPath = sPath;
 		this.actionLabelAPath = aPath;
 		
+	}
+	
+	public void setNumofDecision(int numNode) {
+		this.numofDec = numNode;
+	}
+	
+	public void setActionLabels(String[][] al) {
+		this.actionLabel = al;
 	}
 	
 	//this function is no longer used
@@ -95,7 +107,63 @@ public class StrategyExtraction {
 	 * @throws IllegalArgumentException
 	 * @throws FileNotFoundException
 	 */
+	public void readMultiActionLabelsFromFile()  {
+		actLabel = new ArrayList<ArrayList<String>>();
+		ArrayList<String> row = new ArrayList<String>();
+		
+		try {
+			readA = new Scanner(new BufferedReader(new FileReader(this.actionLabelAPath)));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String label = null;
+		label = readA.next();
+		//row.add(label);
+		
+		System.out.println("Beginning to read....");
+		while (readA.hasNext()) {
+			if (label.equalsIgnoreCase("Decision")) {
+				label = readA.next();
+				continue;
+			}
+			if (label.equalsIgnoreCase("Node")) {
+				label = readA.next();
+				continue;
+			}
+			
+			if (label.equalsIgnoreCase("EndNode")) {
+				System.out.println("adding to the main array...");
+				//only add if row is not empty
+				if (!row.isEmpty()) {
+					actLabel.add(row);
+				}
+				label = readA.next();
+				
+			}else {
+				System.out.println("adding to sub array...");
+				row.add(label);
+				label = readA.next();
+			}
+			
+			if (label.equalsIgnoreCase("Complete")) break;
+			
+			
+		}
+		
+		System.out.println(actLabel);
+		
+		readA.close();
+	}
+	
+	/**
+	 * To read predefined action labels for single-strategies
+	 * @throws IllegalArgumentException
+	 * @throws FileNotFoundException
+	 */
 	public void readSingleActionLabelFile()  {
+		
 		actionLabelA = new ArrayList<String>();
 		
 		try {
@@ -230,7 +298,7 @@ public class StrategyExtraction {
 		readT.close();
 	}
 
-	public void getAllTrasitionList(){
+	public void displayAllTrasitionList(){
 		int maxSize = transStates.size();
 		
 		for(int i=0; i < maxSize; i++) {
@@ -521,6 +589,70 @@ public class StrategyExtraction {
 	/**
 	 * Objective: To extract a single selected action from a single strategy profile
 	 */
+	public void findSolutions()
+	{
+		int maxSizeStrat1 = substrat1States.size();
+		int maxTrans = transStates.size();
+		int stateFromStrat1=0, stateFromTrans1=0, actionFromTrans1=0, actionFromStrat1=0;
+		String labelFromTrans1 = null;
+		boolean found;
+		
+		//repeat based on the number of node
+		for(int n=0; n < this.numofDec; n++) {
+			found = false;
+			//search through strategies profile
+			for(int s=0; s < maxSizeStrat1; s++) {
+				
+				//get the state from the strategy list
+				stateFromStrat1 = substrat1States.get(s);
+				actionFromStrat1 = substrat1Actions.get(s);
+				
+				//search through transition list
+				for(int t=0; t < maxTrans; t++) {
+					stateFromTrans1 = transStates.get(t);
+					actionFromTrans1 = transActions.get(t);
+					
+					//check if the state is similar
+					if (stateFromTrans1 == stateFromStrat1)	{
+						//check if the action is similar
+						if (actionFromTrans1 == actionFromStrat1) {
+							//get the label from transition list
+							labelFromTrans1 = transLabels.get(t);
+							
+							for(int i=0; i < this.actionLabel[n].length; i++) {
+								//check if the label is an action label
+								if (actionLabel[n][i].contains(labelFromTrans1)) {
+									this.decStateStrat1 = stateFromStrat1;
+									this.selAction1 = actionFromStrat1;
+									this.selLabel1 = labelFromTrans1;
+									//System.out.println("Decision state :"+stateFromStrat1+" with action :"+labelFromTrans1);
+									found = true;
+									break;
+								}
+							}//end of labels for							
+						}//end of checking the actions
+					}//end of checking the state
+					if (found)
+						break;	
+				}//end of transition for
+				if (found)
+					break;	
+			}//end of strategies for
+			if(!found)
+				System.out.println("No decision for Node "+n);
+			else
+				System.out.println("Decision node: "+n+", state :"+stateFromStrat1+" , action :"+labelFromTrans1);
+		}//end of number of node for
+		
+	
+		
+		
+		
+	 }
+	
+	/**
+	 * Objective: To extract a single selected action from a single strategy profile
+	 */
 	public void findSingleDecision()
 	{
 		int maxSizeStrat1 = substrat1States.size();
@@ -564,7 +696,6 @@ public class StrategyExtraction {
 		if(!found)
 			System.out.println("No decision....");
 	 }
-	
 	
 	
 	

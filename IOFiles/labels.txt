@@ -1,3 +1,5 @@
+Decision 2
+Node 0
 n0r0
 n0r1
 n0r2
@@ -18,6 +20,8 @@ n0r16
 n0r17
 n0r18
 n0r19
+EndNode
+Node 1
 n1r0
 n1r1
 n1r2
@@ -38,3 +42,5 @@ n1r16
 n1r17
 n1r18
 n1r19
+EndNode
+Complete

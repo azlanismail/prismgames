@@ -16,7 +16,7 @@ public class PlanningSimulator {
 		String actLabelPath = "/home/azlan/git/PrismGames/IOFiles/labels.txt";
 		
 		int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel
-		int numNode = 2;
+		int numNode = 3;
 		int numofService = 20;
 		int numofResource = 2;
 		
@@ -37,34 +37,52 @@ public class PlanningSimulator {
 		//create the model and synthesize according to a pattern
 		if (pattern==0) {
 			if(numNode <= 1) {
-				//set all the relevant parameters
+						
+				//configuring model parameters and values
 				System.out.println("Solving single node...");
+				mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
+				mdg.setPattern(pattern);
 				mdg.setParamsNames("p1", "p2", "planner", "environment");
 				mdg.setUpperBounds(numNode, numofService, numofResource);
-				mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-				mdg.setAllRandomServProfiles();
-				mdg.setValuesStatus(false); 
-				mdg.setPattern(pattern);
 				
 				//create the specifications
-				mdg.setModelPath(singlePath);		
+				System.out.println("Generating model and properties specifications...");
+				mdg.setModelPath(singlePath);										
 				mdg.setPropPath(propPath);
 				mdg.generateSGModel(0);
-				System.out.println("Model specification has been generated...");
 				mdg.generateProperties();
-				System.out.println("Properties specification has been generated...");
+							
+				//export the actions (for strategy extraction)
+				//System.out.println("Exporting action labels...");
+				//mdg.exportActionLabels(actLabelPath);
+				
+				//creating and assigning values to parameters
+				System.out.println("Creating and assigning values to parameters...");
+				mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+				mdg.setAllRandomServProfiles();
 				mdg.createServParams();
 				mdg.setReqParamswithValues();
 				mdg.setServParamswithValues();
 				
-				//synthesize and extract
+				//synthesis
+				System.out.println("Synthesizing model...");
 				sp.initiatePlanner();
 				sp.parseModelandProperties(singlePath, propPath);
 				sp.setUndefinedValues(mdg.getDefinedValues());
 				sp.checkInitialModel();
+				
+				//exporting
+				System.out.println("Exporting transitions and strategies...");
 				sp.exportTrans(transPath);
 				sp.exportStrategy(stratPath);
 				
+				//extraction
+				se.setPath(transPath, stratPath, actLabelPath);
+				se.setNumofDecision(numNode); //to control the searching for solution
+				se.setActionLabels(mdg.getActionLabels());
+				se.readTransitionFile();
+				se.readMultiStrategiesProfile();	
+				se.findSolutions();
 			}
 			else
 				System.out.println("Require number of node to be 1 for single node...");	
@@ -82,16 +100,11 @@ public class PlanningSimulator {
 			mdg.setUpperBounds(numNode, numofService, numofResource);
 		
 			
-			//create the specifications
-			System.out.println("Generating model and properties specifications...");
-			mdg.setModelPath(seqPath);										
-			mdg.setPropPath(propPath);
-			mdg.generateSGModel(0);
-			mdg.generateProperties();
+			
 						
 			//export the actions (for strategy extraction)
-			System.out.println("Exporting action labels...");
-			mdg.exportActionLabels(actLabelPath);
+			//System.out.println("Exporting action labels...");
+			//mdg.exportActionLabels(actLabelPath);
 			
 			//creating and assigning values to parameters
 			System.out.println("Creating and assigning values to parameters...");
@@ -100,6 +113,13 @@ public class PlanningSimulator {
 			mdg.createServParams();
 			mdg.setReqParamswithValues();
 			mdg.setServParamswithValues();
+			
+			//create the specifications
+			System.out.println("Generating model and properties specifications...");
+			mdg.setModelPath(seqPath);										
+			mdg.setPropPath(propPath);
+			mdg.generateSGModel(0);
+			mdg.generateProperties();
 			
 			//synthesis
 			System.out.println("Synthesizing model...");
@@ -114,65 +134,92 @@ public class PlanningSimulator {
 			sp.exportStrategy(stratPath);
 			
 			//extraction
-			//se.setPath(transPath, stratPath, actLabelPath);
-			//se.readSingleActionLabelFile();
-			//se.readTransitionFile();
-			//se.readMultiStrategiesProfile();	
-			//se.findSingleDecision();
+			se.setPath(transPath, stratPath, actLabelPath);
+			se.setNumofDecision(numNode); //to control the searching for solution
+			se.setActionLabels(mdg.getActionLabels());
+			se.readTransitionFile();
+			se.readMultiStrategiesProfile();	
+			se.findSolutions();
 		}
 		
 		else if (pattern==2) {
 			//for conditional
-			//set all the relevant parameters
+			
+			//configuring model parameters and values
 			System.out.println("Solving conditional pattern...");
+			mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
+			mdg.setPattern(pattern);
 			mdg.setParamsNames("p1", "p2", "planner", "environment");
 			mdg.setUpperBounds(numNode, numofService, numofResource);
-			mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-			mdg.setAllRandomServProfiles();
-			mdg.setValuesStatus(false); 
-			mdg.setPattern(pattern);
+		
 			
 			//create the specifications
+			System.out.println("Generating model and properties specifications...");
 			mdg.setModelPath(condPath);										
 			mdg.setPropPath(propPath);
 			mdg.generateSGModel(0);
-			System.out.println("Model specification has been generated...");
 			mdg.generateProperties();
-			System.out.println("Properties specification has been generated...");
+						
+			//export the actions (for strategy extraction)
+			//System.out.println("Exporting action labels...");
+			//mdg.exportActionLabels(actLabelPath);
 			
-			
-			//assign parameters with values
+			//creating and assigning values to parameters
+			System.out.println("Creating and assigning values to parameters...");
+			mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+			mdg.setAllRandomServProfiles();
 			mdg.createServParams();
 			mdg.setReqParamswithValues();
 			mdg.setServParamswithValues();
 			
-			//synthesize and extract the strategy
+			//synthesis
+			System.out.println("Synthesizing model...");
 			sp.initiatePlanner();
 			sp.parseModelandProperties(condPath, propPath);
 			sp.setUndefinedValues(mdg.getDefinedValues());
 			sp.checkInitialModel();
+			
+			//exporting
+			System.out.println("Exporting transitions and strategies...");
 			sp.exportTrans(transPath);
 			sp.exportStrategy(stratPath);
+			
+			//extraction
+			se.setPath(transPath, stratPath, actLabelPath);
+			se.setNumofDecision(numNode); //to control the searching for solution
+			se.setActionLabels(mdg.getActionLabels());
+			se.readTransitionFile();
+			se.readMultiStrategiesProfile();	
+			se.findSolutions();
 					
 		}
 		else if (pattern==3) {
 			//for parallel
-			//set all the relevant parameters
+			
+			//configuring model parameters and values
 			System.out.println("Solving parallel pattern...");
+			mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
+			mdg.setPattern(pattern);
 			mdg.setParamsNames("p1", "p2", "planner", "environment");
-			//use a single node pattern which will then be replicated
-			mdg.setPattern(3);
 			mdg.setUpperBounds(numNode, numofService, numofResource);
-			
-			//prepare the values for requirement. No issue since a single requirement
+					
+			//creating and assigning values to parameters
+			System.out.println("Creating and assigning values to parameters...");
 			mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-			
-			//prepare a set of values for parallel structure, even though the upperbound is limited to single
-			//mdg.setParofAllRandomServProfiles(numNode);	
 			mdg.setAllRandomServProfiles();
+			mdg.createServParams();
+			mdg.setReqParamswithValues();
+			mdg.setServParamswithValues();
 			
+			//create the specifications
+			System.out.println("Generating model and properties specifications...");
+			mdg.setModelPath(condPath);										
+			mdg.setPropPath(propPath);
+			mdg.generateSGModel(0);
+			mdg.generateProperties();
+						
 			//create multiple specifications to be executed in parallel
-			mdg.setValuesStatus(false);
+	
 			String[] multiModelPath = new String[numNode];
 			String[] multiPropPath = new String[numNode];
 			for (int n=0; n < numNode; n++) {

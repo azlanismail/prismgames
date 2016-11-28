@@ -298,15 +298,6 @@ public class ModelGenerator {
 		return vpar[k];
 	}
 	
-	public String[][] getActionLabels() { 
-		String[][] actionLabel = new String[numNode][maxActionP1];
-		for(int n=0; n < numNode; n++) {
-			for(int i=0; i < maxActionP1; i++) {
-				actionLabel[n][i] = "n"+n+"r"+i;
-			}
-		}
-		return actionLabel;
-	}
 	
 	public void exportActionLabels(String path) { 
 		
@@ -317,15 +308,29 @@ public class ModelGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		ac.println("Decision "+this.numNode);
 		for(int n=0; n < numNode; n++) {
-			//ac.println("node"+n);
+			ac.println("Node "+n);
 			for(int i=0; i < maxActionP1; i++) {
 				ac.println("n"+n+"r"+i);
 			}
+			ac.println("EndNode");
 		}
-		
+		ac.println("Complete");
 		ac.close();
+	}
+	
+	public String[][] getActionLabels() { 
+		
+		String[][] actLabel = new String[this.numNode][this.maxActionP1];
+		
+		for(int n=0; n < numNode; n++) {
+			
+			for(int i=0; i < maxActionP1; i++) {
+				actLabel[n][i] = "n"+n+"r"+i;
+			}	
+		}
+		return actLabel;	
 	}
 	
 	public void generateSingleNodeModel()  {
@@ -1697,6 +1702,8 @@ public class ModelGenerator {
 		
 		pp.println("const int MAXCS = "+this.costR+";");
 		pp.println("const int MAXRT = "+this.durR+";");
+		pp.println("const int MINCS = 0;");
+		pp.println("const int MINRT = 0;");
 		pp.println("const double MAXFR = "+this.relR+";");
 		
 		
@@ -1707,8 +1714,13 @@ public class ModelGenerator {
 		pp.println("<<p1>> R{\"time\"}max=? [ F \"done\" ]");
 		pp.println("<<p1>> R{\"reliability\"}max=? [ F \"done\" ]");
 		pp.println("<<p1>> R{\"utility\"}max=? [ F \"done\" ]");
-		pp.println("<<p1>> (R{\"cost\"}<=MAXCS [C] & R{\"time\"}<=MAXRT [C ])");
-				
+		
+		
+		//for multi-objective
+		//pp.println("<<p1>> (R{\"cost\"}<=MAXCS [C] & R{\"time\"}<=MAXRT [C ])");
+		pp.println("<<p1>> (R{\"cost\"}>MINCS [C] & R{\"time\"}>MINRT [C ])");
+		
+		
 		pp.close();
 	}
 	

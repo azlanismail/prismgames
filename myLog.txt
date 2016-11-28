@@ -1,27 +1,241 @@
 
 Building model...
 
-Computing reachable states... 1199 states
-Reachable states exploration and model construction done in 0.654 secs.
+Computing reachable states... 32419 states
+Reachable states exploration and model construction done in 1.51 secs.
 Sorting reachable states list...
 
-Time for model construction: 0.69 seconds.
+Time for model construction: 1.733 seconds.
 
-Reducing multi-objective query to CNF: R{"cost"}<=MAXCS [ C ]&R{"time"}<=MAXRT [ C ]
-expr: [[R{"cost"}<=MAXCS [ C ]], [R{"time"}<=MAXRT [ C ]]]
+Reducing multi-objective query to CNF: R{"cost"}>MINCS [ C ]&R{"time"}>MINRT [ C ]
+expr: [[R{"cost"}>MINCS [ C ]], [R{"time"}>MINRT [ C ]]]
+
+Warning: Strict inequalities ignored and turned into nonstrict inequalities:
+	R{"cost"}>MINCS [ C ]
+	R{"time"}>MINRT [ C ]
+
 /////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
 Property:
-	[[R{"cost"}<=MAXCS [ C ]], [R{"time"}<=MAXRT [ C ]]]
+	[[R{"cost"}>MINCS [ C ]], [R{"time"}>MINRT [ C ]]]
 
-initial state: 190
+initial state: 5094
 operation: Strategy generation
-Synthesis took 2.512766 s
-strategy: null
+Strategy construction took 1.184792 s
+Synthesis took 17.752842 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+32419
+// Initial state
+InitState:
+5094
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+4631 0 {0=1.0}
+4632 0 {0=1.0}
+4633 0 {0=1.0}
+4654 0 {0=1.0}
+4655 0 {0=1.0}
+4656 0 {0=1.0}
+4657 0 {0=1.0}
+5094 0 {0=1.0}
+5095 0 {0=1.0}
+5096 0 {0=1.0}
+5117 0 {0=1.0}
+5118 0 {0=1.0}
+5119 0 {0=1.0}
+5120 0 {0=1.0}
+5557 0 {0=1.0}
+5558 0 {0=1.0}
+5559 0 {0=1.0}
+5560 0 {0=1.0}
+5561 0 {0=1.0}
+5562 0 {0=1.0}
+5563 0 {0=1.0}
+5564 0 {0=1.0}
+5565 0 {0=1.0}
+5566 0 {0=1.0}
+5567 0 {0=1.0}
+5568 0 {0=1.0}
+5569 0 {0=1.0}
+5570 0 {0=1.0}
+5571 0 {0=1.0}
+18988 0 {0=1.0}
+18989 0 {0=1.0}
+18990 0 {0=1.0}
+18991 0 {0=1.0}
+18992 0 {0=1.0}
+18993 0 {0=1.0}
+18994 0 {0=1.0}
+18995 0 {0=1.0}
+18996 0 {0=1.0}
+18997 0 {0=1.0}
+18998 0 {0=1.0}
+18999 0 {0=1.0}
+19000 0 {0=1.0}
+19001 0 {0=1.0}
+19002 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 0 {0=1.0}
+0 0 1 {0=1.0}
+11 0 0 {0=1.0}
+11 0 1 {0=1.0}
+12 0 0 {0=1.0}
+12 0 1 {0=1.0}
+231 0 0 {0=1.0}
+231 0 1 {0=1.0}
+232 0 0 {0=1.0}
+232 0 1 {0=1.0}
+233 0 0 {0=1.0}
+233 0 1 {0=1.0}
+234 0 0 {0=1.0}
+234 0 1 {0=1.0}
+4631 0 0 {0=1.0}
+4632 0 0 {0=1.0}
+4633 0 0 {0=1.0}
+4654 0 0 {0=1.0}
+4655 0 0 {0=1.0}
+4656 0 0 {0=1.0}
+4657 0 0 {0=1.0}
+5094 0 0 {0=1.0}
+5095 0 0 {0=1.0}
+5096 0 0 {0=1.0}
+5117 0 0 {0=1.0}
+5118 0 0 {0=1.0}
+5119 0 0 {0=1.0}
+5120 0 0 {0=1.0}
+5557 0 0 {0=1.0}
+5558 0 0 {0=1.0}
+5559 0 0 {0=1.0}
+5560 0 0 {0=1.0}
+5561 0 0 {0=1.0}
+5562 0 0 {0=1.0}
+5563 0 0 {0=1.0}
+5564 0 0 {0=1.0}
+5565 0 0 {0=1.0}
+5566 0 0 {0=1.0}
+5567 0 0 {0=1.0}
+5568 0 0 {0=1.0}
+5569 0 0 {0=1.0}
+5570 0 0 {0=1.0}
+5571 0 0 {0=1.0}
+18988 0 0 {0=1.0}
+18989 0 0 {0=1.0}
+18990 0 0 {0=1.0}
+18991 0 0 {0=1.0}
+18992 0 0 {0=1.0}
+18993 0 0 {0=1.0}
+18994 0 0 {0=1.0}
+18995 0 0 {0=1.0}
+18996 0 0 {0=1.0}
+18997 0 0 {0=1.0}
+18998 0 0 {0=1.0}
+18999 0 0 {0=1.0}
+19000 0 0 {0=1.0}
+19001 0 0 {0=1.0}
+19002 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 0 0 5557 {0=1.0}
+0 0 0 5095 {0=1.0}
+0 1 0 5557 {0=1.0}
+0 1 0 5096 {0=1.0}
+11 0 0 5558 {0=1.0}
+11 0 0 5117 {0=1.0}
+11 1 0 5558 {0=1.0}
+11 1 0 5118 {0=1.0}
+12 0 0 5559 {0=1.0}
+12 0 0 5119 {0=1.0}
+12 1 0 5120 {0=1.0}
+12 1 0 5559 {0=1.0}
+231 0 0 5560 {0=1.0}
+231 0 0 5561 {0=1.0}
+231 1 0 5560 {0=1.0}
+231 1 0 5562 {0=1.0}
+232 0 0 5563 {0=1.0}
+232 0 0 5564 {0=1.0}
+232 1 0 5563 {0=1.0}
+232 1 0 5565 {0=1.0}
+233 0 0 5566 {0=1.0}
+233 0 0 5567 {0=1.0}
+233 1 0 5568 {0=1.0}
+233 1 0 5566 {0=1.0}
+234 0 0 5569 {0=1.0}
+234 0 0 5570 {0=1.0}
+234 1 0 5569 {0=1.0}
+234 1 0 5571 {0=1.0}
+4631 0 0 0 {0=1.0}
+4632 0 0 11 {0=1.0}
+4633 0 0 12 {0=1.0}
+4654 0 0 231 {0=1.0}
+4655 0 0 232 {0=1.0}
+4656 0 0 233 {0=1.0}
+4657 0 0 234 {0=1.0}
+5094 0 0 4631 {0=1.0}
+5095 0 0 4632 {0=1.0}
+5096 0 0 4633 {0=1.0}
+5117 0 0 4654 {0=1.0}
+5118 0 0 4655 {0=1.0}
+5119 0 0 4656 {0=1.0}
+5120 0 0 4657 {0=1.0}
+5557 0 0 18988 {0=1.0}
+5558 0 0 18989 {0=1.0}
+5559 0 0 18990 {0=1.0}
+5560 0 0 18991 {0=1.0}
+5561 0 0 18992 {0=1.0}
+5562 0 0 18993 {0=1.0}
+5563 0 0 18994 {0=1.0}
+5564 0 0 18995 {0=1.0}
+5565 0 0 18996 {0=1.0}
+5566 0 0 18997 {0=1.0}
+5567 0 0 18998 {0=1.0}
+5568 0 0 18999 {0=1.0}
+5569 0 0 19000 {0=1.0}
+5570 0 0 19001 {0=1.0}
+5571 0 0 19002 {0=1.0}
+18988 0 0 18988 {0=1.0}
+18989 0 0 18989 {0=1.0}
+18990 0 0 18990 {0=1.0}
+18991 0 0 18991 {0=1.0}
+18992 0 0 18992 {0=1.0}
+18993 0 0 18993 {0=1.0}
+18994 0 0 18994 {0=1.0}
+18995 0 0 18995 {0=1.0}
+18996 0 0 18996 {0=1.0}
+18997 0 0 18997 {0=1.0}
+18998 0 0 18998 {0=1.0}
+18999 0 0 18999 {0=1.0}
+19000 0 0 19000 {0=1.0}
+19001 0 0 19001 {0=1.0}
+19002 0 0 19002 {0=1.0}
+Info:
 
-Number of states satisfying <<p1>> ((R{"cost"}<=MAXCS [ C ]&R{"time"}<=MAXRT [ C ])): 495
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
 
-Property satisfied in 0 of 1 initial states.
+endstrategy
 
-Time for model checking: 2.684 seconds.
 
-Result: false (property not satisfied in the initial state)
+Number of states satisfying <<p1>> ((R{"cost"}>MINCS [ C ]&R{"time"}>MINRT [ C ])): 32419 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 18.516000000000002 seconds.
+
+Result: true (property satisfied in the initial state)

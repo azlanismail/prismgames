@@ -187,9 +187,10 @@ const double N0_RS19_REL1;	//reliability 1;
 const int TE=0;	//plater 2 state
 const int TP=1;	//player 1 state
 const int TS=2;	//coordinator state
+const int NI=0;	//coordinator state
 global t:[TE..TS] init TS;	//to control the turn
 global end : bool init false;	//(absorbing state)
-global n:[0..MXN] init 0;  //to control the sequence
+global n:[0..MXN] init NI;  //to control the sequence
 
 //=========Module for Player 1=======
 module planner
