@@ -16,19 +16,19 @@ public class PlanningSimulator {
 		boolean statusRes[] = new boolean[simCycle]; //log the synthesis status
 		
 		//define paths for I/O files
-		String singlePath = "/home/azlan/git/PrismGames/Prismfiles/singlemodel.prism";
-		String seqPath = "/home/azlan/git/PrismGames/Prismfiles/seqmodel.prism";
-		String condPath = "/home/azlan/git/PrismGames/Prismfiles/condmodel.prism";
+		String singlePath = "/home/azlan/git/prismgames/Prismfiles/singlemodel.prism";
+		String seqPath = "/home/azlan/git/prismgames/Prismfiles/seqmodel.prism";
+		String condPath = "/home/azlan/git/prismgames/Prismfiles/condmodel.prism";
 		//String parPath = "/home/azlan/git/PrismGames/Prismfiles/parmodel.prism";
-		String propPath = "/home/azlan/git/PrismGames/Prismfiles/propSBSPlanner.props";
-		String transPath = "/home/azlan/git/PrismGames/IOFiles/transitions.txt";
-		String stratPath = "/home/azlan/git/PrismGames/IOFiles/strategies.txt";
+		String propPath = "/home/azlan/git/prismgames/Prismfiles/propSBSPlanner.props";
+		String transPath = "/home/azlan/git/prismgames/IOFiles/transitions.txt";
+		String stratPath = "/home/azlan/git/prismgames/IOFiles/strategies.txt";
 		//String actLabelPath = "/home/azlan/git/PrismGames/IOFiles/labels.txt";
 		
 		//define parameters for the model
 		int pattern = 0;	//0-single, 1-sequential, 2-conditional, 3-parallel
 		int numNode = 1;	//set the number of node/task/activity in the compositional structure
-		int numofService = 200;	//set the number of services per each node
+		int numofService = 20;	//set the number of services per each node
 		int numofResource = 2;	//set the number of behavior per each service
 		
 		//define values for the requirement parameters (assuming as global requirements)
@@ -264,8 +264,8 @@ public class PlanningSimulator {
 				String[] multiModelPath = new String[numNode];
 				String[] multiPropPath = new String[numNode];
 				for (int n=0; n < numNode; n++) {
-					multiModelPath[n] = "/home/azlan/git/PrismGames/Prismfiles/parmodel"+n+".prism";									
-					multiPropPath[n] = "/home/azlan/git/PrismGames/Prismfiles/propSBSPlanner"+n+".props";
+					multiModelPath[n] = "/home/azlan/git/prismgames/Prismfiles/parmodel"+n+".prism";									
+					multiPropPath[n] = "/home/azlan/git/prismgames/Prismfiles/propSBSPlanner"+n+".props";
 				}
 				//System.out.println("Paths have been created...");
 				System.out.println("Generating multiple models and properties specifications...");
@@ -290,8 +290,8 @@ public class PlanningSimulator {
 				String[] multiTransPath = new String[numNode];
 				String[] multiStratPath = new String[numNode];
 				for (int n=0; n < numNode; n++) {
-					multiTransPath[n] = "/home/azlan/git/PrismGames/Prismfiles/trans"+n+".prism";									
-					multiStratPath[n] = "/home/azlan/git/PrismGames/Prismfiles/strat"+n+".props";
+					multiTransPath[n] = "/home/azlan/git/prismgames/Prismfiles/trans"+n+".prism";									
+					multiStratPath[n] = "/home/azlan/git/prismgames/Prismfiles/strat"+n+".props";
 				}
 				sp.initiatePlanner();
 				for (int n=0; n < numNode; n++) {
@@ -345,7 +345,7 @@ public class PlanningSimulator {
 	}//end of main
 	
     public static void analyzePerformanceData(long time[], int cycle, int numNode, int numofS, boolean statusRes[], String pattern) throws FileNotFoundException {
-   	 File outfile = new File("/home/azlan/git/PrismGames/IOFiles/log"+pattern+"_"+numNode+"_"+numofS+".txt");
+   	 File outfile = new File("/home/azlan/git/prismgames/IOFiles/log"+pattern+"_"+numNode+"_"+numofS+".txt");
 
         PrintWriter pw = new PrintWriter(outfile);
 

@@ -1,11 +1,11 @@
 
 Building model...
 
-Computing reachable states... 695 states
-Reachable states exploration and model construction done in 0.203 secs.
+Computing reachable states... 72 states
+Reachable states exploration and model construction done in 0.157 secs.
 Sorting reachable states list...
 
-Time for model construction: 0.20800000000000002 seconds.
+Time for model construction: 0.157 seconds.
 
 Reducing multi-objective query to CNF: R{"cost"}>MINCS [ C ]&R{"time"}>MINRT [ C ]
 expr: [[R{"cost"}>MINCS [ C ]], [R{"time"}>MINRT [ C ]]]
@@ -18,18 +18,18 @@ Warning: Strict inequalities ignored and turned into nonstrict inequalities:
 Property:
 	[[R{"cost"}>MINCS [ C ]], [R{"time"}>MINRT [ C ]]]
 
-initial state: 100
+initial state: 11
 operation: Strategy generation
-Strategy construction took 0.022598 s
-Synthesis took 0.546581 s
+Strategy construction took 0.044567 s
+Synthesis took 0.193543 s
 strategy: $SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
-695
+72
 // Initial state
 InitState:
-100
+11
 // initial distribution
 Init:
 {0=1.0}
@@ -38,14 +38,14 @@ Init:
 Next:
 // first index: current state
 // second index: current corner
-99 0 {0=1.0}
-100 0 {0=1.0}
-101 0 {0=1.0}
-102 0 {0=1.0}
-103 0 {0=1.0}
-398 0 {0=1.0}
-399 0 {0=1.0}
-400 0 {0=1.0}
+10 0 {0=1.0}
+11 0 {0=1.0}
+12 0 {0=1.0}
+13 0 {0=1.0}
+14 0 {0=1.0}
+42 0 {0=1.0}
+43 0 {0=1.0}
+44 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
@@ -53,42 +53,43 @@ MemUpdStates:
 // third index: next move
 0 0 0 {0=1.0}
 0 0 1 {0=1.0}
-99 0 0 {0=1.0}
-100 0 0 {0=1.0}
-101 0 0 {0=1.0}
-102 0 0 {0=1.0}
-103 0 0 {0=1.0}
-398 0 0 {0=1.0}
-399 0 0 {0=1.0}
-400 0 0 {0=1.0}
+10 0 0 {0=1.0}
+11 0 0 {0=1.0}
+12 0 0 {0=1.0}
+13 0 0 {0=1.0}
+14 0 0 {0=1.0}
+42 0 0 {0=1.0}
+43 0 0 {0=1.0}
+44 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-0 0 0 101 {0=1.0}
-0 0 0 102 {0=1.0}
-0 1 0 101 {0=1.0}
-0 1 0 103 {0=1.0}
-99 0 0 0 {0=1.0}
-100 0 0 99 {0=1.0}
-101 0 0 398 {0=1.0}
-102 0 0 399 {0=1.0}
-103 0 0 400 {0=1.0}
-398 0 0 398 {0=1.0}
-399 0 0 399 {0=1.0}
-400 0 0 400 {0=1.0}
+0 0 0 12 {0=1.0}
+0 0 0 13 {0=1.0}
+0 1 0 12 {0=1.0}
+0 1 0 14 {0=1.0}
+10 0 0 0 {0=1.0}
+11 0 0 10 {0=1.0}
+12 0 0 42 {0=1.0}
+13 0 0 43 {0=1.0}
+14 0 0 44 {0=1.0}
+42 0 0 42 {0=1.0}
+43 0 0 43 {0=1.0}
+44 0 0 44 {0=1.0}
 Info:
 
 maximum C-iterations: 500
-	relative termination threshold: 0.01000
+	relative termination threshold: 0.010000
+	boundin
 Number of states sati
-Number of states satisfying <<p1>> ((R{"cost"}>MINCS [ C ]&R{"time"}>MINRT [ C ])): 765 (all in model)
+Number of states satisfying <<p1>> ((R{"cost"}>MINCS [ C ]&R{"time"}>MINRT [ C ])): 72 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 1.197 seconds.
+Time for model checking: 0.896 seconds.
 
 Result: true (property satisfied in the initial state)
-sfied in the initial state)
+(property satisfied in the initial state)
