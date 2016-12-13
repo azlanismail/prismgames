@@ -1,0 +1,12 @@
+cycle time status pattern evalMethod numNode numService numBehavior numSolution Solution
+0 1481671302309 true 1 1 2 10 2 2 n0r2 n1r5
+1 1481671305648 true 1 1 2 10 2 2 n0r6 n1r1
+2 1481671308374 true 1 1 2 10 2 2 n0r7 n1r2
+3 1481671311207 true 1 1 2 10 2 2 n0r3 n1r3
+4 1481671313451 true 1 1 2 10 2 2 n0r0 n1r1
+cycle time status pattern evalMethod numNode numService numBehavior numSolution Solution
+0 1481672088708 true 1 1 2 10 2 2 n0r9 n1r4
+1 1481672092576 true 1 1 2 10 2 2 n0r5 n1r0
+2 1481672094830 true 1 1 2 10 2 2 n0r2 n1r3
+3 1481672097534 true 1 1 2 10 2 2 n0r4 n1r1
+4 1481672099939 true 1 1 2 10 2 2 n0r4 n1r1

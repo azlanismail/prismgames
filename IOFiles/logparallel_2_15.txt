@@ -1,5 +1,0 @@
-recorded data: cycle, time, status
- 0 12167 true
- 1 1922 true
-
-Average: 7044

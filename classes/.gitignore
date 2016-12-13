@@ -1,5 +1,9 @@
 /README.txt
+/acceptance/
+/automata/
 /bin/
+/cex/
+/common/
 /dd/
 /dv/
 /explicit/
@@ -7,13 +11,9 @@
 /jdd/
 /jltl2ba/
 /jltl2dstar/
+/libppl_java.so
 /manifest.txt
 /mtbdd/
-/acceptance/
-/automata/
-/cex/
-/common/
-/libppl_java.so
 /nsis_script.nsi
 /odd/
 /overview.html

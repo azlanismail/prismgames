@@ -1,7 +1,7 @@
 smg
 //=========Player definition=======
 player p1
-planner,[n0r0],[n0r1],[n0r2],[n0r3],[n0r4],[n0r5],[n0r6],[n0r7],[n0r8],[n0r9],[n0r10],[n0r11],[n0r12],[n0r13],[n0r14],[n1r0],[n1r1],[n1r2],[n1r3],[n1r4],[n1r5],[n1r6],[n1r7],[n1r8],[n1r9],[n1r10],[n1r11],[n1r12],[n1r13],[n1r14],[be],[end],[ter]
+planner,[n0r0],[n0r1],[n0r2],[n0r3],[n0r4],[n0r5],[n0r6],[n0r7],[n0r8],[n0r9],[n1r0],[n1r1],[n1r2],[n1r3],[n1r4],[n1r5],[n1r6],[n1r7],[n1r8],[n1r9],[be],[end],[ter]
 endplayer
 
 player p2
@@ -19,250 +19,170 @@ const double A0_WG_REL = 0.4; //weight for reliability
 
 //=========Resource Profiles=======
 const int MXN=2;
-const int N0_MAX_SV=15;	//finite number of services
+const int N0_MAX_SV=10;	//finite number of services
 const int N0_MAX_EV=2;	//finite number of computing nodes
-const int N1_MAX_SV=15;	//finite number of services
+const int N1_MAX_SV=10;	//finite number of services
 const int N1_MAX_EV=2;	//finite number of computing nodes
 
 const int N0_RS0_ID = 0;
-const int N0_RS0_COST = 16;	//cost
+const int N0_RS0_COST = 59;	//cost
 const bool N0_RS0_AVAIL = true;	//availability status
-const int N0_RS0_DUR0 = 81;	//duration 0;
-const int N0_RS0_DUR1 = 80;	//duration 1;
-const double N0_RS0_REL0 = 0.209271986190117;	//reliability 0;
-const double N0_RS0_REL1 = 0.8837706814175333;	//reliability 1;
+const int N0_RS0_DUR0 = 87;	//duration 0;
+const int N0_RS0_DUR1 = 47;	//duration 1;
+const double N0_RS0_REL0 = 0.7881451651154505;	//reliability 0;
+const double N0_RS0_REL1 = 0.37269183924833926;	//reliability 1;
 
 const int N0_RS1_ID = 1;
-const int N0_RS1_COST = 43;	//cost
+const int N0_RS1_COST = 29;	//cost
 const bool N0_RS1_AVAIL = true;	//availability status
-const int N0_RS1_DUR0 = 64;	//duration 0;
-const int N0_RS1_DUR1 = 44;	//duration 1;
-const double N0_RS1_REL0 = 0.2556564424003618;	//reliability 0;
-const double N0_RS1_REL1 = 0.026737816447072293;	//reliability 1;
+const int N0_RS1_DUR0 = 20;	//duration 0;
+const int N0_RS1_DUR1 = 48;	//duration 1;
+const double N0_RS1_REL0 = 0.8742107839136735;	//reliability 0;
+const double N0_RS1_REL1 = 0.6815378526655649;	//reliability 1;
 
 const int N0_RS2_ID = 2;
-const int N0_RS2_COST = 25;	//cost
+const int N0_RS2_COST = 51;	//cost
 const bool N0_RS2_AVAIL = true;	//availability status
-const int N0_RS2_DUR0 = 84;	//duration 0;
-const int N0_RS2_DUR1 = 82;	//duration 1;
-const double N0_RS2_REL0 = 0.44542491975891896;	//reliability 0;
-const double N0_RS2_REL1 = 0.7554001379222526;	//reliability 1;
+const int N0_RS2_DUR0 = 62;	//duration 0;
+const int N0_RS2_DUR1 = 49;	//duration 1;
+const double N0_RS2_REL0 = 0.7199581487062673;	//reliability 0;
+const double N0_RS2_REL1 = 0.1466452400389593;	//reliability 1;
 
 const int N0_RS3_ID = 3;
-const int N0_RS3_COST = 59;	//cost
+const int N0_RS3_COST = 29;	//cost
 const bool N0_RS3_AVAIL = true;	//availability status
-const int N0_RS3_DUR0 = 48;	//duration 0;
-const int N0_RS3_DUR1 = 43;	//duration 1;
-const double N0_RS3_REL0 = 0.637546779202718;	//reliability 0;
-const double N0_RS3_REL1 = 0.31032561562191174;	//reliability 1;
+const int N0_RS3_DUR0 = 29;	//duration 0;
+const int N0_RS3_DUR1 = 69;	//duration 1;
+const double N0_RS3_REL0 = 0.6929380991571699;	//reliability 0;
+const double N0_RS3_REL1 = 0.7221581024183839;	//reliability 1;
 
 const int N0_RS4_ID = 4;
-const int N0_RS4_COST = 21;	//cost
+const int N0_RS4_COST = 28;	//cost
 const bool N0_RS4_AVAIL = true;	//availability status
-const int N0_RS4_DUR0 = 65;	//duration 0;
-const int N0_RS4_DUR1 = 97;	//duration 1;
-const double N0_RS4_REL0 = 0.3793760863908995;	//reliability 0;
-const double N0_RS4_REL1 = 0.5880777799985266;	//reliability 1;
+const int N0_RS4_DUR0 = 93;	//duration 0;
+const int N0_RS4_DUR1 = 68;	//duration 1;
+const double N0_RS4_REL0 = 0.439708802401261;	//reliability 0;
+const double N0_RS4_REL1 = 0.7235929382295129;	//reliability 1;
 
 const int N0_RS5_ID = 5;
-const int N0_RS5_COST = 39;	//cost
+const int N0_RS5_COST = 36;	//cost
 const bool N0_RS5_AVAIL = true;	//availability status
-const int N0_RS5_DUR0 = 88;	//duration 0;
-const int N0_RS5_DUR1 = 87;	//duration 1;
-const double N0_RS5_REL0 = 0.6333916042548394;	//reliability 0;
-const double N0_RS5_REL1 = 0.44107333067730126;	//reliability 1;
+const int N0_RS5_DUR0 = 29;	//duration 0;
+const int N0_RS5_DUR1 = 32;	//duration 1;
+const double N0_RS5_REL0 = 0.8668847819748556;	//reliability 0;
+const double N0_RS5_REL1 = 0.7940000496200575;	//reliability 1;
 
 const int N0_RS6_ID = 6;
-const int N0_RS6_COST = 50;	//cost
+const int N0_RS6_COST = 13;	//cost
 const bool N0_RS6_AVAIL = true;	//availability status
-const int N0_RS6_DUR0 = 84;	//duration 0;
-const int N0_RS6_DUR1 = 87;	//duration 1;
-const double N0_RS6_REL0 = 0.4122860062595013;	//reliability 0;
-const double N0_RS6_REL1 = 0.042783210264478067;	//reliability 1;
+const int N0_RS6_DUR0 = 30;	//duration 0;
+const int N0_RS6_DUR1 = 10;	//duration 1;
+const double N0_RS6_REL0 = 0.5223615973833625;	//reliability 0;
+const double N0_RS6_REL1 = 0.5783405650406288;	//reliability 1;
 
 const int N0_RS7_ID = 7;
-const int N0_RS7_COST = 27;	//cost
+const int N0_RS7_COST = 20;	//cost
 const bool N0_RS7_AVAIL = true;	//availability status
-const int N0_RS7_DUR0 = 33;	//duration 0;
-const int N0_RS7_DUR1 = 85;	//duration 1;
-const double N0_RS7_REL0 = 0.356049276341997;	//reliability 0;
-const double N0_RS7_REL1 = 0.7318411667894437;	//reliability 1;
+const int N0_RS7_DUR0 = 95;	//duration 0;
+const int N0_RS7_DUR1 = 14;	//duration 1;
+const double N0_RS7_REL0 = 0.2229380094232558;	//reliability 0;
+const double N0_RS7_REL1 = 0.9045196310313589;	//reliability 1;
 
 const int N0_RS8_ID = 8;
-const int N0_RS8_COST = 11;	//cost
+const int N0_RS8_COST = 35;	//cost
 const bool N0_RS8_AVAIL = true;	//availability status
-const int N0_RS8_DUR0 = 24;	//duration 0;
-const int N0_RS8_DUR1 = 33;	//duration 1;
-const double N0_RS8_REL0 = 0.12501848243878189;	//reliability 0;
-const double N0_RS8_REL1 = 0.8285851064085952;	//reliability 1;
+const int N0_RS8_DUR0 = 72;	//duration 0;
+const int N0_RS8_DUR1 = 70;	//duration 1;
+const double N0_RS8_REL0 = 0.9724388259641112;	//reliability 0;
+const double N0_RS8_REL1 = 0.6913502751584829;	//reliability 1;
 
 const int N0_RS9_ID = 9;
-const int N0_RS9_COST = 45;	//cost
+const int N0_RS9_COST = 24;	//cost
 const bool N0_RS9_AVAIL = true;	//availability status
-const int N0_RS9_DUR0 = 91;	//duration 0;
-const int N0_RS9_DUR1 = 29;	//duration 1;
-const double N0_RS9_REL0 = 0.5187205254255646;	//reliability 0;
-const double N0_RS9_REL1 = 0.9180115657434108;	//reliability 1;
-
-const int N0_RS10_ID = 10;
-const int N0_RS10_COST = 36;	//cost
-const bool N0_RS10_AVAIL = true;	//availability status
-const int N0_RS10_DUR0 = 41;	//duration 0;
-const int N0_RS10_DUR1 = 67;	//duration 1;
-const double N0_RS10_REL0 = 0.9476771644695913;	//reliability 0;
-const double N0_RS10_REL1 = 0.7258939024658104;	//reliability 1;
-
-const int N0_RS11_ID = 11;
-const int N0_RS11_COST = 43;	//cost
-const bool N0_RS11_AVAIL = true;	//availability status
-const int N0_RS11_DUR0 = 54;	//duration 0;
-const int N0_RS11_DUR1 = 51;	//duration 1;
-const double N0_RS11_REL0 = 0.0977826059500464;	//reliability 0;
-const double N0_RS11_REL1 = 0.3733321533763745;	//reliability 1;
-
-const int N0_RS12_ID = 12;
-const int N0_RS12_COST = 21;	//cost
-const bool N0_RS12_AVAIL = true;	//availability status
-const int N0_RS12_DUR0 = 73;	//duration 0;
-const int N0_RS12_DUR1 = 96;	//duration 1;
-const double N0_RS12_REL0 = 0.24765351619129217;	//reliability 0;
-const double N0_RS12_REL1 = 0.5522669546052918;	//reliability 1;
-
-const int N0_RS13_ID = 13;
-const int N0_RS13_COST = 41;	//cost
-const bool N0_RS13_AVAIL = true;	//availability status
-const int N0_RS13_DUR0 = 65;	//duration 0;
-const int N0_RS13_DUR1 = 42;	//duration 1;
-const double N0_RS13_REL0 = 0.7604478827871878;	//reliability 0;
-const double N0_RS13_REL1 = 0.8822573655094536;	//reliability 1;
-
-const int N0_RS14_ID = 14;
-const int N0_RS14_COST = 50;	//cost
-const bool N0_RS14_AVAIL = true;	//availability status
-const int N0_RS14_DUR0 = 48;	//duration 0;
-const int N0_RS14_DUR1 = 22;	//duration 1;
-const double N0_RS14_REL0 = 0.507380361403215;	//reliability 0;
-const double N0_RS14_REL1 = 0.5019620789476333;	//reliability 1;
+const int N0_RS9_DUR0 = 81;	//duration 0;
+const int N0_RS9_DUR1 = 26;	//duration 1;
+const double N0_RS9_REL0 = 0.7977685088143306;	//reliability 0;
+const double N0_RS9_REL1 = 0.2789402423808257;	//reliability 1;
 
 const int N1_RS0_ID = 0;
-const int N1_RS0_COST = 36;	//cost
+const int N1_RS0_COST = 42;	//cost
 const bool N1_RS0_AVAIL = true;	//availability status
-const int N1_RS0_DUR0 = 22;	//duration 0;
-const int N1_RS0_DUR1 = 85;	//duration 1;
-const double N1_RS0_REL0 = 0.3987145585609353;	//reliability 0;
-const double N1_RS0_REL1 = 0.45563592691985777;	//reliability 1;
+const int N1_RS0_DUR0 = 3;	//duration 0;
+const int N1_RS0_DUR1 = 5;	//duration 1;
+const double N1_RS0_REL0 = 0.09791026042624207;	//reliability 0;
+const double N1_RS0_REL1 = 0.8140148958181447;	//reliability 1;
 
 const int N1_RS1_ID = 1;
-const int N1_RS1_COST = 31;	//cost
+const int N1_RS1_COST = 45;	//cost
 const bool N1_RS1_AVAIL = true;	//availability status
-const int N1_RS1_DUR0 = 68;	//duration 0;
-const int N1_RS1_DUR1 = 94;	//duration 1;
-const double N1_RS1_REL0 = 0.014587117904450442;	//reliability 0;
-const double N1_RS1_REL1 = 0.44427352807031306;	//reliability 1;
+const int N1_RS1_DUR0 = 49;	//duration 0;
+const int N1_RS1_DUR1 = 34;	//duration 1;
+const double N1_RS1_REL0 = 0.01736956507556231;	//reliability 0;
+const double N1_RS1_REL1 = 0.9417325558387538;	//reliability 1;
 
 const int N1_RS2_ID = 2;
-const int N1_RS2_COST = 22;	//cost
+const int N1_RS2_COST = 38;	//cost
 const bool N1_RS2_AVAIL = true;	//availability status
-const int N1_RS2_DUR0 = 3;	//duration 0;
-const int N1_RS2_DUR1 = 31;	//duration 1;
-const double N1_RS2_REL0 = 0.8069536620135808;	//reliability 0;
-const double N1_RS2_REL1 = 0.8824699727941746;	//reliability 1;
+const int N1_RS2_DUR0 = 36;	//duration 0;
+const int N1_RS2_DUR1 = 95;	//duration 1;
+const double N1_RS2_REL0 = 0.7848241170000537;	//reliability 0;
+const double N1_RS2_REL1 = 0.09459486962773145;	//reliability 1;
 
 const int N1_RS3_ID = 3;
-const int N1_RS3_COST = 51;	//cost
+const int N1_RS3_COST = 54;	//cost
 const bool N1_RS3_AVAIL = true;	//availability status
-const int N1_RS3_DUR0 = 70;	//duration 0;
-const int N1_RS3_DUR1 = 23;	//duration 1;
-const double N1_RS3_REL0 = 0.6301816524099039;	//reliability 0;
-const double N1_RS3_REL1 = 0.2060583245615002;	//reliability 1;
+const int N1_RS3_DUR0 = 92;	//duration 0;
+const int N1_RS3_DUR1 = 59;	//duration 1;
+const double N1_RS3_REL0 = 0.5331020360541824;	//reliability 0;
+const double N1_RS3_REL1 = 0.343888682417971;	//reliability 1;
 
 const int N1_RS4_ID = 4;
-const int N1_RS4_COST = 10;	//cost
+const int N1_RS4_COST = 49;	//cost
 const bool N1_RS4_AVAIL = true;	//availability status
-const int N1_RS4_DUR0 = 88;	//duration 0;
-const int N1_RS4_DUR1 = 17;	//duration 1;
-const double N1_RS4_REL0 = 0.18500392553262146;	//reliability 0;
-const double N1_RS4_REL1 = 0.8549193208263669;	//reliability 1;
+const int N1_RS4_DUR0 = 51;	//duration 0;
+const int N1_RS4_DUR1 = 59;	//duration 1;
+const double N1_RS4_REL0 = 0.9870622856990032;	//reliability 0;
+const double N1_RS4_REL1 = 0.5517304277265596;	//reliability 1;
 
 const int N1_RS5_ID = 5;
-const int N1_RS5_COST = 11;	//cost
+const int N1_RS5_COST = 33;	//cost
 const bool N1_RS5_AVAIL = true;	//availability status
-const int N1_RS5_DUR0 = 72;	//duration 0;
-const int N1_RS5_DUR1 = 17;	//duration 1;
-const double N1_RS5_REL0 = 0.9267799970980083;	//reliability 0;
-const double N1_RS5_REL1 = 0.48746230776499655;	//reliability 1;
+const int N1_RS5_DUR0 = 26;	//duration 0;
+const int N1_RS5_DUR1 = 62;	//duration 1;
+const double N1_RS5_REL0 = 0.5885310897207495;	//reliability 0;
+const double N1_RS5_REL1 = 0.6607012697953334;	//reliability 1;
 
 const int N1_RS6_ID = 6;
-const int N1_RS6_COST = 24;	//cost
+const int N1_RS6_COST = 44;	//cost
 const bool N1_RS6_AVAIL = true;	//availability status
-const int N1_RS6_DUR0 = 50;	//duration 0;
-const int N1_RS6_DUR1 = 6;	//duration 1;
-const double N1_RS6_REL0 = 0.26853566773746285;	//reliability 0;
-const double N1_RS6_REL1 = 0.8209295031005495;	//reliability 1;
+const int N1_RS6_DUR0 = 89;	//duration 0;
+const int N1_RS6_DUR1 = 95;	//duration 1;
+const double N1_RS6_REL0 = 0.35294613660131235;	//reliability 0;
+const double N1_RS6_REL1 = 0.30466939680272687;	//reliability 1;
 
 const int N1_RS7_ID = 7;
 const int N1_RS7_COST = 18;	//cost
 const bool N1_RS7_AVAIL = true;	//availability status
-const int N1_RS7_DUR0 = 53;	//duration 0;
-const int N1_RS7_DUR1 = 63;	//duration 1;
-const double N1_RS7_REL0 = 0.5128803671695555;	//reliability 0;
-const double N1_RS7_REL1 = 0.8537898104994582;	//reliability 1;
+const int N1_RS7_DUR0 = 58;	//duration 0;
+const int N1_RS7_DUR1 = 24;	//duration 1;
+const double N1_RS7_REL0 = 0.7506702684326038;	//reliability 0;
+const double N1_RS7_REL1 = 0.8141345691449658;	//reliability 1;
 
 const int N1_RS8_ID = 8;
-const int N1_RS8_COST = 43;	//cost
+const int N1_RS8_COST = 38;	//cost
 const bool N1_RS8_AVAIL = true;	//availability status
-const int N1_RS8_DUR0 = 27;	//duration 0;
-const int N1_RS8_DUR1 = 2;	//duration 1;
-const double N1_RS8_REL0 = 0.4634948205858306;	//reliability 0;
-const double N1_RS8_REL1 = 0.5376697949616226;	//reliability 1;
+const int N1_RS8_DUR0 = 19;	//duration 0;
+const int N1_RS8_DUR1 = 0;	//duration 1;
+const double N1_RS8_REL0 = 0.5555115362128431;	//reliability 0;
+const double N1_RS8_REL1 = 0.30603263671561576;	//reliability 1;
 
 const int N1_RS9_ID = 9;
-const int N1_RS9_COST = 53;	//cost
+const int N1_RS9_COST = 12;	//cost
 const bool N1_RS9_AVAIL = true;	//availability status
-const int N1_RS9_DUR0 = 81;	//duration 0;
-const int N1_RS9_DUR1 = 15;	//duration 1;
-const double N1_RS9_REL0 = 0.5715017771663158;	//reliability 0;
-const double N1_RS9_REL1 = 0.3840185028131935;	//reliability 1;
-
-const int N1_RS10_ID = 10;
-const int N1_RS10_COST = 17;	//cost
-const bool N1_RS10_AVAIL = true;	//availability status
-const int N1_RS10_DUR0 = 67;	//duration 0;
-const int N1_RS10_DUR1 = 46;	//duration 1;
-const double N1_RS10_REL0 = 0.4368995293461626;	//reliability 0;
-const double N1_RS10_REL1 = 0.9435812588602925;	//reliability 1;
-
-const int N1_RS11_ID = 11;
-const int N1_RS11_COST = 46;	//cost
-const bool N1_RS11_AVAIL = true;	//availability status
-const int N1_RS11_DUR0 = 8;	//duration 0;
-const int N1_RS11_DUR1 = 18;	//duration 1;
-const double N1_RS11_REL0 = 0.36851584234831125;	//reliability 0;
-const double N1_RS11_REL1 = 0.009960060778762214;	//reliability 1;
-
-const int N1_RS12_ID = 12;
-const int N1_RS12_COST = 15;	//cost
-const bool N1_RS12_AVAIL = true;	//availability status
-const int N1_RS12_DUR0 = 30;	//duration 0;
-const int N1_RS12_DUR1 = 58;	//duration 1;
-const double N1_RS12_REL0 = 0.3307312960313872;	//reliability 0;
-const double N1_RS12_REL1 = 0.3679516261501756;	//reliability 1;
-
-const int N1_RS13_ID = 13;
-const int N1_RS13_COST = 27;	//cost
-const bool N1_RS13_AVAIL = true;	//availability status
-const int N1_RS13_DUR0 = 49;	//duration 0;
-const int N1_RS13_DUR1 = 75;	//duration 1;
-const double N1_RS13_REL0 = 0.9049387541328549;	//reliability 0;
-const double N1_RS13_REL1 = 0.9109665642703266;	//reliability 1;
-
-const int N1_RS14_ID = 14;
-const int N1_RS14_COST = 39;	//cost
-const bool N1_RS14_AVAIL = true;	//availability status
-const int N1_RS14_DUR0 = 25;	//duration 0;
-const int N1_RS14_DUR1 = 50;	//duration 1;
-const double N1_RS14_REL0 = 0.017158285749066082;	//reliability 0;
-const double N1_RS14_REL1 = 0.4141282050157895;	//reliability 1;
+const int N1_RS9_DUR0 = 26;	//duration 0;
+const int N1_RS9_DUR1 = 20;	//duration 1;
+const double N1_RS9_REL0 = 0.7337046896657005;	//reliability 0;
+const double N1_RS9_REL1 = 0.14944392856018418;	//reliability 1;
 
 
 //=========Global Parameters=======
@@ -295,11 +215,6 @@ n1:[-1..N1_MAX_SV-1] init -1;
 [n0r7] (t=TP) & (n=0) & (a0_n0_rs7_sat_all=true) -> (n0'=7) & (t'=TE);
 [n0r8] (t=TP) & (n=0) & (a0_n0_rs8_sat_all=true) -> (n0'=8) & (t'=TE);
 [n0r9] (t=TP) & (n=0) & (a0_n0_rs9_sat_all=true) -> (n0'=9) & (t'=TE);
-[n0r10] (t=TP) & (n=0) & (a0_n0_rs10_sat_all=true) -> (n0'=10) & (t'=TE);
-[n0r11] (t=TP) & (n=0) & (a0_n0_rs11_sat_all=true) -> (n0'=11) & (t'=TE);
-[n0r12] (t=TP) & (n=0) & (a0_n0_rs12_sat_all=true) -> (n0'=12) & (t'=TE);
-[n0r13] (t=TP) & (n=0) & (a0_n0_rs13_sat_all=true) -> (n0'=13) & (t'=TE);
-[n0r14] (t=TP) & (n=0) & (a0_n0_rs14_sat_all=true) -> (n0'=14) & (t'=TE);
 [n1r0] (t=TP) & (n=1) & (a0_n1_rs0_sat_all=true) -> (n1'=0) & (t'=TE);
 [n1r1] (t=TP) & (n=1) & (a0_n1_rs1_sat_all=true) -> (n1'=1) & (t'=TE);
 [n1r2] (t=TP) & (n=1) & (a0_n1_rs2_sat_all=true) -> (n1'=2) & (t'=TE);
@@ -310,11 +225,6 @@ n1:[-1..N1_MAX_SV-1] init -1;
 [n1r7] (t=TP) & (n=1) & (a0_n1_rs7_sat_all=true) -> (n1'=7) & (t'=TE);
 [n1r8] (t=TP) & (n=1) & (a0_n1_rs8_sat_all=true) -> (n1'=8) & (t'=TE);
 [n1r9] (t=TP) & (n=1) & (a0_n1_rs9_sat_all=true) -> (n1'=9) & (t'=TE);
-[n1r10] (t=TP) & (n=1) & (a0_n1_rs10_sat_all=true) -> (n1'=10) & (t'=TE);
-[n1r11] (t=TP) & (n=1) & (a0_n1_rs11_sat_all=true) -> (n1'=11) & (t'=TE);
-[n1r12] (t=TP) & (n=1) & (a0_n1_rs12_sat_all=true) -> (n1'=12) & (t'=TE);
-[n1r13] (t=TP) & (n=1) & (a0_n1_rs13_sat_all=true) -> (n1'=13) & (t'=TE);
-[n1r14] (t=TP) & (n=1) & (a0_n1_rs14_sat_all=true) -> (n1'=14) & (t'=TE);
 endmodule
 
 //=========Module for Player 2=======
@@ -329,11 +239,11 @@ n1ev:[-1..N1_MAX_EV] init -1;
 endmodule
 
 //=========Assign reliability values=======
-formula n0ev0_rel = ( n0 = 0 ? N0_RS0_REL0 : ( n0 = 1 ? N0_RS1_REL0 : ( n0 = 2 ? N0_RS2_REL0 : ( n0 = 3 ? N0_RS3_REL0 : ( n0 = 4 ? N0_RS4_REL0 : ( n0 = 5 ? N0_RS5_REL0 : ( n0 = 6 ? N0_RS6_REL0 : ( n0 = 7 ? N0_RS7_REL0 : ( n0 = 8 ? N0_RS8_REL0 : ( n0 = 9 ? N0_RS9_REL0 : ( n0 = 10 ? N0_RS10_REL0 : ( n0 = 11 ? N0_RS11_REL0 : ( n0 = 12 ? N0_RS12_REL0 : ( n0 = 13 ? N0_RS13_REL0 : ( n0 = 14 ? N0_RS14_REL0 :0.0)))))))))))))));
-formula n0ev1_rel = ( n0 = 0 ? N0_RS0_REL1 : ( n0 = 1 ? N0_RS1_REL1 : ( n0 = 2 ? N0_RS2_REL1 : ( n0 = 3 ? N0_RS3_REL1 : ( n0 = 4 ? N0_RS4_REL1 : ( n0 = 5 ? N0_RS5_REL1 : ( n0 = 6 ? N0_RS6_REL1 : ( n0 = 7 ? N0_RS7_REL1 : ( n0 = 8 ? N0_RS8_REL1 : ( n0 = 9 ? N0_RS9_REL1 : ( n0 = 10 ? N0_RS10_REL1 : ( n0 = 11 ? N0_RS11_REL1 : ( n0 = 12 ? N0_RS12_REL1 : ( n0 = 13 ? N0_RS13_REL1 : ( n0 = 14 ? N0_RS14_REL1 :0.0)))))))))))))));
+formula n0ev0_rel = ( n0 = 0 ? N0_RS0_REL0 : ( n0 = 1 ? N0_RS1_REL0 : ( n0 = 2 ? N0_RS2_REL0 : ( n0 = 3 ? N0_RS3_REL0 : ( n0 = 4 ? N0_RS4_REL0 : ( n0 = 5 ? N0_RS5_REL0 : ( n0 = 6 ? N0_RS6_REL0 : ( n0 = 7 ? N0_RS7_REL0 : ( n0 = 8 ? N0_RS8_REL0 : ( n0 = 9 ? N0_RS9_REL0 :0.0))))))))));
+formula n0ev1_rel = ( n0 = 0 ? N0_RS0_REL1 : ( n0 = 1 ? N0_RS1_REL1 : ( n0 = 2 ? N0_RS2_REL1 : ( n0 = 3 ? N0_RS3_REL1 : ( n0 = 4 ? N0_RS4_REL1 : ( n0 = 5 ? N0_RS5_REL1 : ( n0 = 6 ? N0_RS6_REL1 : ( n0 = 7 ? N0_RS7_REL1 : ( n0 = 8 ? N0_RS8_REL1 : ( n0 = 9 ? N0_RS9_REL1 :0.0))))))))));
 
-formula n1ev0_rel = ( n1 = 0 ? N1_RS0_REL0 : ( n1 = 1 ? N1_RS1_REL0 : ( n1 = 2 ? N1_RS2_REL0 : ( n1 = 3 ? N1_RS3_REL0 : ( n1 = 4 ? N1_RS4_REL0 : ( n1 = 5 ? N1_RS5_REL0 : ( n1 = 6 ? N1_RS6_REL0 : ( n1 = 7 ? N1_RS7_REL0 : ( n1 = 8 ? N1_RS8_REL0 : ( n1 = 9 ? N1_RS9_REL0 : ( n1 = 10 ? N1_RS10_REL0 : ( n1 = 11 ? N1_RS11_REL0 : ( n1 = 12 ? N1_RS12_REL0 : ( n1 = 13 ? N1_RS13_REL0 : ( n1 = 14 ? N1_RS14_REL0 :0.0)))))))))))))));
-formula n1ev1_rel = ( n1 = 0 ? N1_RS0_REL1 : ( n1 = 1 ? N1_RS1_REL1 : ( n1 = 2 ? N1_RS2_REL1 : ( n1 = 3 ? N1_RS3_REL1 : ( n1 = 4 ? N1_RS4_REL1 : ( n1 = 5 ? N1_RS5_REL1 : ( n1 = 6 ? N1_RS6_REL1 : ( n1 = 7 ? N1_RS7_REL1 : ( n1 = 8 ? N1_RS8_REL1 : ( n1 = 9 ? N1_RS9_REL1 : ( n1 = 10 ? N1_RS10_REL1 : ( n1 = 11 ? N1_RS11_REL1 : ( n1 = 12 ? N1_RS12_REL1 : ( n1 = 13 ? N1_RS13_REL1 : ( n1 = 14 ? N1_RS14_REL1 :0.0)))))))))))))));
+formula n1ev0_rel = ( n1 = 0 ? N1_RS0_REL0 : ( n1 = 1 ? N1_RS1_REL0 : ( n1 = 2 ? N1_RS2_REL0 : ( n1 = 3 ? N1_RS3_REL0 : ( n1 = 4 ? N1_RS4_REL0 : ( n1 = 5 ? N1_RS5_REL0 : ( n1 = 6 ? N1_RS6_REL0 : ( n1 = 7 ? N1_RS7_REL0 : ( n1 = 8 ? N1_RS8_REL0 : ( n1 = 9 ? N1_RS9_REL0 :0.0))))))))));
+formula n1ev1_rel = ( n1 = 0 ? N1_RS0_REL1 : ( n1 = 1 ? N1_RS1_REL1 : ( n1 = 2 ? N1_RS2_REL1 : ( n1 = 3 ? N1_RS3_REL1 : ( n1 = 4 ? N1_RS4_REL1 : ( n1 = 5 ? N1_RS5_REL1 : ( n1 = 6 ? N1_RS6_REL1 : ( n1 = 7 ? N1_RS7_REL1 : ( n1 = 8 ? N1_RS8_REL1 : ( n1 = 9 ? N1_RS9_REL1 :0.0))))))))));
 
 
 //=========QoS Constraints Checking=======
@@ -427,51 +337,6 @@ formula a0_n0_rs9_sat_cost = ( (A0_COST <= N0_RS9_COST) ? true:false);
 formula a0_n0_rs9_sat_avail = N0_RS9_AVAIL;
 formula a0_n0_rs9_sat_all = a0_n0_rs9_sat_avail;
 
-//=====Application 0, Node0 and RS10
-formula a0_n0_rs10_sat_dur0 = ( (A0_DUR <= N0_RS10_DUR0) ? true:false);
-formula a0_n0_rs10_sat_dur1 = ( (A0_DUR <= N0_RS10_DUR1) ? true:false);
-formula a0_n0_rs10_sat_rel0 = ( (A0_DUR <= N0_RS10_REL0) ? true:false);
-formula a0_n0_rs10_sat_rel1 = ( (A0_DUR <= N0_RS10_REL1) ? true:false);
-formula a0_n0_rs10_sat_cost = ( (A0_COST <= N0_RS10_COST) ? true:false);
-formula a0_n0_rs10_sat_avail = N0_RS10_AVAIL;
-formula a0_n0_rs10_sat_all = a0_n0_rs10_sat_avail;
-
-//=====Application 0, Node0 and RS11
-formula a0_n0_rs11_sat_dur0 = ( (A0_DUR <= N0_RS11_DUR0) ? true:false);
-formula a0_n0_rs11_sat_dur1 = ( (A0_DUR <= N0_RS11_DUR1) ? true:false);
-formula a0_n0_rs11_sat_rel0 = ( (A0_DUR <= N0_RS11_REL0) ? true:false);
-formula a0_n0_rs11_sat_rel1 = ( (A0_DUR <= N0_RS11_REL1) ? true:false);
-formula a0_n0_rs11_sat_cost = ( (A0_COST <= N0_RS11_COST) ? true:false);
-formula a0_n0_rs11_sat_avail = N0_RS11_AVAIL;
-formula a0_n0_rs11_sat_all = a0_n0_rs11_sat_avail;
-
-//=====Application 0, Node0 and RS12
-formula a0_n0_rs12_sat_dur0 = ( (A0_DUR <= N0_RS12_DUR0) ? true:false);
-formula a0_n0_rs12_sat_dur1 = ( (A0_DUR <= N0_RS12_DUR1) ? true:false);
-formula a0_n0_rs12_sat_rel0 = ( (A0_DUR <= N0_RS12_REL0) ? true:false);
-formula a0_n0_rs12_sat_rel1 = ( (A0_DUR <= N0_RS12_REL1) ? true:false);
-formula a0_n0_rs12_sat_cost = ( (A0_COST <= N0_RS12_COST) ? true:false);
-formula a0_n0_rs12_sat_avail = N0_RS12_AVAIL;
-formula a0_n0_rs12_sat_all = a0_n0_rs12_sat_avail;
-
-//=====Application 0, Node0 and RS13
-formula a0_n0_rs13_sat_dur0 = ( (A0_DUR <= N0_RS13_DUR0) ? true:false);
-formula a0_n0_rs13_sat_dur1 = ( (A0_DUR <= N0_RS13_DUR1) ? true:false);
-formula a0_n0_rs13_sat_rel0 = ( (A0_DUR <= N0_RS13_REL0) ? true:false);
-formula a0_n0_rs13_sat_rel1 = ( (A0_DUR <= N0_RS13_REL1) ? true:false);
-formula a0_n0_rs13_sat_cost = ( (A0_COST <= N0_RS13_COST) ? true:false);
-formula a0_n0_rs13_sat_avail = N0_RS13_AVAIL;
-formula a0_n0_rs13_sat_all = a0_n0_rs13_sat_avail;
-
-//=====Application 0, Node0 and RS14
-formula a0_n0_rs14_sat_dur0 = ( (A0_DUR <= N0_RS14_DUR0) ? true:false);
-formula a0_n0_rs14_sat_dur1 = ( (A0_DUR <= N0_RS14_DUR1) ? true:false);
-formula a0_n0_rs14_sat_rel0 = ( (A0_DUR <= N0_RS14_REL0) ? true:false);
-formula a0_n0_rs14_sat_rel1 = ( (A0_DUR <= N0_RS14_REL1) ? true:false);
-formula a0_n0_rs14_sat_cost = ( (A0_COST <= N0_RS14_COST) ? true:false);
-formula a0_n0_rs14_sat_avail = N0_RS14_AVAIL;
-formula a0_n0_rs14_sat_all = a0_n0_rs14_sat_avail;
-
 //=====Application 0, Node1 and RS0
 formula a0_n1_rs0_sat_dur0 = ( (A0_DUR <= N1_RS0_DUR0) ? true:false);
 formula a0_n1_rs0_sat_dur1 = ( (A0_DUR <= N1_RS0_DUR1) ? true:false);
@@ -562,84 +427,39 @@ formula a0_n1_rs9_sat_cost = ( (A0_COST <= N1_RS9_COST) ? true:false);
 formula a0_n1_rs9_sat_avail = N1_RS9_AVAIL;
 formula a0_n1_rs9_sat_all = a0_n1_rs9_sat_avail;
 
-//=====Application 0, Node1 and RS10
-formula a0_n1_rs10_sat_dur0 = ( (A0_DUR <= N1_RS10_DUR0) ? true:false);
-formula a0_n1_rs10_sat_dur1 = ( (A0_DUR <= N1_RS10_DUR1) ? true:false);
-formula a0_n1_rs10_sat_rel0 = ( (A0_DUR <= N1_RS10_REL0) ? true:false);
-formula a0_n1_rs10_sat_rel1 = ( (A0_DUR <= N1_RS10_REL1) ? true:false);
-formula a0_n1_rs10_sat_cost = ( (A0_COST <= N1_RS10_COST) ? true:false);
-formula a0_n1_rs10_sat_avail = N1_RS10_AVAIL;
-formula a0_n1_rs10_sat_all = a0_n1_rs10_sat_avail;
-
-//=====Application 0, Node1 and RS11
-formula a0_n1_rs11_sat_dur0 = ( (A0_DUR <= N1_RS11_DUR0) ? true:false);
-formula a0_n1_rs11_sat_dur1 = ( (A0_DUR <= N1_RS11_DUR1) ? true:false);
-formula a0_n1_rs11_sat_rel0 = ( (A0_DUR <= N1_RS11_REL0) ? true:false);
-formula a0_n1_rs11_sat_rel1 = ( (A0_DUR <= N1_RS11_REL1) ? true:false);
-formula a0_n1_rs11_sat_cost = ( (A0_COST <= N1_RS11_COST) ? true:false);
-formula a0_n1_rs11_sat_avail = N1_RS11_AVAIL;
-formula a0_n1_rs11_sat_all = a0_n1_rs11_sat_avail;
-
-//=====Application 0, Node1 and RS12
-formula a0_n1_rs12_sat_dur0 = ( (A0_DUR <= N1_RS12_DUR0) ? true:false);
-formula a0_n1_rs12_sat_dur1 = ( (A0_DUR <= N1_RS12_DUR1) ? true:false);
-formula a0_n1_rs12_sat_rel0 = ( (A0_DUR <= N1_RS12_REL0) ? true:false);
-formula a0_n1_rs12_sat_rel1 = ( (A0_DUR <= N1_RS12_REL1) ? true:false);
-formula a0_n1_rs12_sat_cost = ( (A0_COST <= N1_RS12_COST) ? true:false);
-formula a0_n1_rs12_sat_avail = N1_RS12_AVAIL;
-formula a0_n1_rs12_sat_all = a0_n1_rs12_sat_avail;
-
-//=====Application 0, Node1 and RS13
-formula a0_n1_rs13_sat_dur0 = ( (A0_DUR <= N1_RS13_DUR0) ? true:false);
-formula a0_n1_rs13_sat_dur1 = ( (A0_DUR <= N1_RS13_DUR1) ? true:false);
-formula a0_n1_rs13_sat_rel0 = ( (A0_DUR <= N1_RS13_REL0) ? true:false);
-formula a0_n1_rs13_sat_rel1 = ( (A0_DUR <= N1_RS13_REL1) ? true:false);
-formula a0_n1_rs13_sat_cost = ( (A0_COST <= N1_RS13_COST) ? true:false);
-formula a0_n1_rs13_sat_avail = N1_RS13_AVAIL;
-formula a0_n1_rs13_sat_all = a0_n1_rs13_sat_avail;
-
-//=====Application 0, Node1 and RS14
-formula a0_n1_rs14_sat_dur0 = ( (A0_DUR <= N1_RS14_DUR0) ? true:false);
-formula a0_n1_rs14_sat_dur1 = ( (A0_DUR <= N1_RS14_DUR1) ? true:false);
-formula a0_n1_rs14_sat_rel0 = ( (A0_DUR <= N1_RS14_REL0) ? true:false);
-formula a0_n1_rs14_sat_rel1 = ( (A0_DUR <= N1_RS14_REL1) ? true:false);
-formula a0_n1_rs14_sat_cost = ( (A0_COST <= N1_RS14_COST) ? true:false);
-formula a0_n1_rs14_sat_avail = N1_RS14_AVAIL;
-formula a0_n1_rs14_sat_all = a0_n1_rs14_sat_avail;
-
 
 //=========Utility-based Decision Making=======
 //get the cost of selected node..
-formula n0_rs_cost =( n0 = 0 ? N0_RS0_COST :( n0 = 1 ? N0_RS1_COST :( n0 = 2 ? N0_RS2_COST :( n0 = 3 ? N0_RS3_COST :( n0 = 4 ? N0_RS4_COST :( n0 = 5 ? N0_RS5_COST :( n0 = 6 ? N0_RS6_COST :( n0 = 7 ? N0_RS7_COST :( n0 = 8 ? N0_RS8_COST :( n0 = 9 ? N0_RS9_COST :( n0 = 10 ? N0_RS10_COST :( n0 = 11 ? N0_RS11_COST :( n0 = 12 ? N0_RS12_COST :( n0 = 13 ? N0_RS13_COST :( n0 = 14 ? N0_RS14_COST :0.0)))))))))))))));
+formula n0_rs_cost =( n0 = 0 ? N0_RS0_COST :( n0 = 1 ? N0_RS1_COST :( n0 = 2 ? N0_RS2_COST :( n0 = 3 ? N0_RS3_COST :( n0 = 4 ? N0_RS4_COST :( n0 = 5 ? N0_RS5_COST :( n0 = 6 ? N0_RS6_COST :( n0 = 7 ? N0_RS7_COST :( n0 = 8 ? N0_RS8_COST :( n0 = 9 ? N0_RS9_COST :0.0))))))))));
 //Compute the utility value..
-formula n0_mx_cost = max(N0_RS0_COST,N0_RS1_COST,N0_RS2_COST,N0_RS3_COST,N0_RS4_COST,N0_RS5_COST,N0_RS6_COST,N0_RS7_COST,N0_RS8_COST,N0_RS9_COST,N0_RS10_COST,N0_RS11_COST,N0_RS12_COST,N0_RS13_COST,N0_RS14_COST);
-formula n0_mn_cost = min(N0_RS0_COST,N0_RS1_COST,N0_RS2_COST,N0_RS3_COST,N0_RS4_COST,N0_RS5_COST,N0_RS6_COST,N0_RS7_COST,N0_RS8_COST,N0_RS9_COST,N0_RS10_COST,N0_RS11_COST,N0_RS12_COST,N0_RS13_COST,N0_RS14_COST);
+formula n0_mx_cost = max(N0_RS0_COST,N0_RS1_COST,N0_RS2_COST,N0_RS3_COST,N0_RS4_COST,N0_RS5_COST,N0_RS6_COST,N0_RS7_COST,N0_RS8_COST,N0_RS9_COST);
+formula n0_mn_cost = min(N0_RS0_COST,N0_RS1_COST,N0_RS2_COST,N0_RS3_COST,N0_RS4_COST,N0_RS5_COST,N0_RS6_COST,N0_RS7_COST,N0_RS8_COST,N0_RS9_COST);
 formula n0_uv_cost = (n0_mx_cost - n0_rs_cost) / (n0_mx_cost - n0_mn_cost);
 
 //get the duration of selected node..
-formula n0_rs_dur0=( (n0 = 0 & n0ev = 0) ? N0_RS0_DUR0 :( (n0 = 1 & n0ev = 0) ? N0_RS1_DUR0 :( (n0 = 2 & n0ev = 0) ? N0_RS2_DUR0 :( (n0 = 3 & n0ev = 0) ? N0_RS3_DUR0 :( (n0 = 4 & n0ev = 0) ? N0_RS4_DUR0 :( (n0 = 5 & n0ev = 0) ? N0_RS5_DUR0 :( (n0 = 6 & n0ev = 0) ? N0_RS6_DUR0 :( (n0 = 7 & n0ev = 0) ? N0_RS7_DUR0 :( (n0 = 8 & n0ev = 0) ? N0_RS8_DUR0 :( (n0 = 9 & n0ev = 0) ? N0_RS9_DUR0 :( (n0 = 10 & n0ev = 0) ? N0_RS10_DUR0 :( (n0 = 11 & n0ev = 0) ? N0_RS11_DUR0 :( (n0 = 12 & n0ev = 0) ? N0_RS12_DUR0 :( (n0 = 13 & n0ev = 0) ? N0_RS13_DUR0 :( (n0 = 14 & n0ev = 0) ? N0_RS14_DUR0 :0.0)))))))))))))));
+formula n0_rs_dur0=( (n0 = 0 & n0ev = 0) ? N0_RS0_DUR0 :( (n0 = 1 & n0ev = 0) ? N0_RS1_DUR0 :( (n0 = 2 & n0ev = 0) ? N0_RS2_DUR0 :( (n0 = 3 & n0ev = 0) ? N0_RS3_DUR0 :( (n0 = 4 & n0ev = 0) ? N0_RS4_DUR0 :( (n0 = 5 & n0ev = 0) ? N0_RS5_DUR0 :( (n0 = 6 & n0ev = 0) ? N0_RS6_DUR0 :( (n0 = 7 & n0ev = 0) ? N0_RS7_DUR0 :( (n0 = 8 & n0ev = 0) ? N0_RS8_DUR0 :( (n0 = 9 & n0ev = 0) ? N0_RS9_DUR0 :0.0))))))))));
 //Compute the utility value..
-formula n0_mx_dur0 = max(N0_RS0_DUR0,N0_RS1_DUR0,N0_RS2_DUR0,N0_RS3_DUR0,N0_RS4_DUR0,N0_RS5_DUR0,N0_RS6_DUR0,N0_RS7_DUR0,N0_RS8_DUR0,N0_RS9_DUR0,N0_RS10_DUR0,N0_RS11_DUR0,N0_RS12_DUR0,N0_RS13_DUR0,N0_RS14_DUR0);
-formula n0_mn_dur0 = min(N0_RS0_DUR0,N0_RS1_DUR0,N0_RS2_DUR0,N0_RS3_DUR0,N0_RS4_DUR0,N0_RS5_DUR0,N0_RS6_DUR0,N0_RS7_DUR0,N0_RS8_DUR0,N0_RS9_DUR0,N0_RS10_DUR0,N0_RS11_DUR0,N0_RS12_DUR0,N0_RS13_DUR0,N0_RS14_DUR0);
+formula n0_mx_dur0 = max(N0_RS0_DUR0,N0_RS1_DUR0,N0_RS2_DUR0,N0_RS3_DUR0,N0_RS4_DUR0,N0_RS5_DUR0,N0_RS6_DUR0,N0_RS7_DUR0,N0_RS8_DUR0,N0_RS9_DUR0);
+formula n0_mn_dur0 = min(N0_RS0_DUR0,N0_RS1_DUR0,N0_RS2_DUR0,N0_RS3_DUR0,N0_RS4_DUR0,N0_RS5_DUR0,N0_RS6_DUR0,N0_RS7_DUR0,N0_RS8_DUR0,N0_RS9_DUR0);
 formula n0_uv_dur0 = (n0_mx_dur0 - n0_rs_dur0) / (n0_mx_dur0 - n0_mn_dur0);
 
-formula n0_rs_dur1=( (n0 = 0 & n0ev = 1) ? N0_RS0_DUR1 :( (n0 = 1 & n0ev = 1) ? N0_RS1_DUR1 :( (n0 = 2 & n0ev = 1) ? N0_RS2_DUR1 :( (n0 = 3 & n0ev = 1) ? N0_RS3_DUR1 :( (n0 = 4 & n0ev = 1) ? N0_RS4_DUR1 :( (n0 = 5 & n0ev = 1) ? N0_RS5_DUR1 :( (n0 = 6 & n0ev = 1) ? N0_RS6_DUR1 :( (n0 = 7 & n0ev = 1) ? N0_RS7_DUR1 :( (n0 = 8 & n0ev = 1) ? N0_RS8_DUR1 :( (n0 = 9 & n0ev = 1) ? N0_RS9_DUR1 :( (n0 = 10 & n0ev = 1) ? N0_RS10_DUR1 :( (n0 = 11 & n0ev = 1) ? N0_RS11_DUR1 :( (n0 = 12 & n0ev = 1) ? N0_RS12_DUR1 :( (n0 = 13 & n0ev = 1) ? N0_RS13_DUR1 :( (n0 = 14 & n0ev = 1) ? N0_RS14_DUR1 :0.0)))))))))))))));
+formula n0_rs_dur1=( (n0 = 0 & n0ev = 1) ? N0_RS0_DUR1 :( (n0 = 1 & n0ev = 1) ? N0_RS1_DUR1 :( (n0 = 2 & n0ev = 1) ? N0_RS2_DUR1 :( (n0 = 3 & n0ev = 1) ? N0_RS3_DUR1 :( (n0 = 4 & n0ev = 1) ? N0_RS4_DUR1 :( (n0 = 5 & n0ev = 1) ? N0_RS5_DUR1 :( (n0 = 6 & n0ev = 1) ? N0_RS6_DUR1 :( (n0 = 7 & n0ev = 1) ? N0_RS7_DUR1 :( (n0 = 8 & n0ev = 1) ? N0_RS8_DUR1 :( (n0 = 9 & n0ev = 1) ? N0_RS9_DUR1 :0.0))))))))));
 //Compute the utility value..
-formula n0_mx_dur1 = max(N0_RS0_DUR1,N0_RS1_DUR1,N0_RS2_DUR1,N0_RS3_DUR1,N0_RS4_DUR1,N0_RS5_DUR1,N0_RS6_DUR1,N0_RS7_DUR1,N0_RS8_DUR1,N0_RS9_DUR1,N0_RS10_DUR1,N0_RS11_DUR1,N0_RS12_DUR1,N0_RS13_DUR1,N0_RS14_DUR1);
-formula n0_mn_dur1 = min(N0_RS0_DUR1,N0_RS1_DUR1,N0_RS2_DUR1,N0_RS3_DUR1,N0_RS4_DUR1,N0_RS5_DUR1,N0_RS6_DUR1,N0_RS7_DUR1,N0_RS8_DUR1,N0_RS9_DUR1,N0_RS10_DUR1,N0_RS11_DUR1,N0_RS12_DUR1,N0_RS13_DUR1,N0_RS14_DUR1);
+formula n0_mx_dur1 = max(N0_RS0_DUR1,N0_RS1_DUR1,N0_RS2_DUR1,N0_RS3_DUR1,N0_RS4_DUR1,N0_RS5_DUR1,N0_RS6_DUR1,N0_RS7_DUR1,N0_RS8_DUR1,N0_RS9_DUR1);
+formula n0_mn_dur1 = min(N0_RS0_DUR1,N0_RS1_DUR1,N0_RS2_DUR1,N0_RS3_DUR1,N0_RS4_DUR1,N0_RS5_DUR1,N0_RS6_DUR1,N0_RS7_DUR1,N0_RS8_DUR1,N0_RS9_DUR1);
 formula n0_uv_dur1 = (n0_mx_dur1 - n0_rs_dur1) / (n0_mx_dur1 - n0_mn_dur1);
 
 //get the reliability of selected node..
-formula n0_rs_rel0=( (n0 = 0 & n0ev = 0) ? N0_RS0_REL0 :( (n0 = 1 & n0ev = 0) ? N0_RS1_REL0 :( (n0 = 2 & n0ev = 0) ? N0_RS2_REL0 :( (n0 = 3 & n0ev = 0) ? N0_RS3_REL0 :( (n0 = 4 & n0ev = 0) ? N0_RS4_REL0 :( (n0 = 5 & n0ev = 0) ? N0_RS5_REL0 :( (n0 = 6 & n0ev = 0) ? N0_RS6_REL0 :( (n0 = 7 & n0ev = 0) ? N0_RS7_REL0 :( (n0 = 8 & n0ev = 0) ? N0_RS8_REL0 :( (n0 = 9 & n0ev = 0) ? N0_RS9_REL0 :( (n0 = 10 & n0ev = 0) ? N0_RS10_REL0 :( (n0 = 11 & n0ev = 0) ? N0_RS11_REL0 :( (n0 = 12 & n0ev = 0) ? N0_RS12_REL0 :( (n0 = 13 & n0ev = 0) ? N0_RS13_REL0 :( (n0 = 14 & n0ev = 0) ? N0_RS14_REL0 :0.0)))))))))))))));
+formula n0_rs_rel0=( (n0 = 0 & n0ev = 0) ? N0_RS0_REL0 :( (n0 = 1 & n0ev = 0) ? N0_RS1_REL0 :( (n0 = 2 & n0ev = 0) ? N0_RS2_REL0 :( (n0 = 3 & n0ev = 0) ? N0_RS3_REL0 :( (n0 = 4 & n0ev = 0) ? N0_RS4_REL0 :( (n0 = 5 & n0ev = 0) ? N0_RS5_REL0 :( (n0 = 6 & n0ev = 0) ? N0_RS6_REL0 :( (n0 = 7 & n0ev = 0) ? N0_RS7_REL0 :( (n0 = 8 & n0ev = 0) ? N0_RS8_REL0 :( (n0 = 9 & n0ev = 0) ? N0_RS9_REL0 :0.0))))))))));
 //Compute the utility value..
-formula n0_mx_rel0 = max(N0_RS0_REL0,N0_RS1_REL0,N0_RS2_REL0,N0_RS3_REL0,N0_RS4_REL0,N0_RS5_REL0,N0_RS6_REL0,N0_RS7_REL0,N0_RS8_REL0,N0_RS9_REL0,N0_RS10_REL0,N0_RS11_REL0,N0_RS12_REL0,N0_RS13_REL0,N0_RS14_REL0);
-formula n0_mn_rel0 = min(N0_RS0_REL0,N0_RS1_REL0,N0_RS2_REL0,N0_RS3_REL0,N0_RS4_REL0,N0_RS5_REL0,N0_RS6_REL0,N0_RS7_REL0,N0_RS8_REL0,N0_RS9_REL0,N0_RS10_REL0,N0_RS11_REL0,N0_RS12_REL0,N0_RS13_REL0,N0_RS14_REL0);
+formula n0_mx_rel0 = max(N0_RS0_REL0,N0_RS1_REL0,N0_RS2_REL0,N0_RS3_REL0,N0_RS4_REL0,N0_RS5_REL0,N0_RS6_REL0,N0_RS7_REL0,N0_RS8_REL0,N0_RS9_REL0);
+formula n0_mn_rel0 = min(N0_RS0_REL0,N0_RS1_REL0,N0_RS2_REL0,N0_RS3_REL0,N0_RS4_REL0,N0_RS5_REL0,N0_RS6_REL0,N0_RS7_REL0,N0_RS8_REL0,N0_RS9_REL0);
 formula n0_uv_rel0 = (n0_rs_rel0 - n0_mx_rel0) / (n0_mx_rel0 - n0_mn_rel0);
 
-formula n0_rs_rel1=( (n0 = 0 & n0ev = 1) ? N0_RS0_REL1 :( (n0 = 1 & n0ev = 1) ? N0_RS1_REL1 :( (n0 = 2 & n0ev = 1) ? N0_RS2_REL1 :( (n0 = 3 & n0ev = 1) ? N0_RS3_REL1 :( (n0 = 4 & n0ev = 1) ? N0_RS4_REL1 :( (n0 = 5 & n0ev = 1) ? N0_RS5_REL1 :( (n0 = 6 & n0ev = 1) ? N0_RS6_REL1 :( (n0 = 7 & n0ev = 1) ? N0_RS7_REL1 :( (n0 = 8 & n0ev = 1) ? N0_RS8_REL1 :( (n0 = 9 & n0ev = 1) ? N0_RS9_REL1 :( (n0 = 10 & n0ev = 1) ? N0_RS10_REL1 :( (n0 = 11 & n0ev = 1) ? N0_RS11_REL1 :( (n0 = 12 & n0ev = 1) ? N0_RS12_REL1 :( (n0 = 13 & n0ev = 1) ? N0_RS13_REL1 :( (n0 = 14 & n0ev = 1) ? N0_RS14_REL1 :0.0)))))))))))))));
+formula n0_rs_rel1=( (n0 = 0 & n0ev = 1) ? N0_RS0_REL1 :( (n0 = 1 & n0ev = 1) ? N0_RS1_REL1 :( (n0 = 2 & n0ev = 1) ? N0_RS2_REL1 :( (n0 = 3 & n0ev = 1) ? N0_RS3_REL1 :( (n0 = 4 & n0ev = 1) ? N0_RS4_REL1 :( (n0 = 5 & n0ev = 1) ? N0_RS5_REL1 :( (n0 = 6 & n0ev = 1) ? N0_RS6_REL1 :( (n0 = 7 & n0ev = 1) ? N0_RS7_REL1 :( (n0 = 8 & n0ev = 1) ? N0_RS8_REL1 :( (n0 = 9 & n0ev = 1) ? N0_RS9_REL1 :0.0))))))))));
 //Compute the utility value..
-formula n0_mx_rel1 = max(N0_RS0_REL1,N0_RS1_REL1,N0_RS2_REL1,N0_RS3_REL1,N0_RS4_REL1,N0_RS5_REL1,N0_RS6_REL1,N0_RS7_REL1,N0_RS8_REL1,N0_RS9_REL1,N0_RS10_REL1,N0_RS11_REL1,N0_RS12_REL1,N0_RS13_REL1,N0_RS14_REL1);
-formula n0_mn_rel1 = min(N0_RS0_REL1,N0_RS1_REL1,N0_RS2_REL1,N0_RS3_REL1,N0_RS4_REL1,N0_RS5_REL1,N0_RS6_REL1,N0_RS7_REL1,N0_RS8_REL1,N0_RS9_REL1,N0_RS10_REL1,N0_RS11_REL1,N0_RS12_REL1,N0_RS13_REL1,N0_RS14_REL1);
+formula n0_mx_rel1 = max(N0_RS0_REL1,N0_RS1_REL1,N0_RS2_REL1,N0_RS3_REL1,N0_RS4_REL1,N0_RS5_REL1,N0_RS6_REL1,N0_RS7_REL1,N0_RS8_REL1,N0_RS9_REL1);
+formula n0_mn_rel1 = min(N0_RS0_REL1,N0_RS1_REL1,N0_RS2_REL1,N0_RS3_REL1,N0_RS4_REL1,N0_RS5_REL1,N0_RS6_REL1,N0_RS7_REL1,N0_RS8_REL1,N0_RS9_REL1);
 formula n0_uv_rel1 = (n0_rs_rel1 - n0_mx_rel1) / (n0_mx_rel1 - n0_mn_rel1);
 
 
@@ -654,36 +474,36 @@ formula n0_ut_rel1 = (n0_uv_rel1 > 0.0 ? n0_uv_rel1: 0.0);
 formula n0_ut_all = (n0ev=0 ? (n0_ut_cost * A0_WG_COST + n0_ut_dur0 * A0_WG_DUR + n0_ut_rel0 * A0_WG_REL):(n0ev=1 ? (n0_ut_cost * A0_WG_COST + n0_ut_dur1 * A0_WG_DUR + n0_ut_rel1 * A0_WG_REL):0.0));
 
 //get the cost of selected node..
-formula n1_rs_cost =( n1 = 0 ? N1_RS0_COST :( n1 = 1 ? N1_RS1_COST :( n1 = 2 ? N1_RS2_COST :( n1 = 3 ? N1_RS3_COST :( n1 = 4 ? N1_RS4_COST :( n1 = 5 ? N1_RS5_COST :( n1 = 6 ? N1_RS6_COST :( n1 = 7 ? N1_RS7_COST :( n1 = 8 ? N1_RS8_COST :( n1 = 9 ? N1_RS9_COST :( n1 = 10 ? N1_RS10_COST :( n1 = 11 ? N1_RS11_COST :( n1 = 12 ? N1_RS12_COST :( n1 = 13 ? N1_RS13_COST :( n1 = 14 ? N1_RS14_COST :0.0)))))))))))))));
+formula n1_rs_cost =( n1 = 0 ? N1_RS0_COST :( n1 = 1 ? N1_RS1_COST :( n1 = 2 ? N1_RS2_COST :( n1 = 3 ? N1_RS3_COST :( n1 = 4 ? N1_RS4_COST :( n1 = 5 ? N1_RS5_COST :( n1 = 6 ? N1_RS6_COST :( n1 = 7 ? N1_RS7_COST :( n1 = 8 ? N1_RS8_COST :( n1 = 9 ? N1_RS9_COST :0.0))))))))));
 //Compute the utility value..
-formula n1_mx_cost = max(N1_RS0_COST,N1_RS1_COST,N1_RS2_COST,N1_RS3_COST,N1_RS4_COST,N1_RS5_COST,N1_RS6_COST,N1_RS7_COST,N1_RS8_COST,N1_RS9_COST,N1_RS10_COST,N1_RS11_COST,N1_RS12_COST,N1_RS13_COST,N1_RS14_COST);
-formula n1_mn_cost = min(N1_RS0_COST,N1_RS1_COST,N1_RS2_COST,N1_RS3_COST,N1_RS4_COST,N1_RS5_COST,N1_RS6_COST,N1_RS7_COST,N1_RS8_COST,N1_RS9_COST,N1_RS10_COST,N1_RS11_COST,N1_RS12_COST,N1_RS13_COST,N1_RS14_COST);
+formula n1_mx_cost = max(N1_RS0_COST,N1_RS1_COST,N1_RS2_COST,N1_RS3_COST,N1_RS4_COST,N1_RS5_COST,N1_RS6_COST,N1_RS7_COST,N1_RS8_COST,N1_RS9_COST);
+formula n1_mn_cost = min(N1_RS0_COST,N1_RS1_COST,N1_RS2_COST,N1_RS3_COST,N1_RS4_COST,N1_RS5_COST,N1_RS6_COST,N1_RS7_COST,N1_RS8_COST,N1_RS9_COST);
 formula n1_uv_cost = (n1_mx_cost - n1_rs_cost) / (n1_mx_cost - n1_mn_cost);
 
 //get the duration of selected node..
-formula n1_rs_dur0=( (n1 = 0 & n1ev = 0) ? N1_RS0_DUR0 :( (n1 = 1 & n1ev = 0) ? N1_RS1_DUR0 :( (n1 = 2 & n1ev = 0) ? N1_RS2_DUR0 :( (n1 = 3 & n1ev = 0) ? N1_RS3_DUR0 :( (n1 = 4 & n1ev = 0) ? N1_RS4_DUR0 :( (n1 = 5 & n1ev = 0) ? N1_RS5_DUR0 :( (n1 = 6 & n1ev = 0) ? N1_RS6_DUR0 :( (n1 = 7 & n1ev = 0) ? N1_RS7_DUR0 :( (n1 = 8 & n1ev = 0) ? N1_RS8_DUR0 :( (n1 = 9 & n1ev = 0) ? N1_RS9_DUR0 :( (n1 = 10 & n1ev = 0) ? N1_RS10_DUR0 :( (n1 = 11 & n1ev = 0) ? N1_RS11_DUR0 :( (n1 = 12 & n1ev = 0) ? N1_RS12_DUR0 :( (n1 = 13 & n1ev = 0) ? N1_RS13_DUR0 :( (n1 = 14 & n1ev = 0) ? N1_RS14_DUR0 :0.0)))))))))))))));
+formula n1_rs_dur0=( (n1 = 0 & n1ev = 0) ? N1_RS0_DUR0 :( (n1 = 1 & n1ev = 0) ? N1_RS1_DUR0 :( (n1 = 2 & n1ev = 0) ? N1_RS2_DUR0 :( (n1 = 3 & n1ev = 0) ? N1_RS3_DUR0 :( (n1 = 4 & n1ev = 0) ? N1_RS4_DUR0 :( (n1 = 5 & n1ev = 0) ? N1_RS5_DUR0 :( (n1 = 6 & n1ev = 0) ? N1_RS6_DUR0 :( (n1 = 7 & n1ev = 0) ? N1_RS7_DUR0 :( (n1 = 8 & n1ev = 0) ? N1_RS8_DUR0 :( (n1 = 9 & n1ev = 0) ? N1_RS9_DUR0 :0.0))))))))));
 //Compute the utility value..
-formula n1_mx_dur0 = max(N1_RS0_DUR0,N1_RS1_DUR0,N1_RS2_DUR0,N1_RS3_DUR0,N1_RS4_DUR0,N1_RS5_DUR0,N1_RS6_DUR0,N1_RS7_DUR0,N1_RS8_DUR0,N1_RS9_DUR0,N1_RS10_DUR0,N1_RS11_DUR0,N1_RS12_DUR0,N1_RS13_DUR0,N1_RS14_DUR0);
-formula n1_mn_dur0 = min(N1_RS0_DUR0,N1_RS1_DUR0,N1_RS2_DUR0,N1_RS3_DUR0,N1_RS4_DUR0,N1_RS5_DUR0,N1_RS6_DUR0,N1_RS7_DUR0,N1_RS8_DUR0,N1_RS9_DUR0,N1_RS10_DUR0,N1_RS11_DUR0,N1_RS12_DUR0,N1_RS13_DUR0,N1_RS14_DUR0);
+formula n1_mx_dur0 = max(N1_RS0_DUR0,N1_RS1_DUR0,N1_RS2_DUR0,N1_RS3_DUR0,N1_RS4_DUR0,N1_RS5_DUR0,N1_RS6_DUR0,N1_RS7_DUR0,N1_RS8_DUR0,N1_RS9_DUR0);
+formula n1_mn_dur0 = min(N1_RS0_DUR0,N1_RS1_DUR0,N1_RS2_DUR0,N1_RS3_DUR0,N1_RS4_DUR0,N1_RS5_DUR0,N1_RS6_DUR0,N1_RS7_DUR0,N1_RS8_DUR0,N1_RS9_DUR0);
 formula n1_uv_dur0 = (n1_mx_dur0 - n1_rs_dur0) / (n1_mx_dur0 - n1_mn_dur0);
 
-formula n1_rs_dur1=( (n1 = 0 & n1ev = 1) ? N1_RS0_DUR1 :( (n1 = 1 & n1ev = 1) ? N1_RS1_DUR1 :( (n1 = 2 & n1ev = 1) ? N1_RS2_DUR1 :( (n1 = 3 & n1ev = 1) ? N1_RS3_DUR1 :( (n1 = 4 & n1ev = 1) ? N1_RS4_DUR1 :( (n1 = 5 & n1ev = 1) ? N1_RS5_DUR1 :( (n1 = 6 & n1ev = 1) ? N1_RS6_DUR1 :( (n1 = 7 & n1ev = 1) ? N1_RS7_DUR1 :( (n1 = 8 & n1ev = 1) ? N1_RS8_DUR1 :( (n1 = 9 & n1ev = 1) ? N1_RS9_DUR1 :( (n1 = 10 & n1ev = 1) ? N1_RS10_DUR1 :( (n1 = 11 & n1ev = 1) ? N1_RS11_DUR1 :( (n1 = 12 & n1ev = 1) ? N1_RS12_DUR1 :( (n1 = 13 & n1ev = 1) ? N1_RS13_DUR1 :( (n1 = 14 & n1ev = 1) ? N1_RS14_DUR1 :0.0)))))))))))))));
+formula n1_rs_dur1=( (n1 = 0 & n1ev = 1) ? N1_RS0_DUR1 :( (n1 = 1 & n1ev = 1) ? N1_RS1_DUR1 :( (n1 = 2 & n1ev = 1) ? N1_RS2_DUR1 :( (n1 = 3 & n1ev = 1) ? N1_RS3_DUR1 :( (n1 = 4 & n1ev = 1) ? N1_RS4_DUR1 :( (n1 = 5 & n1ev = 1) ? N1_RS5_DUR1 :( (n1 = 6 & n1ev = 1) ? N1_RS6_DUR1 :( (n1 = 7 & n1ev = 1) ? N1_RS7_DUR1 :( (n1 = 8 & n1ev = 1) ? N1_RS8_DUR1 :( (n1 = 9 & n1ev = 1) ? N1_RS9_DUR1 :0.0))))))))));
 //Compute the utility value..
-formula n1_mx_dur1 = max(N1_RS0_DUR1,N1_RS1_DUR1,N1_RS2_DUR1,N1_RS3_DUR1,N1_RS4_DUR1,N1_RS5_DUR1,N1_RS6_DUR1,N1_RS7_DUR1,N1_RS8_DUR1,N1_RS9_DUR1,N1_RS10_DUR1,N1_RS11_DUR1,N1_RS12_DUR1,N1_RS13_DUR1,N1_RS14_DUR1);
-formula n1_mn_dur1 = min(N1_RS0_DUR1,N1_RS1_DUR1,N1_RS2_DUR1,N1_RS3_DUR1,N1_RS4_DUR1,N1_RS5_DUR1,N1_RS6_DUR1,N1_RS7_DUR1,N1_RS8_DUR1,N1_RS9_DUR1,N1_RS10_DUR1,N1_RS11_DUR1,N1_RS12_DUR1,N1_RS13_DUR1,N1_RS14_DUR1);
+formula n1_mx_dur1 = max(N1_RS0_DUR1,N1_RS1_DUR1,N1_RS2_DUR1,N1_RS3_DUR1,N1_RS4_DUR1,N1_RS5_DUR1,N1_RS6_DUR1,N1_RS7_DUR1,N1_RS8_DUR1,N1_RS9_DUR1);
+formula n1_mn_dur1 = min(N1_RS0_DUR1,N1_RS1_DUR1,N1_RS2_DUR1,N1_RS3_DUR1,N1_RS4_DUR1,N1_RS5_DUR1,N1_RS6_DUR1,N1_RS7_DUR1,N1_RS8_DUR1,N1_RS9_DUR1);
 formula n1_uv_dur1 = (n1_mx_dur1 - n1_rs_dur1) / (n1_mx_dur1 - n1_mn_dur1);
 
 //get the reliability of selected node..
-formula n1_rs_rel0=( (n1 = 0 & n1ev = 0) ? N1_RS0_REL0 :( (n1 = 1 & n1ev = 0) ? N1_RS1_REL0 :( (n1 = 2 & n1ev = 0) ? N1_RS2_REL0 :( (n1 = 3 & n1ev = 0) ? N1_RS3_REL0 :( (n1 = 4 & n1ev = 0) ? N1_RS4_REL0 :( (n1 = 5 & n1ev = 0) ? N1_RS5_REL0 :( (n1 = 6 & n1ev = 0) ? N1_RS6_REL0 :( (n1 = 7 & n1ev = 0) ? N1_RS7_REL0 :( (n1 = 8 & n1ev = 0) ? N1_RS8_REL0 :( (n1 = 9 & n1ev = 0) ? N1_RS9_REL0 :( (n1 = 10 & n1ev = 0) ? N1_RS10_REL0 :( (n1 = 11 & n1ev = 0) ? N1_RS11_REL0 :( (n1 = 12 & n1ev = 0) ? N1_RS12_REL0 :( (n1 = 13 & n1ev = 0) ? N1_RS13_REL0 :( (n1 = 14 & n1ev = 0) ? N1_RS14_REL0 :0.0)))))))))))))));
+formula n1_rs_rel0=( (n1 = 0 & n1ev = 0) ? N1_RS0_REL0 :( (n1 = 1 & n1ev = 0) ? N1_RS1_REL0 :( (n1 = 2 & n1ev = 0) ? N1_RS2_REL0 :( (n1 = 3 & n1ev = 0) ? N1_RS3_REL0 :( (n1 = 4 & n1ev = 0) ? N1_RS4_REL0 :( (n1 = 5 & n1ev = 0) ? N1_RS5_REL0 :( (n1 = 6 & n1ev = 0) ? N1_RS6_REL0 :( (n1 = 7 & n1ev = 0) ? N1_RS7_REL0 :( (n1 = 8 & n1ev = 0) ? N1_RS8_REL0 :( (n1 = 9 & n1ev = 0) ? N1_RS9_REL0 :0.0))))))))));
 //Compute the utility value..
-formula n1_mx_rel0 = max(N1_RS0_REL0,N1_RS1_REL0,N1_RS2_REL0,N1_RS3_REL0,N1_RS4_REL0,N1_RS5_REL0,N1_RS6_REL0,N1_RS7_REL0,N1_RS8_REL0,N1_RS9_REL0,N1_RS10_REL0,N1_RS11_REL0,N1_RS12_REL0,N1_RS13_REL0,N1_RS14_REL0);
-formula n1_mn_rel0 = min(N1_RS0_REL0,N1_RS1_REL0,N1_RS2_REL0,N1_RS3_REL0,N1_RS4_REL0,N1_RS5_REL0,N1_RS6_REL0,N1_RS7_REL0,N1_RS8_REL0,N1_RS9_REL0,N1_RS10_REL0,N1_RS11_REL0,N1_RS12_REL0,N1_RS13_REL0,N1_RS14_REL0);
+formula n1_mx_rel0 = max(N1_RS0_REL0,N1_RS1_REL0,N1_RS2_REL0,N1_RS3_REL0,N1_RS4_REL0,N1_RS5_REL0,N1_RS6_REL0,N1_RS7_REL0,N1_RS8_REL0,N1_RS9_REL0);
+formula n1_mn_rel0 = min(N1_RS0_REL0,N1_RS1_REL0,N1_RS2_REL0,N1_RS3_REL0,N1_RS4_REL0,N1_RS5_REL0,N1_RS6_REL0,N1_RS7_REL0,N1_RS8_REL0,N1_RS9_REL0);
 formula n1_uv_rel0 = (n1_rs_rel0 - n1_mx_rel0) / (n1_mx_rel0 - n1_mn_rel0);
 
-formula n1_rs_rel1=( (n1 = 0 & n1ev = 1) ? N1_RS0_REL1 :( (n1 = 1 & n1ev = 1) ? N1_RS1_REL1 :( (n1 = 2 & n1ev = 1) ? N1_RS2_REL1 :( (n1 = 3 & n1ev = 1) ? N1_RS3_REL1 :( (n1 = 4 & n1ev = 1) ? N1_RS4_REL1 :( (n1 = 5 & n1ev = 1) ? N1_RS5_REL1 :( (n1 = 6 & n1ev = 1) ? N1_RS6_REL1 :( (n1 = 7 & n1ev = 1) ? N1_RS7_REL1 :( (n1 = 8 & n1ev = 1) ? N1_RS8_REL1 :( (n1 = 9 & n1ev = 1) ? N1_RS9_REL1 :( (n1 = 10 & n1ev = 1) ? N1_RS10_REL1 :( (n1 = 11 & n1ev = 1) ? N1_RS11_REL1 :( (n1 = 12 & n1ev = 1) ? N1_RS12_REL1 :( (n1 = 13 & n1ev = 1) ? N1_RS13_REL1 :( (n1 = 14 & n1ev = 1) ? N1_RS14_REL1 :0.0)))))))))))))));
+formula n1_rs_rel1=( (n1 = 0 & n1ev = 1) ? N1_RS0_REL1 :( (n1 = 1 & n1ev = 1) ? N1_RS1_REL1 :( (n1 = 2 & n1ev = 1) ? N1_RS2_REL1 :( (n1 = 3 & n1ev = 1) ? N1_RS3_REL1 :( (n1 = 4 & n1ev = 1) ? N1_RS4_REL1 :( (n1 = 5 & n1ev = 1) ? N1_RS5_REL1 :( (n1 = 6 & n1ev = 1) ? N1_RS6_REL1 :( (n1 = 7 & n1ev = 1) ? N1_RS7_REL1 :( (n1 = 8 & n1ev = 1) ? N1_RS8_REL1 :( (n1 = 9 & n1ev = 1) ? N1_RS9_REL1 :0.0))))))))));
 //Compute the utility value..
-formula n1_mx_rel1 = max(N1_RS0_REL1,N1_RS1_REL1,N1_RS2_REL1,N1_RS3_REL1,N1_RS4_REL1,N1_RS5_REL1,N1_RS6_REL1,N1_RS7_REL1,N1_RS8_REL1,N1_RS9_REL1,N1_RS10_REL1,N1_RS11_REL1,N1_RS12_REL1,N1_RS13_REL1,N1_RS14_REL1);
-formula n1_mn_rel1 = min(N1_RS0_REL1,N1_RS1_REL1,N1_RS2_REL1,N1_RS3_REL1,N1_RS4_REL1,N1_RS5_REL1,N1_RS6_REL1,N1_RS7_REL1,N1_RS8_REL1,N1_RS9_REL1,N1_RS10_REL1,N1_RS11_REL1,N1_RS12_REL1,N1_RS13_REL1,N1_RS14_REL1);
+formula n1_mx_rel1 = max(N1_RS0_REL1,N1_RS1_REL1,N1_RS2_REL1,N1_RS3_REL1,N1_RS4_REL1,N1_RS5_REL1,N1_RS6_REL1,N1_RS7_REL1,N1_RS8_REL1,N1_RS9_REL1);
+formula n1_mn_rel1 = min(N1_RS0_REL1,N1_RS1_REL1,N1_RS2_REL1,N1_RS3_REL1,N1_RS4_REL1,N1_RS5_REL1,N1_RS6_REL1,N1_RS7_REL1,N1_RS8_REL1,N1_RS9_REL1);
 formula n1_uv_rel1 = (n1_rs_rel1 - n1_mx_rel1) / (n1_mx_rel1 - n1_mn_rel1);
 
 

@@ -1,5 +1,0 @@
-cycle time status pattern evalMethod numNode numSer numofSol Solution
- 0 1481636005510 true single 0 1 15 1 nulln0r2
- 1 1481636006327 true single 0 1 15 1 nulln0r2
-
-Average: 1481636005918
