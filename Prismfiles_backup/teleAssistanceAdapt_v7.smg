@@ -1,0 +1,647 @@
+smg
+
+// player for the controller
+player p1 
+planner, [r0],[r1],[r2],[r3],[r4],[r5],[r6],[r7],[end]
+endplayer
+
+//player for the environment
+player p2 
+environment, [e1],[e2]
+endplayer
+
+//===========================
+//USER-DEFINED PARAMETERS
+const double MAXUT = 0.7; //UB for the utility value
+const int GOAL_TY = 5; //UB for collaborators (for filtering)
+const int GOAL_TY_Q1 = 1; //performance violation
+const int GOAL_TY_Q2 = 2; //availability
+const int GOAL_TY_Q3 = 3; //safety
+const int GOAL_TY_UT = 4; //utility-based
+const int GOAL_TY_ML = 5; //multi
+
+
+//============================
+//PROBING PARAMETERS
+
+
+//=============================
+//USER REQUIREMENTS
+const int A0_ID = 0;
+const int A0_Q1 = 5;	//max duration
+const double A0_Q2 = 0.6; //reliability
+const double A0_Q3 = 10.0; //max cost
+const double WG_COST = 0.3; //weight for cost
+const double WG_DUR = 0.3; //weight for duration
+const double WG_REL = 0.4; //weight for reliability
+
+//===============================
+//RESOURCE PROFILES
+
+const int MAX_SV = 7; 	//finite number of services
+const int MAX_EV = 1;	//finite number of computing nodes
+
+
+const int RS0_ID = 0;
+const int RS0_Q1 = 20;	//duration 1
+const int RS0_Q2 = 30;	//duration 2
+const double RS0_Q3 = 0.6;  //reliability 1
+const double RS0_Q4 = 0.4;  //reliability 2
+const double RS0_Q5 = 20.0;  //cost
+const bool RS0_Q6 = true;  //availability status
+
+
+const int RS1_ID = 1;
+const int RS1_Q1 = 20;	//duration 1
+const int RS1_Q2 = 30;	//duration 2
+const double RS1_Q3 = 0.6;  //reliability 1
+const double RS1_Q4 = 0.4;  //reliability 2
+const double RS1_Q5 = 30.0;  //cost
+const bool RS1_Q6 = true;  //availability status
+
+
+const int RS2_ID = 2;
+const int RS2_Q1 = 20;	//duration 1
+const int RS2_Q2 = 30;	//duration 2
+const double RS2_Q3 = 0.6;  //reliability 1
+const double RS2_Q4 = 0.4;  //reliability 2
+const double RS2_Q5 = 40.0;  //cost
+const bool RS2_Q6 = true;  //availability status
+
+
+const int RS3_ID = 3;
+const int RS3_Q1 = 20;	//duration 1
+const int RS3_Q2 = 30;	//duration 2
+const double RS3_Q3 = 0.6;  //reliability 1
+const double RS3_Q4 = 0.4;  //reliability 2
+const double RS3_Q5 = 50.0;  //cost
+const bool RS3_Q6 = true;  //availability status
+
+
+const int RS4_ID = 4;
+const int RS4_Q1 = 20;	//duration 1
+const int RS4_Q2 = 30;	//duration 2
+const double RS4_Q3 = 0.6;  //reliability 1
+const double RS4_Q4 = 0.4;  //reliability 2
+const double RS4_Q5 = 10.0;  //cost
+const bool RS4_Q6 = true;  //availability status
+
+
+const int RS5_ID = 5;
+const int RS5_Q1 = 20;	//duration 1
+const int RS5_Q2 = 30;	//duration 2
+const double RS5_Q3 = 0.6;  //reliability 1
+const double RS5_Q4 = 0.4;  //reliability 2
+const double RS5_Q5 = 20.0;  //cost
+const bool RS5_Q6 = true;  //availability status
+
+
+const int RS6_ID = 6;
+const int RS6_Q1 = 20;	//duration 1
+const int RS6_Q2 = 30;	//duration 2
+const double RS6_Q3 = 0.6;  //reliability 1
+const double RS6_Q4 = 0.4;  //reliability 2
+const double RS6_Q5 = 30.0;  //cost
+const bool RS6_Q6 = true;  //availability status
+
+const int RS7_ID = 7;
+const int RS7_Q1 = 20;	//duration 1
+const int RS7_Q2 = 30;	//duration 2
+const double RS7_Q3 = 0.6;  //reliability 1
+const double RS7_Q4 = 0.4;  //reliability 2
+const double RS7_Q5 = 40.0;  //cost
+const bool RS7_Q6 = true;  //availability status
+
+
+//=======================================
+//GLOBAL PARAMETERS
+const int TE=0;
+const int TP=1;
+global t:[TE..TP] init TP;	//to control the turn
+
+//to determine the selection
+global goal : bool init false;	//requirement
+
+//to determine the execution
+global exec : bool init false;	//execution
+
+//to terminate the adaptation
+global end : bool init false;	//(absorbing state)
+
+//=======================================
+//MODULE FOR PLAYER 1
+module planner     
+sel:[-1..MAX_SV] init -1;
+
+// P1 moves:
+[r0] (t=TP) & (goal=false) & (a0_rs0_sat_ml_all=true) -> (goal'=true) & (sel'=0) & (t'=TE);
+[r1] (t=TP) & (goal=false) & (a0_rs1_sat_ml_all=true) -> (goal'=true) & (sel'=1) & (t'=TE);
+[r2] (t=TP) & (goal=false) & (a0_rs2_sat_ml_all=true) -> (goal'=true) & (sel'=2) & (t'=TE);
+[r3] (t=TP) & (goal=false) & (a0_rs3_sat_ml_all=true) -> (goal'=true) & (sel'=3) & (t'=TE);
+[r4] (t=TP) & (goal=false) & (a0_rs4_sat_ml_all=true) -> (goal'=true) & (sel'=4) & (t'=TE);
+[r5] (t=TP) & (goal=false) & (a0_rs5_sat_ml_all=true) -> (goal'=true) & (sel'=5) & (t'=TE);
+[r6] (t=TP) & (goal=false) & (a0_rs6_sat_ml_all=true) -> (goal'=true) & (sel'=6) & (t'=TE);
+[r7] (t=TP) & (goal=false) & (a0_rs7_sat_ml_all=true) -> (goal'=true) & (sel'=7) & (t'=TE);
+
+
+//terminate the process
+//[end] (t=TP) & (end=false) -> (end'=true);
+[end] (t=TP) & (end=false) & (goal=true) -> (end'=true) & (t'=TE);
+[end] (t=TP) & (end=false) & (exec=true) & (goal=true) -> (end'=true) & (t'=TE);
+
+endmodule
+
+//=============================================
+//=============================================
+module environment
+ev:[-1..MAX_EV] init -1;
+	//simulate the probability execution
+	[e1] (t=TE) & (exec=false) & (goal=true) -> succ_rs1:(exec'=true) & (ev'=0) & (t'=TP) + 1-succ_rs1:(exec'=false) & (t'=TP);
+	[e2] (t=TE) & (exec=false) & (goal=true) -> succ_rs2:(exec'=true) & (ev'=1) & (t'=TP) + 1-succ_rs2:(exec'=false) & (t'=TP);
+	[] (t=TE) & (end=true) -> true;
+endmodule
+
+//=============================================
+//SET RELIABILITY VALUES
+
+formula succ_rs1 = ( sel = 0 ? RS0_Q3 :
+		   ( sel = 1 ? RS1_Q3 :
+		   ( sel = 2 ? RS2_Q3 :
+		   ( sel = 3 ? RS3_Q3 :
+		   ( sel = 4 ? RS4_Q3 :
+		   ( sel = 5 ? RS5_Q3 :
+		   ( sel = 6 ? RS6_Q3 :
+                   ( sel = 7 ? RS7_Q3 : 0.0 ))))))));
+
+formula succ_rs2 = ( sel = 0 ? RS0_Q4 :
+		   ( sel = 1 ? RS1_Q4 :
+		   ( sel = 2 ? RS2_Q4 :
+		   ( sel = 3 ? RS3_Q4 :
+		   ( sel = 4 ? RS4_Q4 :
+		   ( sel = 5 ? RS5_Q4 :
+		   ( sel = 6 ? RS6_Q4 :
+                   ( sel = 7 ? RS7_Q4 : 0.0 ))))))));
+		   
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS0
+
+//check for duration 1
+formula a0_rs0_sat_q1 = ( (A0_Q1 <= RS0_Q1) ? true:false);
+
+//check for duration 2
+formula a0_rs0_sat_q2 = ( (A0_Q1 <= RS0_Q2) ? true:false);
+
+//check for reliability 1
+formula a0_rs0_sat_q3 = ( (A0_Q2 <= RS0_Q3) ? true:false);
+
+//check for reliability 2
+formula a0_rs0_sat_q4 = ( (A0_Q2 <= RS0_Q4) ? true:false);
+
+//check for cost
+formula a0_rs0_sat_q5 = ( (A0_Q3 <= RS0_Q5) ? true:false);
+
+//check for availability
+formula a0_rs0_sat_q6 = RS0_Q6;
+
+
+//to check the satisfaction of overall quality for each node
+//formula a0_rs0_sat_ml_all = ( (a0_rs0_sat_q1=true) & 
+//				(a0_rs0_sat_q5=true) & ? true:false);
+
+formula a0_rs0_sat_ml_all = a0_rs0_sat_q6;
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+//formula a0_rs0_sat_ut_all = ( a0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula a0_rs0_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? a0_rs0_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? a0_rs0_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? a0_rs0_sat_q3 :
+              	//( GOAL_TY = GOAL_TY_UT ? a0_rs0_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? a0_rs0_sat_ml_all : true))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS1
+
+//check for duration 1
+formula a0_rs1_sat_q1 = ( (A0_Q1 <= RS1_Q1) ? true:false);
+
+//check for duration 2
+formula a0_rs1_sat_q2 = ( (A0_Q1 <= RS1_Q2) ? true:false);
+
+//check for reliability 1
+formula a0_rs1_sat_q3 = ( (A0_Q2 <= RS1_Q3) ? true:false);
+
+//check for reliability 2
+formula a0_rs1_sat_q4 = ( (A0_Q2 <= RS1_Q4) ? true:false);
+
+//check for cost
+formula a0_rs1_sat_q5 = ( (A0_Q3 <= RS1_Q5) ? true:false);
+
+//check for availability
+formula a0_rs1_sat_q6 = RS1_Q6;
+
+
+//to check the satisfaction of overall quality for each node
+//formula a0_rs1_sat_ml_all = ( (a0_rs1_sat_q1=true) & 
+//				(a0_rs1_sat_q5=true) & ? true:false);
+
+formula a0_rs1_sat_ml_all = a0_rs1_sat_q6;
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+//formula a0_rs1_sat_ut_all = ( a0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula a0_rs1_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? a0_rs1_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? a0_rs1_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? a0_rs1_sat_q3 :
+              	//( GOAL_TY = GOAL_TY_UT ? a0_rs1_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? a0_rs1_sat_ml_all : true))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS2
+
+//check for duration 1
+formula a0_rs2_sat_q1 = ( (A0_Q1 <= RS2_Q1) ? true:false);
+
+//check for duration 2
+formula a0_rs2_sat_q2 = ( (A0_Q1 <= RS2_Q2) ? true:false);
+
+//check for reliability 1
+formula a0_rs2_sat_q3 = ( (A0_Q2 <= RS2_Q3) ? true:false);
+
+//check for reliability 2
+formula a0_rs2_sat_q4 = ( (A0_Q2 <= RS2_Q4) ? true:false);
+
+//check for cost
+formula a0_rs2_sat_q5 = ( (A0_Q3 <= RS2_Q5) ? true:false);
+
+//check for availability
+formula a0_rs2_sat_q6 = RS2_Q6;
+
+
+//to check the satisfaction of overall quality for each node
+//formula a0_rs2_sat_ml_all = ( (a0_rs2_sat_q1=true) & 
+//				(a0_rs2_sat_q5=true) & ? true:false);
+
+formula a0_rs2_sat_ml_all = a0_rs2_sat_q6;
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+//formula a0_rs2_sat_ut_all = ( a0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula a0_rs2_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? a0_rs2_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? a0_rs2_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? a0_rs2_sat_q3 :
+              	//( GOAL_TY = GOAL_TY_UT ? a0_rs2_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? a0_rs2_sat_ml_all : true))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS3
+
+//check for duration 1
+formula a0_rs3_sat_q1 = ( (A0_Q1 <= RS3_Q1) ? true:false);
+
+//check for duration 2
+formula a0_rs3_sat_q2 = ( (A0_Q1 <= RS3_Q2) ? true:false);
+
+//check for reliability 1
+formula a0_rs3_sat_q3 = ( (A0_Q2 <= RS3_Q3) ? true:false);
+
+//check for reliability 2
+formula a0_rs3_sat_q4 = ( (A0_Q2 <= RS3_Q4) ? true:false);
+
+//check for cost
+formula a0_rs3_sat_q5 = ( (A0_Q3 <= RS3_Q5) ? true:false);
+
+//check for availability
+formula a0_rs3_sat_q6 = RS3_Q6;
+
+
+//to check the satisfaction of overall quality for each node
+//formula a0_rs3_sat_ml_all = ( (a0_rs3_sat_q1=true) & 
+//				(a0_rs3_sat_q5=true) & ? true:false);
+
+
+formula a0_rs3_sat_ml_all = a0_rs3_sat_q6;
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+//formula a0_rs3_sat_ut_all = ( a0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula a0_rs3_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? a0_rs3_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? a0_rs3_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? a0_rs3_sat_q3 :
+              	//( GOAL_TY = GOAL_TY_UT ? a0_rs3_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? a0_rs3_sat_ml_all : true))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS4
+
+//check for duration 1
+formula a0_rs4_sat_q1 = ( (A0_Q1 <= RS4_Q1) ? true:false);
+
+//check for duration 2
+formula a0_rs4_sat_q2 = ( (A0_Q1 <= RS4_Q2) ? true:false);
+
+//check for reliability 1
+formula a0_rs4_sat_q3 = ( (A0_Q2 <= RS4_Q3) ? true:false);
+
+//check for reliability 2
+formula a0_rs4_sat_q4 = ( (A0_Q2 <= RS4_Q4) ? true:false);
+
+//check for cost
+formula a0_rs4_sat_q5 = ( (A0_Q3 <= RS4_Q5) ? true:false);
+
+//check for availability
+formula a0_rs4_sat_q6 = RS4_Q6;
+
+
+//to check the satisfaction of overall quality for each node
+//formula a0_rs4_sat_ml_all = ( (a0_rs4_sat_q1=true) & 
+//				(a0_rs4_sat_q5=true) & ? true:false);
+
+formula a0_rs4_sat_ml_all = a0_rs4_sat_q6;
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+//formula a0_rs4_sat_ut_all = ( a0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula a0_rs4_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? a0_rs4_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? a0_rs4_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? a0_rs4_sat_q3 :
+              	//( GOAL_TY = GOAL_TY_UT ? a0_rs4_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? a0_rs4_sat_ml_all : true))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS5
+
+//check for duration 1
+formula a0_rs5_sat_q1 = ( (A0_Q1 <= RS5_Q1) ? true:false);
+
+//check for duration 2
+formula a0_rs5_sat_q2 = ( (A0_Q1 <= RS5_Q2) ? true:false);
+
+//check for reliability 1
+formula a0_rs5_sat_q3 = ( (A0_Q2 <= RS5_Q3) ? true:false);
+
+//check for reliability 2
+formula a0_rs5_sat_q4 = ( (A0_Q2 <= RS5_Q4) ? true:false);
+
+//check for cost
+formula a0_rs5_sat_q5 = ( (A0_Q3 <= RS5_Q5) ? true:false);
+
+//check for availability
+formula a0_rs5_sat_q6 = RS5_Q6;
+
+
+//to check the satisfaction of overall quality for each node
+//formula a0_rs5_sat_ml_all = ( (a0_rs5_sat_q1=true) & 
+//				(a0_rs5_sat_q5=true) & ? true:false);
+
+formula a0_rs5_sat_ml_all = a0_rs5_sat_q6;
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+//formula a0_rs5_sat_ut_all = ( a0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula a0_rs5_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? a0_rs5_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? a0_rs5_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? a0_rs5_sat_q3 :
+              	//( GOAL_TY = GOAL_TY_UT ? a0_rs5_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? a0_rs5_sat_ml_all : true))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS6
+
+//check for duration 1
+formula a0_rs6_sat_q1 = ( (A0_Q1 <= RS6_Q1) ? true:false);
+
+//check for duration 2
+formula a0_rs6_sat_q2 = ( (A0_Q1 <= RS6_Q2) ? true:false);
+
+//check for reliability 1
+formula a0_rs6_sat_q3 = ( (A0_Q2 <= RS6_Q3) ? true:false);
+
+//check for reliability 2
+formula a0_rs6_sat_q4 = ( (A0_Q2 <= RS6_Q4) ? true:false);
+
+//check for cost
+formula a0_rs6_sat_q5 = ( (A0_Q3 <= RS6_Q5) ? true:false);
+
+//check for availability
+formula a0_rs6_sat_q6 = RS6_Q6;
+
+
+//to check the satisfaction of overall quality for each node
+//formula a0_rs6_sat_ml_all = ( (a0_rs6_sat_q1=true) & 
+//				(a0_rs6_sat_q5=true) & ? true:false);
+
+formula a0_rs6_sat_ml_all = a0_rs6_sat_q6;
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+//formula a0_rs6_sat_ut_all = ( a0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula a0_rs6_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? a0_rs6_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? a0_rs6_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? a0_rs6_sat_q3 :
+              	//( GOAL_TY = GOAL_TY_UT ? a0_rs6_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? a0_rs6_sat_ml_all : true))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR A0 WITH RS7
+
+//check for duration 1
+formula a0_rs7_sat_q1 = ( (A0_Q1 <= RS7_Q1) ? true:false);
+
+//check for duration 2
+formula a0_rs7_sat_q2 = ( (A0_Q1 <= RS7_Q2) ? true:false);
+
+//check for reliability 1
+formula a0_rs7_sat_q3 = ( (A0_Q2 <= RS7_Q3) ? true:false);
+
+//check for reliability 2
+formula a0_rs7_sat_q4 = ( (A0_Q2 <= RS7_Q4) ? true:false);
+
+//check for cost
+formula a0_rs7_sat_q5 = ( (A0_Q3 <= RS7_Q5) ? true:false);
+
+//check for availability
+formula a0_rs7_sat_q6 = RS7_Q6;
+
+
+//to check the satisfaction of overall quality for each node
+//formula a0_rs7_sat_ml_all = ( (a0_rs7_sat_q1=true) & 
+//				(a0_rs7_sat_q5=true) & ? true:false);
+
+formula a0_rs7_sat_ml_all = a0_rs7_sat_q6;
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+//formula a0_rs7_sat_ut_all = ( a0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula a0_rs7_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? a0_rs7_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? a0_rs7_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? a0_rs7_sat_q3 :
+              	//( GOAL_TY = GOAL_TY_UT ? a0_rs7_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? a0_rs7_sat_ml_all : true))));
+
+
+//==============================================
+// UTILITY-BASED DECISION MAKING - SAW TECHNIQUE
+
+//get the cost of selected node
+formula rs_q5 = ( sel = 0 ? RS0_Q5 :
+		( sel = 1 ? RS1_Q5 :
+		( sel = 2 ? RS2_Q5 :
+		( sel = 3 ? RS3_Q5 :
+		( sel = 4 ? RS4_Q5 :
+		( sel = 5 ? RS5_Q5 :
+		( sel = 6 ? RS6_Q5 :
+                ( sel = 7 ? RS7_Q5 : 0.0 ))))))));
+
+//computing the utility value 
+formula mx_q5 = max(RS0_Q5,RS1_Q5,RS2_Q5,RS3_Q5,RS4_Q5,RS5_Q5,RS6_Q5,RS7_Q5);
+formula mn_q5 = min(RS0_Q5,RS1_Q5,RS2_Q5,RS3_Q5,RS4_Q5,RS5_Q5,RS6_Q5,RS7_Q5);
+formula uv_q5 = (mx_q5 - rs_q5) / (mx_q5 - mn_q5);
+
+//get the first duration of selected node
+formula rs_q1 = ( (sel = 0 & ev=0) ? RS0_Q1 :
+		( (sel = 1 & ev=0) ? RS1_Q1 :
+		( (sel = 2 & ev=0) ? RS2_Q1 :
+		( (sel = 3 & ev=0) ? RS3_Q1 :
+		( (sel = 4 & ev=0) ? RS4_Q1 :
+		( (sel = 5 & ev=0) ? RS5_Q1 :
+		( (sel = 6 & ev=0) ? RS6_Q1 :
+                ( (sel = 7 & ev=0) ? RS7_Q1 : 0.0 ))))))));
+
+//get the second duration of selected node
+formula rs_q2 = ( (sel = 0 & ev=1) ? RS0_Q2 :
+		( (sel = 1 & ev=1) ? RS1_Q2 :
+		( (sel = 2 & ev=1) ? RS2_Q2 :
+		( (sel = 3 & ev=1) ? RS3_Q2 :
+		( (sel = 4 & ev=1) ? RS4_Q2 :
+		( (sel = 5 & ev=1) ? RS5_Q2 :
+		( (sel = 6 & ev=1) ? RS6_Q2 :
+                ( (sel = 7 & ev=1) ? RS7_Q2 : 0.0 ))))))));
+
+//computing the utility value 
+formula mx_q1 = max(RS0_Q1,RS1_Q1,RS2_Q1,RS3_Q1,RS4_Q1,RS5_Q1,RS6_Q1,RS7_Q1);
+formula mn_q1 = min(RS0_Q1,RS1_Q1,RS2_Q1,RS3_Q1,RS4_Q1,RS5_Q1,RS6_Q1,RS7_Q1);
+//formula mx_q1 = max(10, 20, 30, 40);
+//formula mn_q1 = min(10,20,30,40);
+formula uv_q1 = (mx_q1 - rs_q1) / (mx_q1 - mn_q1);
+
+//computing the utility value 
+formula mx_q2 = max(RS0_Q2,RS1_Q2,RS2_Q2,RS3_Q2,RS4_Q2,RS5_Q2,RS6_Q2,RS7_Q2);
+formula mn_q2 = min(RS0_Q2,RS1_Q2,RS2_Q2,RS3_Q2,RS4_Q2,RS5_Q2,RS6_Q2,RS7_Q2);
+//formula mx_q2 = max(10, 20, 30, 40);
+//formula mn_q2 = min(10,20,30,40);
+formula uv_q2 = (mx_q2 - rs_q2) / (mx_q2 - mn_q2);
+
+//get the first reliability of selected node
+formula rs_q3 = ( (sel=0 & ev=0) ? RS0_Q3 :
+		( (sel=1 & ev=0) ? RS1_Q3 :
+		( (sel=2 & ev=0) ? RS2_Q3 :
+		( (sel=3 & ev=0) ? RS3_Q3 :
+		( (sel=4 & ev=0) ? RS4_Q3 :
+		( (sel=5 & ev=0) ? RS5_Q3 :
+		( (sel=6 & ev=0) ? RS6_Q3 :
+                ( (sel=7 & ev=0) ? RS7_Q3 : 0.0 ))))))));
+
+//get the second reliability of selected node
+formula rs_q4 = ( (sel=0 & ev=1) ? RS0_Q4 :
+		( (sel=1 & ev=1) ? RS1_Q4 :
+		( (sel=2 & ev=1) ? RS2_Q4 :
+		( (sel=3 & ev=1) ? RS3_Q4 :
+		( (sel=4 & ev=1) ? RS4_Q4 :
+		( (sel=5 & ev=1) ? RS5_Q4 :
+		( (sel=6 & ev=1) ? RS6_Q4 :
+                ( (sel=7 & ev=1) ? RS7_Q4 : 0.0 ))))))));
+
+//computing the utility value 
+formula mx_q3 = max(RS0_Q3,RS1_Q3,RS2_Q3,RS3_Q3,RS4_Q3,RS5_Q3,RS6_Q3,RS7_Q3);
+formula mn_q3 = min(RS0_Q3,RS1_Q3,RS2_Q3,RS3_Q3,RS4_Q3,RS5_Q3,RS6_Q3,RS7_Q3);
+//formula mx_q3 = max(0.2, 0.3, 0.4, 0.5);
+//formula mn_q3 = max(0.2, 0.3, 0.4, 0.5);
+formula uv_q3 = (mx_q3 - rs_q3) / (mx_q3 - mn_q3);
+
+//computing the utility value 
+formula mx_q4 = max(RS0_Q4,RS1_Q4,RS2_Q4,RS3_Q4,RS4_Q4,RS5_Q4,RS6_Q4,RS7_Q4);
+formula mn_q4 = min(RS0_Q4,RS1_Q4,RS2_Q4,RS3_Q4,RS4_Q4,RS5_Q4,RS6_Q4,RS7_Q4);
+//formula mx_q4 = max(0.2, 0.3, 0.4, 0.5);
+//formula mn_q4 = max(0.2, 0.3, 0.4, 0.5);
+formula uv_q4 = (mx_q4 - rs_q4) / (mx_q4 - mn_q4);
+
+formula uv_cost = (uv_q5 > 0.0 ? uv_q5: 0.0) ;
+formula uv_dur1 = (uv_q1 > 0.0 ? uv_q1: 0.0);
+formula uv_dur2 = (uv_q2 > 0.0 ? uv_q2: 0.0);
+formula uv_rel1 = (uv_q3 > 0.0 ? uv_q3: 0.0);
+formula uv_rel2 = (uv_q4 > 0.0 ? uv_q4: 0.0);
+
+//compute the overall utility value
+formula uv_all = (ev=0 ? (uv_cost * WG_COST + uv_dur1 * WG_DUR + uv_rel1 * WG_REL):
+		 (ev=1 ? (uv_cost * WG_COST + uv_dur2 * WG_DUR + uv_rel2 * WG_REL):0.0));
+
+
+//==============================================
+//REWARD STRUCTURE 
+
+rewards "cost"
+[end] true: rs_q5;
+endrewards
+
+rewards "time"
+[end] true: rs_q1;
+[end] true: rs_q2;
+endrewards
+
+rewards "reliability"
+[end] true: rs_q3;
+[end] true: rs_q4;
+endrewards
+
+rewards "utility"
+[end] true: uv_all;
+endrewards
+//==========================================
+//LABELS
+label "done" = (end=true);
+//label "done1" = (goala=true & sela>-1);
+//label "done2" = (goalb=true & selb>-1);
+//label "same" = (sela>-1 & selb>-1 & sela=selb);
+//label "diff" = (sela!=selb);
+//label "satisfy" = (goala=true | goalb=true);

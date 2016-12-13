@@ -8,13 +8,6 @@ public class PlanningSimulator {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		//define parameters for the simulation
-		int simCycle = 10;
-		long time[] = new long[simCycle]; //log the execution time
-		TimeMeasure tm = new TimeMeasure(); //create the time instance
-		boolean statusRes[] = new boolean[simCycle]; //log the synthesis status
-		
 		//define paths for I/O files
 		String singlePath = "/home/azlan/git/prismgames/Prismfiles/singlemodel.prism";
 		String seqPath = "/home/azlan/git/prismgames/Prismfiles/seqmodel.prism";
@@ -24,16 +17,29 @@ public class PlanningSimulator {
 		String transPath = "/home/azlan/git/prismgames/IOFiles/transitions.txt";
 		String stratPath = "/home/azlan/git/prismgames/IOFiles/strategies.txt";
 		//String actLabelPath = "/home/azlan/git/PrismGames/IOFiles/labels.txt";
+				
+				
+		//define parameters for the simulation
+		int simCycle = 2;
+		long time[] = new long[simCycle]; //log the execution time
+		TimeMeasure tm = new TimeMeasure(); //create the time instance
+		boolean statusRes[] = new boolean[simCycle]; //log the synthesis status
+		
+		
 		
 		//define parameters for the model
-		int pattern = 0;	//0-single, 1-sequential, 2-conditional, 3-parallel
-		int numNode = 1;	//set the number of node/task/activity in the compositional structure
-		int numofService = 20;	//set the number of services per each node
+		int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel
+		int numNode = 2;	//set the number of node/task/activity in the compositional structure
+		int numofService = 15;	//set the number of services per each node
 		int numofResource = 2;	//set the number of behavior per each service
+		boolean setVal = true;  //true-during model generation, false-during model checking
+		int evalMethod = 1; 	//0-utility-based, 1-multi-objective
 		
-		//define values for the requirement parameters (assuming as global requirements)
-		int durR=100, costR=50;
-		double relR=0.9, wcostR=0.3, wdurR=0.3, wrelR=0.4;
+		//define thresholds of QoS requirements (assuming as global requirements)
+		int costR=50;		//max cost
+		int durR=120; 		//max duration
+		double relR=0.5;	//min reliability
+		double wcostR=0.3, wdurR=0.3, wrelR=0.4;	//utility preferences
 		
 		//begin the simulation
 		for(int m=0; m < simCycle; m++) {
@@ -54,21 +60,10 @@ public class PlanningSimulator {
 					patName = "single";		
 					//configuring model parameters and values
 					System.out.println("Solving single node...");
-					mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
+					mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
 					mdg.setPattern(pattern);
 					mdg.setParamsNames("p1", "p2", "planner", "environment");
 					mdg.setUpperBounds(numNode, numofService, numofResource);
-					
-					//create the specifications
-					System.out.println("Generating model and properties specifications...");
-					mdg.setModelPath(singlePath);										
-					mdg.setPropPath(propPath);
-					mdg.generateSGModel(0);
-					mdg.generateProperties();
-								
-					//export the actions (for strategy extraction)
-					//System.out.println("Exporting action labels...");
-					//mdg.exportActionLabels(actLabelPath);
 					
 					//creating and assigning values to parameters
 					System.out.println("Creating and assigning values to parameters...");
@@ -78,12 +73,23 @@ public class PlanningSimulator {
 					mdg.setReqParamswithValues();
 					mdg.setServParamswithValues();
 					
+					//create the specifications
+					System.out.println("Generating model and properties specifications...");
+					mdg.setModelPath(singlePath);										
+					mdg.setPropPath(propPath);
+					mdg.generateSGModel(0);	//value for >0 is only for parallel structure
+					mdg.generateProperties();
+								
+					//export the actions (for strategy extraction)
+					//System.out.println("Exporting action labels...");
+					//mdg.exportActionLabels(actLabelPath);				
+					
 					//synthesis
 					System.out.println("Synthesizing model...");
 					sp.initiatePlanner();
 					sp.parseModelandProperties(singlePath, propPath);
 					sp.setUndefinedValues(mdg.getDefinedValues());
-					sp.checkInitialModel();
+					sp.checkModel(evalMethod);
 					
 					//exporting
 					System.out.println("Exporting transitions and strategies...");
@@ -119,7 +125,7 @@ public class PlanningSimulator {
 				patName = "sequential";	
 				//configuring model parameters and values
 				System.out.println("Solving sequential pattern...");
-				mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
+				mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
 				mdg.setPattern(pattern);
 				mdg.setParamsNames("p1", "p2", "planner", "environment");
 				mdg.setUpperBounds(numNode, numofService, numofResource);
@@ -148,7 +154,7 @@ public class PlanningSimulator {
 				sp.initiatePlanner();
 				sp.parseModelandProperties(seqPath, propPath);
 				sp.setUndefinedValues(mdg.getDefinedValues());
-				sp.checkInitialModel();
+				sp.checkModel(evalMethod);
 				
 				//exporting
 				System.out.println("Exporting transitions and strategies...");
@@ -180,11 +186,18 @@ public class PlanningSimulator {
 				patName = "conditional";	
 				//configuring model parameters and values
 				System.out.println("Solving conditional pattern...");
-				mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
+				mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
 				mdg.setPattern(pattern);
 				mdg.setParamsNames("p1", "p2", "planner", "environment");
 				mdg.setUpperBounds(numNode, numofService, numofResource);
 			
+				//creating and assigning values to parameters
+				System.out.println("Creating and assigning values to parameters...");
+				mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+				mdg.setAllRandomServProfiles();
+				mdg.createServParams();
+				mdg.setReqParamswithValues();
+				mdg.setServParamswithValues();
 				
 				//create the specifications
 				System.out.println("Generating model and properties specifications...");
@@ -197,20 +210,12 @@ public class PlanningSimulator {
 				//System.out.println("Exporting action labels...");
 				//mdg.exportActionLabels(actLabelPath);
 				
-				//creating and assigning values to parameters
-				System.out.println("Creating and assigning values to parameters...");
-				mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-				mdg.setAllRandomServProfiles();
-				mdg.createServParams();
-				mdg.setReqParamswithValues();
-				mdg.setServParamswithValues();
-				
 				//synthesis
 				System.out.println("Synthesizing model...");
 				sp.initiatePlanner();
 				sp.parseModelandProperties(condPath, propPath);
 				sp.setUndefinedValues(mdg.getDefinedValues());
-				sp.checkInitialModel();
+				sp.checkModel(evalMethod);
 				
 				//exporting
 				System.out.println("Exporting transitions and strategies...");
@@ -246,7 +251,7 @@ public class PlanningSimulator {
 				
 				//configuring model parameters and values
 				System.out.println("Solving parallel pattern...");
-				mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
+				mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
 				mdg.setPattern(pattern);
 				mdg.setParamsNames("p1", "p2", "planner", "environment");
 				mdg.setUpperBounds(numNode, numofService, numofResource);
@@ -277,12 +282,12 @@ public class PlanningSimulator {
 				}
 				
 				//creating and assigning values to parameters
-				System.out.println("Creating and assigning values to parameters...");
-				mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-				mdg.setAllRandomServProfiles();
-				mdg.createServParams();
-				mdg.setReqParamswithValues();
-				mdg.setServParamswithValues();
+				//System.out.println("Creating and assigning values to parameters...");
+				//mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+				//mdg.setAllRandomServProfiles();
+				//mdg.createServParams();
+				//mdg.setReqParamswithValues();
+				//mdg.setServParamswithValues();
 				
 				//synthesis
 				System.out.println("Synthesizing model...");
@@ -297,7 +302,7 @@ public class PlanningSimulator {
 				for (int n=0; n < numNode; n++) {
 					sp.parseModelandProperties(multiModelPath[n], multiPropPath[n]);
 					sp.setUndefinedValues(mdg.getDefinedValues());
-					sp.checkInitialModel();
+					sp.checkModel(evalMethod);
 					
 					//exporting
 					System.out.println("Exporting transitions and strategies of node "+n);

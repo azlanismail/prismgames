@@ -1,0 +1,255 @@
+smg
+
+//top level system 
+system "MC"
+"C1" || "C2"  //a set of resource collaborators
+endsystem
+
+//sub-system
+system "C1"
+M1
+endsystem
+
+//====================================
+//inputs parameters
+
+//USER-DEFINED PARAMETERS
+const int MAXR = 2;  //UB for retry
+const int MAXS = 5;  //UB for the number of collaborators
+const double MAXUT = 0.7; //UB for the utility value
+const int GOAL_TY = 5; //UB for collaborators (for filtering)
+const int GOAL_TY_Q1 = 1; //performance violation
+const int GOAL_TY_Q2 = 2; //availability
+const int GOAL_TY_Q3 = 3; //safety
+const int GOAL_TY_UT = 4; //utility-based
+const int GOAL_TY_ML = 5; //multi
+
+//PROBING PARAMETERS
+const int RS_REQ_ID = 0; //initiator or requestor
+const bool CURA = true; //current availability
+const bool CURP = true; //current performance
+const bool CURF = true; //current safety
+const int DELAY = 3;  //current delay
+
+//PROFILING PARAMETERS
+const int APP_ID = -1;
+const double APP_CPU_CORES = 0.3;
+const double APP_CPU_LOADS = 0.3;
+const double APP_CPU_SPEEDS = 0.3;
+
+
+const int RS0_ID = 0;
+const double RS0_CPU_CORES = 0.3;
+const double RS0_CPU_LOADS = 0.3;
+const double RS0_CPU_SPEEDS = 0.3;
+
+const int RS1_ID = 1;
+const double RS1_CPU_CORES = 0.3;
+const double RS1_CPU_LOADS = 0.3;
+const double RS1_CPU_SPEEDS = 0.3;
+
+const int RS2_ID = 2;
+const double RS2_CPU_CORES = 0.3;
+const double RS2_CPU_LOADS = 0.3;
+const double RS2_CPU_SPEEDS = 0.3;
+
+const int RS3_ID = 3;
+const double RS3_CPU_CORES = 0.3;
+const double RS3_CPU_LOADS = 0.3;
+const double RS3_CPU_SPEEDS = 0.3;
+
+const int RS4_ID = 4;
+const double RS4_CPU_CORES = 0.3;
+const double RS4_CPU_LOADS = 0.3;
+const double RS4_CPU_SPEEDS = 0.3;
+
+//=======================================
+//CONTROLLING PARAMETERS
+global a1: bool init CURA;     //states for the availability
+global p1: bool init CURP;     //states for the performance violation
+global f1: bool init CURF;     //states for the security/safety violation
+global goal: bool init false;
+//=======================================
+module M1
+t1:[0..2] init 1;      //to control the turn
+s1:[-1..MAXS] init -1; //states for the resource collaborator selection
+r1:[0..MAXR] init 0;   //states for the retry
+//a1: bool init CURA;     //states for the availability
+//p1: bool init CURP;     //states for the performance violation
+//f1: bool init CURF;     //states for the security/safety violation
+
+// P1 moves:
+// (turn) the turn is meant for P1
+// (adapt) the collaborator is not itself
+// (constraints) the goals/constraints are satisfied
+//& (sat=true)
+//&(s1'= RS0_ID)
+[r0a!] (t1=0) & (RS_REQ_ID != RS0_ID) & (r1<=MAXR) -> (s1'=RS0_ID) & (r1'=r1+1) & (t1'=1);
+[r1a!] (t1=0) & (RS_REQ_ID != RS1_ID) & (r1<=MAXR) -> (s1'=RS1_ID) & (r1'=r1+1) & (t1'=1);
+[r2a!] (t1=0) & (RS_REQ_ID != RS2_ID) & (r1<=MAXR) -> (s1'=RS2_ID) & (r1'=r1+1) & (t1'=1);
+[r3a!] (t1=0) & (RS_REQ_ID != RS3_ID) & (r1<=MAXR) -> (s1'=RS3_ID) & (r1'=r1+1) & (t1'=1);
+[r4a!] (t1=0) & (RS_REQ_ID != RS4_ID) & (r1<=MAXR) -> (s1'=RS4_ID) & (r1'=r1+1) & (t1'=1);
+[enda!] (t1=0) & (r1>MAXR) -> (t1'=2);
+
+// P2 moves:
+// (turn) the turn is meant for P2
+// (availability) change the behavior of availability state
+// (performance) change the behavior of performance state
+// (security) change the behavior of security state
+
+//[m1x?] (t1=1) -> 0.5:(a1'=false)&(t1'=2)&(s1'=0) + 0.5:(a1'=true)&(t1'=2);
+//[m1x?] (t1=1) -> 0.5:(a1'=false)&(t1'=2)&(s1'=0) + 0.5:(a1'=true)&(t1'=2);
+//[m1y?] (t1=1) -> 0.5:(p1'=false)&(t1'=2)&(s1'=0) + 0.5:(p1'=true)&(t1'=2);
+//[m1z?] (t1=1) -> 0.5:(f1'=false)&(t1'=2)&(s1'=0) + 0.5:(f1'=true)&(t1'=2);
+
+//start the move
+[st?] (t1=1) -> (t1'=2);
+[st?] (t1=2) -> (t1'=2);
+
+//terminate the process
+//[tr1?] (t=1) & (r1>=MAXR) & (end=false) -> (end'=true);
+
+//schedule the turn between subsystems
+[] (t1=2) -> (t1'=0);
+
+endmodule
+
+//=============================================
+//=============================================
+//=============================================
+system "C2"
+M2
+endsystem
+
+//module M2=M1 [t1=t2, s1=s2, r1=r2, r1a=r2a, r1b=r2b, r1c=r2c, r1d=r2d, 
+//              r1e=r2e] endmodule
+module M2=M1 [t1=t2, s1=s2, r1=r2, r0a=r0b, r1a=r1b, r2a=r2b, r3a=r3b, r4a=r4b, enda=endb] endmodule
+
+
+//=================================
+//QoS COMPUTATION FOR EACH METRIC
+
+//to compute the overall response time for C1
+formula all_r0a_rt =RS0_RT + DELAY;
+formula all_r1a_rt =RS1_RT + DELAY;
+formula all_r2a_rt =RS2_RT + DELAY;
+formula all_r3a_rt =RS3_RT + DELAY;
+formula all_r4a_rt =RS4_RT + DELAY;
+
+//to compute the overall response time for C2
+formula all_r0b_rt =RS0_RT + DELAY;
+formula all_r1b_rt =RS1_RT + DELAY;
+formula all_r2b_rt =RS2_RT + DELAY;
+formula all_r3b_rt =RS3_RT + DELAY;
+formula all_r4b_rt =RS4_RT + DELAY;
+
+
+//to compute the overall response time for C1
+formula all_r0a_ru =RS0_RU + DELAY;
+formula all_r1a_ru =RS1_RU + DELAY;
+formula all_r2a_ru =RS2_RU + DELAY;
+formula all_r3a_ru =RS3_RU + DELAY;
+formula all_r4a_ru =RS4_RU + DELAY;
+
+//to compute the overall response time for C2
+formula all_r0b_ru =RS0_RU + DELAY;
+formula all_r1b_ru =RS1_RU + DELAY;
+formula all_r2b_ru =RS2_RU + DELAY;
+formula all_r3b_ru =RS3_RU + DELAY;
+formula all_r4b_ru =RS4_RU + DELAY;
+
+//=================================
+//Computation for aggregation-based
+
+//formula uv_all = uv_cs * WG_CS + uv_rt * WG_RT + uv_fr * WG_FR;
+formula uv_all = 0.6;
+
+//=================================
+//QoS CONSTRAINTS CHECKING
+
+//to get the respective cores value
+formula cpu_cores_selected = ( s1 = RS0_ID ? RS0_CPU_CORES :
+                             ( s1 = RS1_ID ? RS1_CPU_CORES :
+                             ( s1 = RS2_ID ? RS2_CPU_CORES :
+                             ( s1 = RS3_ID ? RS3_CPU_CORES :
+                             ( s1 = RS4_ID ? RS4_CPU_CORES : 0.0)))));
+
+//to check the satisfaction of CPU Cores
+formula sat_q1 = ( (APP_CPU_CORES > cpu_cores_selected) ? false:true);
+
+//to get the respective loads value
+formula cpu_loads_selected = ( s1 = RS0_ID ? RS0_CPU_LOADS :
+                             ( s1 = RS1_ID ? RS1_CPU_LOADS :
+                             ( s1 = RS2_ID ? RS2_CPU_LOADS :
+                             ( s1 = RS3_ID ? RS3_CPU_LOADS :
+                             ( s1 = RS4_ID ? RS4_CPU_LOADS : 0.0)))));
+
+//to check the satisfaction of CPU Loads
+formula sat_q2 = ( (APP_CPU_LOADS > cpu_loads_selected) ? false:true);
+
+//to get the respective speeds value
+formula cpu_speeds_selected = ( s1 = RS0_ID ? RS0_CPU_SPEEDS :
+                              ( s1 = RS1_ID ? RS1_CPU_SPEEDS :
+                              ( s1 = RS2_ID ? RS2_CPU_SPEEDS :
+                              ( s1 = RS3_ID ? RS3_CPU_SPEEDS :
+                              ( s1 = RS4_ID ? RS4_CPU_SPEEDS : 0.0)))));
+
+//to check the satisfaction of CPU Speeds
+formula sat_q3 = ( (APP_CPU_SPEEDS > cpu_speeds_selected) ? false:true);
+
+
+//to check the satisfaction of overall quality for each node
+formula sat_ml_all = ( (sat_q1=true) & (sat_q2=true) & (sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula sat_ut_all = ( uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula sat = ( GOAL_TY = GOAL_TY_Q1 ? sat_q1 :
+              ( GOAL_TY = GOAL_TY_Q2 ? sat_q2 :
+              ( GOAL_TY = GOAL_TY_Q3 ? sat_q3 :
+              ( GOAL_TY = GOAL_TY_UT ? sat_ut_all :
+              ( GOAL_TY = GOAL_TY_ML ? sat_ml_all : false)))));
+
+
+//==============================================
+//REWARD STRUCTURE
+
+//time dimension: response time
+rewards "c1_rt"
+[r0a] true : all_r0a_rt;
+[r1a] true : all_r1a_rt;
+[r2a] true : all_r2a_rt;
+[r3a] true : all_r3a_rt;
+[r4a] true : all_r4a_rt;
+endrewards
+
+rewards "c2_rt"
+[r0b] true : all_r0b_rt;
+[r1b] true : all_r1b_rt;
+[r2b] true : all_r2b_rt;
+[r3b] true : all_r3b_rt;
+[r4b] true : all_r4b_rt;
+endrewards
+
+//resource dimension: utilization
+rewards "c1_ru"
+[r0a] true : all_r0a_ru;
+[r1a] true : all_r1a_ru;
+[r2a] true : all_r2a_ru;
+[r3a] true : all_r3a_ru;
+[r4a] true : all_r4a_ru;
+endrewards
+
+rewards "c2_ru"
+[r0b] true : all_r0b_ru;
+[r1b] true : all_r1b_ru;
+[r2b] true : all_r2b_ru;
+[r3b] true : all_r3b_ru;
+[r4b] true : all_r4b_ru;
+endrewards
+
+label "done1" = t1 = 2;
+label "done2" = t2 = 2;

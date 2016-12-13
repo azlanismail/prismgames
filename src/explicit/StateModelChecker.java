@@ -445,7 +445,7 @@ public class StateModelChecker extends PrismComponent
 
 		// Create storage for result
 		result = new Result();
-
+		
 		// Remove any existing filter info
 		currentFilter = null;
 
@@ -504,7 +504,8 @@ public class StateModelChecker extends PrismComponent
 	public StateValues checkExpression(Model model, Expression expr, BitSet statesOfInterest) throws PrismException
 	{
 		StateValues res = null;
-
+		
+		System.out.println("test2");
 		// If-then-else
 		if (expr instanceof ExpressionITE) {
 			res = checkExpressionITE(model, (ExpressionITE) expr, statesOfInterest);

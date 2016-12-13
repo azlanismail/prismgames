@@ -1,0 +1,10 @@
+const int MAXCS = 50;
+const int MAXRT = 100;
+const int MINCS = 0;
+const int MINRT = 0;
+const double MAXFR = 0.9;
+<<p1>> R{"cost"}max=? [ F "done" ]
+<<p1>> R{"time"}max=? [ F "done" ]
+<<p1>> R{"reliability"}max=? [ F "done" ]
+<<p1>> R{"utility"}max=? [ F "done" ]
+<<p1>> (R{"cost"}>MINCS [C] & R{"time"}>MINRT [C ])

@@ -103,6 +103,7 @@ public class STPGModelChecker extends ProbModelChecker
 	 */
 	public ModelCheckerResult computeNextProbs(STPG stpg, BitSet target, boolean min1, boolean min2) throws PrismException
 	{
+		System.out.println("test from compute next probs");
 		ModelCheckerResult res = null;
 		int n;
 		double soln[], soln2[];
@@ -899,6 +900,7 @@ public class STPGModelChecker extends ProbModelChecker
 	public ModelCheckerResult computeReachRewards(STPG stpg, STPGRewards rewards, BitSet target, boolean min1, boolean min2, double init[], BitSet known)
 			throws PrismException
 	{
+		
 		return computeReachRewards(stpg, rewards, target, min1, min2, init, known, R_INFINITY);
 	}
 
@@ -920,6 +922,7 @@ public class STPGModelChecker extends ProbModelChecker
 	public ModelCheckerResult computeReachRewards(STPG stpg, STPGRewards rewards, BitSet target, boolean min1, boolean min2, double init[], BitSet known,
 			int unreachingSemantics) throws PrismException
 	{
+		System.out.println("test from compute reach rewards stpg");
 		switch (unreachingSemantics) {
 		case R_INFINITY:
 			return computeReachRewardsInfinity(stpg, rewards, target, min1, min2, init, known);
@@ -947,6 +950,7 @@ public class STPGModelChecker extends ProbModelChecker
 	protected ModelCheckerResult computeReachRewardsValIter(STPG stpg, STPGRewards rewards, BitSet target, BitSet inf, boolean min1, boolean min2,
 			double init[], BitSet known) throws PrismException
 	{
+		System.out.println("test from compute reach rewards value iteration");
 		ModelCheckerResult res;
 		BitSet unknown, notInf;
 		int i, n, iters;
@@ -955,6 +959,8 @@ public class STPGModelChecker extends ProbModelChecker
 		boolean genAdv, done;
 		long timer;
 
+		generateStrategy = true;
+		
 		// Are we generating an optimal adversary?
 		genAdv = exportAdv || generateStrategy;
 
@@ -1095,6 +1101,7 @@ public class STPGModelChecker extends ProbModelChecker
 	public ModelCheckerResult computeReachRewardsInfinity(STPG stpg, STPGRewards rewards, BitSet target, boolean min1, boolean min2, double init[], BitSet known)
 			throws PrismException
 	{
+		System.out.println("test from compute reach rewards infinity");
 		ModelCheckerResult res = null;
 		BitSet inf;
 		int n, numTarget, numInf;
@@ -1263,6 +1270,7 @@ public class STPGModelChecker extends ProbModelChecker
 	public ModelCheckerResult computeReachRewardsCumulative(STPG stpg, STPGRewards rewards, BitSet target, boolean min1, boolean min2, double init[],
 			BitSet known) throws PrismException
 	{
+		System.out.println("test from compute reach rewards cumulative stpg");
 		ModelCheckerResult res = null;
 		BitSet inf;
 		int i, n, numTarget, numInf;
@@ -1401,6 +1409,7 @@ public class STPGModelChecker extends ProbModelChecker
 	public ModelCheckerResult computeReachRewardsZero(STPG stpg, STPGRewards rewards, BitSet target, boolean min1, boolean min2, double init[], BitSet known)
 			throws PrismException
 	{
+		System.out.println("test from compute reach rewards zero");
 		ModelCheckerResult res = null;
 		BitSet inf;
 		int i, n, numTarget, numInf;

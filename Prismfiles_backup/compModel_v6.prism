@@ -1,0 +1,55 @@
+smg
+
+//top level
+system  // a set of applications to be migrated
+    "A1" || "A2" 
+endsystem
+
+//sub-system
+system "A1"  
+    M1
+endsystem
+
+global end: bool init false;
+
+module M1
+p: [0..2] init 1;	//decision process state
+
+[rs1!] (p=0) & end=false -> (p'=1);
+[rs2!] (p=0) -> (p'=2);
+
+[a1?] (p=1) -> (p'=2);
+[a2?] (p=1) -> (p'=1);
+
+[] (p=2) -> (p'=0);
+
+
+endmodule
+
+//================================
+system "A2" 
+    M2
+endsystem
+
+//module M2 = M1 [p=l, rs1=r1, rs2=r2, a1=b1, a2=b2] endmodule
+module M2 = M1 [p=l, rs1=r1, rs2=r2] endmodule
+
+//================================
+//REWARD STRUCTURE
+
+rewards "rt_s1"
+	[rs1] true : 1;
+endrewards
+
+//resource utilization
+rewards "rt_s2"
+    	[r1] true : 1;
+endrewards
+
+rewards "ru_s1"
+    	[rs2] true : 2;
+endrewards
+
+rewards "ru_s2"
+	[r2] true : 2;
+endrewards

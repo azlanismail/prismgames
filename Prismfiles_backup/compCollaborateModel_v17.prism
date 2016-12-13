@@ -1,0 +1,861 @@
+smg
+
+//top level system 
+system "MC"
+"C1" || "C2"  //a set of decision makers / components
+endsystem
+
+//sub-system
+system "C1"
+M1
+endsystem
+
+//====================================
+//inputs parameters
+
+//USER-DEFINED PARAMETERS
+const double MAXUT = 0.7; //UB for the utility value
+const int GOAL_TY = 5; //UB for collaborators (for filtering)
+const int GOAL_TY_Q1 = 1; //performance violation
+const int GOAL_TY_Q2 = 2; //availability
+const int GOAL_TY_Q3 = 3; //safety
+const int GOAL_TY_UT = 4; //utility-based
+const int GOAL_TY_ML = 5; //multi
+
+const int MAX_CLOUD_LOAD = 100; //UB for cpu load of a cloud
+//PROBING PARAMETERS
+
+
+//=======Application Requirements===========
+const int APP0_ID = 0;
+const int APP0_CPU_CORES = 1;
+const int APP0_CPU_LOADS = 40;
+const int APP0_CPU_SPEED = 300;
+const int APP0_TOTALMEMORY = 20;
+const int APP0_FREEMEMORY = 20;
+const int APP0_LOCATION = 1;
+
+const int APP1_ID = 1;
+const int APP1_CPU_CORES = 1;
+const int APP1_CPU_LOADS = 30;
+const int APP1_CPU_SPEED = 600;
+const int APP1_TOTALMEMORY = 20;
+const int APP1_FREEMEMORY = 20;
+const int APP1_LOCATION = 1;
+
+
+//========Resource/Node Profiles===========
+
+const int RS0_ID = 0;
+const int RS0_CPU_CORES = 1;
+const int RS0_CPU_LOADS = 70;
+const int RS0_CPU_SPEED = 2000;
+const int RS0_TOTALMEMORY = 1000;
+const int RS0_FREEMEMORY = 300;
+const int RS0_LOCATION = 0;
+
+const int RS1_ID = 1;
+const int RS1_CPU_CORES = 1;
+const int RS1_CPU_LOADS = 30;
+const int RS1_CPU_SPEED = 2000;
+const int RS1_TOTALMEMORY = 1000;
+const int RS1_FREEMEMORY = 600;
+const int RS1_LOCATION = 1;
+
+const int RS2_ID = 2;
+const int RS2_CPU_CORES = 1;
+const int RS2_CPU_LOADS = 50;
+const int RS2_CPU_SPEED = 2593;
+const int RS2_TOTALMEMORY = 1000;
+const int RS2_FREEMEMORY = 700;
+const int RS2_LOCATION = 2;
+
+const int RS3_ID = 3;
+const int RS3_CPU_CORES = 1;
+const int RS3_CPU_LOADS = 20;
+const int RS3_CPU_SPEED = 2593;
+const int RS3_TOTALMEMORY = 1000;
+const int RS3_FREEMEMORY = 300;
+const int RS3_LOCATION = 3;
+
+const int RS4_ID = 4;
+const int RS4_CPU_CORES = 1;
+const int RS4_CPU_LOADS = 40;
+const int RS4_CPU_SPEED = 2593;
+const int RS4_TOTALMEMORY = 1000;
+const int RS4_FREEMEMORY = 550;
+const int RS4_LOCATION = 4;
+
+const int RS5_ID = 5;
+const int RS5_CPU_CORES = 1;
+const int RS5_CPU_LOADS = 50;
+const int RS5_CPU_SPEED = 2593;
+const int RS5_TOTALMEMORY = 1000;
+const int RS5_FREEMEMORY = 450;
+const int RS5_LOCATION = 5;
+
+const int RS6_ID = 6;
+const int RS6_CPU_CORES = 1;
+const int RS6_CPU_LOADS = 60;
+const int RS6_CPU_SPEED = 2593;
+const int RS6_TOTALMEMORY = 1000;
+const int RS6_FREEMEMORY = 650;
+const int RS6_LOCATION = 6;
+
+const int RS7_ID = 7;
+const int RS7_CPU_CORES = 1;
+const int RS7_CPU_LOADS = 40;
+const int RS7_CPU_SPEED = 2000;
+const int RS7_TOTALMEMORY = 1000;
+const int RS7_FREEMEMORY = 800;
+const int RS7_LOCATION = 7;
+
+
+//=======================================
+//PROBABILISTIC PARAMETERS
+const double AVA_RS0 = 0.9;
+const double AVA_RS1 = 0.9;
+const double AVA_RS2 = 0.9;
+const double AVA_RS3 = 0.9;
+const double AVA_RS4 = 0.9;
+const double AVA_RS5 = 0.9;
+const double AVA_RS6 = 0.9;
+const double AVA_RS7 = 0.9;
+
+const double AVB_RS0 = 0.9;
+const double AVB_RS1 = 0.9;
+const double AVB_RS2 = 0.9;
+const double AVB_RS3 = 0.9;
+const double AVB_RS4 = 0.9;
+const double AVB_RS5 = 0.9;
+const double AVB_RS6 = 0.9;
+const double AVB_RS7 = 0.9;
+
+//=======================================
+//CONTROLLING PARAMETERS
+
+//global goala: bool init false;
+//global goalb: bool init false;
+//global av0: bool init true;
+//global av1: bool init true;
+//global av2: bool init true;
+//global av3: bool init true;
+//global av4: bool init true;
+//global av5: bool init true;
+//global av6: bool init true;
+//global av7: bool init true;
+
+global cload_rs0:[0..150] init 0;
+global cload_rs1:[0..150] init 0;
+global cload_rs2:[0..150] init 0;
+global cload_rs3:[0..150] init 0;
+global cload_rs4:[0..150] init 0;
+global cload_rs5:[0..150] init 0;
+global cload_rs6:[0..150] init 0;
+global cload_rs7:[0..150] init 0;
+
+global cspeed_rs0:[0..5000] init 0;
+global cspeed_rs1:[0..5000] init 0;
+global cspeed_rs2:[0..5000] init 0;
+global cspeed_rs3:[0..5000] init 0;
+global cspeed_rs4:[0..5000] init 0;
+global cspeed_rs5:[0..5000] init 0;
+global cspeed_rs6:[0..5000] init 0;
+global cspeed_rs7:[0..5000] init 0;
+
+//=======================================
+module M1
+ta:[0..2] init 1;      //to control the turn
+sela:[0..7] init 0;
+goala: bool init false;
+av0a: bool init true;
+av1a: bool init true;
+av2a: bool init true;
+av3a: bool init true;
+av4a: bool init true;
+av5a: bool init true;
+av6a: bool init true;
+av7a: bool init true;
+
+// P1 moves:
+//appx_rsy_sat - represents the satisfaction of performance violation
+[r0a!] (ta=0) & (app0_rs0_sat_ml_all=true) & (goala=false) & (av0a=true) -> (goala'=true) & (sela'=0) & (ta'=1);
+[r1a!] (ta=0) & (app0_rs1_sat_ml_all=true) & (goala=false) & (av1a=true) -> (goala'=true) & (sela'=1) & (ta'=1);
+[r2a!] (ta=0) & (app0_rs2_sat_ml_all=true) & (goala=false) & (av2a=true) -> (goala'=true) & (sela'=2) & (ta'=1);
+[r3a!] (ta=0) & (app0_rs3_sat_ml_all=true) & (goala=false) & (av3a=true) -> (goala'=true) & (sela'=3) & (ta'=1);
+[r4a!] (ta=0) & (app0_rs4_sat_ml_all=true) & (goala=false) & (av4a=true) -> (goala'=true) & (sela'=4) & (ta'=1);
+[r5a!] (ta=0) & (app0_rs5_sat_ml_all=true) & (goala=false) & (av5a=true) -> (goala'=true) & (sela'=5) & (ta'=1);
+[r6a!] (ta=0) & (app0_rs6_sat_ml_all=true) & (goala=false) & (av6a=true) -> (goala'=true) & (sela'=6) & (ta'=1);
+[r7a!] (ta=0) & (app0_rs7_sat_ml_all=true) & (goala=false) & (av7a=true) -> (goala'=true) & (sela'=7) & (ta'=1);
+//terminate the process
+[enda!] (ta=0) & (goala=true) -> (ta'=2);
+
+// P2 moves:
+[ch0a?] (ta=1) & (sela=0) & (goala = true) -> AVA_RS0:(av0a'=true) & (cload_rs0'=cload_rs0 + APP0_CPU_LOADS) & (cspeed_rs0'= max(cspeed_rs0,APP0_CPU_SPEED)) & (ta'=2) + 1-AVA_RS0:(av0a'=false) & (ta'=2);
+[ch1a?] (ta=1) & (sela=1) & (goala = true) -> AVA_RS1:(av1a'=true) & (cload_rs1'=cload_rs1 + APP0_CPU_LOADS) & (cspeed_rs1'= max(cspeed_rs1,APP0_CPU_SPEED)) & (ta'=2) + 1-AVA_RS1:(av1a'=false) & (ta'=2);
+[ch2a?] (ta=1) & (sela=2) & (goala = true) -> AVA_RS2:(av2a'=true) & (cload_rs2'=cload_rs2 + APP0_CPU_LOADS) & (cspeed_rs2'= max(cspeed_rs2,APP0_CPU_SPEED)) & (ta'=2) + 1-AVA_RS2:(av2a'=false) & (ta'=2);
+[ch3a?] (ta=1) & (sela=3) & (goala = true) -> AVA_RS3:(av3a'=true) & (cload_rs3'=cload_rs3 + APP0_CPU_LOADS) & (cspeed_rs3'= max(cspeed_rs3,APP0_CPU_SPEED)) & (ta'=2) + 1-AVA_RS3:(av3a'=false) & (ta'=2);
+[ch4a?] (ta=1) & (sela=4) & (goala = true) -> AVA_RS4:(av4a'=true) & (cload_rs4'=cload_rs4 + APP0_CPU_LOADS) & (cspeed_rs4'= max(cspeed_rs4,APP0_CPU_SPEED)) & (ta'=2) + 1-AVA_RS4:(av4a'=false) & (ta'=2);
+[ch5a?] (ta=1) & (sela=5) & (goala = true) -> AVA_RS5:(av5a'=true) & (cload_rs5'=cload_rs5 + APP0_CPU_LOADS) & (cspeed_rs5'= max(cspeed_rs5,APP0_CPU_SPEED)) & (ta'=2) + 1-AVA_RS5:(av5a'=false) & (ta'=2);
+[ch6a?] (ta=1) & (sela=6) & (goala = true) -> AVA_RS6:(av6a'=true) & (cload_rs6'=cload_rs6 + APP0_CPU_LOADS) & (cspeed_rs6'= max(cspeed_rs6,APP0_CPU_SPEED)) & (ta'=2) + 1-AVA_RS6:(av6a'=false) & (ta'=2);
+[ch7a?] (ta=1) & (sela=7) & (goala = true) -> AVA_RS7:(av7a'=true) & (cload_rs7'=cload_rs7 + APP0_CPU_LOADS) & (cspeed_rs7'= max(cspeed_rs7,APP0_CPU_SPEED)) & (ta'=2) + 1-AVA_RS7:(av7a'=false) & (ta'=2);
+
+//start the move
+[be?] (ta=1) -> (ta'=2);
+//[end?] (ta=2) -> (ta'=2);
+
+//schedule the turn between subsystems
+[] (ta=2) -> (ta'=0);
+
+endmodule
+
+//=============================================
+//=============================================
+//=============================================
+system "C2"
+M2
+endsystem
+
+//module M2=M1 [t1=t2, s1=s2, r1=r2, r0a=r0b, r1a=r1b, r2a=r2b, r3a=r3b, r4a=r4b, enda=endb] endmodule
+
+module M2
+tb:[0..2] init 1;      //to control the turn
+selb:[0..7] init 0;
+goalb: bool init false;
+av0b: bool init true;
+av1b: bool init true;
+av2b: bool init true;
+av3b: bool init true;
+av4b: bool init true;
+av5b: bool init true;
+av6b: bool init true;
+av7b: bool init true;
+
+// P1 moves:
+[r0b!] (tb=0) & (app1_rs0_sat_ml_all=true) & (goalb=false) & (av0b=true) -> (goalb'=true) & (selb'=0) & (tb'=1);
+[r1b!] (tb=0) & (app1_rs1_sat_ml_all=true) & (goalb=false) & (av1b=true) -> (goalb'=true) & (selb'=1) & (tb'=1);
+[r2b!] (tb=0) & (app1_rs2_sat_ml_all=true) & (goalb=false) & (av2b=true) -> (goalb'=true) & (selb'=2) & (tb'=1);
+[r3b!] (tb=0) & (app1_rs3_sat_ml_all=true) & (goalb=false) & (av3b=true) -> (goalb'=true) & (selb'=3) & (tb'=1);
+[r4b!] (tb=0) & (app1_rs4_sat_ml_all=true) & (goalb=false) & (av4b=true) -> (goalb'=true) & (selb'=4) & (tb'=1);
+[r5b!] (tb=0) & (app1_rs5_sat_ml_all=true) & (goalb=false) & (av5b=true) -> (goalb'=true) & (selb'=5) & (tb'=1);
+[r6b!] (tb=0) & (app1_rs6_sat_ml_all=true) & (goalb=false) & (av6b=true) -> (goalb'=true) & (selb'=6) & (tb'=1);
+[r7b!] (tb=0) & (app1_rs7_sat_ml_all=true) & (goalb=false) & (av7b=true) -> (goalb'=true) & (selb'=7) & (tb'=1);
+
+//terminate the process
+[endb!] (tb=0) & (goalb=true) -> (tb'=2);
+
+// P2 moves:
+[ch0b?] (tb=1) & (selb=0) & (goalb = true) -> AVB_RS0:(av0b'=true) & (cload_rs0'=cload_rs0 + APP1_CPU_LOADS) & (cspeed_rs0'= max(cspeed_rs0,APP1_CPU_SPEED)) & (tb'=2) + 1-AVB_RS0:(av0b'=false) & (tb'=2);
+[ch1b?] (tb=1) & (selb=1) & (goalb = true) -> AVB_RS1:(av1b'=true) & (cload_rs1'=cload_rs1 + APP1_CPU_LOADS) & (cspeed_rs1'= max(cspeed_rs1,APP1_CPU_SPEED)) & (tb'=2) + 1-AVB_RS1:(av1b'=false) & (tb'=2);
+[ch2b?] (tb=1) & (selb=2) & (goalb = true) -> AVB_RS2:(av2b'=true) & (cload_rs2'=cload_rs2 + APP1_CPU_LOADS) & (cspeed_rs2'= max(cspeed_rs2,APP1_CPU_SPEED)) & (tb'=2) + 1-AVB_RS2:(av2b'=false) & (tb'=2);
+[ch3b?] (tb=1) & (selb=3) & (goalb = true) -> AVB_RS3:(av3b'=true) & (cload_rs3'=cload_rs3 + APP1_CPU_LOADS) & (cspeed_rs3'= max(cspeed_rs3,APP1_CPU_SPEED)) & (tb'=2) + 1-AVB_RS3:(av3b'=false) & (tb'=2);
+[ch4b?] (tb=1) & (selb=4) & (goalb = true) -> AVB_RS4:(av4b'=true) & (cload_rs4'=cload_rs4 + APP1_CPU_LOADS) & (cspeed_rs4'= max(cspeed_rs4,APP1_CPU_SPEED)) & (tb'=2) + 1-AVB_RS4:(av4b'=false) & (tb'=2);
+[ch5b?] (tb=1) & (selb=5) & (goalb = true) -> AVB_RS5:(av5b'=true) & (cload_rs5'=cload_rs5 + APP1_CPU_LOADS) & (cspeed_rs5'= max(cspeed_rs5,APP1_CPU_SPEED)) & (tb'=2) + 1-AVB_RS5:(av5b'=false) & (tb'=2);
+[ch6b?] (tb=1) & (selb=6) & (goalb = true) -> AVB_RS6:(av6b'=true) & (cload_rs6'=cload_rs6 + APP1_CPU_LOADS) & (cspeed_rs6'= max(cspeed_rs6,APP1_CPU_SPEED)) & (tb'=2) + 1-AVB_RS6:(av6b'=false) & (tb'=2);
+[ch7b?] (tb=1) & (selb=7) & (goalb = true) -> AVB_RS7:(av7b'=true) & (cload_rs7'=cload_rs7 + APP1_CPU_LOADS) & (cspeed_rs7'= max(cspeed_rs7,APP1_CPU_SPEED)) & (tb'=2) + 1-AVB_RS7:(av7b'=false) & (tb'=2);
+
+//start the move
+[be?] (tb=1) -> (tb'=2);
+//[end?] (tb=2) -> (tb'=2);
+
+//schedule the turn between subsystems
+[] (tb=2) -> (tb'=0);
+
+endmodule
+
+
+//=================================
+//Computation for aggregation-based
+
+//formula uv_all = uv_cs * WG_CS + uv_rt * WG_RT + uv_fr * WG_FR;
+formula app0_uv_all = 0.6;
+formula app1_uv_all = 0.6;
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP0 WITH RS0
+
+//to check the satisfaction of CPU Cores
+formula app0_rs0_sat_q1 = ( (APP0_CPU_CORES <= RS0_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app0_rs0_sat_q2 = ( (APP0_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs0)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app0_rs0_sat_q3 = ( (APP0_CPU_SPEED <= RS0_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app0_rs0_sat_ml_all = ( (app0_rs0_sat_q1=true) & 
+				(app0_rs0_sat_q2=true) & 
+				(app0_rs0_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app0_rs0_sat_ut_all = ( app0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app0_rs0_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app0_rs0_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app0_rs0_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app0_rs0_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app0_rs0_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app0_rs0_sat_ml_all : true)))));
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP0 WITH RS1
+
+//to check the satisfaction of CPU Cores
+formula app0_rs1_sat_q1 = ( (APP0_CPU_CORES <= RS1_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app0_rs1_sat_q2 = ( (APP0_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs1)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app0_rs1_sat_q3 = ( (APP0_CPU_SPEED <= RS1_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app0_rs1_sat_ml_all = ( (app0_rs1_sat_q1=true) & 
+				(app0_rs1_sat_q2=true) & 
+				(app0_rs1_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app0_rs1_sat_ut_all = ( app0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app0_rs1_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app0_rs1_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app0_rs1_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app0_rs1_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app0_rs1_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app0_rs1_sat_ml_all : true)))));
+
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP0 WITH RS2
+
+//to check the satisfaction of CPU Cores
+formula app0_rs2_sat_q1 = ( (APP0_CPU_CORES <= RS2_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app0_rs2_sat_q2 = ( (APP0_CPU_LOADS <= (MAX_CLOUD_LOAD- cload_rs2)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app0_rs2_sat_q3 = ( (APP0_CPU_SPEED <= RS2_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app0_rs2_sat_ml_all = ( (app0_rs2_sat_q1=true) & 
+				(app0_rs2_sat_q2=true) & 
+				(app0_rs2_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app0_rs2_sat_ut_all = ( app0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app0_rs2_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app0_rs2_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app0_rs2_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app0_rs2_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app0_rs2_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app0_rs2_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP0 WITH RS3
+
+//to check the satisfaction of CPU Cores
+formula app0_rs3_sat_q1 = ( (APP0_CPU_CORES <= RS3_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app0_rs3_sat_q2 = ( (APP0_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs3)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app0_rs3_sat_q3 = ( (APP0_CPU_SPEED <= RS3_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app0_rs3_sat_ml_all = ( (app0_rs3_sat_q1=true) & 
+				(app0_rs3_sat_q2=true) & 
+				(app0_rs3_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app0_rs3_sat_ut_all = ( app0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app0_rs3_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app0_rs3_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app0_rs3_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app0_rs3_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app0_rs3_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app0_rs3_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP0 WITH RS4
+
+//to check the satisfaction of CPU Cores
+formula app0_rs4_sat_q1 = ( (APP0_CPU_CORES <= RS4_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app0_rs4_sat_q2 = ( (APP0_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs4)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app0_rs4_sat_q3 = ( (APP0_CPU_SPEED <= RS4_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app0_rs4_sat_ml_all = ( (app0_rs4_sat_q1=true) & 
+				(app0_rs4_sat_q2=true) & 
+				(app0_rs4_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app0_rs4_sat_ut_all = ( app0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app0_rs4_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app0_rs4_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app0_rs4_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app0_rs4_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app0_rs4_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app0_rs4_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP0 WITH RS5
+
+//to check the satisfaction of CPU Cores
+formula app0_rs5_sat_q1 = ( (APP0_CPU_CORES <= RS5_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app0_rs5_sat_q2 = ( (APP0_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs5)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app0_rs5_sat_q3 = ( (APP0_CPU_SPEED <= RS5_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app0_rs5_sat_ml_all = ( (app0_rs5_sat_q1=true) & 
+				(app0_rs5_sat_q2=true) & 
+				(app0_rs5_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app0_rs5_sat_ut_all = ( app0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app0_rs5_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app0_rs5_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app0_rs5_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app0_rs5_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app0_rs5_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app0_rs5_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP0 WITH RS6
+
+//to check the satisfaction of CPU Cores
+formula app0_rs6_sat_q1 = ( (APP0_CPU_CORES <= RS6_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app0_rs6_sat_q2 = ( (APP0_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs6)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app0_rs6_sat_q3 = ( (APP0_CPU_SPEED <= RS6_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app0_rs6_sat_ml_all = ( (app0_rs6_sat_q1=true) & 
+				(app0_rs6_sat_q2=true) & 
+				(app0_rs6_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app0_rs6_sat_ut_all = ( app0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app0_rs6_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app0_rs6_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app0_rs6_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app0_rs6_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app0_rs6_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app0_rs6_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP0 WITH RS7
+
+//to check the satisfaction of CPU Cores
+formula app0_rs7_sat_q1 = ( (APP0_CPU_CORES <= RS7_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app0_rs7_sat_q2 = ( (APP0_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs7)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app0_rs7_sat_q3 = ( (APP0_CPU_SPEED <= RS7_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app0_rs7_sat_ml_all = ( (app0_rs7_sat_q1=true) & 
+				(app0_rs7_sat_q2=true) & 
+				(app0_rs7_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app0_rs7_sat_ut_all = ( app0_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app0_rs7_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app0_rs7_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app0_rs7_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app0_rs7_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app0_rs7_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app0_rs7_sat_ml_all : true)))));
+
+
+
+
+//=================================
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP1 WITH RS0=======
+
+//to check the satisfaction of CPU Cores
+formula app1_rs0_sat_q1 = ( (APP1_CPU_CORES <= RS0_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app1_rs0_sat_q2 = ( (APP1_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs0)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app1_rs0_sat_q3 = ( (APP1_CPU_SPEED <= RS0_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app1_rs0_sat_ml_all = ( (app1_rs0_sat_q1=true) & 
+				(app1_rs0_sat_q2=true) & 
+				(app1_rs0_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app1_rs0_sat_ut_all = ( app1_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app1_rs0_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app1_rs0_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app1_rs0_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app1_rs0_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app1_rs0_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app1_rs0_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP1 WITH RS1=======
+
+//to check the satisfaction of CPU Cores
+formula app1_rs1_sat_q1 = ( (APP1_CPU_CORES <= RS1_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app1_rs1_sat_q2 = ( (APP1_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs1)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app1_rs1_sat_q3 = ( (APP1_CPU_SPEED <= RS1_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app1_rs1_sat_ml_all = ( (app1_rs1_sat_q1=true) & 
+				(app1_rs1_sat_q2=true) & 
+				(app1_rs1_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app1_rs1_sat_ut_all = ( app1_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app1_rs1_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app1_rs1_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app1_rs1_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app1_rs1_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app1_rs1_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app1_rs1_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP1 WITH RS2=======
+
+//to check the satisfaction of CPU Cores
+formula app1_rs2_sat_q1 = ( (APP1_CPU_CORES <= RS2_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app1_rs2_sat_q2 = ( (APP1_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs2)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app1_rs2_sat_q3 = ( (APP1_CPU_SPEED <= RS2_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app1_rs2_sat_ml_all = ( (app1_rs2_sat_q1=true) & 
+				(app1_rs2_sat_q2=true) & 
+				(app1_rs2_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app1_rs2_sat_ut_all = ( app1_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app1_rs2_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app1_rs2_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app1_rs2_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app1_rs2_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app1_rs2_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app1_rs2_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP1 WITH RS3=======
+
+//to check the satisfaction of CPU Cores
+formula app1_rs3_sat_q1 = ( (APP1_CPU_CORES <= RS3_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app1_rs3_sat_q2 = ( (APP1_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs3)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app1_rs3_sat_q3 = ( (APP1_CPU_SPEED <= RS3_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app1_rs3_sat_ml_all = ( (app1_rs3_sat_q1=true) & 
+				(app1_rs3_sat_q2=true) & 
+				(app1_rs3_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app1_rs3_sat_ut_all = ( app1_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app1_rs3_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app1_rs3_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app1_rs3_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app1_rs3_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app1_rs3_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app1_rs3_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP1 WITH RS4=======
+
+//to check the satisfaction of CPU Cores
+formula app1_rs4_sat_q1 = ( (APP1_CPU_CORES <= RS4_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app1_rs4_sat_q2 = ( (APP1_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs4)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app1_rs4_sat_q3 = ( (APP1_CPU_SPEED <= RS4_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app1_rs4_sat_ml_all = ( (app1_rs4_sat_q1=true) & 
+				(app1_rs4_sat_q2=true) & 
+				(app1_rs4_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app1_rs4_sat_ut_all = ( app1_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app1_rs4_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app1_rs4_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app1_rs4_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app1_rs4_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app1_rs4_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app1_rs4_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP1 WITH RS5=======
+
+//to check the satisfaction of CPU Cores
+formula app1_rs5_sat_q1 = ( (APP1_CPU_CORES <= RS5_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app1_rs5_sat_q2 = ( (APP1_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs5)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app1_rs5_sat_q3 = ( (APP1_CPU_SPEED <= RS5_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app1_rs5_sat_ml_all = ( (app1_rs5_sat_q1=true) & 
+				(app1_rs5_sat_q2=true) & 
+				(app1_rs5_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app1_rs5_sat_ut_all = ( app1_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app1_rs5_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app1_rs5_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app1_rs5_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app1_rs5_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app1_rs5_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app1_rs5_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP1 WITH RS6=======
+
+//to check the satisfaction of CPU Cores
+formula app1_rs6_sat_q1 = ( (APP1_CPU_CORES <= RS6_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app1_rs6_sat_q2 = ( (APP1_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs6)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app1_rs6_sat_q3 = ( (APP1_CPU_SPEED <= RS6_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app1_rs6_sat_ml_all = ( (app1_rs6_sat_q1=true) & 
+				(app1_rs6_sat_q2=true) & 
+				(app1_rs6_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app1_rs6_sat_ut_all = ( app1_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app1_rs6_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app1_rs6_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app1_rs6_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app1_rs6_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app1_rs6_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app1_rs6_sat_ml_all : true)))));
+
+
+//=================================
+//QoS CONSTRAINTS CHECKING FOR APP1 WITH RS7=======
+
+//to check the satisfaction of CPU Cores
+formula app1_rs7_sat_q1 = ( (APP1_CPU_CORES <= RS7_CPU_CORES) ? true:false);
+
+//to check the satisfaction of CPU Loads
+formula app1_rs7_sat_q2 = ( (APP1_CPU_LOADS <= (MAX_CLOUD_LOAD - cload_rs7)) ? true:false);
+
+//to check the satisfaction of CPU Speeds
+formula app1_rs7_sat_q3 = ( (APP1_CPU_SPEED <= RS7_CPU_SPEED) ? true:false);
+
+//to check the satisfaction of overall quality for each node
+formula app1_rs7_sat_ml_all = ( (app1_rs7_sat_q1=true) & 
+				(app1_rs7_sat_q2=true) & 
+				(app1_rs7_sat_q3=true) ? true:false);
+
+//to check the satisfaction of overall quality based on utility
+//true if only the utility
+formula app1_rs7_sat_ut_all = ( app1_uv_all <= MAXUT ? true:false);
+
+//to check the constraint satisfaction of the selected QoS attribute
+//sat either get the reasoned boolean value, otherwise, it takes false
+formula app1_rs7_sat = 
+		( GOAL_TY = GOAL_TY_Q1 ? app1_rs7_sat_q1 :
+              	( GOAL_TY = GOAL_TY_Q2 ? app1_rs7_sat_q2 :
+              	( GOAL_TY = GOAL_TY_Q3 ? app1_rs7_sat_q3 :
+              	( GOAL_TY = GOAL_TY_UT ? app1_rs7_sat_ut_all :
+              	( GOAL_TY = GOAL_TY_ML ? app1_rs7_sat_ml_all : true)))));
+
+
+
+//==============================================
+//REWARD STRUCTURE
+
+//formula rwd_app0_cpu_speed = APP0_CPU_SPEED;
+
+formula rwd_app0_cpu_speed = 
+		( sela = 0 ? cspeed_rs0 :
+              	( sela = 1 ? cspeed_rs1 :
+              	( sela = 2 ? cspeed_rs2 :
+              	( sela = 3 ? cspeed_rs3 :
+              	( sela = 4 ? cspeed_rs4 : 
+		( sela = 5 ? cspeed_rs5 :
+		( sela = 6 ? cspeed_rs6 :
+		( sela = 7 ? cspeed_rs7 : 0 ))))))));
+
+
+formula rwd_app0_cpu_loads = 
+		( sela = 0 ? cload_rs0 :
+              	( sela = 1 ? cload_rs1 :
+              	( sela = 2 ? cload_rs2 :
+              	( sela = 3 ? cload_rs3 :
+              	( sela = 4 ? cload_rs4 : 
+		( sela = 5 ? cload_rs5 :
+		( sela = 6 ? cload_rs6 :
+		( sela = 7 ? cload_rs7 : 0 ))))))));
+
+//formula rwd_app0_cpu_loads
+
+
+//formula rwd_app1_cpu_speed = APP1_CPU_SPEED;
+
+formula rwd_app1_cpu_speed = 
+		( selb = 0 ? cspeed_rs0 :
+              	( selb = 1 ? cspeed_rs1 :
+              	( selb = 2 ? cspeed_rs2 :
+              	( selb = 3 ? cspeed_rs3 :
+              	( selb = 4 ? cspeed_rs4 : 
+		( selb = 5 ? cspeed_rs5 :
+		( selb = 6 ? cspeed_rs6 :
+		( selb = 7 ? cspeed_rs7 : 0 ))))))));
+
+formula rwd_app1_cpu_loads = 
+		( selb = 0 ? cload_rs0 :
+              	( selb = 1 ? cload_rs1 :
+              	( selb = 2 ? cload_rs2 :
+              	( selb = 3 ? cload_rs3 :
+              	( selb = 4 ? cload_rs4 : 
+		( selb = 5 ? cload_rs5 :
+		( selb = 6 ? cload_rs6 :
+		( selb = 7 ? cload_rs7 : 0 ))))))));
+
+
+//time dimension: CPU speed
+rewards "c1_rt"
+[enda] true : rwd_app0_cpu_speed;
+//goala = true : rwd_app0_cpu_speed;
+//[] true : rwd_app0_cpu_speed;
+endrewards
+
+rewards "c2_rt"
+[endb] true : rwd_app1_cpu_speed;
+//goalb = true : rwd_app1_cpu_speed;
+endrewards
+
+//resource dimension: CPU loads
+rewards "c1_ru"
+[enda] true : rwd_app0_cpu_loads;
+//goala = true : rwd_app0_cpu_loads;
+//[] true : rwd_app0_cpu_loads;
+endrewards
+
+rewards "c2_ru"
+[endb] true : rwd_app1_cpu_loads;
+//goalb = true : rwd_app1_cpu_loads;
+endrewards
+
+
+rewards "sel_app0"
+//goala = true : then store the current memory left
+
+endrewards
+
+
+
+//==========================================
+//LABELS
+label "done1" = ta=2;
+label "done2" = tb=2;

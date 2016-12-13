@@ -1,0 +1,19 @@
+const double MAXRTA = 5000;
+const double MAXRUA = 1;
+const double MAXRTB = 5000;
+const double MAXRUB = 1;
+const int MAXRT = 5000;
+const double MAXRU = 1;
+
+"qall" : comp("q1", "q2")
+
+"q1" : <<1>> (((((((R{"c1_rt"}<=MAXRTA [ S ]&R{"c1_ru"}<=MAXRUA [ S ])))))))
+
+"q2" : <<1>> (((((((R{"c2_rt"}<=MAXRTB [ S ]&R{"c2_ru"}<=MAXRUB [ S ])))))))
+
+Rmin=? [ F "done1" ]
+
+"qcomp" : <<1>> (R{"rt"}<=MAXRT[S] & R{"ru"}<=MAXRU[S])
+
+"qcomp1" : <<1>> (R{"c1_rt"}<=MAXRTA [ S ]& R{"c2_rt"}<=MAXRTB [ S ])
+

@@ -167,7 +167,7 @@ public class SMGModelChecker extends ProbModelChecker
         {
 	        // initialise the Parma Polyhedra Library
 	        PPLSupport.initPPL();
-
+	       System.out.println("test from MQ");
 		// reset cancellation of computation
 		cancel_computation[0] = false;
 
@@ -2825,6 +2825,7 @@ public class SMGModelChecker extends ProbModelChecker
 	 */
 	public ModelCheckerResult computeReachRewards(SMG smg, SMGRewards rewards, BitSet target, int unreachingSemantics, boolean min1, boolean min2, Coalition coalition) throws PrismException
 	{
+		System.out.println("test from compute reach rewards SMG");
 		// Temporarily make SMG into an STPG by setting coalition and do computation on STPG
 		smg.setCoalition(coalition);
 		ModelCheckerResult res = createSTPGModelChecker().computeReachRewards(smg, rewards, target, min1, min2, null, null, unreachingSemantics);

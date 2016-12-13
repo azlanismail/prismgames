@@ -7,7 +7,9 @@ import java.util.Random;
 import explicit.CompositionalSMGModelChecker;
 import explicit.Model;
 import explicit.PrismExplicit;
+import explicit.ProbModelChecker;
 import explicit.SMGModelChecker;
+import explicit.StateModelChecker;
 import parser.Values;
 import parser.ast.ModulesFile;
 import parser.ast.PropertiesFile;
@@ -38,9 +40,10 @@ public class StochasticPlanner {
 	GenerateSimulationPath simPath;
 	Path path;
 	Model model;
-	Result rsProb, rsRwd1, rsRwd2, rsRwd3, rsRwd4, rsCSMG, rsComp, rsMulti1, rsMulti2, rsMultiComp;
+	Result rs, rsProb, rsRwd1, rsRwd2, rsRwd3, rsRwd4, rsCSMG, rsComp, rsMulti1, rsMulti2, rsMultiComp;
 	Strategy stratComp, stratMultiComp, stratMulti1, stratMulti2;
 	SMGModelChecker smg;
+	ProbModelChecker stpg;
 	CompositionalSMGModelChecker csmg;
 	PrismSettings ps;
 	StrategyExtraction ste;
@@ -48,19 +51,8 @@ public class StochasticPlanner {
 	
 	//Defining File Inputs/Outputs
 	String logPath = "./myLog.txt";
-	//String laptopPath = "C:/Users/USER/git/MultiPlanner/PlanningComp2/";
-	//String desktopPath = "H:/git/MultiPlanner/PlanningComp2/";
-	String linuxPath = "/home/azlan/git/PrismGames/";
-	String mainPath = linuxPath;
 	String modelPath; // = mainPath+"Prismfiles/compCollaborateModel_v26.prism";
 	String propPath; // = mainPath+"Prismfiles/propCloudAdaptive_v1.props";
-	//String stratCompPath = mainPath+"IOFiles/stratComp.txt";
-	//String stratMultiCompPath = mainPath+"IOFiles/stratMultiComp.txt";
-	//String stratMulti1Path = mainPath+"IOFiles/stratMulti1.txt";
-	//String stratMulti2Path = mainPath+"IOFiles/stratMulti2.txt";
-	//String transPath = mainPath+"IOFiles/transition.txt";
-	//String actionLabelAPath = mainPath+"IOFiles/actionlabelA";
-   // String actionLabelBPath = mainPath+"IOFiles/actionlabelB";
     
     //Defining the type of property
     int maxCpuSpeedG0=1, maxCpuLoadG0=2, maxCpuSpeedG1=3, maxCpuLoadG1=4;
@@ -117,12 +109,11 @@ public class StochasticPlanner {
 		}  
 	}
 	
-	public void checkInitialModel() {		
+	public void checkModel(int propsId) {		
 		    
 		 try {
 	    	//create instance for non-compositional multi-objective properties synthesis
 	    	smg = new SMGModelChecker(prism);
-	    	
 	    	//set the constants parameters
 	    	//modulesFile.setUndefinedConstants(conf.getDefinedValues());  
 	    	
@@ -140,17 +131,33 @@ public class StochasticPlanner {
 	        //set the status for pareto and strategy generation
 		    smg.setComputeParetoSet(false);
 		    smg.setGenerateStrategy(true);
-   	 
-		    System.out.println("Synthesizing based on multi-objective properties.....");
-		    rsMulti1 = smg.check(model, propertiesFile.getProperty(4)); //max reward of cpu speed of G0
-		     
-		  	System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult()); 
+		   	   
+		    //for utility-based evaluation
+		    if (propsId==0) {
+		    	System.out.println("Synthesizing based on single objective properties.....");
+			    rs = smg.check(model, propertiesFile.getProperty(propsId)); 
+			  	System.out.println("The result from model checking (SMG) is :"+ rs.getResult()); 
+			    
+			  	if(rs!=null) {
+			  		this.synthesisStatus = true;
+		    	}else {
+					this.synthesisStatus = false;
+				}
+		    }
 		    
-		  	if ((boolean)rsMulti1.getResult()) {
-				this.synthesisStatus = true;
-			}else {
-				this.synthesisStatus = false;
-			}
+		    //for multi-objective evaluation
+		    if (propsId==1) {
+			    System.out.println("Synthesizing based on multi-objective properties.....");
+			    rsMulti1 = smg.check(model, propertiesFile.getProperty(propsId)); 
+			     
+			  	System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult()); 
+			    	
+			  	if ((boolean)rsMulti1.getResult()) {
+					this.synthesisStatus = true;
+				}else {
+					this.synthesisStatus = false;
+				}
+		    }
 		  	
 		 }//end of try
 		 catch (PrismLangException e) {
@@ -302,12 +309,20 @@ public class StochasticPlanner {
     }
     
     public void exportStrategy(String sPath)
-    {   	
-    	//exporting the strategies for multi-objective
-    	if(rsMulti1!=null && (boolean)rsMulti1.getResult()) {
-    		stratMulti1 = rsMulti1.getStrategy();
+    {   
+    	//exporting strategies for single objective
+    	if((rs!=null) && (smg!=null)) {
+    		stratMulti1 = rs.getStrategy();
     		stratMulti1.exportToFile(sPath);
-    	}	
+    	}
+    	
+    	//exporting the strategies for multi-objective
+    	if(rsMulti1!=null ) {
+    		if((boolean)rsMulti1.getResult()) {
+    			stratMulti1 = rsMulti1.getStrategy();
+    			stratMulti1.exportToFile(sPath);
+    		}
+    	}
     }
     
        

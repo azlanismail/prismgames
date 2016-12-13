@@ -1,0 +1,126 @@
+$SU.strat.comp-v0.1
+// Composed Stochastic Update Strategy
+$SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+30
+// Initial state
+InitState:
+18
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {0=1.0}
+1 0 {0=1.0}
+8 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+8 0 0 {0=1.0}
+10 0 0 {0=1.0}
+11 0 0 {0=1.0}
+18 0 0 {0=1.0}
+20 0 0 {0=1.0}
+20 0 1 {0=1.0}
+21 0 0 {0=1.0}
+21 0 1 {0=1.0}
+28 0 0 {0=1.0}
+28 0 1 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 0 0 11 {0=1.0}
+1 0 0 11 {0=1.0}
+8 0 0 10 {0=1.0}
+10 0 0 20 {0=1.0}
+11 0 0 21 {0=1.0}
+18 0 0 28 {0=1.0}
+20 0 0 0 {0=1.0}
+20 1 0 20 {0=1.0}
+21 0 0 1 {0=1.0}
+21 1 0 21 {0=1.0}
+28 0 0 8 {0=1.0}
+28 1 0 28 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+endstrategy
+
+$SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+30
+// Initial state
+InitState:
+16
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {0=1.0}
+1 0 {0=1.0}
+6 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+6 0 0 {0=1.0}
+10 0 0 {0=1.0}
+11 0 0 {0=1.0}
+16 0 0 {0=1.0}
+20 0 0 {0=1.0}
+20 0 1 {0=1.0}
+21 0 0 {0=1.0}
+21 0 1 {0=1.0}
+26 0 0 {0=1.0}
+26 0 1 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 0 0 11 {0=1.0}
+1 0 0 11 {0=1.0}
+6 0 0 10 {0=1.0}
+10 0 0 20 {0=1.0}
+11 0 0 21 {0=1.0}
+16 0 0 26 {0=1.0}
+20 0 0 0 {0=1.0}
+20 1 0 20 {0=1.0}
+21 0 0 1 {0=1.0}
+21 1 0 21 {0=1.0}
+26 0 0 6 {0=1.0}
+26 1 0 26 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+endstrategy
+

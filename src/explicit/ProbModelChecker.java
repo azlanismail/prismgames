@@ -481,6 +481,7 @@ public class ProbModelChecker extends NonProbModelChecker
 	{
 		StateValues res;
 
+		System.out.println("test from prob model checker");
 		// <<>> or [[]] operator
 		if (expr instanceof ExpressionStrategy) {
 			res = checkExpressionStrategy(model, (ExpressionStrategy) expr, statesOfInterest);
@@ -930,7 +931,7 @@ public class ProbModelChecker extends NonProbModelChecker
 	 */
 	protected StateValues checkExpressionReward(Model model, ExpressionReward expr, boolean forAll, Coalition coalition, BitSet statesOfInterest) throws PrismException
 	{
-		
+		System.out.println("test from expression reward");
 	        // for now, need separate handling of S and C operator for SMGs
 		Expression e = expr.getExpression();
 		if(e.getType() instanceof TypePathDouble) {
@@ -1026,7 +1027,7 @@ public class ProbModelChecker extends NonProbModelChecker
 	protected StateValues checkRewardFormula(Model model, Rewards modelRewards, Expression expr, MinMax minMax, BitSet statesOfInterest) throws PrismException
 	{
 		StateValues rewards = null;
-
+		System.out.println("test from check reward formula");
 		if (expr.getType() instanceof TypePathDouble) {
 			ExpressionTemporal exprTemp = (ExpressionTemporal) expr;
 			switch (exprTemp.getOperator()) {
@@ -1090,6 +1091,7 @@ public class ProbModelChecker extends NonProbModelChecker
 		int timeInt = -1;
 		double timeDouble = -1;
 
+		
 		// Check that there is an upper time bound
 		if (expr.getUpperBound() == null) {
 			throw new PrismNotSupportedException("This is not a cumulative reward operator");
@@ -1180,6 +1182,7 @@ public class ProbModelChecker extends NonProbModelChecker
 	 */
 	protected StateValues checkRewardReach(Model model, Rewards modelRewards, ExpressionTemporal expr, MinMax minMax, BitSet statesOfInterest) throws PrismException
 	{
+		System.out.println("test from check reward reach");
 		// Non-game models don't yet support other variants of R[F]
 		if (expr.getOperator() != ExpressionTemporal.P_F) {
 			if (!(model.getModelType() == ModelType.STPG || model.getModelType() == ModelType.SMG)) {

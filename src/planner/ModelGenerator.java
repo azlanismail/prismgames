@@ -1350,6 +1350,7 @@ public class ModelGenerator {
 	 	
    		pw.println("//=========User Requirements=======");
    		if (this.setValuesStatus) {
+   			//the values will be set during model generation
 		 	pw.println("const int A0_ID = 0;");
 		 	pw.println("const int A0_DUR = "+this.durR+"; //cost"); 
 		 	pw.println("const double A0_REL = "+this.relR+"; //reliability");
@@ -1360,13 +1361,14 @@ public class ModelGenerator {
 		 	pw.println();
    		}
    		else {
-   		 	pw.println("const int A0_ID; // = 0;");
-   		 	pw.println("const int A0_DUR; // = 5;	//max duration");
-   		 	pw.println("const double A0_REL; // = 0.6; //reliability");
-   		 	pw.println("const double A0_COST; // = 10.0; //max cost");
-   		 	pw.println("const double A0_WG_COST; // = 0.3; //weight for cost");
-   		 	pw.println("const double A0_WG_DUR; // = 0.3; //weight for duration");
-   		 	pw.println("const double A0_WG_REL; // = 0.4; //weight for reliability");
+   			//the values will be set during model checking
+   		 	pw.println("const int A0_ID;");
+   		 	pw.println("const int A0_DUR; //max duration");
+   		 	pw.println("const double A0_REL; //reliability");
+   		 	pw.println("const double A0_COST; //max cost");
+   		 	pw.println("const double A0_WG_COST; //weight for cost");
+   		 	pw.println("const double A0_WG_DUR; //weight for duration");
+   		 	pw.println("const double A0_WG_REL; //weight for reliability");
    		 	pw.println();
    		}
    		
@@ -1418,7 +1420,7 @@ public class ModelGenerator {
 	 	pw.println("const int TE=0;	//plater 2 state");	
 	 	pw.println("const int TP=1;	//player 1 state");
 		pw.println("const int TS=2;	//coordinator state");
-		pw.println("const int NI="+initialNode+";	//coordinator state");
+		pw.println("const int NI="+initialNode+";	//initial node");
 	 	pw.println("global t:[TE..TS] init TS;	//to control the turn");
 	 	pw.println("global end : bool init false;	//(absorbing state)");		
 	 	pw.println("global n:[0..MXN] init NI;  //to control the sequence");
@@ -1473,7 +1475,7 @@ public class ModelGenerator {
 	 		pw.println("n"+n+"ev:[-1..N"+n+"_MAX_EV] init -1;");
 	 	}
 	 	
-	 	if (pattern <= 1) {
+	 	if (pattern == 1) {
 			pw.println("//P2 moves for single or sequential pattern:");	
 		 	for(int n=0; n < numNode; n++) {
 			 	for(int i=0; i < maxActionP2; i++) {
@@ -1481,8 +1483,8 @@ public class ModelGenerator {
 			 	}
 		 	}
 	 	}
-	 	if (pattern >= 2) {
-		 	pw.println("//P2 moves for conditional/parallel pattern:");	
+	 	if (pattern == 0 || pattern >= 2) {
+		 	pw.println("//P2 moves for single/conditional/parallel pattern:");	
 		 	for(int n=0; n < numNode; n++) {
 			 	for(int i=0; i < maxActionP2; i++) {
 			 		pw.println("[n"+n+"e"+i+"] (t=TE) & (n="+n+") -> n"+n+"ev"+i+"_rel:(n"+n+"ev'="+i+") & (t'=TS) & (n'=MXN) + 1-n"+n+"ev"+i+"_rel:(n"+n+"ev'=-1) & (t'=TS) & (n'=MXN);");			
@@ -1542,7 +1544,7 @@ public class ModelGenerator {
 	 		}
 		 	pw.println(";");
 		 	
-		 	pw.println("//Computing the utility value..");
+		 	pw.println("//Compute the utility value..");
 		 	pw.print("formula n"+n+"_mx_cost = max(");
 		 	for(int i=0; i < maxActionP1; i++) {
 		 		pw.print("N"+n+"_RS"+i+"_COST");
@@ -1574,7 +1576,7 @@ public class ModelGenerator {
 		 		pw.println(";");
 		 		
 		 		//compute max and min value
-			 	pw.println("//Computing the utility value..");
+			 	pw.println("//Compute the utility value..");
 			 	pw.print("formula n"+n+"_mx_dur"+j+" = max(");
 			 	for(int i=0; i < maxActionP1; i++) {
 			 		pw.print("N"+n+"_RS"+i+"_DUR"+j);
@@ -1596,6 +1598,7 @@ public class ModelGenerator {
 		 		
 		 	}
 	
+		 	//get the reliability of selected node...
 	 		pw.println("//get the reliability of selected node..");
 			for(int j=0; j < maxActionP2; j++) {
 		 		pw.print("formula n"+n+"_rs_rel"+j+"=");
@@ -1609,7 +1612,7 @@ public class ModelGenerator {
 		 		pw.println(";");
 		 		
 		 		//compute the max
-			 	pw.println("//Computing the utility value..");
+			 	pw.println("//Compute the utility value..");
 			 	pw.print("formula n"+n+"_mx_rel"+j+" = max(");
 			 	for(int i=0; i < maxActionP1; i++) {
 			 		pw.print("N"+n+"_RS"+i+"_REL"+j);
@@ -1617,6 +1620,7 @@ public class ModelGenerator {
 			 			pw.print(",");
 			 	}
 			 	pw.println(");");
+			 	
 			 	//compute the min
 			 	pw.print("formula n"+n+"_mn_rel"+j+" = min(");
 			 	for(int i=0; i < maxActionP1; i++) {
@@ -1627,7 +1631,7 @@ public class ModelGenerator {
 			 	pw.println(");");
 			 	
 			 	//compute utility value
-			 	pw.println("formula n"+n+"_uv_rel"+j+" = (n"+n+"_mx_rel"+j+" - n"+n+"_rs_rel"+j+") / (n"+n+"_mx_rel"+j+" - n"+n+"_mn_rel"+j+");");
+			 	pw.println("formula n"+n+"_uv_rel"+j+" = (n"+n+"_rs_rel"+j+" - n"+n+"_mx_rel"+j+") / (n"+n+"_mx_rel"+j+" - n"+n+"_mn_rel"+j+");");
 			 	pw.println();	
 		 	}
 			pw.println();
@@ -1701,26 +1705,19 @@ public class ModelGenerator {
 		//pp.println("const double MAXRT = 200;");
 		
 		pp.println("const int MAXCS = "+this.costR+";");
-		pp.println("const int MAXRT = "+this.durR+";");
-		pp.println("const int MINCS = 0;");
-		pp.println("const int MINRT = 0;");
-		pp.println("const double MAXFR = "+this.relR+";");
-		
-		
-		//pp.println("const int MINCS = 20;");
-		//pp.println("const int MINRT = 40;");
-		//pp.println();
+		pp.println("const int MAXDR = "+this.durR+";");
+		pp.println("const double MINRL = "+this.relR+";");
+			
+		//for utility-based evaluation
+		pp.println("<<p1>> R{\"utility\"}max=? [ F \"done\" ]");
+				
+		//for multi-objective evaluation
+		pp.println("<<p1>> (R{\"cost\"}<=MAXCS[C] & R{\"time\"}<=MAXDR[C] & R{\"reliability\"}>=MINRL[C])");
+		//pp.println("<<p1>> (R{\"cost\"}>MINCS [C] & R{\"time\"}>MINRT [C ])");
 		pp.println("<<p1>> R{\"cost\"}max=? [ F \"done\" ]");
 		pp.println("<<p1>> R{\"time\"}max=? [ F \"done\" ]");
-		pp.println("<<p1>> R{\"reliability\"}max=? [ F \"done\" ]");
-		pp.println("<<p1>> R{\"utility\"}max=? [ F \"done\" ]");
-		
-		
-		//for multi-objective
-		//pp.println("<<p1>> (R{\"cost\"}<=MAXCS [C] & R{\"time\"}<=MAXRT [C ])");
-		pp.println("<<p1>> (R{\"cost\"}>MINCS [C] & R{\"time\"}>MINRT [C ])");
-		
-		
+		pp.println("<<p1>> R{\"reliability\"}min=? [ F \"done\" ]");
+			
 		pp.close();
 	}
 	

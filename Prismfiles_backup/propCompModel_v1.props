@@ -1,0 +1,30 @@
+const int MAXRTA = 5000;
+const int MAXRUA = 100;
+const int MAXRTB = 5000;
+const int MAXRUB = 100;
+const int MAXRT = 5000;
+const int MAXRU = 100;
+const int k;
+const double maxV;
+const int maxY;
+
+"q1" : <<1>> (((((R{"c1_ru"}<=MAXRUA [ S ]=>R{"c2_ru"}<=MAXRUB [ S ])))))
+
+"q2" : <<1>> (((((R{"c1_rt"}<=MAXRTA [ S ]=>R{"c2_rt"}<=MAXRTB [ S ])))))
+
+"qAll" : comp("q1", "q2")
+
+"qcomp" : <<1>> (((((R{"c2_rt"}<=MAXRTB [ S ]&R{"c2_ru"}<=MAXRUB [ S ])))))
+
+<<1>> Pmax=? [ F<=k "done1" ]
+
+"qcomp2" : <<1>> ((((R{"c1_ru"}<=MAXRUA [ S ]&R{"c2_ru"}<=MAXRUB [ S ]))))
+
+<<1>> Pmax=? [ F<=k "done2" ]
+
+<<1>> R{"c2_ru"}max=? [ F "done2" ]
+
+R{"c1_rt"}<=maxY [ Fc "done1" ]
+
+<<1>> (R{"c1_ru"}<=MAXRUA [ S ] & R{"c1_rt"}<=MAXRTA [ S ])
+
