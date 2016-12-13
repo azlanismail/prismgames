@@ -1,0 +1,5 @@
+recorded data: cycle, time, status
+ 0 0 false
+ 1 0 false
+
+Average: 0

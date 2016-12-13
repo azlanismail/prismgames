@@ -31,6 +31,7 @@ public class StrategyExtraction {
 	private ArrayList<String> actionLabelA;
 	private ArrayList<String> actionLabelB;
 	private ArrayList<String> nodeIdlist;
+	private String[] Solution;	//to store the solution
 	private Scanner readM, readT, readS, readA, readB;
 	
 	private int decStateStrat1 = -1, decStateStrat2 =-1;
@@ -223,7 +224,7 @@ public class StrategyExtraction {
 		readB.close();
 	}
 	
-	public void getAllMappingList(){
+	public void displayAllMappingList(){
 	
 		for(int i=0; i < mapslist.size(); i++) {
 			System.out.println("The mapping list is "+mapslist.get(i));
@@ -310,12 +311,65 @@ public class StrategyExtraction {
 			System.out.println("Transition list - state: "+transStates.get(i)+" action: "+transActions.get(i)+" label: "+transLabels.get(i));
 		}
 	}
+
+	public void	readStrategiesProfile(int evalMethod) {
+		if (evalMethod == 0) {
+			readStrategiesfromSingObjSynthesis();
+		}else if (evalMethod == 1) {
+			readStrategiesfromMultiObjSynthesis();
+		}else
+			System.err.println("the type of evaluation method is unrecognized...");
+	}
 	
 	/**
 	 * Specifically created for service-based scenario
 	 * @param type
 	 */
-	public void readMultiStrategiesProfile()  {
+	public void readStrategiesfromSingObjSynthesis()  {
+		
+		substrat1States = new ArrayList<Integer>();
+		substrat1Actions = new ArrayList<Integer>();
+			
+		
+		try {
+			readS = new Scanner(new BufferedReader(new FileReader(this.stratPath)));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+			
+		String inRead=null;
+		int potState=0, potAction=0;
+		
+		//need to skip the first two lines
+		readS.nextLine(); readS.nextLine();
+		while (readS.hasNextLine()) {
+			//inRead = readS.next();
+
+			//read the first index (potential decision state)
+			potState = Integer.parseInt(readS.next());
+		
+			//read the second index (potential action)
+			potAction = Integer.parseInt(readS.next());
+			
+			//store into the array lists
+			substrat1States.add(potState);
+			substrat1Actions.add(potAction);
+			
+			//go to next line
+			readS.nextLine(); 
+	    }
+		readS.close();		
+	}
+
+	
+	
+	/**
+	 * Specifically created for service-based scenario
+	 * @param type
+	 */
+	public void readStrategiesfromMultiObjSynthesis()  {
 		
 		substrat1States = new ArrayList<Integer>();
 		substrat1Actions = new ArrayList<Integer>();
@@ -568,33 +622,34 @@ public class StrategyExtraction {
 		readS.close();		
 	}
 
-	public void getAllStrategyList(){
+	public void displayAllStrategyList(){
 		
-		int maxSize1 = substrat1States.size();
-		
-		if (substrat1States.size() > 0 ) {
-			for(int i=0; i < maxSize1; i++) {
-				System.out.println("Sub strategy 1 list - state: "+substrat1States.get(i)+" action: "+substrat1Actions.get(i));
+		if(substrat1States != null) {
+			if (substrat1States.size() > 0 ) {
+				for(int i=0; i < substrat1States.size(); i++) {
+					System.out.println("Sub strategy 1 list - state: "+substrat1States.get(i)+" action: "+substrat1Actions.get(i));
+				}
 			}
-		}
-		else
-			System.out.println("The states and actions from strategy 1 is empty");
+			else
+				System.out.println("The states and actions from strategy 1 is empty");
+		} 
 		
-		int maxSize2 = substrat2States.size();
-		if (substrat2States.size() > 0 ) {
-			for(int i=0; i < maxSize2; i++) {
-				System.out.println("Sub strategy 2 list - state: "+substrat2States.get(i)+" action: "+substrat2Actions.get(i));
+		if(substrat2States != null) {
+			if (substrat2States.size() > 0 ) {
+				for(int i=0; i < substrat2States.size(); i++) {
+					System.out.println("Sub strategy 2 list - state: "+substrat2States.get(i)+" action: "+substrat2Actions.get(i));
+				}
 			}
+			else
+				System.out.println("The states and actions from strategy 2 is empty");
 		}
-		else
-			System.out.println("The states and actions from strategy 2 is empty");
 		
 	}
 	
 	/**
 	 * Objective: To extract selected actions for sequential structure
 	 */
-	public void findParSolutions(int n)
+	public String findParSolutions(int n)
 	{
 		int maxSizeStrat1 = substrat1States.size();
 		int maxTrans = transStates.size();
@@ -643,10 +698,14 @@ public class StrategyExtraction {
 				if (found)
 					break;	
 			}//end of strategies for
-			if(!found)
+			if(!found) {
 				System.out.println("No decision for Node "+n);
-			else
+				return null;
+			}
+			else {
 				System.out.println("Decision node: "+n+", state :"+stateFromStrat1+" , action :"+labelFromTrans1);
+				return labelFromTrans1;
+			}	
 		//}//end of number of node for	
 	 }
 	
@@ -661,6 +720,7 @@ public class StrategyExtraction {
 		int stateFromStrat1=0, stateFromTrans1=0, actionFromTrans1=0, actionFromStrat1=0;
 		String labelFromTrans1 = null;
 		boolean found;
+		Solution = new String[this.numofDec];
 		
 		//repeat based on the number of node
 		for(int n=0; n < this.numofDec; n++) {
@@ -703,13 +763,23 @@ public class StrategyExtraction {
 				if (found)
 					break;	
 			}//end of strategies for
-			if(!found)
+			if(!found) {
 				System.out.println("No decision for Node "+n);
-			else
+			}
+			else {
+				Solution[n] = labelFromTrans1;
 				System.out.println("Decision node: "+n+", state :"+stateFromStrat1+" , action :"+labelFromTrans1);
+			}
 		}//end of number of node for	
 	 }
 	
+	public String[] getSolution() {
+		return Solution;
+	}
+	
+	public String getSingleSolution(int n) {
+		return Solution[n];
+	}
 	
 	/**
 	 * Objective: To extract a single selected action from a single strategy profile

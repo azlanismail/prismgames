@@ -1,0 +1,5 @@
+cycle time status pattern evalMethod numNode numSer numofSol Solution
+ 0 0 false null 0 2 15 2 nullnull,null
+ 1 0 false null 0 2 15 2 nullnull,null
+
+Average: 0

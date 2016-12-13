@@ -200,8 +200,6 @@ public class StochasticPlanner {
 	    smg.setComputeParetoSet(false);
 	    smg.setGenerateStrategy(true);
 	    
-	   
-	   
 	    if (smg.geterrorOnNonConverge() == false) {
 	    	System.out.println("Synthesizing expected max rewards.....");
 	    	rsRwd1 = smg.check(model, propertiesFile.getProperty(this.maxCpuSpeedG0)); //max reward of cpu speed of G0

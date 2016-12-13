@@ -27,14 +27,14 @@ public class PlanningSimulator {
 		
 		
 		
-		//define parameters for the model
+		//define parameters for the planning
 		int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel
 		int numNode = 2;	//set the number of node/task/activity in the compositional structure
 		int numofService = 15;	//set the number of services per each node
 		int numofResource = 2;	//set the number of behavior per each service
 		boolean setVal = true;  //true-during model generation, false-during model checking
-		int evalMethod = 1; 	//0-utility-based, 1-multi-objective
-		
+		int evalMethod = 0; 	//0-utility-based, 1-multi-objective
+		String[] selServ = new String[numNode];
 		//define thresholds of QoS requirements (assuming as global requirements)
 		int costR=50;		//max cost
 		int durR=120; 		//max duration
@@ -98,12 +98,17 @@ public class PlanningSimulator {
 					
 					if (sp.getSynthesisStatus()) {
 						//extraction
+						System.out.println("Extracting strategies...");
 						se.setPath(transPath, stratPath);
 						se.setNumofDecision(numNode); //to control the searching for solution
 						se.setActionLabels(mdg.getActionLabels());
 						se.readTransitionFile();
-						se.readMultiStrategiesProfile();	
+						se.readStrategiesProfile(evalMethod);	
 						se.findSolutions();
+						selServ = se.getSolution();
+						for (int n=0; n < selServ.length; n++) {
+							System.out.println("Decision node: "+n+", solution :"+selServ[n]);
+						}
 					}
 					else
 						System.out.println("Synthesis results in false.....");
@@ -163,12 +168,19 @@ public class PlanningSimulator {
 				
 				if (sp.getSynthesisStatus()) {
 					//extraction
+					System.out.println("Extracting strategies...");
 					se.setPath(transPath, stratPath);
 					se.setNumofDecision(numNode); //to control the searching for solution
 					se.setActionLabels(mdg.getActionLabels());
+					System.out.println("Reading data...");
 					se.readTransitionFile();
-					se.readMultiStrategiesProfile();	
+					se.readStrategiesProfile(evalMethod);
+					System.out.println("Looking for solution...");
 					se.findSolutions();
+					selServ = se.getSolution();
+					for (int n=0; n < selServ.length; n++) {
+						System.out.println("Decision node: "+n+", solution :"+selServ[n]);
+					}
 				}
 				else
 					System.out.println("Synthesis results in false.....");
@@ -224,12 +236,17 @@ public class PlanningSimulator {
 						
 				if (sp.getSynthesisStatus()) {
 					//extraction
+					System.out.println("Extracting strategies...");
 					se.setPath(transPath, stratPath);
 					se.setNumofDecision(numNode); //to control the searching for solution
 					se.setActionLabels(mdg.getActionLabels());
 					se.readTransitionFile();
-					se.readMultiStrategiesProfile();	
+					se.readStrategiesProfile(evalMethod);	
 					se.findSolutions();
+					selServ = se.getSolution();
+					for (int n=0; n < selServ.length; n++) {
+						System.out.println("Decision node: "+n+", solution :"+selServ[n]);
+					}
 				}
 				else
 					System.out.println("Synthesis results in false.....");
@@ -311,12 +328,14 @@ public class PlanningSimulator {
 					
 					if (sp.getSynthesisStatus()) {
 						//extraction
+						System.out.println("Extracting strategies...");
 						se.setPath(multiTransPath[n], multiStratPath[n]);
 						se.setNumofDecision(numNode); //to control the searching for solution
 						se.setActionLabels(mdg.getActionLabels());
 						se.readTransitionFile();
-						se.readMultiStrategiesProfile();	
-						se.findParSolutions(n);
+						se.readStrategiesProfile(evalMethod);	
+						selServ[n] = se.findParSolutions(n);
+						System.out.println("Decision node: "+n+", solution :"+selServ[n]);
 					}
 					else
 						System.out.println("Synthesis results in false.....");
@@ -334,7 +353,7 @@ public class PlanningSimulator {
 				System.out.println("the value for the pattern type is invalid....");
 			
 			try {
-				analyzePerformanceData(time, simCycle, numNode, numofService, statusRes, patName);
+				gatherData(time, simCycle, numNode, numofService, statusRes, patName, evalMethod, selServ);
 			}
 	 		catch (NullPointerException e) {
 				// TODO Auto-generated catch block
@@ -349,8 +368,8 @@ public class PlanningSimulator {
 		System.out.println("Simulation is done...");
 	}//end of main
 	
-    public static void analyzePerformanceData(long time[], int cycle, int numNode, int numofS, boolean statusRes[], String pattern) throws FileNotFoundException {
-   	 File outfile = new File("/home/azlan/git/prismgames/IOFiles/log"+pattern+"_"+numNode+"_"+numofS+".txt");
+    public static void gatherData(long time[], int cycle, int numNode, int numServ, boolean statusRes[], String pattern, int evalMethod, String[] Solution) throws FileNotFoundException {
+   	 File outfile = new File("/home/azlan/git/prismgames/IOFiles/log"+pattern+"_"+evalMethod+"_"+numNode+"_"+numServ+".txt");
 
         PrintWriter pw = new PrintWriter(outfile);
 
@@ -360,9 +379,9 @@ public class PlanningSimulator {
        int countA[] = new int[maxR];
        int countB[] = new int[maxR];
        int val=0;
-       pw.println("recorded data: cycle, time, status");
+       pw.println("cycle time status pattern evalMethod numNode numSer numofSol Solution");
        for(int k=0; k < cycle; k++) {
-    	   pw.println(" "+k+" "+time[k]+" "+statusRes[k]);
+    	   pw.println(" "+k+" "+time[k]+" "+statusRes[k]+" "+pattern+" "+evalMethod+" "+numNode+" "+numServ+" "+Solution.length+" "+extractSolution(Solution));
  		   total +=time[k];
        }
        pw.println();
@@ -372,22 +391,16 @@ public class PlanningSimulator {
        pw.close();
     }
     
-    public static int getResourceId(String[] result, int index) {
+    public static String extractSolution(String[] Solution) {
    	 
-   	 int id=-1;
-   	 
-   	 if(result[index].equalsIgnoreCase("NODE0")) id = 0;
-   	 else if (result[index].equalsIgnoreCase("NODE1"))	id = 1;
-   	 else if (result[index].equalsIgnoreCase("NODE2"))	id = 2;
-   	 else if (result[index].equalsIgnoreCase("NODE3"))	id = 3;
-   	 else if (result[index].equalsIgnoreCase("NODE4"))	id = 4;
-   	 else if (result[index].equalsIgnoreCase("NODE5"))	id = 5;
-   	 else if (result[index].equalsIgnoreCase("NODE6"))	id = 6;
-   	 else if (result[index].equalsIgnoreCase("NODE7"))	id = 7;
-   	 else
-   		 id = 8;
-   	 
-   	 return id;
+   	 String sol=null;
+   	 for(int n=0; n < Solution.length; n++) {
+   		 if (n+1 < Solution.length)
+   			 sol += Solution[n]+",";
+   		 else
+   			sol += Solution[n]; 
+   	 }
+   	 return sol;
     }
 
 }//end of class

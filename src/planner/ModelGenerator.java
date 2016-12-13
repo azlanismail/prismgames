@@ -257,7 +257,8 @@ public class ModelGenerator {
 		for(int n=0; n < this.numNode; n++) {
 			for(int i=0; i < this.maxActionP1; i++) {
 				cost = rand.nextInt(50) + 10;
-				avail = rand.nextBoolean();
+				//avail = rand.nextBoolean();
+				avail = true;
 				for(int j=0; j < this.maxActionP2; j++) {
 					dur = rand.nextInt(100);
 					rel = rand.nextDouble();
