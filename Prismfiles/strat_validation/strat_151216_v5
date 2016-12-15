@@ -1,0 +1,62 @@
+$SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+143
+// Initial state
+InitState:
+22
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+21 0 {2=1.0}
+22 0 {1=1.0}
+29 0 {0=1.0}
+30 0 {0=1.0}
+31 0 {0=1.0}
+89 0 {0=1.0}
+90 0 {0=1.0}
+91 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+12 0 0 {0=1.0}
+12 0 1 {0=1.0}
+21 0 2 {0=1.0}
+22 0 1 {0=1.0}
+29 0 0 {0=1.0}
+30 0 0 {0=1.0}
+31 0 0 {0=1.0}
+89 0 0 {0=1.0}
+90 0 0 {0=1.0}
+91 0 0 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+12 0 0 29 {0=1.0}
+12 0 0 30 {0=1.0}
+12 1 0 29 {0=1.0}
+12 1 0 31 {0=1.0}
+21 2 0 12 {0=1.0}
+22 1 0 21 {0=1.0}
+29 0 0 89 {0=1.0}
+30 0 0 90 {0=1.0}
+31 0 0 91 {0=1.0}
+89 0 0 89 {0=1.0}
+90 0 0 90 {0=1.0}
+91 0 0 91 {0=1.0}
+Info:
+Property: <<p1>> R{"utility"}>=UTIL [ C ]
+Type: $SU.strat-v0.1
+Memory size: 22
+endstrategy
