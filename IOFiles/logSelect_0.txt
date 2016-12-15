@@ -1,0 +1,16 @@
+cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution
+0 0 0 1 10 2 4437 true 72/111 1 n0r0
+cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution
+0 0 1 1 10 2 1193 true 72/111 1 n0r8
+cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution
+0 1 0 2 10 2 2261 true 1472/2291 2 n0r0 n1r0
+cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution
+0 1 1 2 10 2 3830 true 1472/2291 2 n0r9 n1r8
+cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution
+0 2 0 2 10 2 829 true 143/222 2 n0r0 null
+cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution
+0 2 1 2 10 2 1048 true 143/222 2 n0r6 null
+cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution
+0 3 0 2 10 2 853 true 72/111 2 n0r0 n1r0
+cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution
+0 3 1 2 10 2 1214 true 72/111 2 n0r3 n1r5

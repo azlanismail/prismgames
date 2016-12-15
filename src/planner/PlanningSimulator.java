@@ -25,369 +25,430 @@ public class PlanningSimulator {
 				
 				
 		//define parameters for the simulation
-		int simCycle = 5;
+		int maxConf = 1;
+		int simCycle = 1;
 		long time[] = new long[simCycle]; //log the execution time
-		TimeMeasure tm = new TimeMeasure(); //create the time instance
+		//TimeMeasure tm = new TimeMeasure(); //create the time instance
 		boolean statusRes[] = new boolean[simCycle]; //log the synthesis status
+		int[] nodeSet = new int[maxConf]; //to set numNode per configuration
+		int [] servSet = new int[maxConf];  //to set numService per configuration
+		int maxPattern = 4;	//set the total number of pattern
+		int maxEval = 2;	//set the total number of evaluation method
 		
 		//define parameters for the planning
-		int maxPattern=4;
-		int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel
+		int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel	
 		int numNode = 2;	//set the number of node/task/activity in the compositional structure
+		
 		int numofService = 10;	//set the number of services per each node
 		int numofBehavior = 2;	//set the number of behavior per each service
 		boolean setVal = true;  //true-during model generation, false-during model checking
-		int maxEval = 2;
 		int evalMethod = 1; 	//0-utility-based, 1-multi-objective
-		//String[] selServ = new String[numNode];
+
 		//define thresholds of QoS requirements (assuming as global requirements)
-		int costR=50;		//max cost
-		int durR=120; 		//max duration
-		double relR=0.5;	//min reliability
-		double wcostR=0.3, wdurR=0.3, wrelR=0.4;	//utility preferences
+		int costR;		//max cost
+		int durR; 		//max duration
+		double relR;	//min reliability
+		double wcostR, wdurR, wrelR;	//utility preferences
 		
 		//begin the simulation
-		for(int p=0; p < maxPattern; p++) {
-			for(int v=0; v < maxEval; v++) {
-				for(int m=0; m < simCycle; m++) {
-					//to store the solution
-					String[] selServ = new String[numNode];
+		for(int c=0; c < maxConf; c++) {
+			
+			//define parameters for the planning that different for each configuration	
+			if (c == 0)
+				nodeSet[c] = numNode;	//to increase numNode per configuration
+			else
+				nodeSet[c] = nodeSet[c-1] + 1;	//to increase numNode per configuration
+			
+			//define parameters for the planning that different for each configuration	
+			//if (c == 0)
+				servSet[c] = numofService;	//to increase numServ per configuration
+			//else
+			//	servSet[c] = servSet[c-1] + 50;	//to increase numNode per configuration
+			
+		
+			
+			//define requirements per configuration
+			costR=50; durR=120; relR=0.5; //for multi-objective properties	
+			wcostR=0.3; wdurR=0.3; wrelR=0.4;	//for single-objective properties	
+						
+			for(int p=0; p < maxPattern; p++) {
+				for(int v=0; v < maxEval; v++) {
+					for(int m=0; m < simCycle; m++) {
+						
+						//to store the time
+						TimeMeasure tm = new TimeMeasure();
+						
+						//to store the solution
+						String[] selServ = new String[nodeSet[c]];
+						
+						//Create a model generator instance
+						ModelGenerator mdg = new ModelGenerator();
 					
-					//Create a model generator instance
-					ModelGenerator mdg = new ModelGenerator();
-				
-					//Create a SG-Planner instance
-					StochasticPlanner sp = new StochasticPlanner();
-					
-					//Create a strategy extraction instance
-					StrategyExtraction se = new StrategyExtraction();
-					
-					String patName = null;
-					
-					//create the model and synthesize according to a pattern
-					if (p==0) {
-						patName = "single";		
-						//configuring model parameters and values
-						System.out.println("Solving single node...");
-						mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
-						mdg.setPattern(p);	//set the current value of p
-						mdg.setParamsNames("p1", "p2", "planner", "environment");
-						mdg.setUpperBounds(1, numofService, numofBehavior);
+						//Create a SG-Planner instance
+						StochasticPlanner sp = new StochasticPlanner();
 						
-						//creating and assigning values to parameters
-						System.out.println("Creating and assigning values to parameters...");
-						mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-						mdg.setAllRandomServProfiles();
-						mdg.createServParams();
-						mdg.setReqParamswithValues();
-						mdg.setServParamswithValues();
+						//Create a strategy extraction instance
+						StrategyExtraction se = new StrategyExtraction();
 						
-						//create the specifications
-						System.out.println("Generating model and properties specifications...");
-						mdg.setModelPath(singlePath);										
-						mdg.setPropPath(propPath);
-						mdg.generateSGModel(0);	//value for >0 is only for parallel structure
-						mdg.generateProperties();
-									
-						//export the actions (for strategy extraction)
-						//System.out.println("Exporting action labels...");
-						//mdg.exportActionLabels(actLabelPath);				
+						String patName = null;
 						
-						//synthesis
-						System.out.println("Synthesizing model...");
-						sp.initiatePlanner();
-						sp.parseModelandProperties(singlePath, propPath);
-						sp.setUndefinedValues(mdg.getDefinedValues());
-						sp.checkModel(v);	//based on evaluation method
-						
-						//exporting
-						System.out.println("Exporting transitions and strategies...");
-						sp.exportTrans(transPath);
-						sp.exportStrategy(stratPath);
-						
-						if (sp.getSynthesisStatus()) {
-							//extraction
-							System.out.println("Extracting strategies...");
-							se.setPath(transPath, stratPath);
-							se.setNumofDecision(1); //to control the searching for solution, simply set to one
-							se.setActionLabels(mdg.getActionLabels());
-							se.readTransitionFile();
-							se.readStrategiesProfile(v);	//based on evaluation method	
-							se.findSolutions();
-							selServ = se.getSolution();
-							for (int n=0; n < selServ.length; n++) {
-								System.out.println("Decision node: "+n+", solution :"+selServ[n]);
-							}
-						}
-						else
-							System.out.println("Synthesis results in false.....");
-						
-						//record the synthesis status
-						statusRes[m] = sp.getSynthesisStatus();
-						//stop the timer
-			 			tm.stop();
-			 			//record the duration
-			 			time[m] = tm.getDuration();
-					
-					}//end of single task
-					
-					else if (p==1) {
-						//for sequential
-						patName = "sequential";	
-						//configuring model parameters and values
-						System.out.println("Solving sequential pattern...");
-						mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
-						mdg.setPattern(p);	//set the current value of p
-						mdg.setParamsNames("p1", "p2", "planner", "environment");
-						mdg.setUpperBounds(numNode, numofService, numofBehavior);
-					
-						//export the actions (for strategy extraction)
-						//System.out.println("Exporting action labels...");
-						//mdg.exportActionLabels(actLabelPath);
-						
-						//creating and assigning values to parameters
-						System.out.println("Creating and assigning values to parameters...");
-						mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-						mdg.setAllRandomServProfiles();
-						mdg.createServParams();
-						mdg.setReqParamswithValues();
-						mdg.setServParamswithValues();
-						
-						//create the specifications
-						System.out.println("Generating model and properties specifications...");
-						mdg.setModelPath(seqPath);										
-						mdg.setPropPath(propPath);
-						mdg.generateSGModel(0);
-						mdg.generateProperties();
-						
-						//synthesis
-						System.out.println("Synthesizing model...");
-						sp.initiatePlanner();
-						sp.parseModelandProperties(seqPath, propPath);
-						sp.setUndefinedValues(mdg.getDefinedValues());
-						sp.checkModel(v);	//based on evaluation method
-						
-						//exporting
-						System.out.println("Exporting transitions and strategies...");
-						sp.exportTrans(transPath);
-						sp.exportStrategy(stratPath);
-						
-						if (sp.getSynthesisStatus()) {
-							//extraction
-							System.out.println("Extracting strategies...");
-							se.setPath(transPath, stratPath);
-							se.setNumofDecision(numNode); //to control the searching for solution
-							se.setActionLabels(mdg.getActionLabels());
-							System.out.println("Reading data...");
-							se.readTransitionFile();
-							se.readStrategiesProfile(v);	//based on evaluation method
-							System.out.println("Looking for solution...");
-							se.findSolutions();
-							selServ = se.getSolution();
-							for (int n=0; n < selServ.length; n++) {
-								System.out.println("Decision node: "+n+", solution :"+selServ[n]);
-							}
-						}
-						else
-							System.out.println("Synthesis results in false.....");
-						
-						//record the synthesis status
-						statusRes[m] = sp.getSynthesisStatus();
-						//stop the timer
-			 			tm.stop();
-			 			//record the duration
-			 			time[m] = tm.getDuration();
-			 			
-					}//end of sequential pattern
-					
-					else if (p==2) {
-						//for conditional
-						patName = "conditional";	
-						//configuring model parameters and values
-						System.out.println("Solving conditional pattern...");
-						mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
-						mdg.setPattern(p);	//set the current value of p
-						mdg.setParamsNames("p1", "p2", "planner", "environment");
-						mdg.setUpperBounds(numNode, numofService, numofBehavior);
-					
-						//creating and assigning values to parameters
-						System.out.println("Creating and assigning values to parameters...");
-						mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-						mdg.setAllRandomServProfiles();
-						mdg.createServParams();
-						mdg.setReqParamswithValues();
-						mdg.setServParamswithValues();
-						
-						//create the specifications
-						System.out.println("Generating model and properties specifications...");
-						mdg.setModelPath(condPath);										
-						mdg.setPropPath(propPath);
-						mdg.generateSGModel(0);
-						mdg.generateProperties();
-									
-						//export the actions (for strategy extraction)
-						//System.out.println("Exporting action labels...");
-						//mdg.exportActionLabels(actLabelPath);
-						
-						//synthesis
-						System.out.println("Synthesizing model...");
-						sp.initiatePlanner();
-						sp.parseModelandProperties(condPath, propPath);
-						sp.setUndefinedValues(mdg.getDefinedValues());
-						sp.checkModel(v);	//based on evaluation method
-						
-						//exporting
-						System.out.println("Exporting transitions and strategies...");
-						sp.exportTrans(transPath);
-						sp.exportStrategy(stratPath);
-								
-						if (sp.getSynthesisStatus()) {
-							//extraction
-							System.out.println("Extracting strategies...");
-							se.setPath(transPath, stratPath);
-							se.setNumofDecision(numNode); //to control the searching for solution
-							se.setActionLabels(mdg.getActionLabels());
-							se.readTransitionFile();
-							se.readStrategiesProfile(v);	//based on evaluation method
-							se.findSolutions();
-							selServ = se.getSolution();
-							for (int n=0; n < selServ.length; n++) {
-								System.out.println("Decision node: "+n+", solution :"+selServ[n]);
-							}
-						}
-						else
-							System.out.println("Synthesis results in false.....");
-						
-						//record the synthesis status
-						statusRes[m] = sp.getSynthesisStatus();
-						//stop the timer
-			 			tm.stop();
-			 			//record the duration
-			 			time[m] = tm.getDuration();
-								
-					}//end of conditional pattern
-					
-					else if (p==3) {
-						//for parallel
-						patName = "parallel";
-						
-						//record the start time
-						tm.start();
-						
-						//configuring model parameters and values
-						System.out.println("Solving parallel pattern...");
-						mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
-						mdg.setPattern(p);	//set the current value of p
-						mdg.setParamsNames("p1", "p2", "planner", "environment");
-						mdg.setUpperBounds(numNode, numofService, numofBehavior);
-								
-						//creating and assigning values to parameters
-						System.out.println("Creating and assigning values to parameters...");
-						mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
-						mdg.setAllRandomServProfiles();
-						mdg.createServParams();
-						mdg.setReqParamswithValues();
-						mdg.setServParamswithValues();
-						
-						//create multiple specifications to be executed in parallel
-						System.out.println("Creating multiple paths for models and properties specifications...");
-						String[] multiModelPath = new String[numNode];
-						String[] multiPropPath = new String[numNode];
-						for (int n=0; n < numNode; n++) {
-							multiModelPath[n] = "/home/azlan/git/prismgames/Prismfiles/parmodel"+n+".prism";									
-							multiPropPath[n] = "/home/azlan/git/prismgames/Prismfiles/propSBSPlanner"+n+".props";
-						}
-						//System.out.println("Paths have been created...");
-						System.out.println("Generating multiple models and properties specifications...");
-						for (int n=0; n < numNode; n++) {
-							mdg.setModelPath(multiModelPath[n]);										
-							mdg.generateSGModel(n);	
-							mdg.setPropPath(multiPropPath[n]);
+						//create the model and synthesize according to a pattern
+						if (p==0) {
+							patName = "single";		
+							
+							//record the start time
+							tm.start();
+							
+							//configuring model parameters and values
+							System.out.println("Solving single node...");
+							mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
+							mdg.setPattern(p);	//set the current value of p
+							mdg.setParamsNames("p1", "p2", "planner", "environment");
+							mdg.setUpperBounds(1, servSet[c], numofBehavior); //simply set numNode = 1
+							
+							//creating and assigning values to parameters
+							System.out.println("Creating and assigning values to parameters...");
+							mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+							mdg.setAllRandomServProfiles();
+							mdg.createServParams();
+							mdg.setReqParamswithValues();
+							mdg.setServParamswithValues();
+							
+							//create the specifications
+							System.out.println("Generating model and properties specifications...");
+							mdg.setModelPath(singlePath);										
+							mdg.setPropPath(propPath);
+							mdg.generateSGModel(0);	//value for >0 is only for parallel structure
 							mdg.generateProperties();
-						}
-						
-						//synthesis
-						System.out.println("Synthesizing model...");
-						//preparing transition and strategies file
-						String[] multiTransPath = new String[numNode];
-						String[] multiStratPath = new String[numNode];
-						for (int n=0; n < numNode; n++) {
-							multiTransPath[n] = "/home/azlan/git/prismgames/Prismfiles/trans"+n+".prism";									
-							multiStratPath[n] = "/home/azlan/git/prismgames/Prismfiles/strat"+n+".props";
-						}
-						sp.initiatePlanner();
-						for (int n=0; n < numNode; n++) {
-							sp.parseModelandProperties(multiModelPath[n], multiPropPath[n]);
+										
+							//export the actions (for strategy extraction)
+							//System.out.println("Exporting action labels...");
+							//mdg.exportActionLabels(actLabelPath);				
+							
+							//synthesis
+							System.out.println("Synthesizing model...");
+							sp.initiatePlanner();
+							sp.parseModelandProperties(singlePath, propPath);
 							sp.setUndefinedValues(mdg.getDefinedValues());
-							sp.checkModel(v); //based on evaluation method
+							sp.checkModel(v);	//based on evaluation method
 							
 							//exporting
-							System.out.println("Exporting transitions and strategies of node "+n);
-							sp.exportTrans(multiTransPath[n]);
-							sp.exportStrategy(multiStratPath[n]);
+							System.out.println("Exporting transitions and strategies...");
+							sp.exportTrans(transPath);
+							sp.exportStrategy(stratPath);
 							
 							if (sp.getSynthesisStatus()) {
 								//extraction
 								System.out.println("Extracting strategies...");
-								se.setPath(multiTransPath[n], multiStratPath[n]);
-								se.setNumofDecision(numNode); //to control the searching for solution
+								se.setPath(transPath, stratPath);
+								se.setNumofDecision(1); //to control the searching for solution, simply set to one
 								se.setActionLabels(mdg.getActionLabels());
 								se.readTransitionFile();
-								se.readStrategiesProfile(v);	// based on evaluation method	
-								selServ[n] = se.findParSolutions(n);
-								System.out.println("Decision node: "+n+", solution :"+selServ[n]);
+								se.readStrategiesProfile(v);	//based on evaluation method	
+								se.findSolutions();
+								selServ = se.getSolution();
+								for (int n=0; n < selServ.length; n++) {
+									System.out.println("Decision node: "+n+", solution :"+selServ[n]);
+								}
 							}
 							else
 								System.out.println("Synthesis results in false.....");
-						} 
-						
-						//record the synthesis status
-						statusRes[m] = sp.getSynthesisStatus();
-						//stop the timer
-			 			tm.stop();
-			 			//record the duration
-			 			time[m] = tm.getDuration();
-			 		
-					}//end of if for parallel
-					else
-						System.out.println("the value for the pattern type is invalid....");
-					
-					
-					try {
-						if(p==0) {
-							gatherData(m, time, 1, numofService, numofBehavior, statusRes, p, v, selServ, 
-								   mdg.getActionLabels(),mdg.getGeneratedCost(), mdg.getGeneratedAvail(), mdg.getGeneratedDuration(), mdg.getGeneratedReliability());
-						}else
-							gatherData(m, time, numNode, numofService, numofBehavior, statusRes, p, v, selServ, 
-									   mdg.getActionLabels(),mdg.getGeneratedCost(), mdg.getGeneratedAvail(), mdg.getGeneratedDuration(), mdg.getGeneratedReliability());
 							
+							//record the synthesis status
+							statusRes[m] = sp.getSynthesisStatus();
+							//stop the timer
+				 			tm.stop();
+				 			//record the duration
+				 			time[m] = tm.getDuration();
 						
-					}
-			 		catch (NullPointerException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			 		catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				}//end of simulation cycle per pattern and per method
-			}//end of simulation of all method per pattern
-		}//end of simulation for all pattern of all method
+						}//end of single task
+						
+						else if (p==1) {
+							//for sequential
+							patName = "sequential";	
+							
+							//record the start time
+							tm.start();
+							
+							//configuring model parameters and values
+							System.out.println("Solving sequential pattern...");
+							mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
+							mdg.setPattern(p);	//set the current value of p
+							mdg.setParamsNames("p1", "p2", "planner", "environment");
+							mdg.setUpperBounds(nodeSet[c], servSet[c], numofBehavior);
+						
+							//export the actions (for strategy extraction)
+							//System.out.println("Exporting action labels...");
+							//mdg.exportActionLabels(actLabelPath);
+							
+							//creating and assigning values to parameters
+							System.out.println("Creating and assigning values to parameters...");
+							mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+							mdg.setAllRandomServProfiles();
+							mdg.createServParams();
+							mdg.setReqParamswithValues();
+							mdg.setServParamswithValues();
+							
+							//create the specifications
+							System.out.println("Generating model and properties specifications...");
+							mdg.setModelPath(seqPath);										
+							mdg.setPropPath(propPath);
+							mdg.generateSGModel(0);
+							mdg.generateProperties();
+							
+							//synthesis
+							System.out.println("Synthesizing model...");
+							sp.initiatePlanner();
+							sp.parseModelandProperties(seqPath, propPath);
+							sp.setUndefinedValues(mdg.getDefinedValues());
+							sp.checkModel(v);	//based on evaluation method
+							
+							//exporting
+							System.out.println("Exporting transitions and strategies...");
+							sp.exportTrans(transPath);
+							sp.exportStrategy(stratPath);
+							
+							if (sp.getSynthesisStatus()) {
+								//extraction
+								System.out.println("Extracting strategies...");
+								se.setPath(transPath, stratPath);
+								se.setNumofDecision(nodeSet[c]); //to control the searching for solution
+								se.setActionLabels(mdg.getActionLabels());
+								System.out.println("Reading data...");
+								se.readTransitionFile();
+								se.readStrategiesProfile(v);	//based on evaluation method
+								System.out.println("Looking for solution...");
+								se.findSolutions();
+								selServ = se.getSolution();
+								for (int n=0; n < selServ.length; n++) {
+									System.out.println("Decision node: "+n+", solution :"+selServ[n]);
+								}
+							}
+							else
+								System.out.println("Synthesis results in false.....");
+							
+							//record the synthesis status
+							statusRes[m] = sp.getSynthesisStatus();
+							//stop the timer
+				 			tm.stop();
+				 			//record the duration
+				 			time[m] = tm.getDuration();
+				 			
+						}//end of sequential pattern
+						
+						else if (p==2) {
+							//for conditional
+							patName = "conditional";	
+							//record the start time
+							tm.start();
+							
+							//configuring model parameters and values
+							System.out.println("Solving conditional pattern...");
+							mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
+							mdg.setPattern(p);	//set the current value of p
+							mdg.setParamsNames("p1", "p2", "planner", "environment");
+							mdg.setUpperBounds(nodeSet[c], servSet[c], numofBehavior);
+						
+							//creating and assigning values to parameters
+							System.out.println("Creating and assigning values to parameters...");
+							mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+							mdg.setAllRandomServProfiles();
+							mdg.createServParams();
+							mdg.setReqParamswithValues();
+							mdg.setServParamswithValues();
+							
+							//create the specifications
+							System.out.println("Generating model and properties specifications...");
+							mdg.setModelPath(condPath);										
+							mdg.setPropPath(propPath);
+							mdg.generateSGModel(0);
+							mdg.generateProperties();
+										
+							//export the actions (for strategy extraction)
+							//System.out.println("Exporting action labels...");
+							//mdg.exportActionLabels(actLabelPath);
+							
+							//synthesis
+							System.out.println("Synthesizing model...");
+							sp.initiatePlanner();
+							sp.parseModelandProperties(condPath, propPath);
+							sp.setUndefinedValues(mdg.getDefinedValues());
+							sp.checkModel(v);	//based on evaluation method
+							
+							//exporting
+							System.out.println("Exporting transitions and strategies...");
+							sp.exportTrans(transPath);
+							sp.exportStrategy(stratPath);
+									
+							if (sp.getSynthesisStatus()) {
+								//extraction
+								System.out.println("Extracting strategies...");
+								se.setPath(transPath, stratPath);
+								se.setNumofDecision(nodeSet[c]); //to control the searching for solution
+								se.setActionLabels(mdg.getActionLabels());
+								se.readTransitionFile();
+								se.readStrategiesProfile(v);	//based on evaluation method
+								se.findSolutions();
+								selServ = se.getSolution();
+								for (int n=0; n < selServ.length; n++) {
+									System.out.println("Decision node: "+n+", solution :"+selServ[n]);
+								}
+							}
+							else
+								System.out.println("Synthesis results in false.....");
+							
+							//record the synthesis status
+							statusRes[m] = sp.getSynthesisStatus();
+							//stop the timer
+				 			tm.stop();
+				 			//record the duration
+				 			time[m] = tm.getDuration();
+									
+						}//end of conditional pattern
+						
+						else if (p==3) {
+							//for parallel
+							patName = "parallel";
+							
+							//record the start time
+							tm.start();
+							
+							//configuring model parameters and values
+							System.out.println("Solving parallel pattern...");
+							mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
+							mdg.setPattern(p);	//set the current value of p
+							mdg.setParamsNames("p1", "p2", "planner", "environment");
+							mdg.setUpperBounds(nodeSet[c], servSet[c], numofBehavior);
+									
+							//creating and assigning values to parameters
+							System.out.println("Creating and assigning values to parameters...");
+							mdg.setRequirements(0, costR, durR, relR, wcostR, wdurR, wrelR);
+							mdg.setAllRandomServProfiles();
+							mdg.createServParams();
+							mdg.setReqParamswithValues();
+							mdg.setServParamswithValues();
+							
+							//create multiple specifications to be executed in parallel
+							System.out.println("Creating multiple paths for models and properties specifications...");
+							String[] multiModelPath = new String[nodeSet[c]];
+							String[] multiPropPath = new String[nodeSet[c]];
+							for (int n=0; n < nodeSet[c]; n++) {
+								multiModelPath[n] = "/home/azlan/git/prismgames/Prismfiles/parmodel"+n+".prism";									
+								multiPropPath[n] = "/home/azlan/git/prismgames/Prismfiles/propSBSPlanner"+n+".props";
+							}
+							//System.out.println("Paths have been created...");
+							System.out.println("Generating multiple models and properties specifications...");
+							for (int n=0; n < nodeSet[c]; n++) {
+								mdg.setModelPath(multiModelPath[n]);										
+								mdg.generateSGModel(n);	
+								mdg.setPropPath(multiPropPath[n]);
+								mdg.generateProperties();
+							}
+							
+							//synthesis
+							System.out.println("Synthesizing model...");
+							//preparing transition and strategies file
+							String[] multiTransPath = new String[nodeSet[c]];
+							String[] multiStratPath = new String[nodeSet[c]];
+							for (int n=0; n < nodeSet[c]; n++) {
+								multiTransPath[n] = "/home/azlan/git/prismgames/Prismfiles/trans"+n+".prism";									
+								multiStratPath[n] = "/home/azlan/git/prismgames/Prismfiles/strat"+n+".props";
+							}
+							sp.initiatePlanner();
+							for (int n=0; n < nodeSet[c]; n++) {
+								sp.parseModelandProperties(multiModelPath[n], multiPropPath[n]);
+								sp.setUndefinedValues(mdg.getDefinedValues());
+								sp.checkModel(v); //based on evaluation method
+								
+								//exporting
+								System.out.println("Exporting transitions and strategies of node "+n);
+								sp.exportTrans(multiTransPath[n]);
+								sp.exportStrategy(multiStratPath[n]);
+								
+								if (sp.getSynthesisStatus()) {
+									//extraction
+									System.out.println("Extracting strategies...");
+									se.setPath(multiTransPath[n], multiStratPath[n]);
+									se.setNumofDecision(nodeSet[c]); //to control the searching for solution
+									se.setActionLabels(mdg.getActionLabels());
+									se.readTransitionFile();
+									se.readStrategiesProfile(v);	// based on evaluation method	
+									selServ[n] = se.findParSolutions(n);
+									System.out.println("Decision node: "+n+", solution :"+selServ[n]);
+								}
+								else
+									System.out.println("Synthesis results in false.....");
+							} 
+							
+							//record the synthesis status
+							statusRes[m] = sp.getSynthesisStatus();
+							//stop the timer
+				 			tm.stop();
+				 			//record the duration
+				 			time[m] = tm.getDuration();
+				 		
+						}//end of if for parallel
+						else
+							System.out.println("the value for the pattern type is invalid....");
+						
+						
+						try {
+							if(p==0) {
+								gatherData(c, m, time, 1, servSet[c], numofBehavior, statusRes, p, v, selServ, 
+									   mdg.getActionLabels(),mdg.getGeneratedCost(), mdg.getGeneratedAvail(), mdg.getGeneratedDuration(), mdg.getGeneratedReliability(),
+									   sp.getNumStates(), sp.getNumTransitions());
+							}else
+								gatherData(c, m, time, nodeSet[c], servSet[c], numofBehavior, statusRes, p, v, selServ, 
+										   mdg.getActionLabels(),mdg.getGeneratedCost(), mdg.getGeneratedAvail(), mdg.getGeneratedDuration(), mdg.getGeneratedReliability(),
+										   sp.getNumStates(), sp.getNumTransitions());
+								
+							
+						}
+				 		catch (NullPointerException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				 		catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}//end of simulation cycle per pattern and per method
+				}//end of simulation of all method per pattern
+			}//end of simulation for all pattern of all method
+		
+		}//end of configuration
 		
 		
 		System.out.println("Simulation is done...");
 		
 		//analyzePerformance(simCycle, maxPattern, maxEval, numNode, numofService);
 		
+		//look at successful generation
+		//look at quality of selection
+		
+		//look at the quality of selected service by increasing number of services
+		//analyzeSingle
+		
+		//look at the quality of selected service by increasing 
+		//analyzeStructure
+		
+		//look at the quality of selected services by comparing between method/properties
+		//analyzeMethod
+		
+		
 	}//end of main
 	
-    public static void gatherData(int cycle, long time[], int numNode, int numServ, int numBehavior, boolean statusRes[], int pattern, int evalMethod, String[] Solution,
-    							  String[][] actLabel, int[][] cost, boolean[][] avail, int[][][] dur, double[][][] rel) throws FileNotFoundException {
-   	 	String outfile1 = "/home/azlan/git/prismgames/IOFiles/logSelect_"+pattern+"_"+evalMethod+"_"+numNode+"_"+numServ+".txt";
-   	    String outfile2 = "/home/azlan/git/prismgames/IOFiles/logQoS_"+pattern+"_"+evalMethod+"_"+numNode+"_"+numServ+".txt";
+    public static void gatherData(int conf, int cycle, long time[], int numNode, int numServ, int numBehavior, boolean statusRes[], int pattern, int evalMethod, String[] Solution,
+    							  String[][] actLabel, int[][] cost, boolean[][] avail, int[][][] dur, double[][][] rel,
+    							  int numStates, int numTrans) throws FileNotFoundException {
+   	 	//String outfile1 = "/home/azlan/git/prismgames/IOFiles/logSelect_"+pattern+"_"+evalMethod+"_"+numNode+"_"+numServ+".txt";
+   	   // String outfile2 = "/home/azlan/git/prismgames/IOFiles/logQoS_"+pattern+"_"+evalMethod+"_"+numNode+"_"+numServ+".txt";
 
+   		String outfile1 = "/home/azlan/git/prismgames/IOFiles/logSelect_"+conf+".txt";
+   	    String outfile2 = "/home/azlan/git/prismgames/IOFiles/logQoS_"+conf+".txt";
+
+   	    
        PrintWriter pw, pq;
        try {
     	   pw = new PrintWriter(new FileWriter(outfile1, true));
@@ -395,10 +456,10 @@ public class PlanningSimulator {
     	   
     	   //long total = 0;
     	   //==========log selection behavior==================
-    	   if (cycle == 0)  {     
-    		   pw.println("cycle time status pattern evalMethod numNode numService numBehavior numSolution Solution");
+    	   if ((conf==0) && (cycle==0))  {     
+    		   pw.println("cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution");
     	   }
-    	   pw.print(cycle+" "+time[cycle]+" "+statusRes[cycle]+" "+pattern+" "+evalMethod+" "+numNode+" "+numServ+" "+numBehavior+" "+Solution.length);
+    	   pw.print(cycle+" "+pattern+" "+evalMethod+" "+numNode+" "+numServ+" "+numBehavior+" "+time[cycle]+" "+statusRes[cycle]+" "+numStates+"/"+numTrans+" "+Solution.length);
     	   
     	   for(int s=0; s < Solution.length; s++) {
     		   pw.print(" "+Solution[s]);
@@ -407,12 +468,12 @@ public class PlanningSimulator {
     	   
     	   //==========log QoS values===================
     	   if (cycle == 0)  {     
-    		   pq.println("solution actionLabel task service cost availability duration reliability");
+    		   pq.println("solution actionLabel status task service cost availability duration reliability");
     	   }
     	   for(int n=0; n < numNode; n++) {
     		   for(int i=0; i < numServ; i++) {
     			   if(actLabel[n][i].equals(Solution[n])) {
-    				   pq.print(Solution[n]+" "+actLabel[n][i]+" "+n+" "+i+" "+cost[n][i]+" "+avail[n][i]);
+    				   pq.print(pattern+" "+Solution[n]+" "+" "+statusRes[cycle]+" "+n+" "+i+" "+cost[n][i]+" "+avail[n][i]);
     				   for(int r=0; r < numBehavior; r++) {
     					   pq.print(" "+dur[n][i][r]+" "+rel[n][i][r]);
     				   }
@@ -429,7 +490,17 @@ public class PlanningSimulator {
        }
     }//end of gather data
     
+    /**
+     * To compare the planning time of each structure in relation to increasing the numNode
+     * @param sim
+     * @param maxPattern
+     * @param maxEval
+     * @param numNode
+     * @param numServ
+     */
     public static void analyzePerformance(int sim, int maxPattern, int maxEval, int numNode, int numServ) {
+    	//the assumption is: I have a set of log files that contains the planning time 
+    	//for each structure, each method and each num node
     	
     	for(int p=0; p < maxPattern; p++) {
     		for(int v=0; v <maxEval; v++) {

@@ -253,6 +253,9 @@ public class ModelGenerator {
 		Random rand = new Random();
 		int cost, dur;
 		double rel;
+		double minRel=0.9;
+		double maxRel=1.0;
+		double range = maxRel - minRel;
 		boolean avail;
 		for(int n=0; n < this.numNode; n++) {
 			for(int i=0; i < this.maxActionP1; i++) {
@@ -260,8 +263,8 @@ public class ModelGenerator {
 				//avail = rand.nextBoolean();
 				avail = true;
 				for(int j=0; j < this.maxActionP2; j++) {
-					dur = rand.nextInt(100);
-					rel = rand.nextDouble();
+					dur = rand.nextInt(50) + 10;
+					rel = rand.nextDouble() * range + minRel;
 					setProfiles(n, i, j, cost, avail, dur, rel);
 				}
 			}
@@ -745,9 +748,11 @@ public class ModelGenerator {
 		pp.println("const int MAXCS = "+this.costR+";");
 		pp.println("const int MAXDR = "+this.durR+";");
 		pp.println("const double MINRL = "+this.relR+";");
+		pp.println("const double MXUTIL = 0.0;");
 			
 		//for utility-based evaluation
-		pp.println("<<p1>> R{\"utility\"}max=? [ F \"done\" ]");
+		//pp.println("<<p1>> R{\"utility\"}max=? [ F \"done\" ]");
+		pp.println("<<p1>> R{\"utility\"}>=MXUTIL [C]");
 				
 		//for multi-objective evaluation
 		pp.println("<<p1>> (R{\"cost\"}<=MAXCS[C] & R{\"time\"}<=MAXDR[C] & R{\"reliability\"}>=MINRL[C])");
@@ -763,13 +768,13 @@ public class ModelGenerator {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		String pathSingle = "/home/azlan/git/PrismGames/Prismfiles/singlemodel.prism";
-		String pathSequential = "/home/azlan/git/PrismGames/Prismfiles/seqmodel.prism";
-		String pathCondition = "/home/azlan/git/PrismGames/Prismfiles/condmodel.prism";
-		String pathParallel = "/home/azlan/git/PrismGames/Prismfiles/parmodel.prism";
+		String pathSingle = "/home/azlan/git/prismgames/Prismfiles/singlemodel.prism";
+		String pathSequential = "/home/azlan/git/prismgames/Prismfiles/seqmodel.prism";
+		String pathCondition = "/home/azlan/git/prismgames/Prismfiles/condmodel.prism";
+		String pathParallel = "/home/azlan/git/prismgames/Prismfiles/parmodel.prism";
 		
-		int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel
-		int numNode = 2;
+		int pattern = 0;	//0-single, 1-sequential, 2-conditional, 3-parallel
+		int numNode = 1;
 		int numofService = 20;
 		int numofResource = 2;
 		
@@ -810,20 +815,9 @@ public class ModelGenerator {
 		}
 		else
 			System.out.println("no pattern has been selected");
-			
-		
-		
-		
-		System.out.println("Model has been generated...");
-		
-		//StochasticPlanner sp = new StochasticPlanner();
 
-		
-		//get the inputs; 
-		//1) number of services(p1's actions)
-		//2) number of servers(p2's actions)
-		
-		//generate the model
+		System.out.println("Model has been generated...");
+	
 		
 	}
 

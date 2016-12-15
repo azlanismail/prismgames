@@ -136,8 +136,8 @@ public class StochasticPlanner {
 		    if (propsId==0) {
 		    	System.out.println("Synthesizing based on single objective properties.....");
 			    rs = smg.check(model, propertiesFile.getProperty(propsId)); 
-			  	System.out.println("The result from model checking (SMG) is :"+ rs.getResult()); 
-			    
+			  	System.out.println("The result from model checking (SMG) is :"+ rs.getResult());
+			  				    
 			  	if(rs!=null) {
 			  		this.synthesisStatus = true;
 		    	}else {
@@ -169,7 +169,7 @@ public class StochasticPlanner {
 				e.printStackTrace();
 		 }	
 
-		}	
+	}	
 	
 	/**
 	 * To check and synthesis the model
@@ -291,6 +291,21 @@ public class StochasticPlanner {
 		return this.synthesisStatus;
 	}
 
+	public int getNumStates() {
+		int result=0;
+		if(model != null){
+	    	result = model.getNumStates();
+	    }
+		return result;
+	}
+	
+	public int getNumTransitions() {
+		int result=0;
+		if(model != null){
+	    	result = model.getNumTransitions();
+	    }
+		return result;
+	}
 	    
     /**
      * Objective: It extracts the transitions which have been synthesized

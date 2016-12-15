@@ -23,84 +23,84 @@ const int N0_MAX_SV=10;	//finite number of services
 const int N0_MAX_EV=2;	//finite number of computing nodes
 
 const int N0_RS0_ID = 0;
-const int N0_RS0_COST = 25;	//cost
+const int N0_RS0_COST = 26;	//cost
 const bool N0_RS0_AVAIL = true;	//availability status
-const int N0_RS0_DUR0 = 95;	//duration 0;
-const int N0_RS0_DUR1 = 41;	//duration 1;
-const double N0_RS0_REL0 = 0.6124394544771812;	//reliability 0;
-const double N0_RS0_REL1 = 0.9570391858574577;	//reliability 1;
+const int N0_RS0_DUR0 = 38;	//duration 0;
+const int N0_RS0_DUR1 = 32;	//duration 1;
+const double N0_RS0_REL0 = 0.9771177022531485;	//reliability 0;
+const double N0_RS0_REL1 = 0.9200248543280062;	//reliability 1;
 
 const int N0_RS1_ID = 1;
-const int N0_RS1_COST = 15;	//cost
+const int N0_RS1_COST = 32;	//cost
 const bool N0_RS1_AVAIL = true;	//availability status
-const int N0_RS1_DUR0 = 43;	//duration 0;
-const int N0_RS1_DUR1 = 56;	//duration 1;
-const double N0_RS1_REL0 = 0.048483300108444594;	//reliability 0;
-const double N0_RS1_REL1 = 0.2994098760633127;	//reliability 1;
+const int N0_RS1_DUR0 = 53;	//duration 0;
+const int N0_RS1_DUR1 = 26;	//duration 1;
+const double N0_RS1_REL0 = 0.9830957182184614;	//reliability 0;
+const double N0_RS1_REL1 = 0.9194992429783125;	//reliability 1;
 
 const int N0_RS2_ID = 2;
-const int N0_RS2_COST = 26;	//cost
+const int N0_RS2_COST = 16;	//cost
 const bool N0_RS2_AVAIL = true;	//availability status
-const int N0_RS2_DUR0 = 42;	//duration 0;
-const int N0_RS2_DUR1 = 37;	//duration 1;
-const double N0_RS2_REL0 = 0.2494689069361017;	//reliability 0;
-const double N0_RS2_REL1 = 0.018011380328010862;	//reliability 1;
+const int N0_RS2_DUR0 = 31;	//duration 0;
+const int N0_RS2_DUR1 = 26;	//duration 1;
+const double N0_RS2_REL0 = 0.9425460378292674;	//reliability 0;
+const double N0_RS2_REL1 = 0.9633622645064016;	//reliability 1;
 
 const int N0_RS3_ID = 3;
-const int N0_RS3_COST = 13;	//cost
+const int N0_RS3_COST = 19;	//cost
 const bool N0_RS3_AVAIL = true;	//availability status
-const int N0_RS3_DUR0 = 55;	//duration 0;
-const int N0_RS3_DUR1 = 70;	//duration 1;
-const double N0_RS3_REL0 = 0.392821323101614;	//reliability 0;
-const double N0_RS3_REL1 = 0.7579329689963991;	//reliability 1;
+const int N0_RS3_DUR0 = 42;	//duration 0;
+const int N0_RS3_DUR1 = 33;	//duration 1;
+const double N0_RS3_REL0 = 0.978741990844553;	//reliability 0;
+const double N0_RS3_REL1 = 0.9806374891214248;	//reliability 1;
 
 const int N0_RS4_ID = 4;
-const int N0_RS4_COST = 38;	//cost
+const int N0_RS4_COST = 14;	//cost
 const bool N0_RS4_AVAIL = true;	//availability status
-const int N0_RS4_DUR0 = 4;	//duration 0;
-const int N0_RS4_DUR1 = 69;	//duration 1;
-const double N0_RS4_REL0 = 0.3736456875407915;	//reliability 0;
-const double N0_RS4_REL1 = 0.4378112681332893;	//reliability 1;
+const int N0_RS4_DUR0 = 35;	//duration 0;
+const int N0_RS4_DUR1 = 37;	//duration 1;
+const double N0_RS4_REL0 = 0.9561033832136862;	//reliability 0;
+const double N0_RS4_REL1 = 0.9741763242422303;	//reliability 1;
 
 const int N0_RS5_ID = 5;
-const int N0_RS5_COST = 38;	//cost
+const int N0_RS5_COST = 30;	//cost
 const bool N0_RS5_AVAIL = true;	//availability status
-const int N0_RS5_DUR0 = 60;	//duration 0;
-const int N0_RS5_DUR1 = 38;	//duration 1;
-const double N0_RS5_REL0 = 0.673694317666477;	//reliability 0;
-const double N0_RS5_REL1 = 0.44960503715118116;	//reliability 1;
+const int N0_RS5_DUR0 = 51;	//duration 0;
+const int N0_RS5_DUR1 = 22;	//duration 1;
+const double N0_RS5_REL0 = 0.9518157530668253;	//reliability 0;
+const double N0_RS5_REL1 = 0.9078717109356764;	//reliability 1;
 
 const int N0_RS6_ID = 6;
-const int N0_RS6_COST = 28;	//cost
+const int N0_RS6_COST = 40;	//cost
 const bool N0_RS6_AVAIL = true;	//availability status
-const int N0_RS6_DUR0 = 62;	//duration 0;
-const int N0_RS6_DUR1 = 60;	//duration 1;
-const double N0_RS6_REL0 = 0.05618345644816214;	//reliability 0;
-const double N0_RS6_REL1 = 0.46725426635338707;	//reliability 1;
+const int N0_RS6_DUR0 = 25;	//duration 0;
+const int N0_RS6_DUR1 = 29;	//duration 1;
+const double N0_RS6_REL0 = 0.9806961499585926;	//reliability 0;
+const double N0_RS6_REL1 = 0.9134623628644516;	//reliability 1;
 
 const int N0_RS7_ID = 7;
-const int N0_RS7_COST = 27;	//cost
+const int N0_RS7_COST = 59;	//cost
 const bool N0_RS7_AVAIL = true;	//availability status
-const int N0_RS7_DUR0 = 71;	//duration 0;
-const int N0_RS7_DUR1 = 83;	//duration 1;
-const double N0_RS7_REL0 = 0.43961166699492915;	//reliability 0;
-const double N0_RS7_REL1 = 0.7412429096375905;	//reliability 1;
+const int N0_RS7_DUR0 = 39;	//duration 0;
+const int N0_RS7_DUR1 = 25;	//duration 1;
+const double N0_RS7_REL0 = 0.9083569727549692;	//reliability 0;
+const double N0_RS7_REL1 = 0.9815852523998153;	//reliability 1;
 
 const int N0_RS8_ID = 8;
-const int N0_RS8_COST = 41;	//cost
+const int N0_RS8_COST = 49;	//cost
 const bool N0_RS8_AVAIL = true;	//availability status
-const int N0_RS8_DUR0 = 19;	//duration 0;
-const int N0_RS8_DUR1 = 68;	//duration 1;
-const double N0_RS8_REL0 = 0.8601323746007874;	//reliability 0;
-const double N0_RS8_REL1 = 0.34915677567591474;	//reliability 1;
+const int N0_RS8_DUR0 = 12;	//duration 0;
+const int N0_RS8_DUR1 = 42;	//duration 1;
+const double N0_RS8_REL0 = 0.9887916932708056;	//reliability 0;
+const double N0_RS8_REL1 = 0.9914289397015049;	//reliability 1;
 
 const int N0_RS9_ID = 9;
-const int N0_RS9_COST = 19;	//cost
+const int N0_RS9_COST = 33;	//cost
 const bool N0_RS9_AVAIL = true;	//availability status
-const int N0_RS9_DUR0 = 18;	//duration 0;
-const int N0_RS9_DUR1 = 53;	//duration 1;
-const double N0_RS9_REL0 = 0.53207056453186;	//reliability 0;
-const double N0_RS9_REL1 = 0.840318060126772;	//reliability 1;
+const int N0_RS9_DUR0 = 42;	//duration 0;
+const int N0_RS9_DUR1 = 31;	//duration 1;
+const double N0_RS9_REL0 = 0.9908772597259825;	//reliability 0;
+const double N0_RS9_REL1 = 0.9508135421590912;	//reliability 1;
 
 
 //=========Global Parameters=======
