@@ -26,7 +26,7 @@ public class PlanningSimulator {
 				
 		//define parameters for the simulation
 		int maxConf = 1;
-		int simCycle = 1;
+		int simCycle = 10;
 		long time[] = new long[simCycle]; //log the execution time
 		//TimeMeasure tm = new TimeMeasure(); //create the time instance
 		boolean statusRes[] = new boolean[simCycle]; //log the synthesis status
@@ -457,12 +457,22 @@ public class PlanningSimulator {
     	   //long total = 0;
     	   //==========log selection behavior==================
     	   if ((conf==0) && (cycle==0))  {     
-    		   pw.println("cycle pattern evalMethod numNode numService numBehavior time status size numSolution Solution");
+    		   pw.println("cycle pattern evalMethod numNode numService numBehavior time avgTime status size numSolution Solution");
     	   }
-    	   pw.print(cycle+" "+pattern+" "+evalMethod+" "+numNode+" "+numServ+" "+numBehavior+" "+time[cycle]+" "+statusRes[cycle]+" "+numStates+"/"+numTrans+" "+Solution.length);
+    	   pw.print(cycle+" "+pattern+" "+evalMethod+" "+numNode+" "+numServ+" "+numBehavior+" "+time[cycle]+" "+" "+statusRes[cycle]+" "+numStates+"/"+numTrans+" "+Solution.length);
     	   
     	   for(int s=0; s < Solution.length; s++) {
-    		   pw.print(" "+Solution[s]);
+    		  // pw.print(" "+Solution[s]);
+    		   for(int n=0; n < numNode; n++) {
+        		   for(int i=0; i < numServ; i++) {
+        			   if(actLabel[n][i].equals(Solution[n])) {
+        				   pw.print(" "+Solution[n]+" "+" "+" "+cost[n][i]+" "+avail[n][i]);
+        				   for(int r=0; r < numBehavior; r++) {
+        					   pw.print(" "+dur[n][i][r]+" "+rel[n][i][r]);
+        				   }
+        			   }
+        		   }
+        	   }
     	   }
     	   pw.println();
     	   
