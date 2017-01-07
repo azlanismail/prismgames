@@ -25,24 +25,25 @@ public class PlanningSimulator {
 				
 				
 		//define parameters for the simulation
-		int maxConf = 1;
-		int simCycle = 10;
+		int maxConf = 2;
+		int simCycle = 1;
 		long time[] = new long[simCycle]; //log the execution time
-		//TimeMeasure tm = new TimeMeasure(); //create the time instance
 		boolean statusRes[] = new boolean[simCycle]; //log the synthesis status
 		int[] nodeSet = new int[maxConf]; //to set numNode per configuration
 		int [] servSet = new int[maxConf];  //to set numService per configuration
-		int maxPattern = 4;	//set the total number of pattern
-		int maxEval = 2;	//set the total number of evaluation method
+		int maxPattern = 2;	//set the total number of pattern
+		int maxEval = 1;	//set the total number of evaluation method
+		boolean incNode = true; //to control the increment of task
+		boolean incServ = true; //to control the increment of services
 		
 		//define parameters for the planning
-		int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel	
+		//int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel	
 		int numNode = 2;	//set the number of node/task/activity in the compositional structure
 		
 		int numofService = 10;	//set the number of services per each node
 		int numofBehavior = 2;	//set the number of behavior per each service
 		boolean setVal = true;  //true-during model generation, false-during model checking
-		int evalMethod = 1; 	//0-utility-based, 1-multi-objective
+		//int evalMethod = 1; 	//0-utility-based, 1-multi-objective
 
 		//define thresholds of QoS requirements (assuming as global requirements)
 		int costR;		//max cost
@@ -56,22 +57,25 @@ public class PlanningSimulator {
 			//define parameters for the planning that different for each configuration	
 			if (c == 0)
 				nodeSet[c] = numNode;	//to increase numNode per configuration
-			else
+			else if (incNode == true)
 				nodeSet[c] = nodeSet[c-1] + 1;	//to increase numNode per configuration
+			else
+				nodeSet[c] = numNode;
 			
 			//define parameters for the planning that different for each configuration	
-			//if (c == 0)
+			if (c == 0)
 				servSet[c] = numofService;	//to increase numServ per configuration
-			//else
-			//	servSet[c] = servSet[c-1] + 50;	//to increase numNode per configuration
-			
+			else if (incServ == false)
+				servSet[c] = servSet[c-1] + 20;	//to increase numNode per configuration
+			else
+				servSet[c] = numofService;
 		
 			
 			//define requirements per configuration
 			costR=50; durR=120; relR=0.5; //for multi-objective properties	
 			wcostR=0.3; wdurR=0.3; wrelR=0.4;	//for single-objective properties	
 						
-			for(int p=0; p < maxPattern; p++) {
+			for(int p=1; p < maxPattern; p++) {
 				for(int v=0; v < maxEval; v++) {
 					for(int m=0; m < simCycle; m++) {
 						

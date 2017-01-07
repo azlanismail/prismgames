@@ -314,12 +314,12 @@ public class StrategyExtraction {
 
 	public void	readStrategiesProfile(int evalMethod) {
 		//no need to differentiate since the strategies profiles have the same format
-		//if (evalMethod == 0) {
-		//	readStrategiesfromSingObjSynthesis();
-		//}else if (evalMethod == 1) {
+		if (evalMethod == 0) {
+			readStrategiesfromSingObjSynthesis();
+		}else if (evalMethod == 1) {
 			readStrategiesfromMultiObjSynthesis();
-		//}else
-		//	System.err.println("the type of evaluation method is unrecognized...");
+		}else
+			System.err.println("Unable to read strategies file...");
 	}
 	
 	/**

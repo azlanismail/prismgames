@@ -748,11 +748,11 @@ public class ModelGenerator {
 		pp.println("const int MAXCS = "+this.costR+";");
 		pp.println("const int MAXDR = "+this.durR+";");
 		pp.println("const double MINRL = "+this.relR+";");
-		pp.println("const double MXUTIL = 0.0;");
+		//pp.println("const double MXUTIL = 0.0;");
 			
 		//for utility-based evaluation
-		//pp.println("<<p1>> R{\"utility\"}max=? [ F \"done\" ]");
-		pp.println("<<p1>> R{\"utility\"}>=MXUTIL [C]");
+		pp.println("<<p1>> R{\"utility\"}max=? [ F \"done\" ]");
+		//pp.println("<<p1>> R{\"utility\"}>=MXUTIL [C]");
 				
 		//for multi-objective evaluation
 		pp.println("<<p1>> (R{\"cost\"}<=MAXCS[C] & R{\"time\"}<=MAXDR[C] & R{\"reliability\"}>=MINRL[C])");
