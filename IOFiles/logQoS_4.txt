@@ -1,7 +1,0 @@
-solution actionLabel status task service cost availability duration reliability
-1 n0r7  true 0 7 14 true 28 0.9109309848769686 22 0.9482994223233738
-1 n1r9  true 1 9 20 true 11 0.9285228969289615 26 0.9175342395747952
-solution actionLabel status task service cost availability duration reliability
-1 n0r6  true 0 6 36 true 10 0.9915349702103913 17 0.9686749925303036
-1 n1r4  true 1 4 11 true 18 0.976816829342805 19 0.9542868539306754
-1 n2r0  true 2 0 23 true 10 0.9794703645515709 43 0.9766832076339893

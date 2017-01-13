@@ -17,40 +17,42 @@ public class PlanningSimulator {
 		String singlePath = "/home/azlan/git/prismgames/Prismfiles/singlemodel.prism";
 		String seqPath = "/home/azlan/git/prismgames/Prismfiles/seqmodel.prism";
 		String condPath = "/home/azlan/git/prismgames/Prismfiles/condmodel.prism";
-		//String parPath = "/home/azlan/git/PrismGames/Prismfiles/parmodel.prism";
 		String propPath = "/home/azlan/git/prismgames/Prismfiles/propSBSPlanner.props";
 		String transPath = "/home/azlan/git/prismgames/IOFiles/transitions.txt";
 		String stratPath = "/home/azlan/git/prismgames/IOFiles/strategies.txt";
-		//String actLabelPath = "/home/azlan/git/PrismGames/IOFiles/labels.txt";
+		//String parPath = "/home/azlan/git/PrismGames/Prismfiles/parmodel.prism"; //not needed, need multiple path
+		//String actLabelPath = "/home/azlan/git/PrismGames/IOFiles/labels.txt"; //not needed
 				
-				
-		//define parameters for the simulation
-		int maxConf = 2;
-		int simCycle = 1;
-		long time[] = new long[simCycle]; //log the execution time
-		boolean statusRes[] = new boolean[simCycle]; //log the synthesis status
-		int[] nodeSet = new int[maxConf]; //to set numNode per configuration
-		int [] servSet = new int[maxConf];  //to set numService per configuration
-		int maxPattern = 2;	//set the total number of pattern
-		int maxEval = 1;	//set the total number of evaluation method
-		boolean incNode = true; //to control the increment of task
-		boolean incServ = true; //to control the increment of services
-		
 		//define parameters for the planning
-		//int pattern = 1;	//0-single, 1-sequential, 2-conditional, 3-parallel	
-		int numNode = 2;	//set the number of node/task/activity in the compositional structure
-		
+		int numNode = 3;	//set the number of node/task/activity in the compositional structure
 		int numofService = 10;	//set the number of services per each node
 		int numofBehavior = 2;	//set the number of behavior per each service
 		boolean setVal = true;  //true-during model generation, false-during model checking
-		//int evalMethod = 1; 	//0-utility-based, 1-multi-objective
-
+		
 		//define thresholds of QoS requirements (assuming as global requirements)
 		int costR;		//max cost
 		int durR; 		//max duration
 		double relR;	//min reliability
 		double wcostR, wdurR, wrelR;	//utility preferences
-		
+	
+		//define parameters for the simulation
+		int maxConf = 2;
+		int simCycle = 2;
+		long time[] = new long[simCycle]; //log the synthesis execution time
+		long timeGen[] = new long[simCycle]; //log the generation execution time
+		long timeExp[] = new long[simCycle]; //long the export execution time
+		long timeExt[] = new long[simCycle]; //log the extraction execution time
+		boolean statusRes[] = new boolean[simCycle]; //log the synthesis status
+		boolean statusResPar[][] = new boolean[simCycle][numNode]; //log the synthesis status for parallel
+		int[] nodeSet = new int[maxConf]; //to set numNode per configuration
+		int [] servSet = new int[maxConf];  //to set numService per configuration
+		int maxPattern = 1;	//set the total number of pattern : 0-single, 1-sequential, 2-conditional, 3-parallel	
+		int initPattern = 0; //to limit for specific pattern
+		int maxEval = 2;	//set the total number of evaluation method : //0-utility-based, 1-multi-objective
+		int initEval = 0;	//to limit for specific evaluation method
+		boolean incNode = false; //to control the increment of task
+		boolean incServ = true; //to control the increment of services
+			
 		//begin the simulation
 		for(int c=0; c < maxConf; c++) {
 			
@@ -75,12 +77,15 @@ public class PlanningSimulator {
 			costR=50; durR=120; relR=0.5; //for multi-objective properties	
 			wcostR=0.3; wdurR=0.3; wrelR=0.4;	//for single-objective properties	
 						
-			for(int p=1; p < maxPattern; p++) {
-				for(int v=0; v < maxEval; v++) {
+			for(int p=initPattern; p < maxPattern; p++) {
+				for(int v=initEval; v < maxEval; v++) {
 					for(int m=0; m < simCycle; m++) {
 						
 						//to store the time
 						TimeMeasure tm = new TimeMeasure();
+						TimeMeasure tmGen = new TimeMeasure();
+						TimeMeasure tmExp = new TimeMeasure();
+						TimeMeasure tmExt = new TimeMeasure();
 						
 						//to store the solution
 						String[] selServ = new String[nodeSet[c]];
@@ -101,8 +106,9 @@ public class PlanningSimulator {
 							patName = "single";		
 							
 							//record the start time
-							tm.start();
+							tmGen.start();
 							
+							//========================================
 							//configuring model parameters and values
 							System.out.println("Solving single node...");
 							mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
@@ -124,23 +130,43 @@ public class PlanningSimulator {
 							mdg.setPropPath(propPath);
 							mdg.generateSGModel(0);	//value for >0 is only for parallel structure
 							mdg.generateProperties();
-										
+							//=================================
+							
+							tmGen.stop();
+				 			//record the duration
+				 			timeGen[m] = tmGen.getDuration();
+				 			
 							//export the actions (for strategy extraction)
 							//System.out.println("Exporting action labels...");
 							//mdg.exportActionLabels(actLabelPath);				
 							
+							//record the start time
+							tm.start();
+							//=================================
 							//synthesis
 							System.out.println("Synthesizing model...");
 							sp.initiatePlanner();
 							sp.parseModelandProperties(singlePath, propPath);
 							sp.setUndefinedValues(mdg.getDefinedValues());
 							sp.checkModel(v);	//based on evaluation method
-							
+							//=================================
+							tm.stop();
+				 			//record the duration
+				 			time[m] = tm.getDuration();
+				 			
+				 			tmExp.start();
+				 			//==================================
 							//exporting
 							System.out.println("Exporting transitions and strategies...");
 							sp.exportTrans(transPath);
 							sp.exportStrategy(stratPath);
-							
+							//=================================
+							tmExp.stop();
+				 			//record the duration
+				 			timeExp[m] = tmExp.getDuration();
+				 			
+				 			tmExt.start();
+				 			//================================
 							if (sp.getSynthesisStatus()) {
 								//extraction
 								System.out.println("Extracting strategies...");
@@ -157,13 +183,15 @@ public class PlanningSimulator {
 							}
 							else
 								System.out.println("Synthesis results in false.....");
+							//===============================
 							
-							//record the synthesis status
-							statusRes[m] = sp.getSynthesisStatus();
 							//stop the timer
-				 			tm.stop();
+				 			tmExt.stop();
 				 			//record the duration
-				 			time[m] = tm.getDuration();
+				 			timeExt[m] = tmExt.getDuration();
+				 			
+				 			//record the synthesis status
+							statusRes[m] = sp.getSynthesisStatus();
 						
 						}//end of single task
 						
@@ -172,8 +200,8 @@ public class PlanningSimulator {
 							patName = "sequential";	
 							
 							//record the start time
-							tm.start();
-							
+							tmGen.start();
+							//========================================
 							//configuring model parameters and values
 							System.out.println("Solving sequential pattern...");
 							mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
@@ -199,19 +227,43 @@ public class PlanningSimulator {
 							mdg.setPropPath(propPath);
 							mdg.generateSGModel(0);
 							mdg.generateProperties();
+							//=================================
 							
+							tmGen.stop();
+				 			//record the duration
+				 			timeGen[m] = tmGen.getDuration();
+				 			
+							//export the actions (for strategy extraction)
+							//System.out.println("Exporting action labels...");
+							//mdg.exportActionLabels(actLabelPath);				
+							
+							//record the start time
+							tm.start();
+							//=================================
 							//synthesis
 							System.out.println("Synthesizing model...");
 							sp.initiatePlanner();
 							sp.parseModelandProperties(seqPath, propPath);
 							sp.setUndefinedValues(mdg.getDefinedValues());
 							sp.checkModel(v);	//based on evaluation method
-							
+							//=================================
+							tm.stop();
+				 			//record the duration
+				 			time[m] = tm.getDuration();
+				 			
+				 			tmExp.start();
+				 			//================================
 							//exporting
 							System.out.println("Exporting transitions and strategies...");
 							sp.exportTrans(transPath);
 							sp.exportStrategy(stratPath);
-							
+							//=================================
+							tmExp.stop();
+				 			//record the duration
+				 			timeExp[m] = tmExp.getDuration();
+				 			
+				 			tmExp.start();
+				 			//================================
 							if (sp.getSynthesisStatus()) {
 								//extraction
 								System.out.println("Extracting strategies...");
@@ -230,22 +282,24 @@ public class PlanningSimulator {
 							}
 							else
 								System.out.println("Synthesis results in false.....");
-							
-							//record the synthesis status
-							statusRes[m] = sp.getSynthesisStatus();
+							//==============================
 							//stop the timer
-				 			tm.stop();
+				 			tmExt.stop();
 				 			//record the duration
-				 			time[m] = tm.getDuration();
+				 			timeExt[m] = tmExt.getDuration();
+				 			
+				 			//record the synthesis status
+							statusRes[m] = sp.getSynthesisStatus();
 				 			
 						}//end of sequential pattern
 						
 						else if (p==2) {
 							//for conditional
 							patName = "conditional";	
-							//record the start time
-							tm.start();
 							
+							//record the start time
+							tmGen.start();
+							//========================================
 							//configuring model parameters and values
 							System.out.println("Solving conditional pattern...");
 							mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
@@ -267,23 +321,42 @@ public class PlanningSimulator {
 							mdg.setPropPath(propPath);
 							mdg.generateSGModel(0);
 							mdg.generateProperties();
-										
+							//=================================
+							tmGen.stop();
+				 			//record the duration
+				 			timeGen[m] = tmGen.getDuration();
+				 			
 							//export the actions (for strategy extraction)
 							//System.out.println("Exporting action labels...");
-							//mdg.exportActionLabels(actLabelPath);
+							//mdg.exportActionLabels(actLabelPath);				
 							
+							//record the start time
+							tm.start();
+							//=================================
 							//synthesis
 							System.out.println("Synthesizing model...");
 							sp.initiatePlanner();
 							sp.parseModelandProperties(condPath, propPath);
 							sp.setUndefinedValues(mdg.getDefinedValues());
 							sp.checkModel(v);	//based on evaluation method
-							
+							//=================================
+							tm.stop();
+				 			//record the duration
+				 			time[m] = tm.getDuration();
+				 			
+				 			tmExp.start();
+				 			//================================
 							//exporting
 							System.out.println("Exporting transitions and strategies...");
 							sp.exportTrans(transPath);
 							sp.exportStrategy(stratPath);
-									
+							//=================================
+							tmExp.stop();
+				 			//record the duration
+				 			timeExp[m] = tmExp.getDuration();
+				 			
+				 			tmExt.start();
+				 			//================================
 							if (sp.getSynthesisStatus()) {
 								//extraction
 								System.out.println("Extracting strategies...");
@@ -300,13 +373,14 @@ public class PlanningSimulator {
 							}
 							else
 								System.out.println("Synthesis results in false.....");
-							
-							//record the synthesis status
-							statusRes[m] = sp.getSynthesisStatus();
+							//==============================
 							//stop the timer
-				 			tm.stop();
+				 			tmExt.stop();
 				 			//record the duration
-				 			time[m] = tm.getDuration();
+				 			timeExt[m] = tmExt.getDuration();
+				 			
+				 			//record the synthesis status
+							statusRes[m] = sp.getSynthesisStatus();
 									
 						}//end of conditional pattern
 						
@@ -315,8 +389,8 @@ public class PlanningSimulator {
 							patName = "parallel";
 							
 							//record the start time
-							tm.start();
-							
+							tmGen.start();
+							//========================================
 							//configuring model parameters and values
 							System.out.println("Solving parallel pattern...");
 							mdg.setValuesStatus(setVal); //true-create model with values, false-create model without values (later stage)
@@ -348,7 +422,17 @@ public class PlanningSimulator {
 								mdg.setPropPath(multiPropPath[n]);
 								mdg.generateProperties();
 							}
+							//=================================
+							tmGen.stop();
+				 			//record the duration
+				 			timeGen[m] = tmGen.getDuration();
+				 			
+							//export the actions (for strategy extraction)
+							//System.out.println("Exporting action labels...");
+							//mdg.exportActionLabels(actLabelPath);				
 							
+							
+							//=================================
 							//synthesis
 							System.out.println("Synthesizing model...");
 							//preparing transition and strategies file
@@ -358,18 +442,58 @@ public class PlanningSimulator {
 								multiTransPath[n] = "/home/azlan/git/prismgames/Prismfiles/trans"+n+".prism";									
 								multiStratPath[n] = "/home/azlan/git/prismgames/Prismfiles/strat"+n+".props";
 							}
-							sp.initiatePlanner();
+							
+							long temp1[][] = new long[simCycle][nodeSet[c]]; //only for temporary
+							long temp2[][] = new long[simCycle][nodeSet[c]]; //only for temporary
 							for (int n=0; n < nodeSet[c]; n++) {
+								//record the start time
+								tm.start();
+								//=================================
+								sp.initiatePlanner();
 								sp.parseModelandProperties(multiModelPath[n], multiPropPath[n]);
 								sp.setUndefinedValues(mdg.getDefinedValues());
 								sp.checkModel(v); //based on evaluation method
+								//=================================
+								tm.stop();
 								
+					 			//record the maximum duration
+								time[m] = tm.getDuration();
+								if (n==0) {
+									temp1[m][n] = time[m];
+								}
+								else {
+									if (temp1[m][n-1] > time[m])
+										time[m] = temp1[m][n-1];
+								}
+									
+					 			tmExp.start();
+					 			//================================
 								//exporting
 								System.out.println("Exporting transitions and strategies of node "+n);
 								sp.exportTrans(multiTransPath[n]);
 								sp.exportStrategy(multiStratPath[n]);
+								//record the synthesis status
+								statusRes[m] = sp.getSynthesisStatus();	
+								//=================================
+								tmExp.stop();
 								
-								if (sp.getSynthesisStatus()) {
+								//record the maximum duration
+								timeExp[m] = tmExp.getDuration();
+					 			if (n==0) {
+									temp2[m][n] = timeExp[m];
+								}
+								else {
+									if (temp2[m][n-1] > timeExp[m])
+										timeExp[m] = temp2[m][n-1];
+								}
+								
+							}
+							//=================================
+										 			
+				 			tmExt.start();
+				 			//================================
+					 		for (int n=0; n < nodeSet[c]; n++) {
+								if (statusRes[m]) {
 									//extraction
 									System.out.println("Extracting strategies...");
 									se.setPath(multiTransPath[n], multiStratPath[n]);
@@ -384,12 +508,14 @@ public class PlanningSimulator {
 									System.out.println("Synthesis results in false.....");
 							} 
 							
-							//record the synthesis status
-							statusRes[m] = sp.getSynthesisStatus();
+							//==============================
 							//stop the timer
-				 			tm.stop();
+				 			tmExt.stop();
 				 			//record the duration
-				 			time[m] = tm.getDuration();
+				 			timeExt[m] = tmExt.getDuration();
+				 			
+				 			//record the synthesis status / already recorded above
+							//statusRes[m] = sp.getSynthesisStatus();
 				 		
 						}//end of if for parallel
 						else
@@ -398,11 +524,11 @@ public class PlanningSimulator {
 						
 						try {
 							if(p==0) {
-								gatherData(c, m, time, 1, servSet[c], numofBehavior, statusRes, p, v, selServ, 
+								gatherData(c, m, time, timeGen, timeExp, timeExt, 1, servSet[c], numofBehavior, statusRes, p, v, selServ, 
 									   mdg.getActionLabels(),mdg.getGeneratedCost(), mdg.getGeneratedAvail(), mdg.getGeneratedDuration(), mdg.getGeneratedReliability(),
 									   sp.getNumStates(), sp.getNumTransitions());
 							}else
-								gatherData(c, m, time, nodeSet[c], servSet[c], numofBehavior, statusRes, p, v, selServ, 
+								gatherData(c, m, time, timeGen, timeExp, timeExt, nodeSet[c], servSet[c], numofBehavior, statusRes, p, v, selServ, 
 										   mdg.getActionLabels(),mdg.getGeneratedCost(), mdg.getGeneratedAvail(), mdg.getGeneratedDuration(), mdg.getGeneratedReliability(),
 										   sp.getNumStates(), sp.getNumTransitions());
 								
@@ -443,16 +569,32 @@ public class PlanningSimulator {
 		
 	}//end of main
 	
-    public static void gatherData(int conf, int cycle, long time[], int numNode, int numServ, int numBehavior, boolean statusRes[], int pattern, int evalMethod, String[] Solution,
+    public static void gatherData(int conf, int cycle, long time[], long timeGen[], long timeExp[], long timeExt[], int numNode, int numServ, int numBehavior, boolean statusRes[], int pattern, int evalMethod, String[] Solution,
     							  String[][] actLabel, int[][] cost, boolean[][] avail, int[][][] dur, double[][][] rel,
     							  int numStates, int numTrans) throws FileNotFoundException {
-   	 	//String outfile1 = "/home/azlan/git/prismgames/IOFiles/logSelect_"+pattern+"_"+evalMethod+"_"+numNode+"_"+numServ+".txt";
-   	   // String outfile2 = "/home/azlan/git/prismgames/IOFiles/logQoS_"+pattern+"_"+evalMethod+"_"+numNode+"_"+numServ+".txt";
-
-   		String outfile1 = "/home/azlan/git/prismgames/IOFiles/logSelect_"+conf+".txt";
-   	    String outfile2 = "/home/azlan/git/prismgames/IOFiles/logQoS_"+conf+".txt";
-
+    	
+    	String file1 = null;
+    	String file2 = null;
+    	if(pattern == 0) {
+    		file1 = "logSelectSingle_"+conf+".txt";
+    		file2 = "logQoSSingle_"+conf+".txt";
+    	}
+    	else if(pattern == 1) {
+    		file1 = "logSelectSeq_"+conf+".txt";
+    		file2 = "logQoSSeq_"+conf+".txt";
+    	}
+    	else if(pattern == 2) {
+    		file1 = "logSelectCond_"+conf+".txt";
+    		file2 = "logQoSCond_"+conf+".txt";
+    	}
+    	else {
+    		file1 = "logSelectPar_"+conf+".txt";
+    		file2 = "logQoSPar_"+conf+".txt";
+    	}
    	    
+    	String outfile1 = "/home/azlan/git/prismgames/IOFiles/"+file1;
+		String outfile2 = "/home/azlan/git/prismgames/IOFiles/"+file2;
+		
        PrintWriter pw, pq;
        try {
     	   pw = new PrintWriter(new FileWriter(outfile1, true));
@@ -460,10 +602,10 @@ public class PlanningSimulator {
     	   
     	   //long total = 0;
     	   //==========log selection behavior==================
-    	   if ((conf==0) && (cycle==0))  {     
-    		   pw.println("cycle pattern evalMethod numNode numService numBehavior time avgTime status size numSolution Solution");
-    	   }
-    	   pw.print(cycle+" "+pattern+" "+evalMethod+" "+numNode+" "+numServ+" "+numBehavior+" "+time[cycle]+" "+" "+statusRes[cycle]+" "+numStates+"/"+numTrans+" "+Solution.length);
+    	  // if ((conf==0) && (cycle==0))  {     
+    		//   pw.println("cycle pattern evalMethod numNode numService numBehavior timeGen timeSyn timeExp timeExt avgTime status size numSolution Solution");
+    	 //  }
+    	   pw.print(cycle+" "+pattern+" "+evalMethod+" "+numNode+" "+numServ+" "+numBehavior+" "+timeGen[cycle]+" "+time[cycle]+" "+timeExp[cycle]+" "+timeExt[cycle]+" "+" "+statusRes[cycle]+" "+numStates+"/"+numTrans+" "+Solution.length);
     	   
     	   for(int s=0; s < Solution.length; s++) {
     		  // pw.print(" "+Solution[s]);
