@@ -37,6 +37,7 @@ public class PlanningSimulator {
 	
 		//define parameters for the simulation
 		int maxConf = 2;
+		int initConf = 0; 
 		int simCycle = 2;
 		long time[] = new long[simCycle]; //log the synthesis execution time
 		long timeGen[] = new long[simCycle]; //log the generation execution time
@@ -54,7 +55,7 @@ public class PlanningSimulator {
 		boolean incServ = true; //to control the increment of services
 			
 		//begin the simulation
-		for(int c=0; c < maxConf; c++) {
+		for(int c=initConf; c < maxConf; c++) {
 			
 			//define parameters for the planning that different for each configuration	
 			if (c == 0)
@@ -67,7 +68,7 @@ public class PlanningSimulator {
 			//define parameters for the planning that different for each configuration	
 			if (c == 0)
 				servSet[c] = numofService;	//to increase numServ per configuration
-			else if (incServ == false)
+			else if (incServ == true)
 				servSet[c] = servSet[c-1] + 20;	//to increase numNode per configuration
 			else
 				servSet[c] = numofService;
