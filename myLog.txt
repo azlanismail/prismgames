@@ -2,88 +2,89 @@
 Building model...
 
 Computing reachable states... 72 states
-Reachable states exploration and model construction done in 0.256 secs.
+Reachable states exploration and model construction done in 0.306 secs.
 Sorting reachable states list...
 
-Time for model construction: 0.264 seconds.
+Time for model construction: 0.311 seconds.
 Building reward structure...
 
 Starting expected reachability...
 Starting Prob1 (minmax)...
-Prob1 (minmax) took 5 iterations and 0.007 seconds.
+Prob1 (minmax) took 5 iterations and 0.002 seconds.
 target=30, inf=0, rest=42
-Computing the upper bound where 0.005 is used instead of 0.0
+Computing the upper bound where 0.006 is used instead of 0.0
 Starting value iteration (maxmin)...
-Value iteration (maxmin) took 5 iterations and 0.003 seconds.
+Value iteration (maxmin) took 5 iterations and 0.004 seconds.
 Computed an over-approximation of the solution (in 0 seconds), this will now be used to get the solution
 Starting value iteration (maxmin)...
 Value iteration (maxmin) took 5 iterations and 0.002 seconds.
-Expected reachability took 0.018 seconds.
+Expected reachability took 0.034 seconds.
 
-Value in the initial state: 0.44365333521732636
+Value in the initial state: 0.5551512897842598
 
-Time for model checking: 0.045 seconds.
+Time for model checking: 0.093 seconds.
 
-Result: 0.44365333521732636 (value in the initial state)
-al state)
-initial state)
-value in the initial state)
-2=1.0}
+Result: 0.5551512897842598 (value in the initial state)
+state)
+te)
+te)
+tial state)
+
+nitial state)
+tate
+// second index: current corner
+10 0 {7=1.0}
 11 0 {0=1.0}
-18 0 {0=1.0}
-19 0 {0=1.0}
-20 0 {0=1.0}
-48 0 {0=1.0}
-49 0 {0=1.0}
-50 0 {0=1.0}
+33 0 {0=1.0}
+34 0 {0=1.0}
+35 0 {0=1.0}
+63 0 {0=1.0}
+64 0 {0=1.0}
+65 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
 // second index: current corner
 // third index: next move
-2 0 0 {0=1.0}
-2 0 1 {0=1.0}
-10 0 2 {0=1.0}
+7 0 0 {0=1.0}
+7 0 1 {0=1.0}
+10 0 7 {0=1.0}
 11 0 0 {0=1.0}
-18 0 0 {0=1.0}
-19 0 0 {0=1.0}
-20 0 0 {0=1.0}
-48 0 0 {0=1.0}
-49 0 0 {0=1.0}
-50 0 0 {0=1.0}
+33 0 0 {0=1.0}
+34 0 0 {0=1.0}
+35 0 0 {0=1.0}
+63 0 0 {0=1.0}
+64 0 0 {0=1.0}
+65 0 0 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-2 0 0 18 {0=1.0}
-2 0 0 19 {0=1.0}
-2 1 0 18 {0=1.0}
-2 1 0 20 {0=1.0}
-10 2 0 2 {0=1.0}
+7 0 0 33 {0=1.0}
+7 0 0 34 {0=1.0}
+7 1 0 33 {0=1.0}
+7 1 0 35 {0=1.0}
+10 7 0 7 {0=1.0}
 11 0 0 10 {0=1.0}
-18 0 0 48 {0=1.0}
-19 0 0 49 {0=1.0}
-20 0 0 50 {0=1.0}
-48 0 0 48 {0=1.0}
-49 0 0 49 {0=1.0}
-50 0 0 50 {0=1.0}
+33 0 0 63 {0=1.0}
+34 0 0 64 {0=1.0}
+35 0 0 65 {0=1.0}
+63 0 0 63 {0=1.0}
+64 0 0 64 {0=1.0}
+65 0 0 65 {0=1.0}
 Info:
 
 maximum C-iterations: 500
-	relative termination threshold: 0.010000
-	bounding box: 
-
-endstrategy
-
-
-Number of states satisfying <<p1>> ((R{"cost"}<=MAXCS [ C ]&R{"time"}<=MAXDR [ C ]&R{"reliability"}>=MINRL [ C ])): 29
+	relative termination threshold: 0.01000
+Number of states satisfying <<p1>> ((R{"cost"}<=MAXCS [ C ]&R{"time"}<=MAXDR [ C ]&R{"reliability"}>=MINRL [ C ])): 23
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.638 seconds.
+Time for model checking: 0.7380000000000001 seconds.
 
 Result: true (property satisfied in the initial state)
+e)
 nitial state)
-sfied in the initial state)
+ initial state)

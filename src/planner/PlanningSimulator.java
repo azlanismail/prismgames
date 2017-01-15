@@ -13,18 +13,15 @@ public class PlanningSimulator {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//define paths for I/O files
-		String singlePath = "/home/azlan/git/prismgames/Prismfiles/singlemodel.prism";
-		String seqPath = "/home/azlan/git/prismgames/Prismfiles/seqmodel.prism";
-		String condPath = "/home/azlan/git/prismgames/Prismfiles/condmodel.prism";
+		
+		//define overall paths	
 		String propPath = "/home/azlan/git/prismgames/Prismfiles/propSBSPlanner.props";
-		String transPath = "/home/azlan/git/prismgames/IOFiles/transitions.txt";
-		String stratPath = "/home/azlan/git/prismgames/IOFiles/strategies.txt";
-		//String parPath = "/home/azlan/git/PrismGames/Prismfiles/parmodel.prism"; //not needed, need multiple path
-		//String actLabelPath = "/home/azlan/git/PrismGames/IOFiles/labels.txt"; //not needed
+		String modelPath = "/home/azlan/git/prismgames/Prismfiles/";
+		String transPath = "/home/azlan/git/prismgames/IOFiles/";
+		String stratPath = "/home/azlan/git/prismgames/IOFiles/";
 				
 		//define parameters for the planning
-		int numNode = 3;	//set the number of node/task/activity in the compositional structure
+		int numNode = 2;	//set the number of node/task/activity in the compositional structure
 		int numofService = 10;	//set the number of services per each node
 		int numofBehavior = 2;	//set the number of behavior per each service
 		boolean setVal = true;  //true-during model generation, false-during model checking
@@ -47,12 +44,12 @@ public class PlanningSimulator {
 		boolean statusResPar[][] = new boolean[simCycle][numNode]; //log the synthesis status for parallel
 		int[] nodeSet = new int[maxConf]; //to set numNode per configuration
 		int [] servSet = new int[maxConf];  //to set numService per configuration
-		int maxPattern = 1;	//set the total number of pattern : 0-single, 1-sequential, 2-conditional, 3-parallel	
-		int initPattern = 0; //to limit for specific pattern
+		int maxPattern = 4;	//set the total number of pattern : 0-single, 1-sequential, 2-conditional, 3-parallel	
+		int initPattern = 3; //to limit for specific pattern
 		int maxEval = 2;	//set the total number of evaluation method : //0-utility-based, 1-multi-objective
 		int initEval = 0;	//to limit for specific evaluation method
-		boolean incNode = false; //to control the increment of task
-		boolean incServ = true; //to control the increment of services
+		boolean incNode = true; //to control the increment of task
+		boolean incServ = false; //to control the increment of services
 			
 		//begin the simulation
 		for(int c=initConf; c < maxConf; c++) {
@@ -105,6 +102,9 @@ public class PlanningSimulator {
 						//create the model and synthesize according to a pattern
 						if (p==0) {
 							patName = "single";		
+							String singleModelPath = modelPath+"modelSingle.prism";
+							String singleTransPath = transPath+"transSingle.txt";
+							String singleStratPath = stratPath+"stratSingle.txt";
 							
 							//record the start time
 							tmGen.start();
@@ -127,7 +127,7 @@ public class PlanningSimulator {
 							
 							//create the specifications
 							System.out.println("Generating model and properties specifications...");
-							mdg.setModelPath(singlePath);										
+							mdg.setModelPath(singleModelPath);										
 							mdg.setPropPath(propPath);
 							mdg.generateSGModel(0);	//value for >0 is only for parallel structure
 							mdg.generateProperties();
@@ -147,7 +147,7 @@ public class PlanningSimulator {
 							//synthesis
 							System.out.println("Synthesizing model...");
 							sp.initiatePlanner();
-							sp.parseModelandProperties(singlePath, propPath);
+							sp.parseModelandProperties(singleModelPath, propPath);
 							sp.setUndefinedValues(mdg.getDefinedValues());
 							sp.checkModel(v);	//based on evaluation method
 							//=================================
@@ -159,8 +159,8 @@ public class PlanningSimulator {
 				 			//==================================
 							//exporting
 							System.out.println("Exporting transitions and strategies...");
-							sp.exportTrans(transPath);
-							sp.exportStrategy(stratPath);
+							sp.exportTrans(singleTransPath);
+							sp.exportStrategy(singleStratPath);
 							//=================================
 							tmExp.stop();
 				 			//record the duration
@@ -171,7 +171,7 @@ public class PlanningSimulator {
 							if (sp.getSynthesisStatus()) {
 								//extraction
 								System.out.println("Extracting strategies...");
-								se.setPath(transPath, stratPath);
+								se.setPath(singleTransPath, singleStratPath);
 								se.setNumofDecision(1); //to control the searching for solution, simply set to one
 								se.setActionLabels(mdg.getActionLabels());
 								se.readTransitionFile();
@@ -199,6 +199,9 @@ public class PlanningSimulator {
 						else if (p==1) {
 							//for sequential
 							patName = "sequential";	
+							String seqModelPath = modelPath+"modelSeq.prism";
+							String seqTransPath = transPath+"transSeq.txt";
+							String seqStratPath = stratPath+"stratSeq.txt";
 							
 							//record the start time
 							tmGen.start();
@@ -224,7 +227,7 @@ public class PlanningSimulator {
 							
 							//create the specifications
 							System.out.println("Generating model and properties specifications...");
-							mdg.setModelPath(seqPath);										
+							mdg.setModelPath(seqModelPath);										
 							mdg.setPropPath(propPath);
 							mdg.generateSGModel(0);
 							mdg.generateProperties();
@@ -244,7 +247,7 @@ public class PlanningSimulator {
 							//synthesis
 							System.out.println("Synthesizing model...");
 							sp.initiatePlanner();
-							sp.parseModelandProperties(seqPath, propPath);
+							sp.parseModelandProperties(seqModelPath, propPath);
 							sp.setUndefinedValues(mdg.getDefinedValues());
 							sp.checkModel(v);	//based on evaluation method
 							//=================================
@@ -256,8 +259,8 @@ public class PlanningSimulator {
 				 			//================================
 							//exporting
 							System.out.println("Exporting transitions and strategies...");
-							sp.exportTrans(transPath);
-							sp.exportStrategy(stratPath);
+							sp.exportTrans(seqTransPath);
+							sp.exportStrategy(seqStratPath);
 							//=================================
 							tmExp.stop();
 				 			//record the duration
@@ -268,7 +271,7 @@ public class PlanningSimulator {
 							if (sp.getSynthesisStatus()) {
 								//extraction
 								System.out.println("Extracting strategies...");
-								se.setPath(transPath, stratPath);
+								se.setPath(seqTransPath, seqStratPath);
 								se.setNumofDecision(nodeSet[c]); //to control the searching for solution
 								se.setActionLabels(mdg.getActionLabels());
 								System.out.println("Reading data...");
@@ -297,6 +300,9 @@ public class PlanningSimulator {
 						else if (p==2) {
 							//for conditional
 							patName = "conditional";	
+							String condModelPath = modelPath+"modelCond.prism";
+							String condTransPath = transPath+"transCond.txt";
+							String condStratPath = stratPath+"stratCond.txt";
 							
 							//record the start time
 							tmGen.start();
@@ -318,7 +324,7 @@ public class PlanningSimulator {
 							
 							//create the specifications
 							System.out.println("Generating model and properties specifications...");
-							mdg.setModelPath(condPath);										
+							mdg.setModelPath(condModelPath);										
 							mdg.setPropPath(propPath);
 							mdg.generateSGModel(0);
 							mdg.generateProperties();
@@ -337,7 +343,7 @@ public class PlanningSimulator {
 							//synthesis
 							System.out.println("Synthesizing model...");
 							sp.initiatePlanner();
-							sp.parseModelandProperties(condPath, propPath);
+							sp.parseModelandProperties(condModelPath, propPath);
 							sp.setUndefinedValues(mdg.getDefinedValues());
 							sp.checkModel(v);	//based on evaluation method
 							//=================================
@@ -349,8 +355,8 @@ public class PlanningSimulator {
 				 			//================================
 							//exporting
 							System.out.println("Exporting transitions and strategies...");
-							sp.exportTrans(transPath);
-							sp.exportStrategy(stratPath);
+							sp.exportTrans(condTransPath);
+							sp.exportStrategy(condStratPath);
 							//=================================
 							tmExp.stop();
 				 			//record the duration
@@ -361,7 +367,7 @@ public class PlanningSimulator {
 							if (sp.getSynthesisStatus()) {
 								//extraction
 								System.out.println("Extracting strategies...");
-								se.setPath(transPath, stratPath);
+								se.setPath(condTransPath, condStratPath);
 								se.setNumofDecision(nodeSet[c]); //to control the searching for solution
 								se.setActionLabels(mdg.getActionLabels());
 								se.readTransitionFile();
@@ -389,6 +395,21 @@ public class PlanningSimulator {
 							//for parallel
 							patName = "parallel";
 							
+							//create multiple specifications to be executed in parallel
+							System.out.println("Creating multiple paths for models, properties, transition, and strategies...");
+							String[] multiModelPath = new String[nodeSet[c]];
+							String[] multiPropPath = new String[nodeSet[c]];
+							String[] multiTransPath = new String[nodeSet[c]];
+							String[] multiStratPath = new String[nodeSet[c]];
+			
+							for (int n=0; n < nodeSet[c]; n++) {
+								multiModelPath[n] = modelPath+"modelPar"+n+".prism";									
+								multiPropPath[n] = modelPath+"propSBSPlanner"+n+".props";
+								multiTransPath[n] = transPath+"transPar"+n+".txt";									
+								multiStratPath[n] = stratPath+"stratPar"+n+".txt";
+							
+							}
+							
 							//record the start time
 							tmGen.start();
 							//========================================
@@ -407,14 +428,7 @@ public class PlanningSimulator {
 							mdg.setReqParamswithValues();
 							mdg.setServParamswithValues();
 							
-							//create multiple specifications to be executed in parallel
-							System.out.println("Creating multiple paths for models and properties specifications...");
-							String[] multiModelPath = new String[nodeSet[c]];
-							String[] multiPropPath = new String[nodeSet[c]];
-							for (int n=0; n < nodeSet[c]; n++) {
-								multiModelPath[n] = "/home/azlan/git/prismgames/Prismfiles/parmodel"+n+".prism";									
-								multiPropPath[n] = "/home/azlan/git/prismgames/Prismfiles/propSBSPlanner"+n+".props";
-							}
+							
 							//System.out.println("Paths have been created...");
 							System.out.println("Generating multiple models and properties specifications...");
 							for (int n=0; n < nodeSet[c]; n++) {
@@ -436,13 +450,6 @@ public class PlanningSimulator {
 							//=================================
 							//synthesis
 							System.out.println("Synthesizing model...");
-							//preparing transition and strategies file
-							String[] multiTransPath = new String[nodeSet[c]];
-							String[] multiStratPath = new String[nodeSet[c]];
-							for (int n=0; n < nodeSet[c]; n++) {
-								multiTransPath[n] = "/home/azlan/git/prismgames/Prismfiles/trans"+n+".prism";									
-								multiStratPath[n] = "/home/azlan/git/prismgames/Prismfiles/strat"+n+".props";
-							}
 							
 							long temp1[][] = new long[simCycle][nodeSet[c]]; //only for temporary
 							long temp2[][] = new long[simCycle][nodeSet[c]]; //only for temporary
@@ -457,8 +464,10 @@ public class PlanningSimulator {
 								//=================================
 								tm.stop();
 								
-					 			//record the maximum duration
+					 			//get the duration value
 								time[m] = tm.getDuration();
+								
+								//to record only the maximum duration
 								if (n==0) {
 									temp1[m][n] = time[m];
 								}
@@ -474,7 +483,7 @@ public class PlanningSimulator {
 								sp.exportTrans(multiTransPath[n]);
 								sp.exportStrategy(multiStratPath[n]);
 								//record the synthesis status
-								statusRes[m] = sp.getSynthesisStatus();	
+								statusRes[m] = sp.getSynthesisStatus();	//need to revise this statement in the future....
 								//=================================
 								tmExp.stop();
 								
