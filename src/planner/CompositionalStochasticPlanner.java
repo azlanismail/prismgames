@@ -26,7 +26,7 @@ import simulator.Path;
 import strat.Strategy;
 
 
-public class CompositionalMultiPlanner {
+public class CompositionalStochasticPlanner {
 	//Classes from Prism-games
 		PrismLog mainLog;
 		PrismExplicit prismEx;
@@ -83,7 +83,7 @@ public class CompositionalMultiPlanner {
 		
 	//	public CompositionalMultiPlanner() { }
 		
-		public CompositionalMultiPlanner() {
+		public CompositionalStochasticPlanner() {
 			//this.stage = sg;
 			initiatePlanner();
 			//initializeServiceProfile();
@@ -458,12 +458,12 @@ public class CompositionalMultiPlanner {
 	 		double cpulApp0, cpulApp1, cpusApp0, cpusApp1; //to randomize values for applications
 	 		double cpulRs, cpusRs; //to randomize values for resources
 	 		
-	 		CompositionalMultiPlanner plan; // = new CompositionalMultiPlanner[cycle]; 
+	 		CompositionalStochasticPlanner plan; // = new CompositionalMultiPlanner[cycle]; 
 	 		
 	 		for (int i=0; i < cycle; i++)
 	 	    {		 	
 	 			System.out.println("number of cycle :"+i);
-	 			plan= new CompositionalMultiPlanner();
+	 			plan= new CompositionalStochasticPlanner();
 	 			cpulApp0 = rand.nextInt(20);
 	 			cpulApp1 = rand.nextInt(30);		
 	 			cpusApp0 = rand.nextInt(300) + 100;

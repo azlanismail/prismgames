@@ -3,14 +3,14 @@ package planner;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import planner.CompositionalMultiPlanner;
+import planner.CompositionalStochasticPlanner;
 import prism.Prism;
 import prism.PrismFileLog;
 import prism.PrismLog;
 
 public class PlanningActivator implements BundleActivator {
 
-	CompositionalMultiPlanner plan;
+	CompositionalStochasticPlanner plan;
 	Prism prism;
 	PrismLog mainLog;
 	String logPath = "./myLog.txt";

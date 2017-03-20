@@ -1,0 +1,169 @@
+smg
+
+//top level system 
+system "MC"
+"C1" || "C2"  //a set of decision makers / components
+endsystem
+
+//sub-system
+system "C1"
+M1
+endsystem
+
+
+//=====PROBING PARAMETERS=======
+//get current resource information
+//get current delay information
+
+
+//=====BOUNDED PARAMETERS=======
+//=====Self-repair Bounds=======
+//Assume, global bounds for a cloud
+//const int MAXRT = 1000;
+//const double MINREL = 0.9;
+
+
+//=====Self-sizing Bounds=======
+//Assume, global bounds for a cloud
+//max and min resource
+//const int MAXRS = 100;
+//const int MINRS = 20;
+
+
+
+//=====PROFILES PARAMETERS======
+//=====Retry profiles===========
+const int M1_A0_RS0_ID = 0;
+const int M1_A0_RS0_RT = 30;
+
+const int M1_A0_RS1_ID = 1;
+const int M1_A0_RS1_RT = 40;
+
+const int M1_A0_RS2_ID = 2;
+const int M1_A0_RS2_RT = 60;
+
+
+//=====Replace profiles=========
+const int M1_A1_RS0_ID = 0;
+const int M1_A1_RS0_RT = 60;
+
+const int M1_A1_RS1_ID = 1;
+const int M1_A1_RS1_RT = 40;
+
+const int M1_A1_RS2_ID = 2;
+const int M1_A1_RS2_RT = 30;
+
+
+//========Add profiles=========
+const int M2_A0_RS0_ID = 0;
+const int M2_A0_RS0_RT = 30;
+
+const int M2_A0_RS1_ID = 1;
+const int M2_A0_RS1_RT = 40;
+
+const int M2_A0_RS2_ID = 2;
+const int M2_A0_RS2_RT = 60;
+
+//========Remove profiles=========
+const int M2_A1_RS0_ID = 0;
+const int M2_A1_RS0_RT = 30;
+
+const int M2_A1_RS1_ID = 1;
+const int M2_A1_RS1_RT = 40;
+
+const int M2_A1_RS2_ID = 2;
+const int M2_A1_RS2_RT = 60;
+
+
+
+//=======================================
+//CONTROLLING PARAMETERS
+
+
+//=======================================
+module M1
+ta:[0..2] init 1;      //to control the turn
+goala: bool init false;  //goal=false=needAdapt ; goal=true=doneAdapt
+
+// P1 moves: choose which tactic to repair the failure, non-deterministically
+[retry!]   (ta=0) & (goala=false) -> (ta'=1);
+[replace!] (ta=0) & (goala=false) -> (ta'=1);
+[notA!] (ta=0) & (goala=true)  -> (ta'=2);
+
+// P2 moves: choose which affect stochastically
+[ex_retry?]   (ta=1) -> 0.9:(goala'=true) & (ta'=2) + 0.1:(goala'=false) & (ta'=2);
+[ex_replace?] (ta=1) -> 0.9:(goala'=true) & (ta'=2) + 0.1:(goala'=false) & (ta'=2);
+[ex_notA?]    (ta=1) -> 0.9:(goala'=true) & (ta'=2) + 0.1:(goala'=false) & (ta'=2);
+
+//start the move
+[start?] (ta=1) -> (ta'=2);
+
+//terminate the move
+[end?] (ta=2) & (goala=true) -> (ta'=2);
+
+//schedule the turn between subsystems
+[] (ta=2) -> (ta'=0);
+
+endmodule
+
+//=============================================
+//=============================================
+//=============================================
+system "C2"
+M2
+endsystem
+
+module M2
+tb:[0..2] init 1;      //to control the turn
+goalb: bool init false;
+
+// P1 moves: choose which tactic to resize, non-determinitically
+[add!]     (tb=0) & (goalb=false) -> (tb'=1);
+[remove!]  (tb=0) & (goalb=false) -> (tb'=1);
+[notB!]    (tb=0) & (goalb=true)  -> (tb'=2);
+
+// P2 moves: choose which affect stochastically
+[ex_add?]    (tb=1) -> 0.9:(goalb'=true) & (tb'=2) + 0.1:(goalb'=false) & (tb'=2);
+[ex_remove?] (tb=1) -> 0.9:(goalb'=true) & (tb'=2) + 0.1:(goalb'=false) & (tb'=2);
+[ex_notB?]   (tb=1) -> 0.9:(goalb'=true) & (tb'=2) + 0.1:(goalb'=false) & (tb'=2);
+
+//start the move
+[start?] (tb=1) -> (tb'=2);
+
+//terminate the move
+[end?] (tb=2) & (goalb=true) -> (tb'=2);
+
+//schedule the turn between subsystems
+[] (tb=2) -> (tb'=0);
+
+endmodule
+
+
+//=================================
+//Computation for aggregation-based
+
+formula resTime = 40;
+formula currResource = 40;
+
+//=================================
+//CONSTRAINTS CHECKING 
+
+//==============================================
+//REWARD STRUCTURE
+
+//for self-repair
+rewards "rt"
+[retry] true : resTime + 50;
+[replace] true : resTime + 100;
+[notA] true : resTime;
+endrewards
+
+//self-sizing
+rewards "rs"
+[add] true : currResource + 10;
+[remove] true : currResource - 10;
+[notB] true : currResource; 
+endrewards
+
+label "done1" = ta = 2;
+label "done2" = tb = 2;
