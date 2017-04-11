@@ -1,90 +1,196 @@
 
 Building model...
 
-Computing reachable states... 72 states
-Reachable states exploration and model construction done in 0.306 secs.
+Computing reachable states... 5 states
+Reachable states exploration and model construction done in 0.264 secs.
 Sorting reachable states list...
 
-Time for model construction: 0.311 seconds.
-Building reward structure...
+Computing reachable states... 5 states
+Reachable states exploration and model construction done in 0.095 secs.
+Sorting reachable states list...
+product construction took 0.008686 s
 
-Starting expected reachability...
-Starting Prob1 (minmax)...
-Prob1 (minmax) took 5 iterations and 0.002 seconds.
-target=30, inf=0, rest=42
-Computing the upper bound where 0.006 is used instead of 0.0
-Starting value iteration (maxmin)...
-Value iteration (maxmin) took 5 iterations and 0.004 seconds.
-Computed an over-approximation of the solution (in 0 seconds), this will now be used to get the solution
-Starting value iteration (maxmin)...
-Value iteration (maxmin) took 5 iterations and 0.002 seconds.
-Expected reachability took 0.034 seconds.
+Time for model construction: 0.493 seconds.
+//////////////////////////////////////////////////////////////////////////////
+//                   STARTING COMPOSITIONAL MODEL CHECKING                  //
+//////////////////////////////////////////////////////////////////////////////
 
-Value in the initial state: 0.5551512897842598
+Building Model ... 
 
-Time for model checking: 0.093 seconds.
+Computing reachable states... 5 states
+Reachable states exploration and model construction done in 0.074 secs.
+Sorting reachable states list...
 
-Result: 0.5551512897842598 (value in the initial state)
-state)
-te)
-te)
-tial state)
+Computing reachable states... 5 states
+Reachable states exploration and model construction done in 0.201 secs.
+Sorting reachable states list...
 
-nitial state)
-tate
+Model checking : "q1": <<1>> (((R{"rt"}<=MAXRT [ S ]&R{"rs"}<=MAXRS [ S ])))
+
+Reducing multi-objective query to CNF: R{"rt"}<=MAXRT [ S ]&R{"rs"}<=MAXRS [ S ]
+expr: [[R{"rt"}<=MAXRT [ S ]], [R{"rs"}<=MAXRS [ S ]]]
+
+Warning: Ensure that game is controllable multichain. Not tested.
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"rt"}<=MAXRT [ S ]], [R{"rs"}<=MAXRS [ S ]]]
+
+initial state: 2
+operation: Strategy generation
+Strategy construction took 0.160850 s
+Synthesis took 0.388115 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+5
+// Initial state
+InitState:
+2
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
 // second index: current corner
-10 0 {7=1.0}
-11 0 {0=1.0}
-33 0 {0=1.0}
-34 0 {0=1.0}
-35 0 {0=1.0}
-63 0 {0=1.0}
-64 0 {0=1.0}
-65 0 {0=1.0}
+0 0 {0=1.0}
+1 0 {0=1.0}
 // memory update function: player states
 MemUpdStates:
 // first index: current state
 // second index: current corner
 // third index: next move
-7 0 0 {0=1.0}
-7 0 1 {0=1.0}
-10 0 7 {0=1.0}
-11 0 0 {0=1.0}
-33 0 0 {0=1.0}
-34 0 0 {0=1.0}
-35 0 0 {0=1.0}
-63 0 0 {0=1.0}
-64 0 0 {0=1.0}
-65 0 0 {0=1.0}
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+2 0 0 {0=1.0}
+2 0 1 {0=1.0}
+2 0 2 {0=1.0}
+2 0 3 {0=1.0}
+3 0 0 {0=1.0}
+4 0 0 {0=1.0}
+4 0 1 {0=1.0}
 // memory update function: moves
 MemUpdMoves:
 // first index: current state
 // second index: current move
 // third index: curent corner (at move)
 // fourth index: next state
-7 0 0 33 {0=1.0}
-7 0 0 34 {0=1.0}
-7 1 0 33 {0=1.0}
-7 1 0 35 {0=1.0}
-10 7 0 7 {0=1.0}
-11 0 0 10 {0=1.0}
-33 0 0 63 {0=1.0}
-34 0 0 64 {0=1.0}
-35 0 0 65 {0=1.0}
-63 0 0 63 {0=1.0}
-64 0 0 64 {0=1.0}
-65 0 0 65 {0=1.0}
+0 0 0 2 {0=1.0}
+1 0 0 4 {0=1.0}
+2 0 0 3 {0=1.0}
+2 0 0 4 {0=1.0}
+2 1 0 3 {0=1.0}
+2 1 0 4 {0=1.0}
+2 2 0 3 {0=1.0}
+2 2 0 4 {0=1.0}
+2 3 0 3 {0=1.0}
+3 0 0 0 {0=1.0}
+4 0 0 1 {0=1.0}
+4 1 0 4 {0=1.0}
 Info:
 
 maximum C-iterations: 500
-	relative termination threshold: 0.01000
-Number of states satisfying <<p1>> ((R{"cost"}<=MAXCS [ C ]&R{"time"}<=MAXDR [ C ]&R{"reliability"}>=MINRL [ C ])): 23
+	relative termination threshold: 0.010000
+	bounding box: 
+
+endstrategy
+
+
+Number of states satisfying "q1": 5 (all in model)
 
 Property satisfied in 1 of 1 initial states.
 
-Time for model checking: 0.7380000000000001 seconds.
+Time for model checking: 0.8200000000000001 seconds.
 
 Result: true (property satisfied in the initial state)
-e)
-nitial state)
- initial state)
+
+Model checking : "q2": <<1>> (((R{"rt"}<=MAXRT [ S ]&R{"rs"}<=MAXRS [ S ])))
+
+Reducing multi-objective query to CNF: R{"rt"}<=MAXRT [ S ]&R{"rs"}<=MAXRS [ S ]
+expr: [[R{"rt"}<=MAXRT [ S ]], [R{"rs"}<=MAXRS [ S ]]]
+
+Warning: Ensure that game is controllable multichain. Not tested.
+/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
+Property:
+	[[R{"rt"}<=MAXRT [ S ]], [R{"rs"}<=MAXRS [ S ]]]
+
+initial state: 2
+operation: Strategy generation
+Strategy construction took 0.011887 s
+Synthesis took 0.026960 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+5
+// Initial state
+InitState:
+2
+// initial distribution
+Init:
+{0=1.0}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {0=1.0}
+1 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 0 {0=1.0}
+1 0 0 {0=1.0}
+2 0 0 {0=1.0}
+2 0 1 {0=1.0}
+2 0 2 {0=1.0}
+2 0 3 {0=1.0}
+3 0 0 {0=1.0}
+4 0 0 {0=1.0}
+4 0 1 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 0 0 2 {0=1.0}
+1 0 0 4 {0=1.0}
+2 0 0 3 {0=1.0}
+2 1 0 3 {0=1.0}
+2 1 0 4 {0=1.0}
+2 2 0 3 {0=1.0}
+2 2 0 4 {0=1.0}
+2 3 0 3 {0=1.0}
+2 3 0 4 {0=1.0}
+3 0 0 0 {0=1.0}
+4 0 0 1 {0=1.0}
+4 1 0 4 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+endstrategy
+
+
+Number of states satisfying "q2": 5 (all in model)
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.03900000000000001 seconds.
+
+Result: true (property satisfied in the initial state)
+//////////////////////////////////////////////////////////////////////////////
+//                   COMPLETED COMPOSITIONAL MODEL CHECKING                 //
+//////////////////////////////////////////////////////////////////////////////
+
+
+Model checking completed in 1.1680000000000001 secs.
+
+Result: true

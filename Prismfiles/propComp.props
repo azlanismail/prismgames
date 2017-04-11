@@ -1,0 +1,9 @@
+const int MAXRT = 1000;
+const int MAXRS = 100;
+
+"qall" : comp("q1", "q2")
+
+"q1" : <<1>> ((R{"rt"}<=MAXRT [ S ]&R{"rs"}<=MAXRS [ S ]))
+
+"q2" : <<1>> ((R{"rt"}<=MAXRT [ S ]&R{"rs"}<=MAXRS [ S ]))
+

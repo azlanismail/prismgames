@@ -43,27 +43,27 @@ public class StochasticPlanner {
 	Result rs, rsProb, rsRwd1, rsRwd2, rsRwd3, rsRwd4, rsCSMG, rsComp, rsMulti1, rsMulti2, rsMultiComp;
 	Strategy stratComp, stratMultiComp, stratMulti1, stratMulti2;
 	SMGModelChecker smg;
-	ProbModelChecker stpg;
-	CompositionalSMGModelChecker csmg;
-	PrismSettings ps;
+//	ProbModelChecker stpg;
+	
+//	PrismSettings ps;
 	StrategyExtraction ste;
 	ConfigurationPlanner conf;
 	
 	//Defining File Inputs/Outputs
 	String logPath = "./myLog.txt";
-	String modelPath; // = mainPath+"Prismfiles/compCollaborateModel_v26.prism";
-	String propPath; // = mainPath+"Prismfiles/propCloudAdaptive_v1.props";
+//	String modelPath; // = mainPath+"Prismfiles/compCollaborateModel_v26.prism";
+//	String propPath; // = mainPath+"Prismfiles/propCloudAdaptive_v1.props";
     
     //Defining the type of property
-    int maxCpuSpeedG0=1, maxCpuLoadG0=2, maxCpuSpeedG1=3, maxCpuLoadG1=4;
-    int compImpli=5;
-    int MultiObj1=8;
+   // int maxCpuSpeedG0=1, maxCpuLoadG0=2, maxCpuSpeedG1=3, maxCpuLoadG1=4;
+   // int compImpli=5;
+   // int MultiObj1=8;
     // int MultiObj2=0; not needed at the moment
-    int compMultiObj=10;
+   // int compMultiObj=10;
 
 	//Defining internal attributes for the planner
-	private int stage;
-	private boolean synthesisStatus = false;
+	int stage;
+	boolean synthesisStatus = false;
 	
 	public StochasticPlanner() {  }
 	
@@ -171,118 +171,7 @@ public class StochasticPlanner {
 
 	}	
 	
-	/**
-	 * To check and synthesis the model
-	 * @throws PrismLangException
-	 * @throws PrismException
-	 */
-	public void checkModelbyPrismEx() {		
-	   		    
-	 try {
-    	//create instance for non-compositional multi-objective properties synthesis
-    	smg = new SMGModelChecker(prism);
-    	
-    	//set the constants parameters
-    	modulesFile.setUndefinedConstants(conf.getDefinedValues());  
-    	
-    	System.out.println("Building the model representation.....");
-    	//building a model representation for non-compositional synthesis
-	    model = prismEx.buildModel(modulesFile, prism.getSimulator());
-      
-	    if(model != null){
-	    	System.out.println("Number of states (Model Building) :"+model.getNumStates());
-	    	System.out.println("Number of transitions (Model Building) :"+model.getNumTransitions());
-	    }
-    	//parse the specifications to smg instance    	
-    	smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
-    	
-        //set the status for pareto and strategy generation
-	    smg.setComputeParetoSet(false);
-	    smg.setGenerateStrategy(true);
 	    
-	    if (smg.geterrorOnNonConverge() == false) {
-	    	System.out.println("Synthesizing expected max rewards.....");
-	    	rsRwd1 = smg.check(model, propertiesFile.getProperty(this.maxCpuSpeedG0)); //max reward of cpu speed of G0
-	    	rsRwd2 = smg.check(model, propertiesFile.getProperty(this.maxCpuLoadG0)); //max reward of cpu load of G0
-	    	rsRwd3 = smg.check(model, propertiesFile.getProperty(this.maxCpuSpeedG1)); //max reward of cpu speed of G1
-	    	rsRwd4 = smg.check(model, propertiesFile.getProperty(this.maxCpuLoadG1)); //max reward of cpu load of G1
-	    
-	    	System.out.println("The result from model checking (SMG) is :"+ rsRwd1.getResult()); 
-	    	System.out.println("The result from model checking (SMG) is :"+ rsRwd2.getResult()); 
-	    	System.out.println("The result from model checking (SMG) is :"+ rsRwd3.getResult()); 
-	    	System.out.println("The result from model checking (SMG) is :"+ rsRwd4.getResult()); 
-	    	 
-	    	conf.setUpperBoundsMultiObjectives((double)rsRwd1.getResult(), (double)rsRwd2.getResult(), (double)rsRwd3.getResult(), (double)rsRwd4.getResult());   	
-	    }
-	    else {
-		 	System.out.println("Not able to synthesize the expected max rewards, so set to the defaults.....");
-		 	conf.setDefaultUpperBoundsMultiObjectives();
-	   }
-	    		    
-	    //set the constant parameters for properties
-	    propertiesFile.setUndefinedConstants(conf.getDefinedProperties());
-		
-	    //need to reset the propertiesFile due to new values for the properties
-		smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
-		
-		System.out.println("Synthesizing compositional games.....");
-		boolean synMultiComp=false, synMulti1=false, synMulti2=false;
-		//set the default synthesis status to true
-		//this.synthesisStatus=true;
-		
-		//synthesize the compositional of implication
-		rsComp=csmg.check(propertiesFile.getProperty(compImpli));
-		if ((boolean)rsComp.getResult()) {
-			System.out.println("Compositional implication synthesis is success");	
-			System.out.println("The result from model checking (SMG) is :"+ rsComp.getResult());
-		}else {
-			System.out.println("The assumed properties are not satisfied...");
-		}
-		
-		//synthesize the compositional of conjunction
-		rsMultiComp = smg.check(model, propertiesFile.getProperty(compMultiObj));
-			
-		if((boolean)rsMultiComp.getResult()) {
-			System.out.println("Compositional multi-objective is success");
-			System.out.println("The result from model checking (SMG) is :"+ rsMultiComp.getResult());
-			synMultiComp=true;
-		}else {
-			System.out.println("Perform multi-objective on each component game");
-			rsMulti1 = smg.check(model, propertiesFile.getProperty(MultiObj1));
-
-			//rsMulti2 = smg.check(model, propertiesFile.getProperty(MultiObj2));
-			System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult());
-	    	//System.out.println("The result from model checking (SMG) is :"+ rsMulti2.getResult()); 
-	    	
-	    	//the only reason to cause overall synthesis to return false to the requester
-			if (rsMulti1.getResult()!=null && (boolean)rsMulti1.getResult()) {			
-				synMulti1=true;
-			}	
-			else
-				synMulti1=false;
-		}	
-		
-		if (synMultiComp | synMulti1 | synMulti2) {
-			System.out.println("at least one type of synthesis is success....");
-			this.synthesisStatus = true;
-		}else {
-			System.out.println("All synthesis fail");
-			this.synthesisStatus = false;
-		}
-		
-		
-	 }//end of try
-	 catch (PrismLangException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-	 }	
-	 catch (PrismException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-	 }	
-
-	}	
-    
 	/**
 	 * To return the strategy generation status of compositional synthesis
 	 * @return
@@ -324,7 +213,8 @@ public class StochasticPlanner {
     public void exportStrategy(String sPath)
     {   
     	//exporting strategies for single objective
-    	if((rs!=null) && (smg!=null)) {
+    	//if((rs!=null) && (smg!=null)) {
+    	if(rs!=null) {
     		stratMulti1 = rs.getStrategy();
     		stratMulti1.exportToFile(sPath);
     	}
