@@ -18,37 +18,37 @@ public class ModelGenerator {
 	Values[] vpar;
 	
 	//model configuration
-	private int numNode; //number of activity/task/node in the service composition
-	private int maxActionP1; //finite number of candidates to be selected
-	private int maxActionP2; //finite number of resources
-	private String p1;	//to define the name of P1
-	private String p2;	//to define the name of P2
-	private String mod1;	//to define the name of P1's module
-	private String mod2;	//to define the name of P2's module
-	private boolean setValuesStatus;	//to define null parameters or parameters with values
-	private int pattern;	//to determine the type of pattern; 0-single, 1-seq, 2-or, 3-parallel
+	int numNode; //number of activity/task/node in the service composition
+	int maxActionP1; //finite number of candidates to be selected
+	int maxActionP2; //finite number of resources
+	String p1;	//to define the name of P1
+	String p2;	//to define the name of P2
+	String mod1;	//to define the name of P1's module
+	String mod2;	//to define the name of P2's module
+	boolean setValuesStatus;	//to define null parameters or parameters with values
+	int pattern;	//to determine the type of pattern; 0-single, 1-seq, 2-or, 3-parallel
 	
 	//requirements
-	private int idR;
-	private int costR;
-	private int durR;
-	private double relR;
-	private double wcostR;
-	private double wdurR;
-	private double wrelR;
+	int idR;
+	int costR;
+	int durR;
+	double relR;
+	double wcostR;
+	double wdurR;
+	double wrelR;
 	
 	//service constants parameters
-	private String[][] idParams;
-	private String[][] costParams;
-	private String[][] availParams;
-	private String[][][] durParams;
-	private String[][][] relParams;
+	String[][] idParams;
+	String[][] costParams;
+	String[][] availParams;
+	String[][][] durParams;
+	String[][][] relParams;
 	
 	//service profiles
-	private int[][] cost;
-	private boolean[][] avail;
-	private int[][][] dur;
-	private double[][][] rel;
+	int[][] cost;
+	boolean[][] avail;
+	int[][][] dur;
+	double[][][] rel;
 	
 	
 	public ModelGenerator() {
