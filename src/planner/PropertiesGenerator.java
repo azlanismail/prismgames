@@ -74,10 +74,10 @@ public class PropertiesGenerator {
 		pp[3] = new Properties();
 		
 		//specify the parameters
-		pp[0].setProperties(0, "cost", "int", 90, "<=");
-		pp[1].setProperties(1, "time", "int", 1000, "<=");
-		pp[2].setProperties(2, "reliability", "double", 0.9, ">=");
-		pp[3].setProperties(3, "availability", "double", 0.9, ">=");
+		pp[0].setProperties(0, "cost", "int", 90, 10, "<=");
+		pp[1].setProperties(1, "time", "int", 1000, 100,"<=");
+		pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">=");
+		pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
 		
 		//set the path
 		String propPath = "/home/azlan/git/PrismGames/Prismfiles/propTest.props";

@@ -1,23 +1,4 @@
-
-Building model...
-
-Computing reachable states... 25 states
-Reachable states exploration and model construction done in 0.411 secs.
-Sorting reachable states list...
-
-Time for model construction: 0.662 seconds.
-
-Reducing multi-objective query to CNF: R{"rw_cost"}<=cost [ C ]&R{"rw_time"}<=time [ C ]&R{"rw_reliability"}>=reliability [ C ]&R{"rw_availability"}>=availability [ C ]
-expr: [[R{"rw_cost"}<=cost [ C ]], [R{"rw_time"}<=time [ C ]], [R{"rw_reliability"}>=reliability [ C ]], [R{"rw_availability"}>=availability [ C ]]]
-/////////////////   NEW (DIRECT) MODEL CHECKING TASK     /////////////////////
-Property:
-	[[R{"rw_cost"}<=cost [ C ]], [R{"rw_time"}<=time [ C ]], [R{"rw_reliability"}>=reliability [ C ]], [R{"rw_availability"}>=availability [ C ]]]
-
-initial state: 0
-operation: Strategy generation
-Strategy construction took 0.292914 s
-Synthesis took 1.453501 s
-strategy: $SU.strat-v0.1
+$SU.strat-v0.1
 // Stochastic Memory Update Strategy
 start strategy
 States:
@@ -177,12 +158,3 @@ maximum C-iterations: 500
 	bounding box: 
 
 endstrategy
-
-
-Number of states satisfying <<p1>> ((R{"rw_cost"}<=cost [ C ]&R{"rw_time"}<=time [ C ]&R{"rw_reliability"}>=reliability [ C ]&R{"rw_availability"}>=availability [ C ])): 12
-
-Property satisfied in 1 of 1 initial states.
-
-Time for model checking: 1.8510000000000002 seconds.
-
-Result: true (property satisfied in the initial state)

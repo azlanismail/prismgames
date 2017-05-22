@@ -101,7 +101,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	/**
 	 * To generate a generic stochastic games model for service selection 
 	 */
-	public void generateSGModelforAppDeployment()  {
+	public void encodeSGModelforAppDeployment()  {
    	 	
    	 	pw.println("smg");
    	 	pw.println("//=========Player definition=======");
@@ -121,7 +121,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 				pw.print(",");
 			}
    	 		for(int j=0; j < maxActionP2; j++) {
-   	 			pw.print("[n"+i+"e"+j+"]");
+   	 			pw.print("[n"+i+"rs"+j+"]");
    	 			if (j != maxActionP2-1) {
    	 			pw.print(",");
    	 			}
@@ -139,15 +139,15 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	//	pw.println("const int N"+n+"_MAX_EV="+maxActionP2+";	//finite number of computing nodes");		
 	 	//}
 	 	//pw.println();
-	 	
+	 	pw.println("const int MXN="+maxActionP1+";");
 	 	if(this.setValuesStatus) {
 		 	for (int i=0; i < maxActionP1; i++) {
-			 	for(int j=0; j < maxActionP1; j++) {
+			 	for(int j=0; j < maxActionP2; j++) {
 			 		pw.println("const int "+ this.idParams[i][j]+" = "+i+";");
 			 		pw.println("const double "+this.costParams[i][j]+" = "+this.cost[i][j]+";	//cost");
 			 		pw.println("const double "+this.availParams[i][j]+" = "+this.avail[i][j]+";	//avail");
 			 		pw.println("const double "+this.relParams[i][j]+" = "+this.rel[i][j]+";		//rel");
-			 		pw.println("const time "+this.timeParams[i][j]+" = "+this.time[i][j]+";		//time");
+			 		pw.println("const int "+this.timeParams[i][j]+" = "+this.time[i][j]+";		//time");
 			 		pw.println();
 			 	}
 		 	}
@@ -155,7 +155,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	}
 	 	else {
 	 		for (int i=0; i < maxActionP1; i++) {
-			 	for(int j=0; j < maxActionP1; j++) {
+			 	for(int j=0; j < maxActionP2; j++) {
 			 		pw.println("const int "+ this.idParams[i][j]+" = "+i+";");
 			 		pw.println("const double "+this.costParams[i][j]+";	//cost");
 			 		pw.println("const double "+this.availParams[i][j]+"; //avail");
@@ -185,7 +185,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
  		 		
 	 	pw.println("//P1 moves :");
 	 	for(int i=0; i< maxActionP1; i++) {
-		 	pw.println("[r"+i+"] (t=TP) & (goal=false -> (n'="+i+") & (t'=TE);");
+		 	pw.println("[r"+i+"] (t=TP) & (goal=false) -> (n'="+i+") & (t'=TE);");
 
 	 	}
 	 	pw.println("endmodule");
@@ -197,7 +197,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	pw.println("//P2 moves for single or sequential pattern:");	
 		for(int i=0; i < maxActionP1; i++) {
 		 	for(int j=0; j < maxActionP2; j++) {
-		 		pw.println("[n"+i+"rs"+j+"] (t=TE) & (n="+i+") -> n"+i+"rs"+j+"_rel:(goal'=true) & (t'=TP) + 1-n"+i+"_rs"+j+"_rel:(goal'=false) & (t'=TP);");
+		 		pw.println("[n"+i+"rs"+j+"] (t=TE) & (n="+i+") -> n"+i+"rs"+j+"_rel:(goal'=true) & (t'=TP) + 1-n"+i+"rs"+j+"_rel:(goal'=false) & (t'=TP);");
 		 	}
 		 	pw.println();
 		}
@@ -206,34 +206,34 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	pw.println();
 	 
 	 	pw.println("//=========Reward Structure=======");
-	 	pw.println("rewards \"cost\"");
+	 	pw.println("rewards \"rw_cost\"");
 	 	for(int i=0; i < maxActionP1; i++) {
    	 		for(int j=0; j < maxActionP2; j++) {
-   	 			pw.println("[n"+i+"rs"+j+"] : true = n"+i+"rs"+j+"_cost;");
+   	 			pw.println("[n"+i+"rs"+j+"] true : n"+i+"rs"+j+"_cost;");
    	 		}
 		}
 	 	pw.println("endrewards");
 	 	
-		pw.println("rewards \"time\"");
+		pw.println("rewards \"rw_time\"");
 	 	for(int i=0; i < maxActionP1; i++) {
    	 		for(int j=0; j < maxActionP2; j++) {
-   	 			pw.println("[n"+i+"rs"+j+"] : true = n"+i+"rs"+j+"_time;");
+   	 			pw.println("[n"+i+"rs"+j+"] true : n"+i+"rs"+j+"_time;");
    	 		}
 		}
 	 	pw.println("endrewards");
 	
-		pw.println("rewards \"reliability\"");
+		pw.println("rewards \"rw_reliability\"");
 	 	for(int i=0; i < maxActionP1; i++) {
    	 		for(int j=0; j < maxActionP2; j++) {
-   	 			pw.println("[n"+i+"rs"+j+"] : true = n"+i+"rs"+j+"_rel;");
+   	 			pw.println("[n"+i+"rs"+j+"] true : n"+i+"rs"+j+"_rel;");
    	 		}
 		}
 	 	pw.println("endrewards");
 		
-		pw.println("rewards \"availability\"");
+		pw.println("rewards \"rw_availability\"");
 	 	for(int i=0; i < maxActionP1; i++) {
    	 		for(int j=0; j < maxActionP2; j++) {
-   	 			pw.println("[n"+i+"rs"+j+"] : true = n"+i+"rs"+j+"_avail;");
+   	 			pw.println("[n"+i+"rs"+j+"] true : n"+i+"rs"+j+"_avail;");
    	 		}
 		}
 	 	pw.println("endrewards");
@@ -266,7 +266,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		mdg.createQualityParams();
 		mdg.setQualityParamswithValues();
 		mdg.setModelPath(modelPath);										
-		mdg.generateSGModelforAppDeployment();
+		mdg.encodeSGModelforAppDeployment();
 		
 		System.out.println("done");
 	}

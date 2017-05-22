@@ -5,15 +5,17 @@ public class Properties<T> {
 	String name;
 	String type;
 	T threshold;
+	T fuzzyVal;
 	String comparator;
 	
 	public Properties() { }
 	
-	public void setProperties(int i, String nm, String ty, T th, String cp) {
+	public void setProperties(int i, String nm, String ty, T th, T fv, String cp) {
 		id = i;
 		name = nm;
 		type = ty;
 		threshold = th;
+		fuzzyVal = fv;
 		comparator = cp;
 	}
 	

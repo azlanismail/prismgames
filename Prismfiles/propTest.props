@@ -1,5 +1,5 @@
-const double cost = 90;
-const double time = 1000;
+const int cost = 90;
+const int time = 1000;
 const double reliability = 0.9;
 const double availability = 0.9;
 <<p1>> (R{"rw_cost"}<= cost[C] & R{"rw_time"}<= time[C] & R{"rw_reliability"}>= reliability[C] & R{"rw_availability"}>= availability[C] )

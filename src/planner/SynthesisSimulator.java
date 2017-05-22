@@ -39,7 +39,7 @@ public class SynthesisSimulator {
 	
 
 	
-	public void Simulation(int simCycle) {
+	public void simulatePlanning(int simCycle, StochasticPlanner sp) {
 		//begin the simulation per configuration	
 		for(int m=0; m < simCycle; m++) {
 			
@@ -49,59 +49,22 @@ public class SynthesisSimulator {
 			TimeMeasure tmExp = new TimeMeasure();
 			TimeMeasure tmExt = new TimeMeasure();
 			
-			//to store the solution
-			//String[] selServ = new String[nodeSet[c]];
+			//synthesis
+			System.out.println("Synthesizing model...");
+			sp.initiatePlanner();
+			sp.parseModelandProperties(modelPath, propPath);
+			
+			//sp.setUndefinedValues(mdg.getDefinedValues());
+			sp.setPropertyId(0);
+			sp.checkModelforMultiObjective();
+			
+			//exporting
+			System.out.println("Exporting transitions and strategies...");
+			sp.exportTrans(transPath);
+			sp.exportStrategy(stratPath);		
 			
 			
-		
-			//Create a SG-Planner instance
-			StochasticPlanner sp = new StochasticPlanner();
-			
-			//Create a strategy extraction instance
-			StrategyExtraction se = new StrategyExtraction();
-			
-			
-			//create the model and synthesize according to a pattern
-			
-			patName = "single";		
-			String singleModelPath = modelPath+"modelSingle.prism";
-			String singleTransPath = transPath+"transSingle.txt";
-			String singleStratPath = stratPath+"stratSingle.txt";
-			
-			//record the start time
-			tmGen.start();
-				
-			//========================================
-			//configuring model parameters and values
-			System.out.println("Solving single node...");
-			mdg.setValuesStatus(true); //true-create model with values, false-create model without values (later stage)
-			mdg.setPattern(0);	//set the current value of p=0 for single
-			mdg.setParamsNames("p1", "p2", "planner", "environment");
-			mdg.setUpperBounds(1, numNode, numResource); //simply set numNode = 1
-			
-			//creating and assigning values to parameters
-			System.out.println("Creating and assigning values to parameters...");
-			mdg.setRequirements(0, costR, durR, relR, );
-			mdg.setAllRandomServProfiles();
-			mdg.createServParams();
-			mdg.setReqParamswithValues();
-			mdg.setServParamswithValues();
-			
-			//create the specifications
-			System.out.println("Generating model and properties specifications...");
-			mdg.setModelPath(singleModelPath);										
-			mdg.setPropPath(propPath);
-			mdg.generateSGModel(0);	//value for >0 is only for parallel structure
-			mdg.generateProperties();
-			//=================================
-				
-			tmGen.stop();
- 			//record the duration
- 			timeGen[m] = tmGen.getDuration();
- 			
-			//export the actions (for strategy extraction)
-			//System.out.println("Exporting action labels...");
-			//mdg.exportActionLabels(actLabelPath);				
+						
 			
 			//record the start time
 			tm.start();
@@ -189,9 +152,9 @@ public class SynthesisSimulator {
 		// TODO Auto-generated method stub
 		
 		String propPath = "/home/azlan/git/PrismGames/Prismfiles/propTest.props";
-		String modelPath = "/home/azlan/git/PrismGames/Prismfiles/";
-		String transPath = "/home/azlan/git/PrismGames/IOFiles/";
-		String stratPath = "/home/azlan/git/PrismGames/IOFiles/";
+		String modelPath = "/home/azlan/git/PrismGames/Prismfiles/appDeployModel.prism";
+		String transPath = "/home/azlan/git/PrismGames/IOFiles/trans.txt";
+		String stratPath = "/home/azlan/git/PrismGames/IOFiles/strat.txt";
 	
 		//==========PROPERTIES CREATION=====================
 		//set properties
@@ -205,10 +168,10 @@ public class SynthesisSimulator {
 		pp[3] = new Properties();
 		
 		//specify the parameters
-		pp[0].setProperties(0, "cost", "int", 90, "<=");
-		pp[1].setProperties(1, "time", "int", 1000, "<=");
-		pp[2].setProperties(2, "reliability", "double", 0.9, ">=");
-		pp[3].setProperties(3, "availability", "double", 0.9, ">=");
+		pp[0].setProperties(0, "cost", "int", 90, 10, "<=");
+		pp[1].setProperties(1, "time", "int", 1000, 100,"<=");
+		pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">=");
+		pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
 		
 		//set the path
 		pg.setPropPath(propPath);
@@ -218,17 +181,11 @@ public class SynthesisSimulator {
 				
 		pg.encodeProperties();
 		
-		//=========MODEL CREATION============================
+		//=========MODEL CREATION============================		
 		//Create a model generator instance
 		AdaptationModelGenerator mdg = new AdaptationModelGenerator();
-		int numNode = 1;  //number of application
 		int numCollab = 8; //number of collaborator
 		int numResource = 10;//set number of resources /vm
-		AutonomicCloud cloud[] = new AutonomicCloud[numCollab];  //to create a set of collaborator
-				
-		//set the number of vms for each cloud collaborator
-		for (int i=0; i < cloud.length; i++) 
-			cloud[i].setVM(numResource);
 		
 		//configuring model parameters and values
 		System.out.println("Creating model for single application deployment...");
@@ -240,20 +197,24 @@ public class SynthesisSimulator {
 		//creating and assigning values to parameters
 		System.out.println("Creating and assigning values to parameters...");
 		mdg.setAllRandomServProfiles();
-		mdg.createServParams();
-		mdg.setServParamswithValues();
+		mdg.createQualityParams();
+		mdg.setQualityParamswithValues();
 		mdg.setModelPath(modelPath);										
-		mdg.generateSGModel(0);	//value for >0 is only for parallel structure
+		mdg.encodeSGModelforAppDeployment();
+		
+		//=========INITIALIZE PLANNING==================
+		//Create a SG-Planner instance
+		StochasticPlanner sp = new StochasticPlanner();
 		
 		//=========BEGIN SIMULATION=======================
 		//create a simulator
 		SynthesisSimulator syn = new SynthesisSimulator();
+		int simCycle = 100;
+		syn.setPath(propPath, modelPath, transPath, stratPath);
+		syn.simulatePlanning(simCycle, sp);
 		
-		//generate properties specification
 		
-		//generate model specification
 		
-		//simulate
 	}
 
 }
