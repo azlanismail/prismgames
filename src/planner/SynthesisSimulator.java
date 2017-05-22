@@ -10,6 +10,8 @@ public class SynthesisSimulator {
 	
 	Properties[] prop;
 	
+	PropertiesGenerator pg;
+	
 	public SynthesisSimulator() {
 		
 	}
@@ -39,9 +41,12 @@ public class SynthesisSimulator {
 		prop[i] = new Properties(i,nm,th,cp);
 	}
 	
+	public void generateProperties() {
+		pg = new PropertiesGenerator(prop);
+	}
+	
 	public void Simulation() {
-		//begin the simulation
-				
+		//begin the simulation per configuration	
 		for(int m=0; m < simCycle; m++) {
 			
 			//to store the time
@@ -62,7 +67,6 @@ public class SynthesisSimulator {
 			//Create a strategy extraction instance
 			StrategyExtraction se = new StrategyExtraction();
 			
-			String patName = null;
 			
 			//create the model and synthesize according to a pattern
 			
@@ -198,14 +202,22 @@ public class SynthesisSimulator {
 		
 		//create a simulator
 		SynthesisSimulator syn = new SynthesisSimulator();
+		
 		//set path
 		syn.setPath(propPath, modelPath, transPath, stratPath);
+		
 		//set requirements
 		syn.setNumObjective(4);
 		syn.setObjective(0, "cost", 90, "<");
 		syn.setObjective(1, "time", 1000, "<");
 		syn.setObjective(2, "reliability", 0.9, ">");
 		syn.setObjective(3, "availability", 0.9, ">");
+		
+		//generate properties specification
+		
+		//generate model specification
+		
+		//simulate
 	}
 
 }

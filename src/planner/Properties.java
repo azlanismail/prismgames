@@ -1,14 +1,18 @@
 package planner;
 
-public class Properties {
+public class Properties<T> {
 	int id;
 	String name;
-	double threshold;
+	String type;
+	T threshold;
 	String comparator;
 	
-	public Properties(int i, String nm, double th, String cp) {
+	public Properties() { }
+	
+	public void setProperties(int i, String nm, String ty, T th, String cp) {
 		id = i;
 		name = nm;
+		type = ty;
 		threshold = th;
 		comparator = cp;
 	}
