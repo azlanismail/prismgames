@@ -109,7 +109,7 @@ public class StrategyExtraction {
 	}
 	
 	/**
-	 * To read predefined action labels for single-strategies
+	 * To read potential action list from multiple nodes (such as service composition)
 	 * @throws IllegalArgumentException
 	 * @throws FileNotFoundException
 	 */
@@ -821,8 +821,8 @@ public class StrategyExtraction {
 					}
 				}
 			}	
-			if (found)
-				break;			
+		//	if (found)
+		//		break;			
 		}//end for substrategy 1
 		
 		if(!found)

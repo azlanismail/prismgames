@@ -11,484 +11,484 @@ endplayer
 //=========Resource Profiles=======
 const int MXN=8;
 const int n0rs0_id = 0;
-const double n0rs0_cost = 41.0;	//cost
-const double n0rs0_avail = 0.9979149407246144;	//avail
-const double n0rs0_rel = 0.9617311292102377;		//rel
-const int n0rs0_time = 48;		//time
+const double n0rs0_cost = 56.0;	//cost
+const double n0rs0_avail = 0.977524482555372;	//avail
+const double n0rs0_rel = 0.9772545455139044;		//rel
+const int n0rs0_time = 55;		//time
 
 const int n0rs1_id = 0;
-const double n0rs1_cost = 20.0;	//cost
-const double n0rs1_avail = 0.8515993521862997;	//avail
-const double n0rs1_rel = 0.8701666434960044;		//rel
-const int n0rs1_time = 15;		//time
+const double n0rs1_cost = 11.0;	//cost
+const double n0rs1_avail = 0.8504053832893219;	//avail
+const double n0rs1_rel = 0.826648748127817;		//rel
+const int n0rs1_time = 35;		//time
 
 const int n0rs2_id = 0;
-const double n0rs2_cost = 28.0;	//cost
-const double n0rs2_avail = 0.9785705017704533;	//avail
-const double n0rs2_rel = 0.8412723562299995;		//rel
-const int n0rs2_time = 24;		//time
+const double n0rs2_cost = 21.0;	//cost
+const double n0rs2_avail = 0.8101249124004392;	//avail
+const double n0rs2_rel = 0.9280451371496891;		//rel
+const int n0rs2_time = 47;		//time
 
 const int n0rs3_id = 0;
-const double n0rs3_cost = 16.0;	//cost
-const double n0rs3_avail = 0.9504387537453446;	//avail
-const double n0rs3_rel = 0.8885374606455748;		//rel
-const int n0rs3_time = 16;		//time
+const double n0rs3_cost = 46.0;	//cost
+const double n0rs3_avail = 0.8741372789000066;	//avail
+const double n0rs3_rel = 0.8891585453743637;		//rel
+const int n0rs3_time = 43;		//time
 
 const int n0rs4_id = 0;
-const double n0rs4_cost = 45.0;	//cost
-const double n0rs4_avail = 0.8624864984090198;	//avail
-const double n0rs4_rel = 0.9393917910258514;		//rel
-const int n0rs4_time = 52;		//time
+const double n0rs4_cost = 30.0;	//cost
+const double n0rs4_avail = 0.9800450802060644;	//avail
+const double n0rs4_rel = 0.8081368592005657;		//rel
+const int n0rs4_time = 14;		//time
 
 const int n0rs5_id = 0;
-const double n0rs5_cost = 31.0;	//cost
-const double n0rs5_avail = 0.9701994485025329;	//avail
-const double n0rs5_rel = 0.9838182784760579;		//rel
-const int n0rs5_time = 38;		//time
+const double n0rs5_cost = 11.0;	//cost
+const double n0rs5_avail = 0.8477540885589717;	//avail
+const double n0rs5_rel = 0.9730708969125814;		//rel
+const int n0rs5_time = 11;		//time
 
 const int n0rs6_id = 0;
-const double n0rs6_cost = 17.0;	//cost
-const double n0rs6_avail = 0.8262298086442575;	//avail
-const double n0rs6_rel = 0.9911642274651717;		//rel
-const int n0rs6_time = 33;		//time
+const double n0rs6_cost = 13.0;	//cost
+const double n0rs6_avail = 0.8784588484458147;	//avail
+const double n0rs6_rel = 0.8499689862415143;		//rel
+const int n0rs6_time = 40;		//time
 
 const int n0rs7_id = 0;
-const double n0rs7_cost = 48.0;	//cost
-const double n0rs7_avail = 0.8795916016287406;	//avail
-const double n0rs7_rel = 0.9434317193931467;		//rel
-const int n0rs7_time = 35;		//time
+const double n0rs7_cost = 24.0;	//cost
+const double n0rs7_avail = 0.8880789909683772;	//avail
+const double n0rs7_rel = 0.9096746357619586;		//rel
+const int n0rs7_time = 58;		//time
 
 const int n0rs8_id = 0;
-const double n0rs8_cost = 58.0;	//cost
-const double n0rs8_avail = 0.9787343585614311;	//avail
-const double n0rs8_rel = 0.9408458890663244;		//rel
-const int n0rs8_time = 17;		//time
+const double n0rs8_cost = 37.0;	//cost
+const double n0rs8_avail = 0.9851202336218565;	//avail
+const double n0rs8_rel = 0.848443504855632;		//rel
+const int n0rs8_time = 16;		//time
 
 const int n0rs9_id = 0;
-const double n0rs9_cost = 10.0;	//cost
-const double n0rs9_avail = 0.8969197604123957;	//avail
-const double n0rs9_rel = 0.9749679303344612;		//rel
-const int n0rs9_time = 14;		//time
+const double n0rs9_cost = 19.0;	//cost
+const double n0rs9_avail = 0.9183894589814937;	//avail
+const double n0rs9_rel = 0.8736487252884872;		//rel
+const int n0rs9_time = 54;		//time
 
 const int n1rs0_id = 1;
-const double n1rs0_cost = 25.0;	//cost
-const double n1rs0_avail = 0.9734810300338018;	//avail
-const double n1rs0_rel = 0.9061700301671306;		//rel
-const int n1rs0_time = 57;		//time
+const double n1rs0_cost = 23.0;	//cost
+const double n1rs0_avail = 0.9107621829721011;	//avail
+const double n1rs0_rel = 0.9963923139984311;		//rel
+const int n1rs0_time = 17;		//time
 
 const int n1rs1_id = 1;
-const double n1rs1_cost = 37.0;	//cost
-const double n1rs1_avail = 0.8127316687432936;	//avail
-const double n1rs1_rel = 0.8291391481629171;		//rel
-const int n1rs1_time = 55;		//time
+const double n1rs1_cost = 28.0;	//cost
+const double n1rs1_avail = 0.8796243161197972;	//avail
+const double n1rs1_rel = 0.9800855415013268;		//rel
+const int n1rs1_time = 38;		//time
 
 const int n1rs2_id = 1;
-const double n1rs2_cost = 22.0;	//cost
-const double n1rs2_avail = 0.8875670182227622;	//avail
-const double n1rs2_rel = 0.8807187152104503;		//rel
-const int n1rs2_time = 41;		//time
+const double n1rs2_cost = 33.0;	//cost
+const double n1rs2_avail = 0.9275030476661545;	//avail
+const double n1rs2_rel = 0.9594513235786443;		//rel
+const int n1rs2_time = 42;		//time
 
 const int n1rs3_id = 1;
-const double n1rs3_cost = 42.0;	//cost
-const double n1rs3_avail = 0.9222745697763948;	//avail
-const double n1rs3_rel = 0.8222711730870369;		//rel
+const double n1rs3_cost = 22.0;	//cost
+const double n1rs3_avail = 0.801641340212227;	//avail
+const double n1rs3_rel = 0.9844565035987453;		//rel
 const int n1rs3_time = 33;		//time
 
 const int n1rs4_id = 1;
-const double n1rs4_cost = 26.0;	//cost
-const double n1rs4_avail = 0.9483884831159886;	//avail
-const double n1rs4_rel = 0.8395418753747762;		//rel
-const int n1rs4_time = 53;		//time
+const double n1rs4_cost = 33.0;	//cost
+const double n1rs4_avail = 0.8586659834326172;	//avail
+const double n1rs4_rel = 0.9913062214207097;		//rel
+const int n1rs4_time = 25;		//time
 
 const int n1rs5_id = 1;
-const double n1rs5_cost = 58.0;	//cost
-const double n1rs5_avail = 0.9732971645985542;	//avail
-const double n1rs5_rel = 0.9985215872128713;		//rel
-const int n1rs5_time = 59;		//time
+const double n1rs5_cost = 17.0;	//cost
+const double n1rs5_avail = 0.9127165817123458;	//avail
+const double n1rs5_rel = 0.8856994567407585;		//rel
+const int n1rs5_time = 11;		//time
 
 const int n1rs6_id = 1;
-const double n1rs6_cost = 34.0;	//cost
-const double n1rs6_avail = 0.9749313606306643;	//avail
-const double n1rs6_rel = 0.8919886651116504;		//rel
-const int n1rs6_time = 26;		//time
+const double n1rs6_cost = 46.0;	//cost
+const double n1rs6_avail = 0.9344818829874272;	//avail
+const double n1rs6_rel = 0.8395188285485666;		//rel
+const int n1rs6_time = 13;		//time
 
 const int n1rs7_id = 1;
-const double n1rs7_cost = 41.0;	//cost
-const double n1rs7_avail = 0.9199015087995357;	//avail
-const double n1rs7_rel = 0.8470181122397554;		//rel
-const int n1rs7_time = 57;		//time
+const double n1rs7_cost = 33.0;	//cost
+const double n1rs7_avail = 0.9653307743284195;	//avail
+const double n1rs7_rel = 0.9207122134662947;		//rel
+const int n1rs7_time = 46;		//time
 
 const int n1rs8_id = 1;
-const double n1rs8_cost = 10.0;	//cost
-const double n1rs8_avail = 0.9810644255881009;	//avail
-const double n1rs8_rel = 0.9147520639269182;		//rel
-const int n1rs8_time = 41;		//time
+const double n1rs8_cost = 16.0;	//cost
+const double n1rs8_avail = 0.8039790557511224;	//avail
+const double n1rs8_rel = 0.8457201962626284;		//rel
+const int n1rs8_time = 43;		//time
 
 const int n1rs9_id = 1;
-const double n1rs9_cost = 46.0;	//cost
-const double n1rs9_avail = 0.8744163556842173;	//avail
-const double n1rs9_rel = 0.9674226118367433;		//rel
-const int n1rs9_time = 29;		//time
+const double n1rs9_cost = 50.0;	//cost
+const double n1rs9_avail = 0.9897729580342514;	//avail
+const double n1rs9_rel = 0.9713073832963514;		//rel
+const int n1rs9_time = 54;		//time
 
 const int n2rs0_id = 2;
-const double n2rs0_cost = 32.0;	//cost
-const double n2rs0_avail = 0.930920577047271;	//avail
-const double n2rs0_rel = 0.9390066383943291;		//rel
-const int n2rs0_time = 56;		//time
+const double n2rs0_cost = 45.0;	//cost
+const double n2rs0_avail = 0.8167827574620061;	//avail
+const double n2rs0_rel = 0.9598754513186406;		//rel
+const int n2rs0_time = 45;		//time
 
 const int n2rs1_id = 2;
-const double n2rs1_cost = 47.0;	//cost
-const double n2rs1_avail = 0.9894834179135406;	//avail
-const double n2rs1_rel = 0.9678352212340005;		//rel
-const int n2rs1_time = 36;		//time
+const double n2rs1_cost = 14.0;	//cost
+const double n2rs1_avail = 0.9184641463668011;	//avail
+const double n2rs1_rel = 0.8760646423408398;		//rel
+const int n2rs1_time = 20;		//time
 
 const int n2rs2_id = 2;
-const double n2rs2_cost = 13.0;	//cost
-const double n2rs2_avail = 0.8814755742492606;	//avail
-const double n2rs2_rel = 0.8967183472478352;		//rel
-const int n2rs2_time = 31;		//time
+const double n2rs2_cost = 16.0;	//cost
+const double n2rs2_avail = 0.8017503799425295;	//avail
+const double n2rs2_rel = 0.908968152951425;		//rel
+const int n2rs2_time = 26;		//time
 
 const int n2rs3_id = 2;
-const double n2rs3_cost = 41.0;	//cost
-const double n2rs3_avail = 0.901447013654587;	//avail
-const double n2rs3_rel = 0.812123455591348;		//rel
-const int n2rs3_time = 20;		//time
+const double n2rs3_cost = 36.0;	//cost
+const double n2rs3_avail = 0.8017978285909794;	//avail
+const double n2rs3_rel = 0.9528295200188208;		//rel
+const int n2rs3_time = 23;		//time
 
 const int n2rs4_id = 2;
-const double n2rs4_cost = 50.0;	//cost
-const double n2rs4_avail = 0.9567025513482406;	//avail
-const double n2rs4_rel = 0.8380755119300981;		//rel
-const int n2rs4_time = 50;		//time
+const double n2rs4_cost = 38.0;	//cost
+const double n2rs4_avail = 0.9319238058245053;	//avail
+const double n2rs4_rel = 0.8625768405949431;		//rel
+const int n2rs4_time = 46;		//time
 
 const int n2rs5_id = 2;
-const double n2rs5_cost = 11.0;	//cost
-const double n2rs5_avail = 0.9903174502660428;	//avail
-const double n2rs5_rel = 0.8122317275391647;		//rel
-const int n2rs5_time = 18;		//time
+const double n2rs5_cost = 28.0;	//cost
+const double n2rs5_avail = 0.8437166362181855;	//avail
+const double n2rs5_rel = 0.9555464908015985;		//rel
+const int n2rs5_time = 51;		//time
 
 const int n2rs6_id = 2;
-const double n2rs6_cost = 20.0;	//cost
-const double n2rs6_avail = 0.8049840354666845;	//avail
-const double n2rs6_rel = 0.996758163024456;		//rel
-const int n2rs6_time = 33;		//time
+const double n2rs6_cost = 23.0;	//cost
+const double n2rs6_avail = 0.9961344547762933;	//avail
+const double n2rs6_rel = 0.8825558232885111;		//rel
+const int n2rs6_time = 59;		//time
 
 const int n2rs7_id = 2;
-const double n2rs7_cost = 13.0;	//cost
-const double n2rs7_avail = 0.8245156248597448;	//avail
-const double n2rs7_rel = 0.8092117053475333;		//rel
-const int n2rs7_time = 28;		//time
+const double n2rs7_cost = 19.0;	//cost
+const double n2rs7_avail = 0.9895787918073831;	//avail
+const double n2rs7_rel = 0.8837500384285302;		//rel
+const int n2rs7_time = 59;		//time
 
 const int n2rs8_id = 2;
-const double n2rs8_cost = 37.0;	//cost
-const double n2rs8_avail = 0.8524657699712737;	//avail
-const double n2rs8_rel = 0.8315310259729451;		//rel
-const int n2rs8_time = 43;		//time
+const double n2rs8_cost = 48.0;	//cost
+const double n2rs8_avail = 0.9250692417894057;	//avail
+const double n2rs8_rel = 0.8268944906873499;		//rel
+const int n2rs8_time = 53;		//time
 
 const int n2rs9_id = 2;
-const double n2rs9_cost = 45.0;	//cost
-const double n2rs9_avail = 0.9706524106164923;	//avail
-const double n2rs9_rel = 0.9009023365137125;		//rel
-const int n2rs9_time = 39;		//time
+const double n2rs9_cost = 46.0;	//cost
+const double n2rs9_avail = 0.901871720413785;	//avail
+const double n2rs9_rel = 0.9658152578106574;		//rel
+const int n2rs9_time = 18;		//time
 
 const int n3rs0_id = 3;
-const double n3rs0_cost = 39.0;	//cost
-const double n3rs0_avail = 0.9072766819463524;	//avail
-const double n3rs0_rel = 0.937388789318892;		//rel
-const int n3rs0_time = 16;		//time
+const double n3rs0_cost = 23.0;	//cost
+const double n3rs0_avail = 0.9313923134764225;	//avail
+const double n3rs0_rel = 0.9786968038711276;		//rel
+const int n3rs0_time = 55;		//time
 
 const int n3rs1_id = 3;
-const double n3rs1_cost = 12.0;	//cost
-const double n3rs1_avail = 0.966977920424341;	//avail
-const double n3rs1_rel = 0.8725441199590092;		//rel
-const int n3rs1_time = 18;		//time
+const double n3rs1_cost = 23.0;	//cost
+const double n3rs1_avail = 0.9471359771373487;	//avail
+const double n3rs1_rel = 0.8888097354195169;		//rel
+const int n3rs1_time = 22;		//time
 
 const int n3rs2_id = 3;
-const double n3rs2_cost = 45.0;	//cost
-const double n3rs2_avail = 0.9424312480750389;	//avail
-const double n3rs2_rel = 0.8700541525107925;		//rel
-const int n3rs2_time = 57;		//time
+const double n3rs2_cost = 39.0;	//cost
+const double n3rs2_avail = 0.9166883641406469;	//avail
+const double n3rs2_rel = 0.9043533197205557;		//rel
+const int n3rs2_time = 20;		//time
 
 const int n3rs3_id = 3;
-const double n3rs3_cost = 57.0;	//cost
-const double n3rs3_avail = 0.9379541116751099;	//avail
-const double n3rs3_rel = 0.859174822379561;		//rel
-const int n3rs3_time = 47;		//time
+const double n3rs3_cost = 45.0;	//cost
+const double n3rs3_avail = 0.9105788355443841;	//avail
+const double n3rs3_rel = 0.8486865221389095;		//rel
+const int n3rs3_time = 37;		//time
 
 const int n3rs4_id = 3;
-const double n3rs4_cost = 29.0;	//cost
-const double n3rs4_avail = 0.8100636494715799;	//avail
-const double n3rs4_rel = 0.9337544446532305;		//rel
-const int n3rs4_time = 35;		//time
+const double n3rs4_cost = 10.0;	//cost
+const double n3rs4_avail = 0.9289938401009136;	//avail
+const double n3rs4_rel = 0.8090047022713934;		//rel
+const int n3rs4_time = 20;		//time
 
 const int n3rs5_id = 3;
-const double n3rs5_cost = 53.0;	//cost
-const double n3rs5_avail = 0.9176365057618152;	//avail
-const double n3rs5_rel = 0.8273365986515031;		//rel
-const int n3rs5_time = 24;		//time
+const double n3rs5_cost = 58.0;	//cost
+const double n3rs5_avail = 0.9581656307383686;	//avail
+const double n3rs5_rel = 0.9541839001082892;		//rel
+const int n3rs5_time = 34;		//time
 
 const int n3rs6_id = 3;
-const double n3rs6_cost = 15.0;	//cost
-const double n3rs6_avail = 0.8595807392337143;	//avail
-const double n3rs6_rel = 0.8604843083125584;		//rel
-const int n3rs6_time = 43;		//time
+const double n3rs6_cost = 11.0;	//cost
+const double n3rs6_avail = 0.9893327871355246;	//avail
+const double n3rs6_rel = 0.9853261530480422;		//rel
+const int n3rs6_time = 26;		//time
 
 const int n3rs7_id = 3;
-const double n3rs7_cost = 37.0;	//cost
-const double n3rs7_avail = 0.9490478151953341;	//avail
-const double n3rs7_rel = 0.8922173972946971;		//rel
-const int n3rs7_time = 22;		//time
+const double n3rs7_cost = 56.0;	//cost
+const double n3rs7_avail = 0.9187364959023446;	//avail
+const double n3rs7_rel = 0.905097152960324;		//rel
+const int n3rs7_time = 50;		//time
 
 const int n3rs8_id = 3;
-const double n3rs8_cost = 58.0;	//cost
-const double n3rs8_avail = 0.8624030499843887;	//avail
-const double n3rs8_rel = 0.8728753788208452;		//rel
-const int n3rs8_time = 21;		//time
+const double n3rs8_cost = 59.0;	//cost
+const double n3rs8_avail = 0.8691697042401243;	//avail
+const double n3rs8_rel = 0.8608792759199593;		//rel
+const int n3rs8_time = 58;		//time
 
 const int n3rs9_id = 3;
 const double n3rs9_cost = 18.0;	//cost
-const double n3rs9_avail = 0.8302152829043159;	//avail
-const double n3rs9_rel = 0.990515751717935;		//rel
-const int n3rs9_time = 28;		//time
+const double n3rs9_avail = 0.9845392605252267;	//avail
+const double n3rs9_rel = 0.9588804029963804;		//rel
+const int n3rs9_time = 47;		//time
 
 const int n4rs0_id = 4;
-const double n4rs0_cost = 24.0;	//cost
-const double n4rs0_avail = 0.9231028517882172;	//avail
-const double n4rs0_rel = 0.9326917764881266;		//rel
-const int n4rs0_time = 27;		//time
+const double n4rs0_cost = 37.0;	//cost
+const double n4rs0_avail = 0.9276029415882318;	//avail
+const double n4rs0_rel = 0.8915393355187642;		//rel
+const int n4rs0_time = 41;		//time
 
 const int n4rs1_id = 4;
-const double n4rs1_cost = 14.0;	//cost
-const double n4rs1_avail = 0.9266257669569882;	//avail
-const double n4rs1_rel = 0.9865974174141398;		//rel
-const int n4rs1_time = 33;		//time
+const double n4rs1_cost = 27.0;	//cost
+const double n4rs1_avail = 0.885503596482196;	//avail
+const double n4rs1_rel = 0.8365186074633484;		//rel
+const int n4rs1_time = 21;		//time
 
 const int n4rs2_id = 4;
-const double n4rs2_cost = 56.0;	//cost
-const double n4rs2_avail = 0.9897357221238653;	//avail
-const double n4rs2_rel = 0.9900780837304572;		//rel
-const int n4rs2_time = 54;		//time
+const double n4rs2_cost = 59.0;	//cost
+const double n4rs2_avail = 0.9013941840728116;	//avail
+const double n4rs2_rel = 0.8599447068028084;		//rel
+const int n4rs2_time = 12;		//time
 
 const int n4rs3_id = 4;
-const double n4rs3_cost = 43.0;	//cost
-const double n4rs3_avail = 0.9030044928475278;	//avail
-const double n4rs3_rel = 0.9993182203437965;		//rel
-const int n4rs3_time = 43;		//time
+const double n4rs3_cost = 40.0;	//cost
+const double n4rs3_avail = 0.9229898934550135;	//avail
+const double n4rs3_rel = 0.8463510539293663;		//rel
+const int n4rs3_time = 36;		//time
 
 const int n4rs4_id = 4;
-const double n4rs4_cost = 12.0;	//cost
-const double n4rs4_avail = 0.9956603721704786;	//avail
-const double n4rs4_rel = 0.8691066721940152;		//rel
-const int n4rs4_time = 40;		//time
+const double n4rs4_cost = 26.0;	//cost
+const double n4rs4_avail = 0.8858827209263131;	//avail
+const double n4rs4_rel = 0.8890390403559938;		//rel
+const int n4rs4_time = 37;		//time
 
 const int n4rs5_id = 4;
-const double n4rs5_cost = 14.0;	//cost
-const double n4rs5_avail = 0.9298969020533346;	//avail
-const double n4rs5_rel = 0.8705096099171401;		//rel
-const int n4rs5_time = 20;		//time
+const double n4rs5_cost = 48.0;	//cost
+const double n4rs5_avail = 0.8293869353276406;	//avail
+const double n4rs5_rel = 0.8294734966942283;		//rel
+const int n4rs5_time = 34;		//time
 
 const int n4rs6_id = 4;
-const double n4rs6_cost = 49.0;	//cost
-const double n4rs6_avail = 0.8736902561553079;	//avail
-const double n4rs6_rel = 0.9538798428908933;		//rel
-const int n4rs6_time = 25;		//time
+const double n4rs6_cost = 16.0;	//cost
+const double n4rs6_avail = 0.9131628222179704;	//avail
+const double n4rs6_rel = 0.9264684428909695;		//rel
+const int n4rs6_time = 36;		//time
 
 const int n4rs7_id = 4;
-const double n4rs7_cost = 28.0;	//cost
-const double n4rs7_avail = 0.974754295994584;	//avail
-const double n4rs7_rel = 0.9467253179388417;		//rel
-const int n4rs7_time = 48;		//time
+const double n4rs7_cost = 50.0;	//cost
+const double n4rs7_avail = 0.8119374128324454;	//avail
+const double n4rs7_rel = 0.9683168493844491;		//rel
+const int n4rs7_time = 13;		//time
 
 const int n4rs8_id = 4;
-const double n4rs8_cost = 22.0;	//cost
-const double n4rs8_avail = 0.9054336321758302;	//avail
-const double n4rs8_rel = 0.8242910314134292;		//rel
-const int n4rs8_time = 51;		//time
+const double n4rs8_cost = 48.0;	//cost
+const double n4rs8_avail = 0.9976789214489981;	//avail
+const double n4rs8_rel = 0.8851131759934902;		//rel
+const int n4rs8_time = 56;		//time
 
 const int n4rs9_id = 4;
-const double n4rs9_cost = 49.0;	//cost
-const double n4rs9_avail = 0.822194900213308;	//avail
-const double n4rs9_rel = 0.8784684045931095;		//rel
-const int n4rs9_time = 55;		//time
+const double n4rs9_cost = 53.0;	//cost
+const double n4rs9_avail = 0.8380481831932781;	//avail
+const double n4rs9_rel = 0.826191229984165;		//rel
+const int n4rs9_time = 42;		//time
 
 const int n5rs0_id = 5;
-const double n5rs0_cost = 48.0;	//cost
-const double n5rs0_avail = 0.9004451884668265;	//avail
-const double n5rs0_rel = 0.8762648517296822;		//rel
-const int n5rs0_time = 18;		//time
+const double n5rs0_cost = 32.0;	//cost
+const double n5rs0_avail = 0.8100618155038962;	//avail
+const double n5rs0_rel = 0.8120094769328404;		//rel
+const int n5rs0_time = 32;		//time
 
 const int n5rs1_id = 5;
-const double n5rs1_cost = 12.0;	//cost
-const double n5rs1_avail = 0.9098087911691195;	//avail
-const double n5rs1_rel = 0.8426723152827792;		//rel
-const int n5rs1_time = 18;		//time
+const double n5rs1_cost = 53.0;	//cost
+const double n5rs1_avail = 0.9049751377308954;	//avail
+const double n5rs1_rel = 0.9845657215525664;		//rel
+const int n5rs1_time = 26;		//time
 
 const int n5rs2_id = 5;
-const double n5rs2_cost = 16.0;	//cost
-const double n5rs2_avail = 0.959496320173707;	//avail
-const double n5rs2_rel = 0.9394794489438054;		//rel
+const double n5rs2_cost = 19.0;	//cost
+const double n5rs2_avail = 0.8984099820702511;	//avail
+const double n5rs2_rel = 0.9103590199085082;		//rel
 const int n5rs2_time = 39;		//time
 
 const int n5rs3_id = 5;
-const double n5rs3_cost = 28.0;	//cost
-const double n5rs3_avail = 0.9871498476656426;	//avail
-const double n5rs3_rel = 0.9234856641619618;		//rel
-const int n5rs3_time = 13;		//time
+const double n5rs3_cost = 43.0;	//cost
+const double n5rs3_avail = 0.8234189712260828;	//avail
+const double n5rs3_rel = 0.9605714537727771;		//rel
+const int n5rs3_time = 55;		//time
 
 const int n5rs4_id = 5;
 const double n5rs4_cost = 26.0;	//cost
-const double n5rs4_avail = 0.9539118157692669;	//avail
-const double n5rs4_rel = 0.964703227818909;		//rel
-const int n5rs4_time = 20;		//time
+const double n5rs4_avail = 0.8025086975977678;	//avail
+const double n5rs4_rel = 0.8496150301289105;		//rel
+const int n5rs4_time = 46;		//time
 
 const int n5rs5_id = 5;
-const double n5rs5_cost = 53.0;	//cost
-const double n5rs5_avail = 0.9761365038543091;	//avail
-const double n5rs5_rel = 0.8240729912435009;		//rel
-const int n5rs5_time = 36;		//time
+const double n5rs5_cost = 51.0;	//cost
+const double n5rs5_avail = 0.9308601975331723;	//avail
+const double n5rs5_rel = 0.8729891081644514;		//rel
+const int n5rs5_time = 30;		//time
 
 const int n5rs6_id = 5;
-const double n5rs6_cost = 19.0;	//cost
-const double n5rs6_avail = 0.960431654092863;	//avail
-const double n5rs6_rel = 0.8283029773029011;		//rel
-const int n5rs6_time = 55;		//time
+const double n5rs6_cost = 53.0;	//cost
+const double n5rs6_avail = 0.910246293147995;	//avail
+const double n5rs6_rel = 0.8935321372580534;		//rel
+const int n5rs6_time = 57;		//time
 
 const int n5rs7_id = 5;
-const double n5rs7_cost = 28.0;	//cost
-const double n5rs7_avail = 0.9475677228773837;	//avail
-const double n5rs7_rel = 0.9807316402982764;		//rel
-const int n5rs7_time = 28;		//time
+const double n5rs7_cost = 10.0;	//cost
+const double n5rs7_avail = 0.869408059513538;	//avail
+const double n5rs7_rel = 0.8935068665196675;		//rel
+const int n5rs7_time = 14;		//time
 
 const int n5rs8_id = 5;
-const double n5rs8_cost = 30.0;	//cost
-const double n5rs8_avail = 0.9122275635933988;	//avail
-const double n5rs8_rel = 0.9254283217117703;		//rel
-const int n5rs8_time = 29;		//time
+const double n5rs8_cost = 57.0;	//cost
+const double n5rs8_avail = 0.9556768373866477;	//avail
+const double n5rs8_rel = 0.9667051550207022;		//rel
+const int n5rs8_time = 19;		//time
 
 const int n5rs9_id = 5;
-const double n5rs9_cost = 34.0;	//cost
-const double n5rs9_avail = 0.9443273960024238;	//avail
-const double n5rs9_rel = 0.9845519241347691;		//rel
-const int n5rs9_time = 43;		//time
+const double n5rs9_cost = 33.0;	//cost
+const double n5rs9_avail = 0.8319205351429874;	//avail
+const double n5rs9_rel = 0.9933815628605758;		//rel
+const int n5rs9_time = 45;		//time
 
 const int n6rs0_id = 6;
-const double n6rs0_cost = 51.0;	//cost
-const double n6rs0_avail = 0.8671985063697059;	//avail
-const double n6rs0_rel = 0.9749498400672261;		//rel
-const int n6rs0_time = 21;		//time
+const double n6rs0_cost = 47.0;	//cost
+const double n6rs0_avail = 0.8331122013586887;	//avail
+const double n6rs0_rel = 0.8120073606921759;		//rel
+const int n6rs0_time = 10;		//time
 
 const int n6rs1_id = 6;
-const double n6rs1_cost = 57.0;	//cost
-const double n6rs1_avail = 0.8374511140823144;	//avail
-const double n6rs1_rel = 0.8314034327003644;		//rel
-const int n6rs1_time = 45;		//time
+const double n6rs1_cost = 24.0;	//cost
+const double n6rs1_avail = 0.8509297683783821;	//avail
+const double n6rs1_rel = 0.8552496031173025;		//rel
+const int n6rs1_time = 11;		//time
 
 const int n6rs2_id = 6;
-const double n6rs2_cost = 41.0;	//cost
-const double n6rs2_avail = 0.8320265079747851;	//avail
-const double n6rs2_rel = 0.8144017132835198;		//rel
-const int n6rs2_time = 34;		//time
+const double n6rs2_cost = 46.0;	//cost
+const double n6rs2_avail = 0.8389989738695428;	//avail
+const double n6rs2_rel = 0.9943549073725966;		//rel
+const int n6rs2_time = 53;		//time
 
 const int n6rs3_id = 6;
-const double n6rs3_cost = 22.0;	//cost
-const double n6rs3_avail = 0.9537905358015342;	//avail
-const double n6rs3_rel = 0.9863783181614366;		//rel
-const int n6rs3_time = 47;		//time
+const double n6rs3_cost = 57.0;	//cost
+const double n6rs3_avail = 0.8136117303578638;	//avail
+const double n6rs3_rel = 0.9565353158108385;		//rel
+const int n6rs3_time = 54;		//time
 
 const int n6rs4_id = 6;
-const double n6rs4_cost = 30.0;	//cost
-const double n6rs4_avail = 0.8141085283583802;	//avail
-const double n6rs4_rel = 0.8448057873724294;		//rel
-const int n6rs4_time = 50;		//time
+const double n6rs4_cost = 44.0;	//cost
+const double n6rs4_avail = 0.9002176389616943;	//avail
+const double n6rs4_rel = 0.8446279409312958;		//rel
+const int n6rs4_time = 28;		//time
 
 const int n6rs5_id = 6;
-const double n6rs5_cost = 42.0;	//cost
-const double n6rs5_avail = 0.8676335677017191;	//avail
-const double n6rs5_rel = 0.9040019928658263;		//rel
-const int n6rs5_time = 54;		//time
+const double n6rs5_cost = 29.0;	//cost
+const double n6rs5_avail = 0.9031782714252774;	//avail
+const double n6rs5_rel = 0.9948884937806388;		//rel
+const int n6rs5_time = 42;		//time
 
 const int n6rs6_id = 6;
-const double n6rs6_cost = 22.0;	//cost
-const double n6rs6_avail = 0.8746801446644251;	//avail
-const double n6rs6_rel = 0.8130594809279067;		//rel
-const int n6rs6_time = 55;		//time
+const double n6rs6_cost = 44.0;	//cost
+const double n6rs6_avail = 0.8102778662832586;	//avail
+const double n6rs6_rel = 0.9600041493405225;		//rel
+const int n6rs6_time = 54;		//time
 
 const int n6rs7_id = 6;
-const double n6rs7_cost = 19.0;	//cost
-const double n6rs7_avail = 0.9043006476371231;	//avail
-const double n6rs7_rel = 0.9524469193901323;		//rel
-const int n6rs7_time = 45;		//time
+const double n6rs7_cost = 11.0;	//cost
+const double n6rs7_avail = 0.8475270198874466;	//avail
+const double n6rs7_rel = 0.876919656048857;		//rel
+const int n6rs7_time = 41;		//time
 
 const int n6rs8_id = 6;
-const double n6rs8_cost = 38.0;	//cost
-const double n6rs8_avail = 0.818376873913027;	//avail
-const double n6rs8_rel = 0.9601557755877191;		//rel
-const int n6rs8_time = 45;		//time
+const double n6rs8_cost = 43.0;	//cost
+const double n6rs8_avail = 0.889495060151324;	//avail
+const double n6rs8_rel = 0.9664143629686749;		//rel
+const int n6rs8_time = 36;		//time
 
 const int n6rs9_id = 6;
-const double n6rs9_cost = 43.0;	//cost
-const double n6rs9_avail = 0.8092890148505928;	//avail
-const double n6rs9_rel = 0.8824450355255605;		//rel
-const int n6rs9_time = 28;		//time
+const double n6rs9_cost = 47.0;	//cost
+const double n6rs9_avail = 0.8890176397170739;	//avail
+const double n6rs9_rel = 0.9481369813037427;		//rel
+const int n6rs9_time = 21;		//time
 
 const int n7rs0_id = 7;
-const double n7rs0_cost = 17.0;	//cost
-const double n7rs0_avail = 0.8421780980033104;	//avail
-const double n7rs0_rel = 0.9803472133220477;		//rel
-const int n7rs0_time = 49;		//time
+const double n7rs0_cost = 55.0;	//cost
+const double n7rs0_avail = 0.8868149804085239;	//avail
+const double n7rs0_rel = 0.8726952977111301;		//rel
+const int n7rs0_time = 57;		//time
 
 const int n7rs1_id = 7;
-const double n7rs1_cost = 42.0;	//cost
-const double n7rs1_avail = 0.8367057298779613;	//avail
-const double n7rs1_rel = 0.9152529000936461;		//rel
-const int n7rs1_time = 54;		//time
+const double n7rs1_cost = 23.0;	//cost
+const double n7rs1_avail = 0.8484844002465635;	//avail
+const double n7rs1_rel = 0.8327426743536502;		//rel
+const int n7rs1_time = 42;		//time
 
 const int n7rs2_id = 7;
-const double n7rs2_cost = 17.0;	//cost
-const double n7rs2_avail = 0.9670608464522501;	//avail
-const double n7rs2_rel = 0.939817916030073;		//rel
-const int n7rs2_time = 19;		//time
+const double n7rs2_cost = 28.0;	//cost
+const double n7rs2_avail = 0.8340752980335381;	//avail
+const double n7rs2_rel = 0.9060495008140116;		//rel
+const int n7rs2_time = 55;		//time
 
 const int n7rs3_id = 7;
-const double n7rs3_cost = 51.0;	//cost
-const double n7rs3_avail = 0.8971168638797004;	//avail
-const double n7rs3_rel = 0.9264200615634054;		//rel
-const int n7rs3_time = 34;		//time
+const double n7rs3_cost = 55.0;	//cost
+const double n7rs3_avail = 0.8500527884253584;	//avail
+const double n7rs3_rel = 0.9645145785385628;		//rel
+const int n7rs3_time = 50;		//time
 
 const int n7rs4_id = 7;
-const double n7rs4_cost = 29.0;	//cost
-const double n7rs4_avail = 0.9475449948584038;	//avail
-const double n7rs4_rel = 0.8007155080144526;		//rel
-const int n7rs4_time = 34;		//time
+const double n7rs4_cost = 13.0;	//cost
+const double n7rs4_avail = 0.8921008631198236;	//avail
+const double n7rs4_rel = 0.9007597165020251;		//rel
+const int n7rs4_time = 59;		//time
 
 const int n7rs5_id = 7;
-const double n7rs5_cost = 40.0;	//cost
-const double n7rs5_avail = 0.8660221416557525;	//avail
-const double n7rs5_rel = 0.9226594924269285;		//rel
-const int n7rs5_time = 54;		//time
+const double n7rs5_cost = 46.0;	//cost
+const double n7rs5_avail = 0.9933848487965451;	//avail
+const double n7rs5_rel = 0.8214508477127185;		//rel
+const int n7rs5_time = 48;		//time
 
 const int n7rs6_id = 7;
-const double n7rs6_cost = 50.0;	//cost
-const double n7rs6_avail = 0.9783021305195738;	//avail
-const double n7rs6_rel = 0.9416195609705967;		//rel
-const int n7rs6_time = 52;		//time
+const double n7rs6_cost = 56.0;	//cost
+const double n7rs6_avail = 0.845443648836705;	//avail
+const double n7rs6_rel = 0.9372522194459403;		//rel
+const int n7rs6_time = 46;		//time
 
 const int n7rs7_id = 7;
-const double n7rs7_cost = 27.0;	//cost
-const double n7rs7_avail = 0.8252922972057088;	//avail
-const double n7rs7_rel = 0.8691079331611344;		//rel
-const int n7rs7_time = 55;		//time
+const double n7rs7_cost = 55.0;	//cost
+const double n7rs7_avail = 0.9333918151697868;	//avail
+const double n7rs7_rel = 0.8836374248650065;		//rel
+const int n7rs7_time = 56;		//time
 
 const int n7rs8_id = 7;
-const double n7rs8_cost = 39.0;	//cost
-const double n7rs8_avail = 0.9456662990641823;	//avail
-const double n7rs8_rel = 0.9096615184464493;		//rel
-const int n7rs8_time = 37;		//time
+const double n7rs8_cost = 37.0;	//cost
+const double n7rs8_avail = 0.8214937633548435;	//avail
+const double n7rs8_rel = 0.8014436538530721;		//rel
+const int n7rs8_time = 47;		//time
 
 const int n7rs9_id = 7;
-const double n7rs9_cost = 12.0;	//cost
-const double n7rs9_avail = 0.9233074592130956;	//avail
-const double n7rs9_rel = 0.9668583059983552;		//rel
-const int n7rs9_time = 13;		//time
+const double n7rs9_cost = 32.0;	//cost
+const double n7rs9_avail = 0.865356040874432;	//avail
+const double n7rs9_rel = 0.9817296478548636;		//rel
+const int n7rs9_time = 32;		//time
 
 
 //=========Global Parameters=======

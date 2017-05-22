@@ -11,7 +11,7 @@ import parser.Values;
 
 public class ModelGenerator {
 
-	PrintWriter pw, pp, ac;
+	PrintWriter pw, pp, pa;
 	
 	//for assigning constant parameters
 	Values vm, vp;
@@ -332,25 +332,25 @@ public class ModelGenerator {
 		return this.rel;
 	}
 	
-	public void exportActionLabels(String path) { 
+	public void exportActionList(String path) { 
 		
 		try {
-			ac = new PrintWriter(new File(path));
+			pa = new PrintWriter(new File(path));
 		}
 		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ac.println("Decision "+this.numNode);
+		pa.println("Decision "+this.numNode);
 		for(int n=0; n < numNode; n++) {
-			ac.println("Node "+n);
+			pa.println("Node "+n);
 			for(int i=0; i < maxActionP1; i++) {
-				ac.println("n"+n+"r"+i);
+				pa.println("n"+n+"r"+i);
 			}
-			ac.println("EndNode");
+			pa.println("EndNode");
 		}
-		ac.println("Complete");
-		ac.close();
+		pa.println("Complete");
+		pa.close();
 	}
 	
 		

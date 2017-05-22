@@ -1,5 +1,8 @@
 package planner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Random;
 
 import parser.Values;
@@ -96,6 +99,21 @@ public class AdaptationModelGenerator extends ModelGenerator{
 				vm.addValue(this.relParams[i][j], this.rel[i][j]);
 			}
 		}
+	}
+	
+	public void exportActionList(String path) { 
+		
+		try {
+			pa = new PrintWriter(new File(path));
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int i=0; i < maxActionP1; i++) {
+   	 		pa.println("r"+i);
+		}
+		pa.close();
 	}
 	
 	/**
@@ -247,6 +265,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	public static void main(String args[]) {
     //=========MODEL CREATION============================
 		String modelPath = "/home/azlan/git/PrismGames/Prismfiles/appDeployModel.prism";
+		String actionListPath = "/home/azlan/git/PrismGames/IOFiles/actionList.txt";
 		
 		//Create a model generator instance
 		AdaptationModelGenerator mdg = new AdaptationModelGenerator();
@@ -267,6 +286,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		mdg.setQualityParamswithValues();
 		mdg.setModelPath(modelPath);										
 		mdg.encodeSGModelforAppDeployment();
+		mdg.exportActionList(actionListPath);
 		
 		System.out.println("done");
 	}

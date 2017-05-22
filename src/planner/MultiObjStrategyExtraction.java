@@ -1,34 +1,39 @@
 package planner;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class MultiObjStrategyExtraction extends StrategyExtraction{
 
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//set the output paths
 		String transPath = "/home/azlan/git/PrismGames/IOFiles/trans.txt";
 		String stratPath = "/home/azlan/git/PrismGames/IOFiles/strat.txt";
+		String actionPath = "/home/azlan/git/PrismGames/IOFiles/actionList.txt";
 			
 		MultiObjStrategyExtraction se = new MultiObjStrategyExtraction();
 		//=================================
 		//extraction
 		
-		//if the synthesis results in true -> sp.getSynthesisStatus() 
-		if (true) {
-			System.out.println("Extracting strategies...");
-			se.setPath(transPath, stratPath);
-			se.setNumofDecision(1); //to control the searching for solution, simply set to one
-			se.setActionLabels(mdg.getActionLabels());
-			se.readTransitionFile();
-			se.readStrategiesProfile(v);	//based on evaluation method	
-			se.findSolutions();
-			selServ = se.getSolution();
-			for (int n=0; n < selServ.length; n++) {
-				System.out.println("Decision node: "+n+", solution :"+selServ[n]);
-			}
+		boolean status = true;
+		
+		if (status) {
+		System.out.println("Extracting strategies...");
+		se.setPath(transPath, stratPath, actionPath);
+		se.readSingleActionLabelFile();
+		se.readTransitionFile();
+		se.readStrategiesfromMultiObjSynthesis();	
+		se.findSingleDecision();
 		}
 		else
-			System.out.println("Synthesis results in false.....");
-		//===============================		
+			System.out.println("No decision since synthesis results in false");
+
 	}
 
 }
