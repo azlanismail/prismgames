@@ -68,38 +68,39 @@ module moduleNode
 [n0rs1] (t=TE) & (node=0) -> n0rs1_rel: (t'=TP) & (rs0'=1) & (goal'=true) + 1-n0rs1_rel: (t'=TP) & (goal'=false);
 
 [n1rs0] (t=TE) & (node=1) -> n1rs0_rel: (t'=TP) & (rs1'=0) & (goal'=true) + 1-n1rs0_rel: (t'=TP) & (goal'=false);
-[n1rs1] (t=TE) & (node=1) -> n1rs1_rel: (t'=TP) & (rs1'=0) & (goal'=true) + 1-n1rs1_rel: (t'=TP) & (goal'=false);
-[n1rs2] (t=TE) & (node=1) -> n1rs2_rel: (t'=TP) & (rs1'=0) & (goal'=true) + 1-n1rs2_rel: (t'=TP) & (goal'=false);
+[n1rs1] (t=TE) & (node=1) -> n1rs1_rel: (t'=TP) & (rs1'=1) & (goal'=true) + 1-n1rs1_rel: (t'=TP) & (goal'=false);
+[n1rs2] (t=TE) & (node=1) -> n1rs2_rel: (t'=TP) & (rs1'=2) & (goal'=true) + 1-n1rs2_rel: (t'=TP) & (goal'=false);
 endmodule
 
 
 //========Formula================
-//formula q_cost = ( rs0 = 0 ? n0rs0_cost :
-//		rs0 = 0 ? n0rs0_cost :
-//rs0 = 0 ? n0rs0_cost :
-//rs0 = 0 ? n0rs0_cost :
-//rs0 = 0 ? n0rs0_cost : 	 
-//                  
+formula qrs0_cost = ( rs0 = 0 ? n0rs0_cost :
+	  	    ( rs0 = 1 ? n0rs0_cost : -1 ));
 
+formula qrs1_cost = ( rs1 = 0 ? n0rs0_cost :
+	  	    ( rs1 = 1 ? n0rs0_cost :
+		    ( rs1 = 2 ? n0rs0_cost : -1 )));
+
+formula qrs_cost = ( qrs0_cost < 0 ? qrs0_cost : qrs1_cost);
+
+
+formula qrs0_time = ( rs0 = 0 ? n0rs0_time :
+	  	    ( rs0 = 1 ? n0rs0_time : -1 ));
+
+formula qrs1_time = ( rs1 = 0 ? n0rs0_time :
+	  	    ( rs1 = 1 ? n0rs0_time :
+		    ( rs1 = 2 ? n0rs0_time : -1 )));
+
+formula qrs_time = ( qrs0_time < 0 ? qrs0_time : qrs1_time);
 
 //=========Reward Structure=======
 rewards "rw_cost"
-[n0rs0] true : n0rs0_cost;
-[n0rs1] true : n0rs1_cost;
-[n1rs0] true : n1rs0_cost;
-[n1rs1] true : n1rs1_cost;
-[n1rs2] true : n1rs2_cost;
+[end] true : qrs_cost;
 endrewards
 
 rewards "rw_time"
-[n0rs0] true : n0rs0_time;
-[n0rs1] true : n0rs1_time;
-[n1rs0] true : n1rs0_time;
-[n1rs1] true : n1rs1_time;
-[n1rs2] true : n1rs2_time;
+[end] true : qrs_time;
 endrewards
-
-
 
 //=========Labels=======
 label "done" = (goal=true);

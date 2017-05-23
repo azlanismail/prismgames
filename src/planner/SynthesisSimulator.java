@@ -10,7 +10,6 @@ public class SynthesisSimulator {
 	String propPath, modelPath, transPath, stratPath, actionPath;
 	
 	//Planning related components	
-	Properties[] prop;
 	PropertiesGenerator pg;
 	AdaptationModelGenerator mdg;
 	StochasticPlanner sp;
@@ -19,9 +18,18 @@ public class SynthesisSimulator {
 	//System environment components
 	AutonomicCloud nodeSet[];
 	
-	//configuration parameters
-	int simCycle, numNode, numCollab, numResource;
-	long time[];
+	//simulation parameters
+	int simCycle;
+	
+	//logging parameters
+	long time[]; //log the synthesis execution time
+	long timeGen[]; //log the generation execution time
+	long timeExp[]; //long the export execution time
+	long timeExt[]; //log the extraction execution time
+	boolean statusRes[]; //log the synthesis status
+		
+	//to log the execution information
+	String outfile = "/home/azlan/git/PrismGames/IOFiles/logfile";
 	
 	public SynthesisSimulator() {
 		
@@ -35,29 +43,20 @@ public class SynthesisSimulator {
 		actionPath = aPath;
 	}
 	
-	public void setModelParameters(int app, int collab, int res) {
-		
-		numNode = app;  //number of application
-		numCollab = collab; //number of collaborator
-		numResource = res;//set number of resources /vm
-		nodeSet = new AutonomicCloud[numCollab];  //to create a set of collaborator
-		
-		//set the number of vms for each cloud collaborator
-		for (int i=0; i < nodeSet.length; i++) 
-			nodeSet[i].setVM(numResource);
+	public void setSimulationObjects(PropertiesGenerator pg, AdaptationModelGenerator mdg, 
+										StochasticPlanner sp, MultiObjStrategyExtraction se) {
+		this.pg = pg;
+		this.mdg = mdg;
+		this.sp = sp;
+		this.se = se;
 	}
-	
 
-	
-	public void simulatePlanning(int simCycle, StochasticPlanner sp, MultiObjStrategyExtraction se) {
-		
-		long time[] = new long[simCycle]; //log the synthesis execution time
-		long timeGen[] = new long[simCycle]; //log the generation execution time
-		long timeExp[] = new long[simCycle]; //long the export execution time
-		long timeExt[] = new long[simCycle]; //log the extraction execution time
-		boolean statusRes[] = new boolean[simCycle]; //log the synthesis status
-		boolean statusResPar[][] = new boolean[simCycle][numNode]; //log the synthesis status for parallel
-		
+	public void simulatePlanning(int sCycle) {
+			
+		simCycle = sCycle;
+		time = new long[simCycle]; //log the synthesis execution time
+		timeExt = new long[simCycle]; //log the extraction execution time
+		statusRes = new boolean[simCycle]; //log the synthesis status
 		
 		//begin the simulation per configuration	
 		for(int m=0; m < simCycle; m++) {
@@ -86,9 +85,11 @@ public class SynthesisSimulator {
 			sp.exportTrans(transPath);
 			sp.exportStrategy(stratPath);		
 			
+			//record the synthesis status
+			statusRes[m] = sp.getSynthesisStatus();
+			
 			tm.stop();
- 			//record the duration
- 			time[m] = tm.getDuration();
+ 			time[m] = tm.getDuration(); //record the duration
  			
  			tmExt.start();
  			
@@ -114,29 +115,25 @@ public class SynthesisSimulator {
  			tmExt.stop();
  			//record the duration
  			timeExt[m] = tmExt.getDuration();
- 			
- 			//record the synthesis status
-			statusRes[m] = sp.getSynthesisStatus();
-			
+
 		}//end of simulation cycle 
 	
 		System.out.println("Simulation is done...");
 			
 	}
 	
-	public void collectTimeInformation() {
-		
+	public void logInformation() {		
 		try {
-			if(p==0) {
-				gatherData(c, m, time, timeGen, timeExp, timeExt, 1, servSet[c], numofBehavior, statusRes, p, v, selServ, 
-					   mdg.getActionLabels(),mdg.getGeneratedCost(), mdg.getGeneratedAvail(), mdg.getGeneratedDuration(), mdg.getGeneratedReliability(),
-					   sp.getNumStates(), sp.getNumTransitions());
-			}else
-				gatherData(c, m, time, timeGen, timeExp, timeExt, nodeSet[c], servSet[c], numofBehavior, statusRes, p, v, selServ, 
-						   mdg.getActionLabels(),mdg.getGeneratedCost(), mdg.getGeneratedAvail(), mdg.getGeneratedDuration(), mdg.getGeneratedReliability(),
-						   sp.getNumStates(), sp.getNumTransitions());
-				
-			
+			PrintWriter out = new PrintWriter(new FileWriter(outfile, false));
+		
+			String loginfo = "";
+			out.println("CycleId NumofObj NumofCollab NumofResource SynTime SynStatus Solution");
+			for(int m=0; m < simCycle; m++) {
+				loginfo = loginfo+m+" "+mdg.getMaxActionP1()+" "+mdg.getMaxActionP2()+" "+
+						  time[m]+" "+statusRes[m]+"\n";
+			}
+			out.println(loginfo);
+			out.close();
 		}
  		catch (NullPointerException e) {
 			// TODO Auto-generated catch block
@@ -145,86 +142,12 @@ public class SynthesisSimulator {
  		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
-	public void gatherData(int conf, int cycle, long time[], long timeGen[], long timeExp[], long timeExt[], int numNode, int numServ, int numBehavior, boolean statusRes[], int pattern, int evalMethod, String[] Solution,
-			  String[][] actLabel, int[][] cost, boolean[][] avail, int[][][] dur, double[][][] rel,
-			  int numStates, int numTrans) throws FileNotFoundException {
-
-		String file1 = null;
-		String file2 = null;
-		if(pattern == 0) {
-		file1 = "logSelectSingle_"+conf+".txt";
-		file2 = "logQoSSingle_"+conf+".txt";
-		}
-		else if(pattern == 1) {
-		file1 = "logSelectSeq_"+conf+".txt";
-		file2 = "logQoSSeq_"+conf+".txt";
-		}
-		else if(pattern == 2) {
-		file1 = "logSelectCond_"+conf+".txt";
-		file2 = "logQoSCond_"+conf+".txt";
-		}
-		else {
-		file1 = "logSelectPar_"+conf+".txt";
-		file2 = "logQoSPar_"+conf+".txt";
-		}
-		
-		String outfile1 = "/home/azlan/git/prismgames/IOFiles/"+file1;
-		String outfile2 = "/home/azlan/git/prismgames/IOFiles/"+file2;
-		
-		PrintWriter pw, pq;
-		try {
-		pw = new PrintWriter(new FileWriter(outfile1, true));
-		pq = new PrintWriter(new FileWriter(outfile2, true));
-		
-		//long total = 0;
-		//==========log selection behavior==================
-		// if ((conf==0) && (cycle==0))  {     
-		//   pw.println("cycle pattern evalMethod numNode numService numBehavior timeGen timeSyn timeExp timeExt avgTime status size numSolution Solution");
-		//  }
-		pw.print(cycle+" "+pattern+" "+evalMethod+" "+numNode+" "+numServ+" "+numBehavior+" "+timeGen[cycle]+" "+time[cycle]+" "+timeExp[cycle]+" "+timeExt[cycle]+" "+" "+statusRes[cycle]+" "+numStates+"/"+numTrans+" "+Solution.length);
-		
-		for(int s=0; s < Solution.length; s++) {
-		// pw.print(" "+Solution[s]);
-		for(int n=0; n < numNode; n++) {
-		for(int i=0; i < numServ; i++) {
-		  if(actLabel[n][i].equals(Solution[n])) {
-			   pw.print(" "+Solution[n]+" "+" "+" "+cost[n][i]+" "+avail[n][i]);
-			   for(int r=0; r < numBehavior; r++) {
-				   pw.print(" "+dur[n][i][r]+" "+rel[n][i][r]);
-			   }
-		  }
-		}
-		}
-		}
-		pw.println();
-		
-		//==========log QoS values===================
-		if (cycle == 0)  {     
-		pq.println("solution actionLabel status task service cost availability duration reliability");
-		}
-		for(int n=0; n < numNode; n++) {
-		for(int i=0; i < numServ; i++) {
-		if(actLabel[n][i].equals(Solution[n])) {
-		  pq.print(pattern+" "+Solution[n]+" "+" "+statusRes[cycle]+" "+n+" "+i+" "+cost[n][i]+" "+avail[n][i]);
-		  for(int r=0; r < numBehavior; r++) {
-			   pq.print(" "+dur[n][i][r]+" "+rel[n][i][r]);
-		  }
-		}
-		}
-		pq.println();
-		}
-		pw.close();
-		pq.close();
-		
-		} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		}
-	}//end of gather data
-
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -252,13 +175,9 @@ public class SynthesisSimulator {
 		pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">=");
 		pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
 		
-		//set the path
-		pg.setPropPath(propPath);
-				
-		//assign properties to the properties generator
-		pg.assignProperties(pp);
-				
-		pg.encodeProperties();
+		pg.setPropPath(propPath); //set the path
+		pg.assignProperties(pp); //assign properties to the properties generator
+		pg.encodeProperties(); //encode the properties specification with values
 		
 		//=========MODEL CREATION============================		
 		//Create a model generator instance
@@ -281,20 +200,19 @@ public class SynthesisSimulator {
 		mdg.setModelPath(modelPath);										
 		mdg.encodeSGModelforAppDeployment();
 		
-		//=========INITIALIZE PLANNING==================
+		//=========INITIALIZE PLANNING-RELATED OBJECTS==============
 		//Create a SG-Planner instance
 		StochasticPlanner sp = new StochasticPlanner();
+		MultiObjStrategyExtraction se = new MultiObjStrategyExtraction();
 		
 		//=========BEGIN SIMULATION=======================
 		//create a simulator
 		SynthesisSimulator syn = new SynthesisSimulator();
-		int simCycle = 100;
+		int simCycle = 10;
 		syn.setPath(propPath, modelPath, transPath, stratPath, actionListPath);
-		
-		syn.simulatePlanning(simCycle, sp);
-		
-		
-		
+		syn.setSimulationObjects(pg, mdg, sp, se);
+		syn.simulatePlanning(simCycle);
+		syn.logInformation();
 	}
 
 }

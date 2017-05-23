@@ -1,0 +1,7 @@
+const int cost = 90;
+const int time = 1000;
+const double reliability = 0.9;
+const double availability = 0.9;
+
+<<p1>> ((R{"cost"}<=cost [ C ]&R{"time"}<=time [ C ]))
+

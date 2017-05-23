@@ -375,7 +375,6 @@ public class StochasticPlanner {
 		//sp.setUndefinedValues(mdg.getDefinedValues());
 		sp.setPropertyId(0);
 		sp.checkModelforMultiObjective();
-		//=================================
 	
 		//==================================
 		//exporting

@@ -302,6 +302,13 @@ public class ModelGenerator {
 		return vpar[k];
 	}
 	
+	public int getMaxActionP1() {
+		return this.maxActionP1;
+	}
+	
+	public int getMaxActionP2() {
+		return this.maxActionP2;
+	}
 	
 	public String[][] getActionLabels() { 
 		

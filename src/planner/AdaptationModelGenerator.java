@@ -43,8 +43,8 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		
 		for(int i=0; i < this.maxActionP1; i++) {			
 			for(int j=0; j < this.maxActionP2; j++) {
-				cost = rand.nextInt(50) + 10;
-				time = rand.nextInt(50) + 10;
+				cost = rand.nextInt(50) + 50;
+				time = rand.nextInt(100) + 500;
 				rel = rand.nextDouble() * rangeRel + minRel;
 				avail = rand.nextDouble() * rangeAvail + minAvail;
 				setProfiles(i, j, cost, avail, time, rel);
@@ -269,8 +269,8 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		
 		//Create a model generator instance
 		AdaptationModelGenerator mdg = new AdaptationModelGenerator();
-		int numCollab = 8; //number of collaborator
-		int numResource = 10;//set number of resources /vm
+		int numCollab = 10; //number of collaborator
+		int numResource = 50;//set number of resources /vm
 		
 		//configuring model parameters and values
 		System.out.println("Creating model for single application deployment...");

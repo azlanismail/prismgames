@@ -1,0 +1,69 @@
+smg
+
+//=========Player definition=======
+player p1
+moduleDec,[n0],[n1],[n2],[end]
+endplayer
+
+player p2
+moduleNode
+endplayer
+
+
+//=========Resource Profiles=======
+const int MXN=3;
+
+const int n0_id = 0;
+const int n0_cost = 95;	//cost
+const int n0_time = 110;	//time
+const double n0_rel = 0.97;	//reliability
+const double n0_agree = 0.7; 
+
+const int n1_id = 1;
+const int n1_cost = 95;	//cost
+const int n1_time = 110;	//time
+const double n1_rel = 0.97;	//reliability
+const double n1_agree = 0.6; 
+
+const int n2_id = 2;
+const int n2_cost = 60;	//cost
+const int n2_time = 70;	//time
+const double n2_rel = 0.97;	//reliability
+const double n2_agree = 0.6; 
+
+//=========Global Parameters=======
+const int TP=0;	//player 1 state
+const int TE=1;	//plater 2 state
+const int NI=-1;	//initial node
+global t:[TP..TE] init TP;	//to control the turn
+global goal: bool init false;	//(absorbing state)
+global n:[-1..MXN] init NI;  //number of computing node
+
+//=========Module for Player 1=======
+module moduleDec
+[n0] (t=TP) & (goal=false) -> (n'=0) & (t'=TE);
+[n1] (t=TP) & (goal=false) -> (n'=1) & (t'=TE);
+[n2] (t=TP) & (goal=false) -> (n'=2) & (t'=TE);
+[end] (t=TP) & (goal=true) & (n >=0) -> true;
+endmodule
+
+//=========Module for Player 2=======
+module moduleNode
+[] (t=TE) & (n=0) -> n0_agree: (t'=TP) & (goal'=true) + 1-n0_agree: (t'=TP) & (goal'=false);
+[] (t=TE) & (n=1) -> n1_agree: (t'=TP) & (goal'=true) + 1-n1_agree: (t'=TP) & (goal'=false);
+[] (t=TE) & (n=2) -> n2_agree: (t'=TP) & (goal'=true) + 1-n2_agree: (t'=TP) & (goal'=false);
+endmodule
+
+
+//=========Reward Structure=======
+rewards "rw_cost"
+[n0] true : n0_cost;
+[n1] true : n1_cost;
+[n2] true : n2_cost;
+endrewards
+
+rewards "rw_time"
+[n0] true : n0_time;
+[n1] true : n1_time;
+[n2] true : n2_time;
+endrewards
