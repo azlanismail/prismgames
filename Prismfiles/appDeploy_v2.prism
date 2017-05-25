@@ -67,3 +67,5 @@ rewards "rw_time"
 [n1] true : n1_time;
 [n2] true : n2_time;
 endrewards
+
+label "done" = (goal=true);

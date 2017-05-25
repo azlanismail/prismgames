@@ -189,7 +189,7 @@ public class StochasticPlanner {
 		
 		    System.out.println("Synthesizing based on multi-objective properties.....");
 		    rsMulti1 = smg.check(model, propertiesFile.getProperty(propId)); 
-			     
+		  
 		  	System.out.println("The result from model checking (SMG) is :"+ rsMulti1.getResult()); 
 			    	
 		  	if ((boolean)rsMulti1.getResult()) {

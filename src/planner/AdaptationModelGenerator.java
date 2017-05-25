@@ -10,12 +10,16 @@ import parser.Values;
 public class AdaptationModelGenerator extends ModelGenerator{
 
 	double cost[][], avail[][], rel[][];
-	int timeR, time[][];
+	int time[][];
+	
+	double costS[], availS[], relS[];
+	int timeS[];
 	
 	Values vm;
 	
 	//service constants parameters
 	String idParams[][], costParams[][], availParams[][], timeParams[][], relParams[][];
+	String idParamsS[], costParamsS[], availParamsS[], timeParamsS[], relParamsS[];
 	
 	public AdaptationModelGenerator() {
 		
@@ -26,11 +30,21 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		super.maxActionP1 = mxActionP1; //to set max number of collaborator
 		super.maxActionP2 = mxActionP2;  //to set max number of virtual machine
 		
+		if (mxActionP2 > 0) {
 		this.cost = new double[maxActionP1][maxActionP2];
 		this.avail = new double[maxActionP1][maxActionP2];
 		this.time = new int[maxActionP1][maxActionP2];
 		this.rel = new double[maxActionP1][maxActionP2];
+		}
+		else {
+			//assume non-deterministic actions only apply to the first player
+			this.costS = new double[maxActionP1];
+			this.availS = new double[maxActionP1];
+			this.timeS = new int[maxActionP1];
+			this.relS = new double[maxActionP1];
+		}	
 	}
+	
 	
 	public void setAllRandomServProfiles() {
 		Random rand = new Random();
@@ -41,13 +55,22 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		double rangeRel = maxRel - minRel;
 		double rangeAvail = maxAvail - minAvail;
 		
-		for(int i=0; i < this.maxActionP1; i++) {			
-			for(int j=0; j < this.maxActionP2; j++) {
+		for(int i=0; i < this.maxActionP1; i++) {
+			if (maxActionP2 > 0) {
+				for(int j=0; j < this.maxActionP2; j++) {
+					cost = rand.nextInt(50) + 50;
+					time = rand.nextInt(100) + 500;
+					rel = rand.nextDouble() * rangeRel + minRel;
+					avail = rand.nextDouble() * rangeAvail + minAvail;
+					setProfiles(i, j, cost, avail, time, rel);
+				}
+			}
+			else {
 				cost = rand.nextInt(50) + 50;
 				time = rand.nextInt(100) + 500;
 				rel = rand.nextDouble() * rangeRel + minRel;
 				avail = rand.nextDouble() * rangeAvail + minAvail;
-				setProfiles(i, j, cost, avail, time, rel);
+				setProfilesforSingle(i,cost, avail, time, rel);
 			}
 		}
 	}
@@ -60,23 +83,48 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		this.rel[i][j] = rel;
 	}
 	
+	public void setProfilesforSingle(int i, double cost, double avail, int dur, double rel ) {
+		
+		this.costS[i] = cost;
+		this.availS[i] = avail;
+		this.timeS[i] = dur;
+		this.relS[i] = rel;
+	}
+	
 	/**
 	 * prepare the arrays to hold the identifier of the constant parameters 
 	 */
 	public void createQualityParams() {
-		this.idParams = new String[this.maxActionP1][this.maxActionP2];
-		this.costParams = new String[this.maxActionP1][this.maxActionP2];
-		this.availParams = new String[this.maxActionP1][this.maxActionP2];
-		this.timeParams = new String[this.maxActionP1][this.maxActionP2];
-		this.relParams = new String[this.maxActionP1][this.maxActionP2];
 		
-		for(int i=0; i < this.maxActionP1; i++) {
-			for(int j=0; j < this.maxActionP2; j++) {
-				this.idParams[i][j] = "n"+i+"rs"+j+"_id";
-				this.costParams[i][j] = "n"+i+"rs"+j+"_cost";
-				this.availParams[i][j] = "n"+i+"rs"+j+"_avail";
-				this.timeParams[i][j] = "n"+i+"rs"+j+"_time";
-				this.relParams[i][j] = "n"+i+"rs"+j+"_rel";
+		if (maxActionP2 > 0) {
+			this.idParams = new String[this.maxActionP1][this.maxActionP2];
+			this.costParams = new String[this.maxActionP1][this.maxActionP2];
+			this.availParams = new String[this.maxActionP1][this.maxActionP2];
+			this.timeParams = new String[this.maxActionP1][this.maxActionP2];
+			this.relParams = new String[this.maxActionP1][this.maxActionP2];
+			
+			for(int i=0; i < this.maxActionP1; i++) {
+				for(int j=0; j < this.maxActionP2; j++) {
+					this.idParams[i][j] = "n"+i+"rs"+j+"_id";
+					this.costParams[i][j] = "n"+i+"rs"+j+"_cost";
+					this.availParams[i][j] = "n"+i+"rs"+j+"_avail";
+					this.timeParams[i][j] = "n"+i+"rs"+j+"_time";
+					this.relParams[i][j] = "n"+i+"rs"+j+"_rel";
+				}
+			}
+		}else {
+			this.idParamsS = new String[this.maxActionP1];
+			this.costParamsS = new String[this.maxActionP1];
+			this.availParamsS = new String[this.maxActionP1];
+			this.timeParamsS = new String[this.maxActionP1];
+			this.relParamsS = new String[this.maxActionP1];
+			
+			for(int i=0; i < this.maxActionP1; i++) {
+				this.idParamsS[i] = "n"+i+"_id";
+				this.costParamsS[i] = "n"+i+"_cost";
+				this.availParamsS[i] = "n"+i+"_avail";
+				this.timeParamsS[i] = "n"+i+"_time";
+				this.relParamsS[i] = "n"+i+"_rel";
 			}
 		}
 	}
@@ -89,14 +137,26 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		if (vm == null) {
 			vm = new Values();
 		}
-			
-		for(int i=0; i < this.maxActionP1; i++) {
-			for(int j=0; j < this.maxActionP2; j++) {
-				vm.addValue(this.idParams[i][j], i); 
-				vm.addValue(this.costParams[i][j], this.cost[i][j]);
-				vm.addValue(this.availParams[i][j], this.avail[i][j]);
-				vm.addValue(this.timeParams[i][j], this.time[i][j]);
-				vm.addValue(this.relParams[i][j], this.rel[i][j]);
+		
+		if (maxActionP2 > 0) {
+			for(int i=0; i < this.maxActionP1; i++) {
+				for(int j=0; j < this.maxActionP2; j++) {
+					vm.addValue(this.idParams[i][j], i); 
+					vm.addValue(this.costParams[i][j], this.cost[i][j]);
+					vm.addValue(this.availParams[i][j], this.avail[i][j]);
+					vm.addValue(this.timeParams[i][j], this.time[i][j]);
+					vm.addValue(this.relParams[i][j], this.rel[i][j]);
+				}
+			}
+		}
+		else {
+			for(int i=0; i < this.maxActionP1; i++) {
+				vm.addValue(this.idParamsS[i], i); 
+				vm.addValue(this.costParamsS[i], this.costS[i]);
+				vm.addValue(this.availParamsS[i], this.availS[i]);
+				vm.addValue(this.timeParamsS[i], this.timeS[i]);
+				vm.addValue(this.relParamsS[i], this.relS[i]);
+				
 			}
 		}
 	}
@@ -119,7 +179,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	/**
 	 * To generate a generic stochastic games model for service selection 
 	 */
-	public void encodeSGModelforAppDeployment()  {
+	public void encodeSGModelforSimpleAppDeployment()  {
    	 	
    	 	pw.println("smg");
    	 	pw.println("//=========Player definition=======");
@@ -262,6 +322,152 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	pw.close();
     }
 	
+	
+	/**
+	 * To generate a generic stochastic games model for service selection 
+	 */
+	public void encodeSGModelforComplexAppDeployment()  {
+   	 	
+   	 	pw.println("smg");
+   	 	pw.println("//=========Player definition=======");
+   	 	pw.println("player "+p1);
+   	 	pw.print(""+mod1+",");
+   	 	for(int i=0; i < maxActionP1; i++) {
+   	 		pw.print("[r"+i+"],");
+		}
+   	 	pw.println("[end]");
+   	 	pw.println("endplayer");
+   	 	pw.println();
+   	 	
+   	 	pw.println("player "+p2);
+   	 	pw.print(""+mod2);
+   		for(int i=0; i < maxActionP1; i++) {
+	   	 	if (i != maxActionP1) {
+				pw.print(",");
+			}
+   	 		for(int j=0; j < maxActionP2; j++) {
+   	 			pw.print("[n"+i+"rs"+j+"]");
+   	 			if (j != maxActionP2-1) {
+   	 			pw.print(",");
+   	 			}
+   	 		}
+		}
+   	 	pw.println();
+   	 	pw.println("endplayer");
+   	 	pw.println();
+	 
+   		
+	 	pw.println("//=========Resource Profiles=======");
+	 	//pw.println("const int MXN="+numNode+";");
+	 	//for(int n=0; n < numNode; n++) {
+	 	//	pw.println("const int N"+n+"_MAX_SV="+maxActionP1+";	//finite number of services");		
+	 	//	pw.println("const int N"+n+"_MAX_EV="+maxActionP2+";	//finite number of computing nodes");		
+	 	//}
+	 	//pw.println();
+	 	pw.println("const int MXN="+maxActionP1+";");
+	 	if(this.setValuesStatus) {
+		 	for (int i=0; i < maxActionP1; i++) {
+			 	for(int j=0; j < maxActionP2; j++) {
+			 		pw.println("const int "+ this.idParams[i][j]+" = "+i+";");
+			 		pw.println("const double "+this.costParams[i][j]+" = "+this.cost[i][j]+";	//cost");
+			 		pw.println("const double "+this.availParams[i][j]+" = "+this.avail[i][j]+";	//avail");
+			 		pw.println("const double "+this.relParams[i][j]+" = "+this.rel[i][j]+";		//rel");
+			 		pw.println("const int "+this.timeParams[i][j]+" = "+this.time[i][j]+";		//time");
+			 		pw.println();
+			 	}
+		 	}
+		 	pw.println();
+	 	}
+	 	else {
+	 		for (int i=0; i < maxActionP1; i++) {
+			 	for(int j=0; j < maxActionP2; j++) {
+			 		pw.println("const int "+ this.idParams[i][j]+" = "+i+";");
+			 		pw.println("const double "+this.costParams[i][j]+";	//cost");
+			 		pw.println("const double "+this.availParams[i][j]+"; //avail");
+			 		pw.println("const double "+this.relParams[i][j]+";	//rel");
+			 		pw.println("const time "+this.timeParams[i][j]+";	//time");
+			 		pw.println();
+			 	}
+		 	}
+		 	pw.println();
+	 	}
+	 		
+		pw.println("//=========Global Parameters=======");
+	 	pw.println("const int TP=0;	//plater 1 state");	
+	 	pw.println("const int TE=1;	//player 2 state");
+		pw.println("const int NI=-1;	//initial node");
+	 	pw.println("global t:[TP..TE] init TP;	//to control the turn");
+	 	pw.println("global goal : bool init false;	//(absorbing state)");		
+	 	pw.println("global n:[-1..MXN] init NI;  //number of computing node");
+	 	pw.println();		
+	
+
+		pw.println("//=========Module for Player 1=======");
+	 	pw.println("module "+mod1); 	
+	 	pw.println("//P1's coordinator :");
+	 	
+	 	pw.println("[end] (t=TP) & (goal=true) -> true; //to end the selection");
+ 		 		
+	 	pw.println("//P1 moves :");
+	 	for(int i=0; i< maxActionP1; i++) {
+		 	pw.println("[r"+i+"] (t=TP) & (goal=false) -> (n'="+i+") & (t'=TE);");
+
+	 	}
+	 	pw.println("endmodule");
+	 	pw.println();
+	 	
+	 	pw.println("//=========Module for Player 2=======");
+	 	pw.println("module "+mod2);
+	 
+	 	pw.println("//P2 moves for single or sequential pattern:");	
+		for(int i=0; i < maxActionP1; i++) {
+		 	for(int j=0; j < maxActionP2; j++) {
+		 		pw.println("[n"+i+"rs"+j+"] (t=TE) & (n="+i+") -> n"+i+"rs"+j+"_rel:(goal'=true) & (t'=TP) + 1-n"+i+"rs"+j+"_rel:(goal'=false) & (t'=TP);");
+		 	}
+		 	pw.println();
+		}
+	 	
+	 	pw.println("endmodule");
+	 	pw.println();
+	 
+	 	pw.println("//=========Reward Structure=======");
+	 	pw.println("rewards \"rw_cost\"");
+	 	for(int i=0; i < maxActionP1; i++) {
+   	 		for(int j=0; j < maxActionP2; j++) {
+   	 			pw.println("[n"+i+"rs"+j+"] true : n"+i+"rs"+j+"_cost;");
+   	 		}
+		}
+	 	pw.println("endrewards");
+	 	
+		pw.println("rewards \"rw_time\"");
+	 	for(int i=0; i < maxActionP1; i++) {
+   	 		for(int j=0; j < maxActionP2; j++) {
+   	 			pw.println("[n"+i+"rs"+j+"] true : n"+i+"rs"+j+"_time;");
+   	 		}
+		}
+	 	pw.println("endrewards");
+	
+		pw.println("rewards \"rw_reliability\"");
+	 	for(int i=0; i < maxActionP1; i++) {
+   	 		for(int j=0; j < maxActionP2; j++) {
+   	 			pw.println("[n"+i+"rs"+j+"] true : n"+i+"rs"+j+"_rel;");
+   	 		}
+		}
+	 	pw.println("endrewards");
+		
+		pw.println("rewards \"rw_availability\"");
+	 	for(int i=0; i < maxActionP1; i++) {
+   	 		for(int j=0; j < maxActionP2; j++) {
+   	 			pw.println("[n"+i+"rs"+j+"] true : n"+i+"rs"+j+"_avail;");
+   	 		}
+		}
+	 	pw.println("endrewards");
+		
+	 	pw.println("//=========Labels=======");
+	 	pw.println("label \"done\" = (goal=true);");
+	 	
+	 	pw.close();
+    }
 	public static void main(String args[]) {
     //=========MODEL CREATION============================
 		String modelPath = "/home/azlan/git/PrismGames/Prismfiles/appDeployModel.prism";
