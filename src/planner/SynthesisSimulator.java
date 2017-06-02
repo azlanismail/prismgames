@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import parser.Values;
+
 public class SynthesisSimulator {
 
 	String propPath, modelPath, transPath, stratPath, actionPath;
@@ -76,8 +78,12 @@ public class SynthesisSimulator {
 			sp.initiatePlanner();
 			sp.parseModelandProperties(modelPath, propPath);
 			
-			//sp.setUndefinedValues(mdg.getDefinedValues());
-			sp.setPropertyId(0);
+			if(!mdg.setValuesStatus)
+				sp.setUndefinedModelValues(mdg.getDefinedValues());
+			if(!pg.setValuesStatus)
+				sp.setUndefinedPropertiesValues(pg.getDefinedValues());
+			
+			sp.setPropertyId(0);	//set to the properties id 0
 			sp.checkModelforMultiObjective();
 			
 			//exporting
@@ -122,12 +128,13 @@ public class SynthesisSimulator {
 			
 	}
 	
-	public void logInformation() {		
+	public void logInformation() {	
+		String fileName = outfile + "_" + mdg.getMaxActionP1() +"_" + mdg.getMaxActionP2();
 		try {
-			PrintWriter out = new PrintWriter(new FileWriter(outfile, false));
+			PrintWriter out = new PrintWriter(new FileWriter(fileName, false));
 		
 			String loginfo = "";
-			out.println("CycleId NumofObj NumofCollab NumofResource SynTime SynStatus Solution");
+			out.println("CycleId NumofObj NumofAct NumofEnv SynTime SynStatus Solution");
 			for(int m=0; m < simCycle; m++) {
 				loginfo = loginfo+m+" "+mdg.getMaxActionP1()+" "+mdg.getMaxActionP2()+" "+
 						  time[m]+" "+statusRes[m]+"\n";
@@ -158,61 +165,77 @@ public class SynthesisSimulator {
 		String stratPath = "/home/azlan/git/PrismGames/IOFiles/strat.txt";
 		String actionListPath = "/home/azlan/git/PrismGames/IOFiles/actionList.txt";
 	
-		//==========PROPERTIES CREATION=====================
-		//set properties
-		Properties pp[] = new Properties[4];
-		PropertiesGenerator pg = new PropertiesGenerator();
+		//==========CONFIGURATION SETTING==================
+		int numAct = 40;  //number of collaborator
+		int numEnv = 2;  //number of environment variation
+		int simCycle = 300; //number of simulation cycle
+		int numQyObj = 3; //number of quality objectives
+		boolean assignValue = true; //true-assign values while encoding, false-later stage
 		
-		//create the empty properties
-		pp[0] = new Properties();
-		pp[1] = new Properties();
-		pp[2] = new Properties();
-		pp[3] = new Properties();
+		for(int conf=0; conf < 1; conf++) {
+			//==========UPDATING CONFIGURATION SETTING==================
+			//numAct += 20;
+			//==========PROPERTIES CREATION=====================
+			//set properties
+			Properties pp[] = new Properties[numQyObj];
+			PropertiesGenerator pg = new PropertiesGenerator();
+			
+			//create the empty properties
+			pp[0] = new Properties();
+			pp[1] = new Properties();
+			pp[2] = new Properties();
+			//pp[3] = new Properties();
+			
+			//specify the parameters
+			pp[0].setProperties(0, "cost", "double", 150, 10, "<");
+			pp[1].setProperties(1, "time", "int", 1500, 100,"<");
+			pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">");
+			//pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
+			
+			//========PROPERTIES ENCODING=====================
+			pg.setPropPath(propPath); //set the path
+			pg.assignProperties(pp); //assign properties to the properties generator
+			pg.setValuesStatus(assignValue); //true-encode properties with threshold, false-without threshold (later stage)
+			pg.setThresholdParamswithValues();
+			pg.encodeProperties(); //encode the properties specification with values
+			
+			
+			//=========MODEL ENCODING============================		
+			//Create a model generator instance
+			AdaptationModelGenerator mdg = new AdaptationModelGenerator();
+			
+			//configuring model parameters and values
+			System.out.println("Creating model for single application deployment...");
+			mdg.setValuesStatus(assignValue); //true-encode model with values, false-create model without values (later stage)
+			mdg.setPattern(0);	//set the current value of p=0 for single
+			mdg.setParamsNames("p1", "p2", "planner", "environment");
+			mdg.setUpperBounds(1, numAct, numEnv); //simply set numNode = 1
+			
+			//creating and assigning values to the model parameters
+			System.out.println("Generates random values...");
+			mdg.setAllRandomServProfiles();
+			System.out.println("Create quality attributes...");
+			mdg.createQualityParams();
+			System.out.println("Assign quantitative information...");
+			mdg.setQualityParamswithValues();
+			mdg.setModelPath(modelPath);	
+			System.out.println("Encoding model specification...");
+			mdg.encodeSGModelforComplexAppDeployment();
+			
+			//=========INITIALIZE PLANNING-RELATED OBJECTS==============
+			//Create a SG-Planner instance
+			StochasticPlanner sp = new StochasticPlanner();
+			MultiObjStrategyExtraction se = new MultiObjStrategyExtraction();
+			
+			//=========BEGIN SIMULATION=======================
+			//create a simulator
+			SynthesisSimulator syn = new SynthesisSimulator();
+			syn.setPath(propPath, modelPath, transPath, stratPath, actionListPath);
+			syn.setSimulationObjects(pg, mdg, sp, se);
+			syn.simulatePlanning(simCycle);
+			syn.logInformation();
+		}//end of configuration
 		
-		//specify the parameters
-		pp[0].setProperties(0, "cost", "int", 90, 10, "<=");
-		pp[1].setProperties(1, "time", "int", 1000, 100,"<=");
-		pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">=");
-		pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
-		
-		pg.setPropPath(propPath); //set the path
-		pg.assignProperties(pp); //assign properties to the properties generator
-		pg.encodeProperties(); //encode the properties specification with values
-		
-		//=========MODEL CREATION============================		
-		//Create a model generator instance
-		AdaptationModelGenerator mdg = new AdaptationModelGenerator();
-		int numCollab = 8; //number of collaborator
-		int numResource = 10;//set number of resources /vm
-		
-		//configuring model parameters and values
-		System.out.println("Creating model for single application deployment...");
-		mdg.setValuesStatus(true); //true-create model with values, false-create model without values (later stage)
-		mdg.setPattern(0);	//set the current value of p=0 for single
-		mdg.setParamsNames("p1", "p2", "planner", "environment");
-		mdg.setUpperBounds(1, numCollab, numResource); //simply set numNode = 1
-		
-		//creating and assigning values to parameters
-		System.out.println("Creating and assigning values to parameters...");
-		mdg.setAllRandomServProfiles();
-		mdg.createQualityParams();
-		mdg.setQualityParamswithValues();
-		mdg.setModelPath(modelPath);										
-		mdg.encodeSGModelforAppDeployment();
-		
-		//=========INITIALIZE PLANNING-RELATED OBJECTS==============
-		//Create a SG-Planner instance
-		StochasticPlanner sp = new StochasticPlanner();
-		MultiObjStrategyExtraction se = new MultiObjStrategyExtraction();
-		
-		//=========BEGIN SIMULATION=======================
-		//create a simulator
-		SynthesisSimulator syn = new SynthesisSimulator();
-		int simCycle = 10;
-		syn.setPath(propPath, modelPath, transPath, stratPath, actionListPath);
-		syn.setSimulationObjects(pg, mdg, sp, se);
-		syn.simulatePlanning(simCycle);
-		syn.logInformation();
 	}
 
 }

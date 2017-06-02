@@ -9,19 +9,52 @@ import parser.Values;
 
 public class AdaptationModelGenerator extends ModelGenerator{
 
+	int numQuality;
 	double cost[][], avail[][], rel[][];
 	int time[][];
 	
 	double costS[], availS[], relS[];
 	int timeS[];
+
 	
-	Values vm;
-	
-	//service constants parameters
+	//constants quality parameters
+	QualityAttributes[][][] qy;
+	QualityAttributes[][] qyS;
 	String idParams[][], costParams[][], availParams[][], timeParams[][], relParams[][];
 	String idParamsS[], costParamsS[], availParamsS[], timeParamsS[], relParamsS[];
 	
 	public AdaptationModelGenerator() {
+		
+	}
+	
+	/**
+	 * can be referred to the number of application / functionality
+	 * @param numNode
+	 */
+	public void setNumNode(int numNode) {
+		super.numNode = numNode;
+	}
+	
+	/**
+	 * Not yet utilize........
+	 * @param mxActionP1
+	 * @param mxActionP2
+	 * @param numQuality
+	 */
+	public void setQualityAttributesBounds(int mxActionP1, int mxActionP2, int numQuality) {
+		super.maxActionP1 = mxActionP1; //to set max number of collaborator
+		super.maxActionP2 = mxActionP2;  //to set max number of virtual machine
+		this.numQuality = numQuality;
+		
+		if (mxActionP2 > 0) {
+			//if number of action > 0 and number of variation > 0
+			this.qy = new QualityAttributes[maxActionP1][maxActionP2][numQuality];
+			
+		}
+		else {
+			//if number of action > 0 but number of variation == 0
+			this.qyS = new QualityAttributes[maxActionP1][numQuality];
+		}	
 		
 	}
 	
@@ -31,13 +64,14 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		super.maxActionP2 = mxActionP2;  //to set max number of virtual machine
 		
 		if (mxActionP2 > 0) {
-		this.cost = new double[maxActionP1][maxActionP2];
-		this.avail = new double[maxActionP1][maxActionP2];
-		this.time = new int[maxActionP1][maxActionP2];
-		this.rel = new double[maxActionP1][maxActionP2];
+			//if number of action > 0 and number of variation > 0
+			this.cost = new double[maxActionP1][maxActionP2];
+			this.avail = new double[maxActionP1][maxActionP2];
+			this.time = new int[maxActionP1][maxActionP2];
+			this.rel = new double[maxActionP1][maxActionP2];
 		}
 		else {
-			//assume non-deterministic actions only apply to the first player
+			//if number of action > 0 but number of variation == 0
 			this.costS = new double[maxActionP1];
 			this.availS = new double[maxActionP1];
 			this.timeS = new int[maxActionP1];
@@ -137,6 +171,8 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		if (vm == null) {
 			vm = new Values();
 		}
+		
+		vm.addValue("MXN", maxActionP1);
 		
 		if (maxActionP2 > 0) {
 			for(int i=0; i < this.maxActionP1; i++) {
@@ -324,7 +360,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	
 	
 	/**
-	 * To generate a generic stochastic games model for service selection 
+	 * To generate a generic stochastic games model for service selection with multiple variation 
 	 */
 	public void encodeSGModelforComplexAppDeployment()  {
    	 	
@@ -358,14 +394,10 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 
    		
 	 	pw.println("//=========Resource Profiles=======");
-	 	//pw.println("const int MXN="+numNode+";");
-	 	//for(int n=0; n < numNode; n++) {
-	 	//	pw.println("const int N"+n+"_MAX_SV="+maxActionP1+";	//finite number of services");		
-	 	//	pw.println("const int N"+n+"_MAX_EV="+maxActionP2+";	//finite number of computing nodes");		
-	 	//}
-	 	//pw.println();
-	 	pw.println("const int MXN="+maxActionP1+";");
+	 	
+	 	
 	 	if(this.setValuesStatus) {
+	 		pw.println("const int MXN="+maxActionP1+";");
 		 	for (int i=0; i < maxActionP1; i++) {
 			 	for(int j=0; j < maxActionP2; j++) {
 			 		pw.println("const int "+ this.idParams[i][j]+" = "+i+";");
@@ -379,13 +411,14 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		 	pw.println();
 	 	}
 	 	else {
+	 		pw.println("const int MXN;");
 	 		for (int i=0; i < maxActionP1; i++) {
 			 	for(int j=0; j < maxActionP2; j++) {
 			 		pw.println("const int "+ this.idParams[i][j]+" = "+i+";");
 			 		pw.println("const double "+this.costParams[i][j]+";	//cost");
 			 		pw.println("const double "+this.availParams[i][j]+"; //avail");
 			 		pw.println("const double "+this.relParams[i][j]+";	//rel");
-			 		pw.println("const time "+this.timeParams[i][j]+";	//time");
+			 		pw.println("const int "+this.timeParams[i][j]+";	//time");
 			 		pw.println();
 			 	}
 		 	}
@@ -393,12 +426,11 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	}
 	 		
 		pw.println("//=========Global Parameters=======");
-	 	pw.println("const int TP=0;	//plater 1 state");	
-	 	pw.println("const int TE=1;	//player 2 state");
-		pw.println("const int NI=-1;	//initial node");
-	 	pw.println("global t:[TP..TE] init TP;	//to control the turn");
+	 //	pw.println("const int TP=0;	//plater 1 state");	
+	 //	pw.println("const int TE=1;	//player 2 state");
+	 	pw.println("global t:[0..1] init 0;	//to control the turn");
 	 	pw.println("global goal : bool init false;	//(absorbing state)");		
-	 	pw.println("global n:[-1..MXN] init NI;  //number of computing node");
+	 	pw.println("global n:[-1..MXN] init -1;  //number of computing node");
 	 	pw.println();		
 	
 
@@ -406,11 +438,11 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	pw.println("module "+mod1); 	
 	 	pw.println("//P1's coordinator :");
 	 	
-	 	pw.println("[end] (t=TP) & (goal=true) -> true; //to end the selection");
+	 	pw.println("[end] (t=0) & (goal=true) -> true; //to end the selection");
  		 		
 	 	pw.println("//P1 moves :");
 	 	for(int i=0; i< maxActionP1; i++) {
-		 	pw.println("[r"+i+"] (t=TP) & (goal=false) -> (n'="+i+") & (t'=TE);");
+		 	pw.println("[r"+i+"] (t=0) & (goal=false) -> (n'="+i+") & (t'=1);");
 
 	 	}
 	 	pw.println("endmodule");
@@ -422,7 +454,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	pw.println("//P2 moves for single or sequential pattern:");	
 		for(int i=0; i < maxActionP1; i++) {
 		 	for(int j=0; j < maxActionP2; j++) {
-		 		pw.println("[n"+i+"rs"+j+"] (t=TE) & (n="+i+") -> n"+i+"rs"+j+"_rel:(goal'=true) & (t'=TP) + 1-n"+i+"rs"+j+"_rel:(goal'=false) & (t'=TP);");
+		 		pw.println("[n"+i+"rs"+j+"] (t=1) & (n="+i+") -> n"+i+"rs"+j+"_rel:(goal'=true) & (t'=0) + 1-n"+i+"rs"+j+"_rel:(goal'=false) & (t'=0);");
 		 	}
 		 	pw.println();
 		}
@@ -468,6 +500,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	
 	 	pw.close();
     }
+	
 	public static void main(String args[]) {
     //=========MODEL CREATION============================
 		String modelPath = "/home/azlan/git/PrismGames/Prismfiles/appDeployModel.prism";
@@ -480,7 +513,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		
 		//configuring model parameters and values
 		System.out.println("Creating model for single application deployment...");
-		mdg.setValuesStatus(true); //true-create model with values, false-create model without values (later stage)
+		mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
 		mdg.setPattern(0);	//set the current value of p=0 for single
 		mdg.setParamsNames("p1", "p2", "planner", "environment");
 		mdg.setUpperBounds(1, numCollab, numResource); //simply set numNode = 1
@@ -491,7 +524,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		mdg.createQualityParams();
 		mdg.setQualityParamswithValues();
 		mdg.setModelPath(modelPath);										
-		mdg.encodeSGModelforAppDeployment();
+		mdg.encodeSGModelforComplexAppDeployment();
 		mdg.exportActionList(actionListPath);
 		
 		System.out.println("done");

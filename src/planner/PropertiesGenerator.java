@@ -6,18 +6,12 @@ import java.io.PrintWriter;
 
 import parser.Values;
 
-public class PropertiesGenerator {
+public class PropertiesGenerator extends ModelGenerator{
 	
 	PrintWriter pp;
 	Properties prop[];
 	//for assigning constant parameters
-	Values vm;
-		
-	//requirements
-		int idR;
-		int costR;
-		int durR;
-		double relR;
+	Values vp;
 
 	public PropertiesGenerator() {}
 	
@@ -35,23 +29,32 @@ public class PropertiesGenerator {
 		}
 	}
 
-	public void setReqParamswithValues() {
+	public void setThresholdParamswithValues() {
 		
 		if (vm == null) {
 			vm = new Values();
 		}
 		
 		for(int i=0; i < prop.length; i++) {
-			vm.addValue(prop[i].name, prop[i].threshold); 
+			vm.addValue(prop[i].name, prop[i].values); 
 		}
 	}
 	
 	public void encodeProperties() {
 		
-		//declare the parameters with threshold values
-		for(int i=0; i < prop.length; i++) {
-			pp.println("const "+prop[i].type+" "+prop[i].name+" = "+prop[i].threshold+";");
-		}						
+	
+		if (super.setValuesStatus) {
+			//declare the parameters with threshold values
+			for(int i=0; i < prop.length; i++) {
+				pp.println("const "+prop[i].type+" "+prop[i].name+" = "+prop[i].values+";");
+			}
+		}
+		else {
+			//declare the parameters without threshold values
+			for(int i=0; i < prop.length; i++) {
+				pp.println("const "+prop[i].type+" "+prop[i].name+";");
+			}
+		}
 		//specify multi-objective properties
 		//pp.println("<<p1>> (R{\"cost\"}<=MAXCS[C] & R{\"time\"}<=MAXDR[C] & R{\"reliability\"}>=MINRL[C])");
 		
@@ -64,20 +67,20 @@ public class PropertiesGenerator {
 	}
 	
 	public static void main(String args[]) {
-		Properties pp[] = new Properties[4];
+		Properties pp[] = new Properties[3];
 		PropertiesGenerator pg = new PropertiesGenerator();
 		
 		//create the empty properties
 		pp[0] = new Properties();
 		pp[1] = new Properties();
 		pp[2] = new Properties();
-		pp[3] = new Properties();
+		//pp[3] = new Properties();
 		
 		//specify the parameters
-		pp[0].setProperties(0, "cost", "int", 90, 10, "<=");
-		pp[1].setProperties(1, "time", "int", 1000, 100,"<=");
-		pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">=");
-		pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
+		pp[0].setProperties(0, "cost", "double", 90, 10, "<");
+		pp[1].setProperties(1, "time", "int", 1000, 100,"<");
+		pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, "");
+		//pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
 		
 		//set the path
 		String propPath = "/home/azlan/git/PrismGames/Prismfiles/propTest.props";

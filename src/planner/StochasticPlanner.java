@@ -87,9 +87,18 @@ public class StochasticPlanner {
 		conf.setNodeCapabilities(id, name, cpuCores, cpuLoads, cpuSpeed, totalMemory, freeMemory, location);
 	}
 
-	public void setUndefinedValues(Values vm) {
+	public void setUndefinedModelValues(Values vm) {
 		try {
 			modulesFile.setUndefinedConstants(vm);
+		} catch (PrismLangException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
+	
+	public void setUndefinedPropertiesValues(Values vp) {
+		try {
+			propertiesFile.setUndefinedConstants(vp);
 		} catch (PrismLangException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

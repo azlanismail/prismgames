@@ -14,7 +14,7 @@ public class ModelGenerator {
 	PrintWriter pw, pp, pa;
 	
 	//for assigning constant parameters
-	Values vm, vp;
+	Values vm;
 	Values[] vpar;
 	
 	//model configuration

@@ -1,10 +1,7 @@
 package planner;
 
-public class Properties<T> {
-	int id;
-	String name;
-	String type;
-	T threshold;
+public class Properties<T> extends QualityAttributes{
+
 	T fuzzyVal;
 	String comparator;
 	
@@ -14,7 +11,7 @@ public class Properties<T> {
 		id = i;
 		name = nm;
 		type = ty;
-		threshold = th;
+		values = th;	//value of the threshold
 		fuzzyVal = fv;
 		comparator = cp;
 	}
