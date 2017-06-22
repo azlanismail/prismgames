@@ -166,9 +166,9 @@ public class SynthesisSimulator {
 		String actionListPath = "/home/azlan/git/PrismGames/IOFiles/actionList.txt";
 	
 		//==========CONFIGURATION SETTING==================
-		int numAct = 40;  //number of collaborator
-		int numEnv = 2;  //number of environment variation
-		int simCycle = 300; //number of simulation cycle
+		int numAct = 50;  //number of collaborator
+		int numEnv = 1;  //number of environment variation
+		int simCycle = 1; //number of simulation cycle
 		int numQyObj = 3; //number of quality objectives
 		boolean assignValue = true; //true-assign values while encoding, false-later stage
 		
@@ -187,8 +187,8 @@ public class SynthesisSimulator {
 			//pp[3] = new Properties();
 			
 			//specify the parameters
-			pp[0].setProperties(0, "cost", "double", 150, 10, "<");
-			pp[1].setProperties(1, "time", "int", 1500, 100,"<");
+			pp[0].setProperties(0, "cost", "double", 90, 10, "<");
+			pp[1].setProperties(1, "time", "int", 1000, 100,"<");
 			pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">");
 			//pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
 			

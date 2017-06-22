@@ -10,18 +10,19 @@ import parser.Values;
 public class AdaptationModelGenerator extends ModelGenerator{
 
 	int numQuality;
-	double cost[][], avail[][], rel[][];
+	double cost[][], avail[][], rel[][], res[][];
 	int time[][];
 	
-	double costS[], availS[], relS[];
+	double costS[], availS[], relS[], resS[];
 	int timeS[];
-
+	
+	double reqResource;
 	
 	//constants quality parameters
 	QualityAttributes[][][] qy;
 	QualityAttributes[][] qyS;
-	String idParams[][], costParams[][], availParams[][], timeParams[][], relParams[][];
-	String idParamsS[], costParamsS[], availParamsS[], timeParamsS[], relParamsS[];
+	String idParams[][], costParams[][], availParams[][], timeParams[][], relParams[][], resParams[][];
+	String idParamsS[], costParamsS[], availParamsS[], timeParamsS[], relParamsS[], resParamsS[];
 	
 	public AdaptationModelGenerator() {
 		
@@ -69,6 +70,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 			this.avail = new double[maxActionP1][maxActionP2];
 			this.time = new int[maxActionP1][maxActionP2];
 			this.rel = new double[maxActionP1][maxActionP2];
+			this.res = new double[maxActionP1][maxActionP2];
 		}
 		else {
 			//if number of action > 0 but number of variation == 0
@@ -76,18 +78,36 @@ public class AdaptationModelGenerator extends ModelGenerator{
 			this.availS = new double[maxActionP1];
 			this.timeS = new int[maxActionP1];
 			this.relS = new double[maxActionP1];
+			this.resS = new double[maxActionP1];
 		}	
 	}
 	
+	public void setAppResource(double val) {
+		this.reqResource = val;
+	}
 	
 	public void setAllRandomServProfiles() {
 		Random rand = new Random();
-		double cost, rel, avail;
+		
+		//initialize values for each resource / variation
+		double cost, rel, avail, res;
 		int time;
+		
+		//initialize range value for reliability
 		double minRel=0.8, maxRel=1.0;
-		double minAvail=0.8, maxAvail=1.0;
 		double rangeRel = maxRel - minRel;
+		
+		//initialize range value for availability
+		double minAvail=0.8, maxAvail=1.0;
 		double rangeAvail = maxAvail - minAvail;
+		
+		//initialize range value for the resource
+		double minRes=0.1, maxRes=0.5;
+		double rangeRes = maxRes - minRes;
+		
+		//setting up value for the application resource
+		double appR = rand.nextDouble() * rangeRes + minRes;
+		setAppResource(appR);
 		
 		for(int i=0; i < this.maxActionP1; i++) {
 			if (maxActionP2 > 0) {
@@ -96,33 +116,38 @@ public class AdaptationModelGenerator extends ModelGenerator{
 					time = rand.nextInt(100) + 500;
 					rel = rand.nextDouble() * rangeRel + minRel;
 					avail = rand.nextDouble() * rangeAvail + minAvail;
-					setProfiles(i, j, cost, avail, time, rel);
+					res = rand.nextDouble() * rangeRes + minRes;
+					setProfiles(i, j, cost, avail, time, rel, res);
 				}
 			}
 			else {
+				//assuming no variation
 				cost = rand.nextInt(50) + 50;
 				time = rand.nextInt(100) + 500;
 				rel = rand.nextDouble() * rangeRel + minRel;
 				avail = rand.nextDouble() * rangeAvail + minAvail;
-				setProfilesforSingle(i,cost, avail, time, rel);
+				res = rand.nextDouble() * rangeRes + minRes;
+				setProfilesforSingle(i,cost, avail, time, rel, res);
 			}
 		}
 	}
 	
-	public void setProfiles(int i, int j, double cost, double avail, int dur, double rel ) {
+	public void setProfiles(int i, int j, double cost, double avail, int dur, double rel, double res ) {
 		
 		this.cost[i][j] = cost;
 		this.avail[i][j] = avail;
 		this.time[i][j] = dur;
 		this.rel[i][j] = rel;
+		this.res[i][j] = res;
 	}
 	
-	public void setProfilesforSingle(int i, double cost, double avail, int dur, double rel ) {
+	public void setProfilesforSingle(int i, double cost, double avail, int dur, double rel, double res ) {
 		
 		this.costS[i] = cost;
 		this.availS[i] = avail;
 		this.timeS[i] = dur;
 		this.relS[i] = rel;
+		this.resS[i] = res;
 	}
 	
 	/**
@@ -136,6 +161,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 			this.availParams = new String[this.maxActionP1][this.maxActionP2];
 			this.timeParams = new String[this.maxActionP1][this.maxActionP2];
 			this.relParams = new String[this.maxActionP1][this.maxActionP2];
+			this.resParams = new String[this.maxActionP1][this.maxActionP2];
 			
 			for(int i=0; i < this.maxActionP1; i++) {
 				for(int j=0; j < this.maxActionP2; j++) {
@@ -144,6 +170,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 					this.availParams[i][j] = "n"+i+"rs"+j+"_avail";
 					this.timeParams[i][j] = "n"+i+"rs"+j+"_time";
 					this.relParams[i][j] = "n"+i+"rs"+j+"_rel";
+					this.resParams[i][j] = "n"+i+"rs"+j+"_res";
 				}
 			}
 		}else {
@@ -152,6 +179,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 			this.availParamsS = new String[this.maxActionP1];
 			this.timeParamsS = new String[this.maxActionP1];
 			this.relParamsS = new String[this.maxActionP1];
+			this.resParamsS = new String[this.maxActionP1];
 			
 			for(int i=0; i < this.maxActionP1; i++) {
 				this.idParamsS[i] = "n"+i+"_id";
@@ -159,6 +187,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 				this.availParamsS[i] = "n"+i+"_avail";
 				this.timeParamsS[i] = "n"+i+"_time";
 				this.relParamsS[i] = "n"+i+"_rel";
+				this.resParamsS[i] = "n"+i+"_res";
 			}
 		}
 	}
@@ -182,6 +211,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 					vm.addValue(this.availParams[i][j], this.avail[i][j]);
 					vm.addValue(this.timeParams[i][j], this.time[i][j]);
 					vm.addValue(this.relParams[i][j], this.rel[i][j]);
+					vm.addValue(this.resParams[i][j], this.res[i][j]);
 				}
 			}
 		}
@@ -192,7 +222,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 				vm.addValue(this.availParamsS[i], this.availS[i]);
 				vm.addValue(this.timeParamsS[i], this.timeS[i]);
 				vm.addValue(this.relParamsS[i], this.relS[i]);
-				
+				vm.addValue(this.resParamsS[i], this.resS[i]);
 			}
 		}
 	}
@@ -213,7 +243,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	}
 	
 	/**
-	 * To generate a generic stochastic games model for service selection 
+	 * To generate a generic stochastic games model with single variation
 	 */
 	public void encodeSGModelforSimpleAppDeployment()  {
    	 	
@@ -368,7 +398,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
    	 	pw.println("//=========Player definition=======");
    	 	pw.println("player "+p1);
    	 	pw.print(""+mod1+",");
-   	 	for(int i=0; i < maxActionP1; i++) {
+   	 	for(int i=0; i < this.maxActionP1; i++) {
    	 		pw.print("[r"+i+"],");
 		}
    	 	pw.println("[end]");
@@ -377,13 +407,13 @@ public class AdaptationModelGenerator extends ModelGenerator{
    	 	
    	 	pw.println("player "+p2);
    	 	pw.print(""+mod2);
-   		for(int i=0; i < maxActionP1; i++) {
-	   	 	if (i != maxActionP1) {
+   		for(int i=0; i < this.maxActionP1; i++) {
+	   	 	if (i != this.maxActionP1) {
 				pw.print(",");
 			}
-   	 		for(int j=0; j < maxActionP2; j++) {
+   	 		for(int j=0; j < this.maxActionP2; j++) {
    	 			pw.print("[n"+i+"rs"+j+"]");
-   	 			if (j != maxActionP2-1) {
+   	 			if (j != this.maxActionP2-1) {
    	 			pw.print(",");
    	 			}
    	 		}
@@ -395,30 +425,41 @@ public class AdaptationModelGenerator extends ModelGenerator{
    		
 	 	pw.println("//=========Resource Profiles=======");
 	 	
-	 	
+	 	//if assignment occurs during encoding
 	 	if(this.setValuesStatus) {
-	 		pw.println("const int MXN="+maxActionP1+";");
-		 	for (int i=0; i < maxActionP1; i++) {
-			 	for(int j=0; j < maxActionP2; j++) {
+	 		pw.println("const int MXN="+this.maxActionP1+";");
+	 		pw.println("const double app_rs="+this.reqResource+";");
+	 		pw.println("const double mx_rs=1.0; //set the max resource per slot");
+	 		pw.println();
+	 		
+		 	for (int i=0; i < this.maxActionP1; i++) {
+			 	for(int j=0; j < this.maxActionP2; j++) {
 			 		pw.println("const int "+ this.idParams[i][j]+" = "+i+";");
 			 		pw.println("const double "+this.costParams[i][j]+" = "+this.cost[i][j]+";	//cost");
 			 		pw.println("const double "+this.availParams[i][j]+" = "+this.avail[i][j]+";	//avail");
 			 		pw.println("const double "+this.relParams[i][j]+" = "+this.rel[i][j]+";		//rel");
 			 		pw.println("const int "+this.timeParams[i][j]+" = "+this.time[i][j]+";		//time");
+			 		pw.println("const double "+this.resParams[i][j]+" = "+this.res[i][j]+";		//time");
 			 		pw.println();
 			 	}
 		 	}
 		 	pw.println();
 	 	}
+	 	//if assignment occurs after model instantiation
 	 	else {
 	 		pw.println("const int MXN;");
-	 		for (int i=0; i < maxActionP1; i++) {
-			 	for(int j=0; j < maxActionP2; j++) {
+	 		pw.println("const double app_rs;");
+	 		pw.println("const double mx_rs=1.0; //set the max resource per slot");
+	 		pw.println();
+	 		
+	 		for (int i=0; i < this.maxActionP1; i++) {
+			 	for(int j=0; j < this.maxActionP2; j++) {
 			 		pw.println("const int "+ this.idParams[i][j]+" = "+i+";");
 			 		pw.println("const double "+this.costParams[i][j]+";	//cost");
 			 		pw.println("const double "+this.availParams[i][j]+"; //avail");
 			 		pw.println("const double "+this.relParams[i][j]+";	//rel");
 			 		pw.println("const int "+this.timeParams[i][j]+";	//time");
+			 		pw.println("const double "+this.resParams[i][j]+";	//time");
 			 		pw.println();
 			 	}
 		 	}
@@ -454,7 +495,7 @@ public class AdaptationModelGenerator extends ModelGenerator{
 	 	pw.println("//P2 moves for single or sequential pattern:");	
 		for(int i=0; i < maxActionP1; i++) {
 		 	for(int j=0; j < maxActionP2; j++) {
-		 		pw.println("[n"+i+"rs"+j+"] (t=1) & (n="+i+") -> n"+i+"rs"+j+"_rel:(goal'=true) & (t'=0) + 1-n"+i+"rs"+j+"_rel:(goal'=false) & (t'=0);");
+		 		pw.println("[n"+i+"rs"+j+"] (t=1) & (n="+i+") & (app_rs + "+this.resParams[i][j]+" <= mx_rs) -> n"+i+"rs"+j+"_rel:(goal'=true) & (t'=0) + 1-n"+i+"rs"+j+"_rel:(goal'=false) & (t'=0);");
 		 	}
 		 	pw.println();
 		}
@@ -508,12 +549,12 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		
 		//Create a model generator instance
 		AdaptationModelGenerator mdg = new AdaptationModelGenerator();
-		int numCollab = 10; //number of collaborator
-		int numResource = 50;//set number of resources /vm
+		int numCollab = 5; //number of collaborator
+		int numResource = 2;//set number of resources /vm
 		
 		//configuring model parameters and values
 		System.out.println("Creating model for single application deployment...");
-		mdg.setValuesStatus(false); //true-create model with values, false-create model without values (later stage)
+		mdg.setValuesStatus(true); //true-create model with values, false-create model without values (later stage)
 		mdg.setPattern(0);	//set the current value of p=0 for single
 		mdg.setParamsNames("p1", "p2", "planner", "environment");
 		mdg.setUpperBounds(1, numCollab, numResource); //simply set numNode = 1
