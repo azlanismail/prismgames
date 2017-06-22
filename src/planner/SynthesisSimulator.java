@@ -9,7 +9,7 @@ import parser.Values;
 
 public class SynthesisSimulator {
 
-	String propPath, modelPath, transPath, stratPath, actionPath;
+	String propPath, modelPath, transPath, stratPath, actionListPath;
 	
 	//Planning related components	
 	PropertiesGenerator pg;
@@ -29,6 +29,7 @@ public class SynthesisSimulator {
 	long timeExp[]; //long the export execution time
 	long timeExt[]; //log the extraction execution time
 	boolean statusRes[]; //log the synthesis status
+	int countCand[];  //log the number of candidates
 		
 	//to log the execution information
 	String outfile = "/home/azlan/git/PrismGames/IOFiles/logfile";
@@ -42,7 +43,7 @@ public class SynthesisSimulator {
 		modelPath = mPath;
 		transPath = tPath;
 		stratPath = sPath;
-		actionPath = aPath;
+		actionListPath = aPath;
 	}
 	
 	public void setSimulationObjects(PropertiesGenerator pg, AdaptationModelGenerator mdg, 
@@ -52,6 +53,20 @@ public class SynthesisSimulator {
 		this.sp = sp;
 		this.se = se;
 	}
+	
+	public void encodeModel() {
+		//creating and assigning values to the model parameters
+		System.out.println("Generates random values...");
+		mdg.setAllRandomServProfiles();
+		System.out.println("Create quality attributes...");
+		mdg.createQualityParams();
+		System.out.println("Assign quantitative information...");
+		mdg.setQualityParamswithValues();
+		mdg.setModelPath(modelPath);	
+		System.out.println("Encoding model specification...");
+		mdg.encodeSGModelforComplexAppDeployment();
+		mdg.exportActionList(actionListPath);
+	}
 
 	public void simulatePlanning(int sCycle) {
 			
@@ -59,6 +74,7 @@ public class SynthesisSimulator {
 		time = new long[simCycle]; //log the synthesis execution time
 		timeExt = new long[simCycle]; //log the extraction execution time
 		statusRes = new boolean[simCycle]; //log the synthesis status
+		countCand = new int[simCycle]; //log the number of candidates
 		
 		//begin the simulation per configuration	
 		for(int m=0; m < simCycle; m++) {
@@ -72,6 +88,9 @@ public class SynthesisSimulator {
 			//==========Synthesis===================
 			//record the start time
 			tm.start();
+			
+			//encoding the values
+			encodeModel();
 			
 			//synthesis
 			System.out.println("Synthesizing model...");
@@ -105,12 +124,13 @@ public class SynthesisSimulator {
 			boolean status = sp.getSynthesisStatus();
 			
 			if (status) {
-			System.out.println("Extracting strategies...");
-			se.setPath(transPath, stratPath, actionPath);
-			se.readSingleActionLabelFile();
-			se.readTransitionFile();
-			se.readStrategiesfromMultiObjSynthesis();	
-			se.findSingleDecision();
+				System.out.println("Extracting strategies...");
+				se.setPath(transPath, stratPath, actionListPath);
+				se.readSingleActionLabelFile();
+				se.readTransitionFile();
+				se.readStrategiesfromMultiObjSynthesis();	
+				se.findSingleDecision();
+				countCand[m] = se.computeNumofPotentialCandidate();
 			}
 			else
 				System.out.println("No decision since synthesis results in false");
@@ -128,16 +148,19 @@ public class SynthesisSimulator {
 			
 	}
 	
+	/**
+	 * log performance data
+	 */
 	public void logInformation() {	
 		String fileName = outfile + "_" + mdg.getMaxActionP1() +"_" + mdg.getMaxActionP2();
 		try {
 			PrintWriter out = new PrintWriter(new FileWriter(fileName, false));
 		
 			String loginfo = "";
-			out.println("CycleId NumofObj NumofAct NumofEnv SynTime SynStatus Solution");
+			out.println("CycleId NumofObj NumofAct NumofEnv SynTime SynStatus NumofCandidate");
 			for(int m=0; m < simCycle; m++) {
 				loginfo = loginfo+m+" "+mdg.getMaxActionP1()+" "+mdg.getMaxActionP2()+" "+
-						  time[m]+" "+statusRes[m]+"\n";
+						  time[m]+" "+statusRes[m]+" "+countCand[m]+"\n";
 			}
 			out.println(loginfo);
 			out.close();
@@ -155,7 +178,6 @@ public class SynthesisSimulator {
 		}
 	}
 	
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -166,9 +188,9 @@ public class SynthesisSimulator {
 		String actionListPath = "/home/azlan/git/PrismGames/IOFiles/actionList.txt";
 	
 		//==========CONFIGURATION SETTING==================
-		int numAct = 50;  //number of collaborator
-		int numEnv = 1;  //number of environment variation
-		int simCycle = 1; //number of simulation cycle
+		int numAct = 10;  //number of collaborator
+		int numEnv = 5;  //number of environment variation
+		int simCycle = 100; //number of simulation cycle
 		int numQyObj = 3; //number of quality objectives
 		boolean assignValue = true; //true-assign values while encoding, false-later stage
 		
@@ -212,15 +234,16 @@ public class SynthesisSimulator {
 			mdg.setUpperBounds(1, numAct, numEnv); //simply set numNode = 1
 			
 			//creating and assigning values to the model parameters
-			System.out.println("Generates random values...");
-			mdg.setAllRandomServProfiles();
-			System.out.println("Create quality attributes...");
-			mdg.createQualityParams();
-			System.out.println("Assign quantitative information...");
-			mdg.setQualityParamswithValues();
-			mdg.setModelPath(modelPath);	
-			System.out.println("Encoding model specification...");
-			mdg.encodeSGModelforComplexAppDeployment();
+//			System.out.println("Generates random values...");
+//			mdg.setAllRandomServProfiles();
+//			System.out.println("Create quality attributes...");
+//			mdg.createQualityParams();
+//			System.out.println("Assign quantitative information...");
+//			mdg.setQualityParamswithValues();
+//			mdg.setModelPath(modelPath);	
+//			System.out.println("Encoding model specification...");
+//			mdg.encodeSGModelforComplexAppDeployment();
+//			mdg.exportActionList(actionListPath);
 			
 			//=========INITIALIZE PLANNING-RELATED OBJECTS==============
 			//Create a SG-Planner instance

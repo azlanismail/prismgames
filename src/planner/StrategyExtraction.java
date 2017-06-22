@@ -8,39 +8,39 @@ import java.util.Scanner;
 
 public class StrategyExtraction {
 
-	private String mapsPath = null;
-	private String transPath = null;
-	private String stratPath = null;
+	protected String mapsPath = null;
+	protected String transPath = null;
+	protected String stratPath = null;
 	//private String actionLabelPath = null;
 	
-	private String stratCompPath = null;
-	private String stratMultiCompPath = null;
-	private String stratMulti1Path = null;
-	private String stratMulti2Path = null;
-	private String actionLabelAPath = null;
-	private String actionLabelBPath = null;
+	protected String stratCompPath = null;
+	protected String stratMultiCompPath = null;
+	protected String stratMulti1Path = null;
+	protected String stratMulti2Path = null;
+	protected String actionLabelAPath = null;
+	protected String actionLabelBPath = null;
 	
-	private ArrayList<String> mapslist;
-	private ArrayList<Integer> transStates;
-	private ArrayList<Integer> transActions;
-	private ArrayList<String> transLabels;
-	private ArrayList<Integer> substrat1States;
-	private ArrayList<Integer> substrat1Actions;
-	private ArrayList<Integer> substrat2States;
-	private ArrayList<Integer> substrat2Actions;
-	private ArrayList<String> actionLabelA;
-	private ArrayList<String> actionLabelB;
-	private ArrayList<String> nodeIdlist;
-	private String[] Solution;	//to store the solution
-	private Scanner readM, readT, readS, readA, readB;
+	protected ArrayList<String> mapslist;
+	protected ArrayList<Integer> transStates;
+	protected ArrayList<Integer> transActions;
+	protected ArrayList<String> transLabels;
+	protected ArrayList<Integer> substrat1States;
+	protected ArrayList<Integer> substrat1Actions;
+	protected ArrayList<Integer> substrat2States;
+	protected ArrayList<Integer> substrat2Actions;
+	protected ArrayList<String> actionLabelA;
+	protected ArrayList<String> actionLabelB;
+	protected ArrayList<String> nodeIdlist;
+	protected String[] Solution;	//to store the solution
+	protected Scanner readM, readT, readS, readA, readB;
 	
-	private int decStateStrat1 = -1, decStateStrat2 =-1;
-	private int selAction1 = -1, selAction2 = -1;
-	private String selLabel1, selLabel2;
+	protected int decStateStrat1 = -1, decStateStrat2 =-1;
+	protected int selAction1 = -1, selAction2 = -1;
+	protected String selLabel1, selLabel2;
 	
-	private int numofDec;
-	private ArrayList<ArrayList<String>> actLabel;
-	private String[][] actionLabel;
+	protected int numofDec;
+	protected ArrayList<ArrayList<String>> actLabel;
+	protected String[][] actionLabel;
 	
 	public StrategyExtraction() {
 		

@@ -1,102 +1,102 @@
-CycleId NumofObj NumofAct NumofEnv SynTime SynStatus Solution
-0 10 4 9921 true
-1 10 4 1428 true
-2 10 4 1121 true
-3 10 4 988 true
-4 10 4 861 true
-5 10 4 875 true
-6 10 4 834 true
-7 10 4 829 true
-8 10 4 785 true
-9 10 4 683 true
-10 10 4 802 true
-11 10 4 699 true
-12 10 4 836 true
-13 10 4 808 true
-14 10 4 944 true
-15 10 4 849 true
-16 10 4 676 true
-17 10 4 731 true
-18 10 4 644 true
-19 10 4 719 true
-20 10 4 704 true
-21 10 4 629 true
-22 10 4 777 true
-23 10 4 709 true
-24 10 4 723 true
-25 10 4 633 true
-26 10 4 616 true
-27 10 4 852 true
-28 10 4 717 true
-29 10 4 596 true
-30 10 4 666 true
-31 10 4 739 true
-32 10 4 674 true
-33 10 4 630 true
-34 10 4 635 true
-35 10 4 678 true
-36 10 4 656 true
-37 10 4 734 true
-38 10 4 701 true
-39 10 4 661 true
-40 10 4 754 true
-41 10 4 443 true
-42 10 4 581 true
-43 10 4 608 true
-44 10 4 642 true
-45 10 4 654 true
-46 10 4 598 true
-47 10 4 636 true
-48 10 4 652 true
-49 10 4 749 true
-50 10 4 658 true
-51 10 4 719 true
-52 10 4 520 true
-53 10 4 606 true
-54 10 4 508 true
-55 10 4 640 true
-56 10 4 569 true
-57 10 4 665 true
-58 10 4 702 true
-59 10 4 563 true
-60 10 4 600 true
-61 10 4 808 true
-62 10 4 603 true
-63 10 4 678 true
-64 10 4 725 true
-65 10 4 701 true
-66 10 4 594 true
-67 10 4 701 true
-68 10 4 705 true
-69 10 4 693 true
-70 10 4 589 true
-71 10 4 678 true
-72 10 4 717 true
-73 10 4 609 true
-74 10 4 776 true
-75 10 4 628 true
-76 10 4 664 true
-77 10 4 570 true
-78 10 4 567 true
-79 10 4 557 true
-80 10 4 568 true
-81 10 4 618 true
-82 10 4 726 true
-83 10 4 608 true
-84 10 4 629 true
-85 10 4 670 true
-86 10 4 722 true
-87 10 4 607 true
-88 10 4 726 true
-89 10 4 967 true
-90 10 4 780 true
-91 10 4 800 true
-92 10 4 819 true
-93 10 4 828 true
-94 10 4 789 true
-95 10 4 800 true
-96 10 4 410 true
-97 10 4 609 true
-98 10 4 561 true
-99 10 4 650 true
+CycleId NumofObj NumofAct NumofEnv SynTime SynStatus NumofCandidate
+0 10 4 3123 true 1
+1 10 4 1337 false 0
+2 10 4 1730 true 4
+3 10 4 992 true 2
+4 10 4 1338 false 0
+5 10 4 880 true 3
+6 10 4 27095 true 4
+7 10 4 708 true 2
+8 10 4 1160 true 3
+9 10 4 5749 true 2
+10 10 4 917 true 3
+11 10 4 1056 true 1
+12 10 4 1219 true 3
+13 10 4 931 true 2
+14 10 4 15100 true 4
+15 10 4 765 true 3
+16 10 4 867 true 1
+17 10 4 1371 false 0
+18 10 4 1109 true 2
+19 10 4 756 true 2
+20 10 4 743 true 4
+21 10 4 905 true 2
+22 10 4 476 true 2
+23 10 4 1141 true 3
+24 10 4 671 true 2
+25 10 4 1115 true 4
+26 10 4 953 true 3
+27 10 4 1287 true 4
+28 10 4 1801 false 0
+29 10 4 744 true 2
+30 10 4 673 true 1
+31 10 4 1049 true 2
+32 10 4 5918 false 0
+33 10 4 921 true 2
+34 10 4 1976 false 0
+35 10 4 653 true 2
+36 10 4 980 true 2
+37 10 4 541 true 2
+38 10 4 6244 true 3
+39 10 4 653 true 2
+40 10 4 3624 false 0
+41 10 4 1150 true 2
+42 10 4 1585 false 0
+43 10 4 1090 true 3
+44 10 4 4291 false 0
+45 10 4 1933 false 0
+46 10 4 576 true 2
+47 10 4 903 true 3
+48 10 4 647 true 3
+49 10 4 1045 false 0
+50 10 4 519 true 2
+51 10 4 882 true 3
+52 10 4 3423 false 0
+53 10 4 910 true 4
+54 10 4 836 true 1
+55 10 4 1289 false 0
+56 10 4 574 true 2
+57 10 4 589 true 2
+58 10 4 1191 false 0
+59 10 4 673 false 0
+60 10 4 548 true 1
+61 10 4 1149 true 2
+62 10 4 793 true 1
+63 10 4 679 true 2
+64 10 4 640 true 2
+65 10 4 662 true 2
+66 10 4 2167 false 0
+67 10 4 512 true 2
+68 10 4 795 true 3
+69 10 4 2148 false 0
+70 10 4 3033 true 4
+71 10 4 1867 true 3
+72 10 4 616 true 1
+73 10 4 2880 false 0
+74 10 4 890 true 2
+75 10 4 1421 false 0
+76 10 4 689 true 2
+77 10 4 601 true 2
+78 10 4 947 true 3
+79 10 4 843 true 3
+80 10 4 1240 false 0
+81 10 4 659 true 2
+82 10 4 4118 false 0
+83 10 4 429 true 1
+84 10 4 592 true 2
+85 10 4 3281 false 0
+86 10 4 1538 false 0
+87 10 4 805 true 4
+88 10 4 740 true 2
+89 10 4 596 true 2
+90 10 4 860 true 3
+91 10 4 1955 false 0
+92 10 4 4630 false 0
+93 10 4 28130 true 4
+94 10 4 995 true 4
+95 10 4 515 true 2
+96 10 4 393 true 2
+97 10 4 8514 true 6
+98 10 4 532 true 2
+99 10 4 632 true 4
 
