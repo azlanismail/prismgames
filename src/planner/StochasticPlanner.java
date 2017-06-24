@@ -2,14 +2,18 @@ package planner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import explicit.CompositionalSMGModelChecker;
 import explicit.Model;
+import explicit.PPLSupport;
+import explicit.Pareto;
 import explicit.PrismExplicit;
 import explicit.ProbModelChecker;
 import explicit.SMGModelChecker;
 import explicit.StateModelChecker;
+import parma_polyhedra_library.Polyhedron;
 import parser.Values;
 import parser.ast.ModulesFile;
 import parser.ast.PropertiesFile;
@@ -40,7 +44,7 @@ public class StochasticPlanner {
 	GenerateSimulationPath simPath;
 	Path path;
 	Model model;
-	//Result rs, rsProb, rsRwd1, rsRwd2, rsRwd3, rsRwd4, rsCSMG, rsComp, rsMulti1, rsMulti2, rsMultiComp;
+	
 	Result rs, rsProb, rsRwd1, rsRwd2, rsRwd3, rsRwd4, rsCSMG, rsComp, rsMulti1, rsMulti2, rsMultiComp;
 	Strategy stratComp, stratMultiComp, stratMulti1, stratMulti2;
 	SMGModelChecker smg;
@@ -48,13 +52,11 @@ public class StochasticPlanner {
 	StrategyExtraction ste;
 	ConfigurationPlanner conf;
 	
-	//Defining File Inputs/Outputs
-	String logPath = "./myLog.txt";
+	ArrayList<String> thresholdSets;  //for threshold set obtained via pareto 
+	String logPath = "./myLog.txt";	//Defining File Inputs/Outputs
 
-
-	//Defining internal attributes for the planner
-	int stage, propId;
-	boolean synthesisStatus = false;
+	int propId;	//for storing the property index 
+	boolean synthesisStatus = false;	//for storing the synthesis status
 
 	
 	public StochasticPlanner() {  }
@@ -65,7 +67,6 @@ public class StochasticPlanner {
         prism = new Prism(mainLog , mainLog);
         simEngine = new SimulatorEngine(prismCom, prism);
         prismEx = new PrismExplicit(mainLog, prism.getSettings());
-       
     }
 	
 	public void parseModelandProperties(String modelPath, String propsPath) {
@@ -90,6 +91,55 @@ public class StochasticPlanner {
 	public void setUndefinedModelValues(Values vm) {
 		try {
 			modulesFile.setUndefinedConstants(vm);
+		} catch (PrismLangException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	}
+	
+	public void assignThresholdParamswithValues(Properties[] prop) {
+		
+		if (vp == null) {
+			vp = new Values();
+		}
+		
+		//assuming random approach
+		Random rand = new Random();
+		
+		//select one of the pair of threshold candidates, except those 0.0, 1.0, -ve values
+		int chooseInd = rand.nextInt(thresholdSets.size()-1) + 2;
+		System.out.println("Chosen index is "+chooseInd);
+		
+		//split the pair
+		String str = thresholdSets.get(chooseInd);
+		String[] splitStr = str.split("\\,");
+		
+		if (splitStr.length == 3) {
+			for(int i=0; i < prop.length; i++) {
+				if (prop[i].name.equalsIgnoreCase("cost")) {
+					System.out.println("The value is "+splitStr[0]);
+					prop[i].values = Double.parseDouble(splitStr[0]) + 0.1;
+				}
+				else if (prop[i].name.equalsIgnoreCase("time")) {
+					String[] ss = splitStr[1].split("\\.");
+					System.out.println("The value is "+ss[0]);
+					prop[i].values = Integer.parseInt(ss[0].trim()) + 1;
+				}
+				else {
+					System.out.println("The value is "+splitStr[2]);
+					prop[i].values = Double.parseDouble(splitStr[2]) - 0.1;
+				}
+			}
+		}
+		else
+			System.out.println("The element of pair is insufficent");
+		
+		for(int i=0; i < prop.length; i++) {
+			vp.addValue(prop[i].name, prop[i].values); 
+		}
+		
+		try {
+			propertiesFile.setUndefinedConstants(vp);
 		} catch (PrismLangException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -218,6 +268,67 @@ public class StochasticPlanner {
 	}	
 
 	/**
+	 * To generate the acceptable thresholds based on the computed Pareto set
+	 */
+	public void computeParetoforThresholds() {		
+	    
+		 try {
+	    	
+	    	System.out.println("Computing Pareto set.....");
+	    	
+	    	//parse the specifications to smg instance    	
+	    	//smg.setModulesFileAndPropertiesFile(modulesFile, propertiesFile);
+	    	
+	        //set the status for pareto and strategy generation
+		    smg.setComputeParetoSet(true);
+		  
+		    System.out.println("Compute pareto set");
+		    smg.check(model, propertiesFile.getProperty(propId)); 
+		 
+		    //define the thresholds set to store the values from computed Pareto set
+		    thresholdSets = new ArrayList<String>();
+		    
+		    //extract the threshold values from Pareto set
+		    String[] str = PPLSupport.getParetoString();
+		    for(int i=0; i < str.length; i++) {
+		    	String[] splitTemp = str[i].split("\\[|\\]");
+		    	for(int j=0; j < splitTemp.length; j++) {
+		    		if(!splitTemp[j].isEmpty() && !splitTemp[j].contentEquals("r:")) {
+		    			thresholdSets.add(splitTemp[j]); 
+			    	    System.out.println("Pareto is "+splitTemp[j]);
+			    	  //  String[] splitStr2 = splitStr[j].split("\\,");
+			    	  //  for(int k=0; k < splitStr2.length; k++) {
+				    	//    System.out.print(splitStr2[k]+",");
+				    	//}
+			    	  //  System.out.println();
+		    		}
+		    	}
+		    	    
+		    }
+		    
+		    // Pareto[] pset = smg.getParetoSet();
+		    //for(int i=0; i < pset.length; i++) {
+		    	//Polyhedron pol = pset[i].get();
+		    	//for(int j=0; j < pset[i].getDimension(); j++)
+		      	//System.out.println("The pareto set is : "+ pset[i].get().toString());
+		    	//System.out.println("The pareto set is : ");
+		    //}
+		 }//end of try
+		 catch (PrismLangException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		 }	
+		 catch (PrismException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		 }	
+	}	
+	
+	public void chooseTresholds() {
+		
+	}
+	
+	/**
 	 * To return the strategy generation status of compositional synthesis
 	 * @return
 	 */
@@ -258,14 +369,13 @@ public class StochasticPlanner {
     public void exportStrategy(String sPath)
     {   
     	//exporting strategies for single objective
-    	//if((rs!=null) && (smg!=null)) {
     	if(rs!=null) {
     		stratMulti1 = rs.getStrategy();
     		stratMulti1.exportToFile(sPath);
     	}
     	
     	//exporting the strategies for multi-objective
-    	if(rsMulti1!=null ) {
+    	if(rsMulti1!=null ) {	
     		if((boolean)rsMulti1.getResult()) {
     			stratMulti1 = rsMulti1.getStrategy();
     			stratMulti1.exportToFile(sPath);
@@ -298,56 +408,7 @@ public class StochasticPlanner {
 		}
     	
     }
-    
-    /**
-     * To extract a single strategy
-     */
-    public void extractSingleStrategy() 
-    {   
-    	try {
-		ste.readSingleActionLabelFile();
-		ste.displayActionLabelAList();
-		ste.readTransitionFile();
-		ste.readMultiCompfromOneStrategiesProfile();
-		
-		ste.findSingleDecision();
-		ste.displayStrategies();
-		
-		}
-    	catch(IllegalArgumentException ie) {
-    		ie.printStackTrace();
-    	}
-    	catch(FileNotFoundException e) {
-    		e.printStackTrace();
-    	}
-    }
-
-    
-    
-    public void extractStrategy() 
-    {   
-    	try {
-		ste.readActionLabelFile();
-		//ste.displayActionLabelAList();
-		//ste.displayActionLabelBList();
-		ste.readTransitionFile();
-		ste.readMultiCompfromOneStrategiesProfile();		
-		ste.findMultiDecision();
-		//ste.displayStrategies();
-		}
-    	catch(IllegalArgumentException ie) {
-    		ie.printStackTrace();
-    	}
-    	catch(FileNotFoundException e) {
-    		e.printStackTrace();
-    	}
-    }
-   
-       
-    
-    public int getMaxResource() {
-    	return conf.getMaxResource();
-    }
+         
     
     public String getDecision(int decId) {
     	String nodeName;
@@ -361,7 +422,8 @@ public class StochasticPlanner {
      
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		// TODO Auto-generated method stub
 		
 		//set the input paths
@@ -371,25 +433,99 @@ public class StochasticPlanner {
 		//set the output paths
 		String transPath = "/home/azlan/git/PrismGames/IOFiles/trans.txt";
 		String stratPath = "/home/azlan/git/PrismGames/IOFiles/strat.txt";
+		
+		//set intermediate path
+		String actionListPath = "/home/azlan/git/PrismGames/IOFiles/actionList.txt";
 	
+		//==========PROPERTIES CREATION=====================
+		//set properties
+		Properties pp[] = new Properties[3];
+		PropertiesGenerator pg = new PropertiesGenerator();
+		
+		//create the empty properties
+		pp[0] = new Properties();
+		pp[1] = new Properties();
+		pp[2] = new Properties();
+		
+		//specify the parameters
+		pp[0].setProperties(0, "cost", "double", 90, 10, "<");
+		pp[1].setProperties(1, "time", "int", 1000, 100,"<");
+		pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">");
+		
+		//========PROPERTIES ENCODING=====================
+		pg.setPropPath(propPath); //set the path
+		pg.assignProperties(pp); //assign properties to the properties generator
+		pg.setValuesStatus(false); //true-encode properties with threshold, false-without threshold (later stage)
+		pg.setThresholdParamswithValues();
+		pg.encodeProperties(); //encode the properties specification with values
+		
+		//========SYNTHESIS==============================
+			
 		//Create a SG-Planner instance
 		StochasticPlanner sp = new StochasticPlanner();
-				
+		MultiObjStrategyExtraction se = new MultiObjStrategyExtraction();
+		
 		//=================================
 		//synthesis
+		boolean status = sp.getSynthesisStatus();
+		
 		System.out.println("Synthesizing model...");
 		sp.initiatePlanner();
 		sp.parseModelandProperties(modelPath, propPath);
-		
-		//sp.setUndefinedValues(mdg.getDefinedValues());
 		sp.setPropertyId(0);
-		sp.checkModelforMultiObjective();
-	
+		//sp.setUndefinedModelValues(mdg.getDefinedValues());
+		sp.setUndefinedPropertiesValues(pg.getDefinedValues());
+		
+		//sp.checkModelforMultiObjective();
+		//status = sp.getSynthesisStatus();
+		
+		int count=0;
+		while (true) {
+			//perform model checking
+			sp.checkModelforMultiObjective();
+			status = sp.getSynthesisStatus();
+			
+			if ((status==true) || (count > 2)) {
+				System.out.println("Terminating the model checking loop");
+				break;
+			}
+			else {
+				//get new thresholds values via pareto computation
+				sp.computeParetoforThresholds();
+				//re-assign the new thresholds
+				sp.assignThresholdParamswithValues(pp);
+			}
+			count++;
+		}
+		
+		
 		//==================================
 		//exporting
-		System.out.println("Exporting transitions and strategies...");
-		sp.exportTrans(transPath);
-		sp.exportStrategy(stratPath);				
+		if (status) {
+			//exporting
+			System.out.println("Exporting transitions and strategies...");
+			sp.exportTrans(transPath);
+			sp.exportStrategy(stratPath);		
+		}	
+		else
+			System.out.println("No exporting since synthesis results in false");	
+		
+		//================================
+		//extraction
+		if (status) {
+			System.out.println("Extracting strategies...");
+			se.setPath(transPath, stratPath, actionListPath);
+			se.readSingleActionLabelFile();
+			se.readTransitionFile();
+			se.readStrategiesfromMultiObjSynthesis();	
+			se.findSingleDecision();
+		}
+		else
+			System.out.println("No decision since synthesis results in false");	
+
 	}
+	
+	
 
 }
+

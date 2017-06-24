@@ -69,6 +69,8 @@ import explicit.rewards.SMGRewards;
  **/
 public class PPLSupport
 {
+	private static String[] str;
+	
 	// Load and initialise the Parma Polyhedra Library (PPL) - used for polyhedra operations
 	public static void initPPL() throws PrismException
 	{
@@ -359,8 +361,11 @@ public class PPLSupport
 			} else {
 				if (ps.size() > 1)
 					mainLog.print("[\n");
-				for (int u = 0; u < ps.size(); u++)
-					mainLog.print(String.format("%s\n", reachabilityPolyhedronToString(ps.get(u), dim)));
+				str = new String[ps.size()];  //I need to add this line
+				for (int u = 0; u < ps.size(); u++) {
+					str[u] = reachabilityPolyhedronToString(ps.get(u), dim);   //I need to add this line
+					mainLog.print(String.format("%s\n", str[u]));
+				}
 				if (ps.size() > 1)
 					mainLog.print("]\n");
 			}
@@ -372,12 +377,20 @@ public class PPLSupport
 			} else {
 				if (ps.size() > 1)
 					System.out.printf("[\n");
-				for (int u = 0; u < ps.size(); u++)
-					System.out.printf("%s\n", reachabilityPolyhedronToString(ps.get(u), dim));
+				str = new String[ps.size()];  //I need to add this line
+				for (int u = 0; u < ps.size(); u++) {
+					str[u] = reachabilityPolyhedronToString(ps.get(u), dim);   //I need to add this line
+					//System.out.printf("%s\n", reachabilityPolyhedronToString(ps.get(u), dim));
+					System.out.printf("%s\n", str[u]);
+				}
 				if (ps.size() > 1)
 					System.out.printf("]\n");
 			}
 		}
+	}
+	
+	public static String[] getParetoString() {
+		return str;
 	}
 
 	// print all polyhedra, including stochastic states, only works for CQs

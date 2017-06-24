@@ -67,6 +67,9 @@ public class PropertiesGenerator extends ModelGenerator{
 	}
 	
 	public static void main(String args[]) {
+		
+		boolean assignValue = true;
+		
 		Properties pp[] = new Properties[3];
 		PropertiesGenerator pg = new PropertiesGenerator();
 		
@@ -79,7 +82,7 @@ public class PropertiesGenerator extends ModelGenerator{
 		//specify the parameters
 		pp[0].setProperties(0, "cost", "double", 90, 10, "<");
 		pp[1].setProperties(1, "time", "int", 1000, 100,"<");
-		pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, "");
+		pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">");
 		//pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
 		
 		//set the path
@@ -88,7 +91,7 @@ public class PropertiesGenerator extends ModelGenerator{
 		
 		//assign properties to the properties generator
 		pg.assignProperties(pp);
-		
+		pg.setValuesStatus(assignValue); //true-encode properties with threshold, false-without threshold (later stage)
 		pg.encodeProperties();
 		System.out.println("done creating the properties specification...");
 		

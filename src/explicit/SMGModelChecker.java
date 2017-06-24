@@ -124,6 +124,9 @@ public class SMGModelChecker extends ProbModelChecker
 	private List<String> strictToNonstrict = new ArrayList<String>();
 	private List<String> unfolded = new ArrayList<String>();
 
+	//I need to add for storing the Pareto set
+	Pareto[] paretoThreshold;
+	
 	/**
 	 * Create a new SMGModelChecker, inherit basic state from parent (unless null).
 	 */
@@ -586,6 +589,7 @@ public class SMGModelChecker extends ProbModelChecker
 
 		if (computePareto) {
 			// COMPUTE PARETO SET
+			System.out.println("Test from compute pareto in checkExpressionMultiDirect");
 			double t0 = (double) System.nanoTime();
 			setRewardBrackets(params, model); // find brackets around rewards to start iteration and/or rounding
 			Pareto[] pareto = computeRatioMQParetoSet((SMG) model, params);
@@ -601,8 +605,14 @@ public class SMGModelChecker extends ProbModelChecker
 			if (!checkBounds) {
 				PointList.addStoredPointList(((SMG) model).getName(), new PointList(pareto_set, params.expressions, params.bounds));
 			}
+			
+			
 			mainLog.print("Resulting Pareto set:\n");
 			PPLSupport.printReachabilityPolyhedron(pareto, params.rewards.size(), init, mainLog);
+			
+			//I need to add this line to enable external access
+			paretoThreshold = pareto;
+			
 			mainLog.flush();
 			return StateValues.createFromParetoArray(pareto, model);
 		} else {
@@ -1992,6 +2002,7 @@ public class SMGModelChecker extends ProbModelChecker
 	{
 		int gameSize = smg.getNumStates();
 
+		System.out.println("Compute pareto from computeRatioMQParetoSet");
 		// sanity check for conjunction valiter count
 		if (params.maxCIter < 1)
 			throw new PrismException("Iteration count for conjunctions has to be greater or equal to one.");
@@ -2039,6 +2050,10 @@ public class SMGModelChecker extends ProbModelChecker
 
 			return result;
 		}
+	}
+	
+	public Pareto[] getParetoSet() {
+		return paretoThreshold;
 	}
 
 	/**
@@ -2843,5 +2858,14 @@ public class SMGModelChecker extends ProbModelChecker
 		STPGModelChecker mcSTPG = new STPGModelChecker(this);
 		mcSTPG.inheritSettings(this);
 		return mcSTPG;
+	}
+	
+
+	/**
+	 * Method to retrieve the pareto set that has been generated
+	 */
+	public Pareto getPareto()
+	{
+		return pareto_set;
 	}
 }

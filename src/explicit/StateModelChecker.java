@@ -429,7 +429,7 @@ public class StateModelChecker extends PrismComponent
 	{
 		return strategy;
 	}
-
+	
 	/**
 	 * Model check an expression, process and return the result.
 	 * Information about states and model constants should be attached to the model.

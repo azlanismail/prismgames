@@ -89,7 +89,7 @@ public class SynthesisSimulator {
 			//record the start time
 			tm.start();
 			
-			//encoding the values
+			//encoding the model
 			encodeModel();
 			
 			//synthesis
@@ -105,11 +105,15 @@ public class SynthesisSimulator {
 			sp.setPropertyId(0);	//set to the properties id 0
 			sp.checkModelforMultiObjective();
 			
-			//exporting
-			System.out.println("Exporting transitions and strategies...");
-			sp.exportTrans(transPath);
-			sp.exportStrategy(stratPath);		
 			
+			boolean status = sp.getSynthesisStatus();
+			
+			if (status) {
+				//exporting
+				System.out.println("Exporting transitions and strategies...");
+				sp.exportTrans(transPath);
+				sp.exportStrategy(stratPath);		
+			}
 			//record the synthesis status
 			statusRes[m] = sp.getSynthesisStatus();
 			
@@ -120,8 +124,6 @@ public class SynthesisSimulator {
  			
 			//=================================
 			//extraction
-			
-			boolean status = sp.getSynthesisStatus();
 			
 			if (status) {
 				System.out.println("Extracting strategies...");
@@ -190,7 +192,7 @@ public class SynthesisSimulator {
 		//==========CONFIGURATION SETTING==================
 		int numAct = 10;  //number of collaborator
 		int numEnv = 5;  //number of environment variation
-		int simCycle = 100; //number of simulation cycle
+		int simCycle = 1; //number of simulation cycle
 		int numQyObj = 3; //number of quality objectives
 		boolean assignValue = true; //true-assign values while encoding, false-later stage
 		
