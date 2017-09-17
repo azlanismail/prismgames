@@ -1,3 +1,1000 @@
-CycleId NumofObj NumofAct NumofEnv SynTime SynStatus NumofCandidate
-0 10 5 14293 false 0
+0 10 5 8496 false, true, false, 0
+
+0 10 5 7176 false, true, false, 0
+
+0 10 5 3663 false, true, false, 0
+
+0 10 5 1990 false, true, false, 0
+
+0 10 5 3100 false, true, false, 0
+
+0 10 5 1789 false, true, false, 0
+
+0 10 5 2249 false, true, false, 0
+
+0 10 5 8219 false, true, false, 0
+
+0 10 5 1881 false, true, false, 0
+
+0 10 5 3486 false, true, false, 0
+
+0 10 5 4202 false, true, false, 0
+
+0 10 5 27650 false, true, false, 0
+
+0 10 5 3562 false, true, false, 0
+
+0 10 5 11905 false, true, false, 0
+
+0 10 5 2543 false, true, false, 0
+
+0 10 5 2490 false, true, false, 0
+
+0 10 5 3827 false, true, false, 0
+
+0 10 5 3829 false, true, false, 0
+
+0 10 5 38354 false, true, false, 0
+
+0 10 5 5742 false, true, false, 0
+
+0 10 5 11413 false, true, false, 0
+
+0 10 5 1625 false, true, false, 0
+
+0 10 5 3008 false, true, false, 0
+
+0 10 5 2431 false, true, false, 0
+
+0 10 5 1739 false, true, false, 0
+
+0 10 5 1940 false, true, false, 0
+
+0 10 5 5638 false, true, false, 0
+
+0 10 5 2523 false, true, false, 0
+
+0 10 5 2237 false, true, false, 0
+
+0 10 5 15399 false, true, false, 0
+
+0 10 5 2189 false, true, false, 0
+
+0 10 5 2400 false, true, false, 0
+
+0 10 5 6625 false, true, false, 0
+
+0 10 5 5616 false, true, false, 0
+
+0 10 5 5354 false, true, false, 0
+
+0 10 5 2963 false, true, false, 0
+
+0 10 5 5042 false, true, false, 0
+
+0 10 5 2234 false, true, false, 0
+
+0 10 5 5310 false, true, false, 0
+
+0 10 5 2722 false, true, false, 0
+
+0 10 5 1899 false, true, false, 0
+
+0 10 5 2662 false, true, false, 0
+
+0 10 5 15970 false, true, false, 0
+
+0 10 5 5136 false, true, false, 0
+
+0 10 5 3406 false, true, false, 0
+
+0 10 5 7446 false, true, false, 0
+
+0 10 5 19764 false, true, false, 0
+
+0 10 5 4552 false, true, false, 0
+
+0 10 5 1702 false, true, false, 0
+
+0 10 5 1668 false, true, false, 0
+
+0 10 5 2087 false, true, false, 0
+
+0 10 5 17010 false, true, false, 0
+
+0 10 5 2558 false, true, false, 0
+
+0 10 5 3540 false, true, false, 0
+
+0 10 5 1231 false, true, false, 0
+
+0 10 5 3017 false, true, false, 0
+
+0 10 5 5642 false, true, false, 0
+
+0 10 5 35317 false, true, false, 0
+
+0 10 5 1015 false, true, false, 0
+
+0 10 5 6647 false, true, false, 0
+
+0 10 5 14434 false, true, false, 0
+
+0 10 5 1089 false, true, false, 0
+
+0 10 5 23220 false, true, false, 0
+
+0 10 5 643 false, true, false, 0
+
+0 10 5 2979 false, true, false, 0
+
+0 10 5 15986 false, true, false, 0
+
+0 10 5 1336 false, true, false, 0
+
+0 10 5 8124 false, true, false, 0
+
+0 10 5 26119 false, true, false, 0
+
+0 10 5 2839 false, true, false, 0
+
+0 10 5 2701 false, true, false, 0
+
+0 10 5 1700 false, true, false, 0
+
+0 10 5 833 false, true, false, 0
+
+0 10 5 533 false, true, false, 0
+
+0 10 5 512 false, true, false, 0
+
+0 10 5 3001 false, true, false, 0
+
+0 10 5 16807 false, true, false, 0
+
+0 10 5 2304 false, true, false, 0
+
+0 10 5 1233 false, true, false, 0
+
+0 10 5 6509 false, true, false, 0
+
+0 10 5 695 false, true, false, 0
+
+0 10 5 4959 false, true, false, 0
+
+0 10 5 19556 false, true, false, 0
+
+0 10 5 2659 false, true, false, 0
+
+0 10 5 1476 false, true, false, 0
+
+0 10 5 624 false, true, false, 0
+
+0 10 5 1966 false, true, false, 0
+
+0 10 5 4289 false, true, false, 0
+
+0 10 5 3853 false, true, false, 0
+
+0 10 5 1249 false, true, false, 0
+
+0 10 5 3878 false, true, false, 0
+
+0 10 5 6786 false, true, false, 0
+
+0 10 5 3217 false, true, false, 0
+
+0 10 5 2968 false, true, false, 0
+
+0 10 5 2172 false, true, false, 0
+
+0 10 5 888 false, true, false, 0
+
+0 10 5 1125 false, true, false, 0
+
+0 10 5 1509 false, true, false, 0
+
+0 10 5 35871 false, true, false, 0
+
+0 10 5 11327 false, true, false, 0
+
+0 10 5 2349 false, true, false, 0
+
+0 10 5 4675 false, true, false, 0
+
+0 10 5 6408 false, true, false, 0
+
+0 10 5 17551 false, true, false, 0
+
+0 10 5 1586 false, true, false, 0
+
+0 10 5 1918 false, true, false, 0
+
+0 10 5 9667 false, true, false, 0
+
+0 10 5 652 false, true, false, 0
+
+0 10 5 2512 false, true, false, 0
+
+0 10 5 1698 false, true, false, 0
+
+0 10 5 6295 false, true, false, 0
+
+0 10 5 1512 false, true, false, 0
+
+0 10 5 5772 false, true, false, 0
+
+0 10 5 608 false, true, false, 0
+
+0 10 5 2294 false, true, false, 0
+
+0 10 5 719 false, true, false, 0
+
+0 10 5 6147 false, true, false, 0
+
+0 10 5 2441 false, true, false, 0
+
+0 10 5 4197 false, true, false, 0
+
+0 10 5 1895 false, true, false, 0
+
+0 10 5 2365 false, true, false, 0
+
+0 10 5 13775 false, true, false, 0
+
+0 10 5 1159 false, true, false, 0
+
+0 10 5 989 false, true, false, 0
+
+0 10 5 1720 false, true, false, 0
+
+0 10 5 1453 false, true, false, 0
+
+0 10 5 14568 false, true, false, 0
+
+0 10 5 9670 false, true, false, 0
+
+0 10 5 1303 false, true, false, 0
+
+0 10 5 3850 false, true, false, 0
+
+0 10 5 3925 false, true, false, 0
+
+0 10 5 2512 false, true, false, 0
+
+0 10 5 33371 false, true, false, 0
+
+0 10 5 1685 false, true, false, 0
+
+0 10 5 985 false, true, false, 0
+
+0 10 5 11556 false, true, false, 0
+
+0 10 5 2760 false, true, false, 0
+
+0 10 5 3546 false, true, false, 0
+
+0 10 5 4287 false, true, false, 0
+
+0 10 5 3863 false, true, false, 0
+
+0 10 5 3268 false, true, false, 0
+
+0 10 5 1318 false, true, false, 0
+
+0 10 5 7539 false, true, false, 0
+
+0 10 5 8178 false, true, false, 0
+
+0 10 5 4238 false, true, false, 0
+
+0 10 5 13088 false, true, false, 0
+
+0 10 5 30786 false, true, false, 0
+
+0 10 5 12249 false, true, false, 0
+
+0 10 5 12086 false, true, false, 0
+
+0 10 5 2649 false, true, false, 0
+
+0 10 5 6042 false, true, false, 0
+
+0 10 5 3825 false, true, false, 0
+
+0 10 5 2290 false, true, false, 0
+
+0 10 5 1208 false, true, false, 0
+
+0 10 5 1589 false, true, false, 0
+
+0 10 5 1773 false, true, false, 0
+
+0 10 5 10944 false, true, false, 0
+
+0 10 5 1552 false, true, false, 0
+
+0 10 5 3590 false, true, false, 0
+
+0 10 5 2640 false, true, false, 0
+
+0 10 5 2167 false, true, false, 0
+
+0 10 5 3978282 false, true, false, 0
+
+0 10 5 2529 false, true, false, 0
+
+0 10 5 691 false, true, false, 0
+
+0 10 5 1527 false, true, false, 0
+
+0 10 5 2450 false, true, false, 0
+
+0 10 5 3752 false, true, false, 0
+
+0 10 5 3467 false, true, false, 0
+
+0 10 5 1546 false, true, false, 0
+
+0 10 5 3042 false, true, false, 0
+
+0 10 5 6744 false, true, false, 0
+
+0 10 5 1554 false, true, false, 0
+
+0 10 5 9403 false, true, false, 0
+
+0 10 5 2265 false, true, false, 0
+
+0 10 5 3954 false, true, false, 0
+
+0 10 5 2479 false, true, false, 0
+
+0 10 5 5263 false, true, false, 0
+
+0 10 5 1495 false, true, false, 0
+
+0 10 5 8830 false, true, false, 0
+
+0 10 5 3544 false, true, false, 0
+
+0 10 5 1551 false, true, false, 0
+
+0 10 5 2660 false, true, false, 0
+
+0 10 5 2389 false, true, false, 0
+
+0 10 5 8715 false, true, false, 0
+
+0 10 5 4234 false, true, false, 0
+
+0 10 5 6897 false, true, false, 0
+
+0 10 5 2057 false, true, false, 0
+
+0 10 5 6634 false, true, false, 0
+
+0 10 5 1147 false, true, false, 0
+
+0 10 5 1254 false, true, false, 0
+
+0 10 5 11384 false, true, false, 0
+
+0 10 5 1133 false, true, false, 0
+
+0 10 5 1814 false, true, false, 0
+
+0 10 5 5200 false, true, false, 0
+
+0 10 5 4381 false, true, false, 0
+
+0 10 5 1517 false, true, false, 0
+
+0 10 5 18755 false, true, false, 0
+
+0 10 5 5921 false, true, false, 0
+
+0 10 5 2794 false, true, false, 0
+
+0 10 5 9171 false, true, false, 0
+
+0 10 5 3705 false, true, false, 0
+
+0 10 5 8445 false, true, false, 0
+
+0 10 5 3323 false, true, false, 0
+
+0 10 5 14168 false, true, false, 0
+
+0 10 5 3354 false, true, false, 0
+
+0 10 5 5034 false, true, false, 0
+
+0 10 5 27285 false, true, false, 0
+
+0 10 5 3635 false, true, false, 0
+
+0 10 5 1671 false, true, false, 0
+
+0 10 5 1897 false, true, false, 0
+
+0 10 5 2472 false, true, false, 0
+
+0 10 5 1470 false, true, false, 0
+
+0 10 5 2422 false, true, false, 0
+
+0 10 5 1337 false, true, false, 0
+
+0 10 5 1090 false, true, false, 0
+
+0 10 5 2721 false, true, false, 0
+
+0 10 5 2460 false, true, false, 0
+
+0 10 5 3200 false, true, false, 0
+
+0 10 5 1530 false, true, false, 0
+
+0 10 5 5095 false, true, false, 0
+
+0 10 5 2631 false, true, false, 0
+
+0 10 5 6494 false, true, false, 0
+
+0 10 5 5295 false, true, false, 0
+
+0 10 5 1922 false, true, false, 0
+
+0 10 5 1723 false, true, false, 0
+
+0 10 5 1340 false, true, false, 0
+
+0 10 5 3477 false, true, false, 0
+
+0 10 5 4486 false, true, false, 0
+
+0 10 5 3290 false, true, false, 0
+
+0 10 5 18151 false, true, false, 0
+
+0 10 5 3457 false, true, false, 0
+
+0 10 5 9418 false, true, false, 0
+
+0 10 5 3996 false, true, false, 0
+
+0 10 5 634 false, true, false, 0
+
+0 10 5 17389 false, true, false, 0
+
+0 10 5 5060 false, true, false, 0
+
+0 10 5 1244 false, true, false, 0
+
+0 10 5 2749 false, true, false, 0
+
+0 10 5 5256 false, true, false, 0
+
+0 10 5 1300 false, true, false, 0
+
+0 10 5 2035 false, true, false, 0
+
+0 10 5 5024 false, true, false, 0
+
+0 10 5 9471 false, true, false, 0
+
+0 10 5 886 false, true, false, 0
+
+0 10 5 5440 false, true, false, 0
+
+0 10 5 1459 false, true, false, 0
+
+0 10 5 2267 false, true, false, 0
+
+0 10 5 105688 false, true, false, 0
+
+0 10 5 1073 false, true, false, 0
+
+0 10 5 605 false, true, false, 0
+
+0 10 5 2619 false, true, false, 0
+
+0 10 5 5044 false, true, false, 0
+
+0 10 5 501 false, true, false, 0
+
+0 10 5 14722 false, true, false, 0
+
+0 10 5 23575 false, true, false, 0
+
+0 10 5 1200 false, true, false, 0
+
+0 10 5 563 false, true, false, 0
+
+0 10 5 1746 false, true, false, 0
+
+0 10 5 1633 false, true, false, 0
+
+0 10 5 10341 false, true, false, 0
+
+0 10 5 1493 false, true, false, 0
+
+0 10 5 1503 false, true, false, 0
+
+0 10 5 6542 false, true, false, 0
+
+0 10 5 93039 false, true, false, 0
+
+0 10 5 2690 false, true, false, 0
+
+0 10 5 3162 false, true, false, 0
+
+0 10 5 9005 false, true, false, 0
+
+0 10 5 3220 false, true, false, 0
+
+0 10 5 818 false, true, false, 0
+
+0 10 5 1043 false, true, false, 0
+
+0 10 5 2065 false, true, false, 0
+
+0 10 5 4193 false, true, false, 0
+
+0 10 5 541 false, true, false, 0
+
+0 10 5 2042 false, true, false, 0
+
+0 10 5 3717 false, true, false, 0
+
+0 10 5 5652 false, true, false, 0
+
+0 10 5 920 false, true, false, 0
+
+0 10 5 4591 false, true, false, 0
+
+0 10 5 1266 false, true, false, 0
+
+0 10 5 1192 false, true, false, 0
+
+0 10 5 896 false, true, false, 0
+
+0 10 5 6675 false, true, false, 0
+
+0 10 5 1838 false, true, false, 0
+
+0 10 5 558 false, true, false, 0
+
+0 10 5 6276 false, true, false, 0
+
+0 10 5 1844 false, true, false, 0
+
+0 10 5 106494 false, true, false, 0
+
+0 10 5 4376 false, true, false, 0
+
+0 10 5 5354 false, true, false, 0
+
+0 10 5 2672 false, true, false, 0
+
+0 10 5 1028 false, true, false, 0
+
+0 10 5 27429 false, true, false, 0
+
+0 10 5 3163 false, true, false, 0
+
+0 10 5 1969 false, true, false, 0
+
+0 10 5 59101 false, true, false, 0
+
+0 10 5 1971 false, true, false, 0
+
+0 10 5 1425 false, true, false, 0
+
+0 10 5 526 false, true, false, 0
+
+0 10 5 17761 false, true, false, 0
+
+0 10 5 3735 false, true, false, 0
+
+0 10 5 572 false, true, false, 0
+
+0 10 5 1069 false, true, false, 0
+
+0 10 5 1511 false, true, false, 0
+
+0 10 5 2801 false, true, false, 0
+
+0 10 5 487 false, true, false, 0
+
+0 10 5 701 false, true, false, 0
+
+0 10 5 4204 false, true, false, 0
+
+0 10 5 3833 false, true, false, 0
+
+0 10 5 3425 false, true, false, 0
+
+0 10 5 550 false, true, false, 0
+
+0 10 5 11526 false, true, false, 0
+
+0 10 5 3691 false, true, false, 0
+
+0 10 5 2635 false, true, false, 0
+
+0 10 5 1916 false, true, false, 0
+
+0 10 5 683 false, true, false, 0
+
+0 10 5 794 false, true, false, 0
+
+0 10 5 2892 false, true, false, 0
+
+0 10 5 26617 false, true, false, 0
+
+0 10 5 2119 false, true, false, 0
+
+0 10 5 7933 false, true, false, 0
+
+0 10 5 2337 false, true, false, 0
+
+0 10 5 17410 false, true, false, 0
+
+0 10 5 1435 false, true, false, 0
+
+0 10 5 885 false, true, false, 0
+
+0 10 5 5328 false, true, false, 0
+
+0 10 5 484 false, true, false, 0
+
+0 10 5 3359 false, true, false, 0
+
+0 10 5 789 false, true, false, 0
+
+0 10 5 2551 false, true, false, 0
+
+0 10 5 876 false, true, false, 0
+
+0 10 5 7081 false, true, false, 0
+
+0 10 5 793 false, true, false, 0
+
+0 10 5 3261 false, true, false, 0
+
+0 10 5 1097 false, true, false, 0
+
+0 10 5 4997 false, true, false, 0
+
+0 10 5 1178 false, true, false, 0
+
+0 10 5 7228 false, true, false, 0
+
+0 10 5 2619 false, true, false, 0
+
+0 10 5 8610 false, true, false, 0
+
+0 10 5 1069 false, true, false, 0
+
+0 10 5 26078 false, true, false, 0
+
+0 10 5 513 false, true, false, 0
+
+0 10 5 951 false, true, false, 0
+
+0 10 5 1409 false, true, false, 0
+
+0 10 5 3330 false, true, false, 0
+
+0 10 5 1646 false, true, false, 0
+
+0 10 5 3200 false, true, false, 0
+
+0 10 5 4445 false, true, false, 0
+
+0 10 5 528 false, true, false, 0
+
+0 10 5 1588 false, true, false, 0
+
+0 10 5 2859 false, true, false, 0
+
+0 10 5 3868 false, true, false, 0
+
+0 10 5 3534 false, true, false, 0
+
+0 10 5 574 false, true, false, 0
+
+0 10 5 5061 false, true, false, 0
+
+0 10 5 744 false, true, false, 0
+
+0 10 5 14464 false, true, false, 0
+
+0 10 5 2189 false, true, false, 0
+
+0 10 5 3594 false, true, false, 0
+
+0 10 5 9603 false, true, false, 0
+
+0 10 5 9246 false, true, false, 0
+
+0 10 5 3312 false, true, false, 0
+
+0 10 5 6327 false, true, false, 0
+
+0 10 5 41821 false, true, false, 0
+
+0 10 5 793 false, true, false, 0
+
+0 10 5 2498 false, true, false, 0
+
+0 10 5 2276 false, true, false, 0
+
+0 10 5 600 false, true, false, 0
+
+0 10 5 2999 false, true, false, 0
+
+0 10 5 5600 false, true, false, 0
+
+0 10 5 564 false, true, false, 0
+
+0 10 5 8277 false, true, false, 0
+
+0 10 5 2322 false, true, false, 0
+
+0 10 5 3007 false, true, false, 0
+
+0 10 5 5826 false, true, false, 0
+
+0 10 5 2089 false, true, false, 0
+
+0 10 5 3263 false, true, false, 0
+
+0 10 5 933 false, true, false, 0
+
+0 10 5 3658 false, true, false, 0
+
+0 10 5 3017 false, true, false, 0
+
+0 10 5 13814 false, true, false, 0
+
+0 10 5 46954 false, true, false, 0
+
+0 10 5 1876 false, true, false, 0
+
+0 10 5 2635 false, true, false, 0
+
+0 10 5 16138 false, true, false, 0
+
+0 10 5 5788 false, true, false, 0
+
+0 10 5 584 false, true, false, 0
+
+0 10 5 72598 false, true, false, 0
+
+0 10 5 2495 false, true, false, 0
+
+0 10 5 1329 false, true, false, 0
+
+0 10 5 4674 false, true, false, 0
+
+0 10 5 14247 false, true, false, 0
+
+0 10 5 1149 false, true, false, 0
+
+0 10 5 673 false, true, false, 0
+
+0 10 5 2821 false, true, false, 0
+
+0 10 5 3923 false, true, false, 0
+
+0 10 5 1647 false, true, false, 0
+
+0 10 5 3969 false, true, false, 0
+
+0 10 5 2694 false, true, false, 0
+
+0 10 5 2287 false, true, false, 0
+
+0 10 5 1401 false, true, false, 0
+
+0 10 5 4451 false, true, false, 0
+
+0 10 5 4397 false, true, false, 0
+
+0 10 5 95169 false, true, false, 0
+
+0 10 5 1009 false, true, false, 0
+
+0 10 5 9475 false, true, false, 0
+
+0 10 5 6709 false, true, false, 0
+
+0 10 5 1850 false, true, false, 0
+
+0 10 5 5997 false, true, false, 0
+
+0 10 5 1102 false, true, false, 0
+
+0 10 5 1025 false, true, false, 0
+
+0 10 5 1912 false, true, false, 0
+
+0 10 5 5039 false, true, false, 0
+
+0 10 5 12412 false, true, false, 0
+
+0 10 5 945 false, true, false, 0
+
+0 10 5 72823 false, true, false, 0
+
+0 10 5 4336 false, true, false, 0
+
+0 10 5 2244 false, true, false, 0
+
+0 10 5 661 false, true, false, 0
+
+0 10 5 677 false, true, false, 0
+
+0 10 5 3004 false, true, false, 0
+
+0 10 5 3149 false, true, false, 0
+
+0 10 5 1251 false, true, false, 0
+
+0 10 5 1310 false, true, false, 0
+
+0 10 5 769 false, true, false, 0
+
+0 10 5 91222 false, true, false, 0
+
+0 10 5 821 false, true, false, 0
+
+0 10 5 491 false, true, false, 0
+
+0 10 5 575 false, true, false, 0
+
+0 10 5 1218 false, true, false, 0
+
+0 10 5 928 false, true, false, 0
+
+0 10 5 2654 false, true, false, 0
+
+0 10 5 8178 false, true, false, 0
+
+0 10 5 719 false, true, false, 0
+
+0 10 5 18682 false, true, false, 0
+
+0 10 5 1615 false, true, false, 0
+
+0 10 5 1136 false, true, false, 0
+
+0 10 5 3319 false, true, false, 0
+
+0 10 5 3545 false, true, false, 0
+
+0 10 5 1046 false, true, false, 0
+
+0 10 5 3322 false, true, false, 0
+
+0 10 5 729 false, true, false, 0
+
+0 10 5 37109 false, true, false, 0
+
+0 10 5 1841 false, true, false, 0
+
+0 10 5 5475 false, true, false, 0
+
+0 10 5 1671 false, true, false, 0
+
+0 10 5 569 false, true, false, 0
+
+0 10 5 1129 false, true, false, 0
+
+0 10 5 1499 false, true, false, 0
+
+0 10 5 1066 false, true, false, 0
+
+0 10 5 1134 false, true, false, 0
+
+0 10 5 853 false, true, false, 0
+
+0 10 5 598 false, true, false, 0
+
+0 10 5 8047 false, true, false, 0
+
+0 10 5 2150 false, true, false, 0
+
+0 10 5 518 false, true, false, 0
+
+0 10 5 955 false, true, false, 0
+
+0 10 5 2117 false, true, false, 0
+
+0 10 5 3438 false, true, false, 0
+
+0 10 5 1448 false, true, false, 0
+
+0 10 5 1469 false, true, false, 0
+
+0 10 5 1660 false, true, false, 0
+
+0 10 5 1238 false, true, false, 0
+
+0 10 5 1485 false, true, false, 0
+
+0 10 5 2748 false, true, false, 0
+
+0 10 5 689 false, true, false, 0
+
+0 10 5 1827 false, true, false, 0
+
+0 10 5 11745 false, true, false, 0
+
+0 10 5 1197 false, true, false, 0
+
+0 10 5 4326 false, true, false, 0
+
+0 10 5 1663 false, true, false, 0
+
+0 10 5 2265 false, true, false, 0
+
+0 10 5 2580 false, true, false, 0
+
+0 10 5 23231 false, true, false, 0
+
+0 10 5 588 false, true, false, 0
+
+0 10 5 850 false, true, false, 0
+
+0 10 5 10222 false, true, false, 0
+
+0 10 5 3675 false, true, false, 0
+
+0 10 5 2515 false, true, false, 0
+
+0 10 5 1820 false, true, false, 0
+
+0 10 5 3010 false, true, false, 0
+
+0 10 5 3722 false, true, false, 0
+
+0 10 5 1513 false, true, false, 0
+
+0 10 5 4661 false, true, false, 0
+
+0 10 5 2264 false, true, false, 0
+
+0 10 5 3031 false, true, false, 0
+
+0 10 5 2943 false, true, false, 0
+
+0 10 5 8526 false, true, false, 0
+
+0 10 5 1128 false, true, false, 0
+
+0 10 5 12981 false, true, false, 0
+
+0 10 5 2561 false, true, false, 0
+
+0 10 5 23120 false, true, false, 0
+
+0 10 5 2445 false, true, false, 0
+
+0 10 5 1472 false, true, false, 0
+
+0 10 5 14666 false, true, false, 0
+
+0 10 5 8804 false, true, false, 0
+
+0 10 5 10021 false, true, false, 0
+
+0 10 5 14948 false, true, false, 0
+
+0 10 5 2441 false, true, false, 0
+
+0 10 5 962 false, true, false, 0
 

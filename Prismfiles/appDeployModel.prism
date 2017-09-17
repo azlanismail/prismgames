@@ -1,367 +1,2257 @@
 smg
 //=========Player definition=======
 player p1
-planner,[r0],[r1],[r2],[r3],[r4],[r5],[r6],[r7],[r8],[r9],[end]
+planner,[r0],[r1],[r2],[r3],[r4],[r5],[r6],[r7],[r8],[r9],[r10],[r11],[r12],[r13],[r14],[r15],[r16],[r17],[r18],[r19],[r20],[r21],[r22],[r23],[r24],[r25],[r26],[r27],[r28],[r29],[r30],[r31],[r32],[r33],[r34],[r35],[r36],[r37],[r38],[r39],[r40],[r41],[r42],[r43],[r44],[r45],[r46],[r47],[r48],[r49],[r50],[r51],[r52],[r53],[r54],[r55],[r56],[r57],[r58],[r59],[r60],[r61],[r62],[r63],[r64],[r65],[r66],[r67],[r68],[r69],[r70],[r71],[r72],[r73],[r74],[r75],[r76],[r77],[r78],[r79],[end]
 endplayer
 
 player p2
-environment,[n0rs0],[n0rs1],[n0rs2],[n0rs3],[n0rs4],[n1rs0],[n1rs1],[n1rs2],[n1rs3],[n1rs4],[n2rs0],[n2rs1],[n2rs2],[n2rs3],[n2rs4],[n3rs0],[n3rs1],[n3rs2],[n3rs3],[n3rs4],[n4rs0],[n4rs1],[n4rs2],[n4rs3],[n4rs4],[n5rs0],[n5rs1],[n5rs2],[n5rs3],[n5rs4],[n6rs0],[n6rs1],[n6rs2],[n6rs3],[n6rs4],[n7rs0],[n7rs1],[n7rs2],[n7rs3],[n7rs4],[n8rs0],[n8rs1],[n8rs2],[n8rs3],[n8rs4],[n9rs0],[n9rs1],[n9rs2],[n9rs3],[n9rs4]
+environment,[n0rs0],[n0rs1],[n0rs2],[n0rs3],[n1rs0],[n1rs1],[n1rs2],[n1rs3],[n2rs0],[n2rs1],[n2rs2],[n2rs3],[n3rs0],[n3rs1],[n3rs2],[n3rs3],[n4rs0],[n4rs1],[n4rs2],[n4rs3],[n5rs0],[n5rs1],[n5rs2],[n5rs3],[n6rs0],[n6rs1],[n6rs2],[n6rs3],[n7rs0],[n7rs1],[n7rs2],[n7rs3],[n8rs0],[n8rs1],[n8rs2],[n8rs3],[n9rs0],[n9rs1],[n9rs2],[n9rs3],[n10rs0],[n10rs1],[n10rs2],[n10rs3],[n11rs0],[n11rs1],[n11rs2],[n11rs3],[n12rs0],[n12rs1],[n12rs2],[n12rs3],[n13rs0],[n13rs1],[n13rs2],[n13rs3],[n14rs0],[n14rs1],[n14rs2],[n14rs3],[n15rs0],[n15rs1],[n15rs2],[n15rs3],[n16rs0],[n16rs1],[n16rs2],[n16rs3],[n17rs0],[n17rs1],[n17rs2],[n17rs3],[n18rs0],[n18rs1],[n18rs2],[n18rs3],[n19rs0],[n19rs1],[n19rs2],[n19rs3],[n20rs0],[n20rs1],[n20rs2],[n20rs3],[n21rs0],[n21rs1],[n21rs2],[n21rs3],[n22rs0],[n22rs1],[n22rs2],[n22rs3],[n23rs0],[n23rs1],[n23rs2],[n23rs3],[n24rs0],[n24rs1],[n24rs2],[n24rs3],[n25rs0],[n25rs1],[n25rs2],[n25rs3],[n26rs0],[n26rs1],[n26rs2],[n26rs3],[n27rs0],[n27rs1],[n27rs2],[n27rs3],[n28rs0],[n28rs1],[n28rs2],[n28rs3],[n29rs0],[n29rs1],[n29rs2],[n29rs3],[n30rs0],[n30rs1],[n30rs2],[n30rs3],[n31rs0],[n31rs1],[n31rs2],[n31rs3],[n32rs0],[n32rs1],[n32rs2],[n32rs3],[n33rs0],[n33rs1],[n33rs2],[n33rs3],[n34rs0],[n34rs1],[n34rs2],[n34rs3],[n35rs0],[n35rs1],[n35rs2],[n35rs3],[n36rs0],[n36rs1],[n36rs2],[n36rs3],[n37rs0],[n37rs1],[n37rs2],[n37rs3],[n38rs0],[n38rs1],[n38rs2],[n38rs3],[n39rs0],[n39rs1],[n39rs2],[n39rs3],[n40rs0],[n40rs1],[n40rs2],[n40rs3],[n41rs0],[n41rs1],[n41rs2],[n41rs3],[n42rs0],[n42rs1],[n42rs2],[n42rs3],[n43rs0],[n43rs1],[n43rs2],[n43rs3],[n44rs0],[n44rs1],[n44rs2],[n44rs3],[n45rs0],[n45rs1],[n45rs2],[n45rs3],[n46rs0],[n46rs1],[n46rs2],[n46rs3],[n47rs0],[n47rs1],[n47rs2],[n47rs3],[n48rs0],[n48rs1],[n48rs2],[n48rs3],[n49rs0],[n49rs1],[n49rs2],[n49rs3],[n50rs0],[n50rs1],[n50rs2],[n50rs3],[n51rs0],[n51rs1],[n51rs2],[n51rs3],[n52rs0],[n52rs1],[n52rs2],[n52rs3],[n53rs0],[n53rs1],[n53rs2],[n53rs3],[n54rs0],[n54rs1],[n54rs2],[n54rs3],[n55rs0],[n55rs1],[n55rs2],[n55rs3],[n56rs0],[n56rs1],[n56rs2],[n56rs3],[n57rs0],[n57rs1],[n57rs2],[n57rs3],[n58rs0],[n58rs1],[n58rs2],[n58rs3],[n59rs0],[n59rs1],[n59rs2],[n59rs3],[n60rs0],[n60rs1],[n60rs2],[n60rs3],[n61rs0],[n61rs1],[n61rs2],[n61rs3],[n62rs0],[n62rs1],[n62rs2],[n62rs3],[n63rs0],[n63rs1],[n63rs2],[n63rs3],[n64rs0],[n64rs1],[n64rs2],[n64rs3],[n65rs0],[n65rs1],[n65rs2],[n65rs3],[n66rs0],[n66rs1],[n66rs2],[n66rs3],[n67rs0],[n67rs1],[n67rs2],[n67rs3],[n68rs0],[n68rs1],[n68rs2],[n68rs3],[n69rs0],[n69rs1],[n69rs2],[n69rs3],[n70rs0],[n70rs1],[n70rs2],[n70rs3],[n71rs0],[n71rs1],[n71rs2],[n71rs3],[n72rs0],[n72rs1],[n72rs2],[n72rs3],[n73rs0],[n73rs1],[n73rs2],[n73rs3],[n74rs0],[n74rs1],[n74rs2],[n74rs3],[n75rs0],[n75rs1],[n75rs2],[n75rs3],[n76rs0],[n76rs1],[n76rs2],[n76rs3],[n77rs0],[n77rs1],[n77rs2],[n77rs3],[n78rs0],[n78rs1],[n78rs2],[n78rs3],[n79rs0],[n79rs1],[n79rs2],[n79rs3]
 endplayer
 
 //=========Resource Profiles=======
-const int MXN=10;
-const double app_rs=0.4150777392645072;
+const int MXN;
+const double app_rs;
 const double mx_rs=1.0; //set the max resource per slot
 
 const int n0rs0_id = 0;
-const double n0rs0_cost = 65.0;	//cost
-const double n0rs0_avail = 0.9967604848321128;	//avail
-const double n0rs0_rel = 0.9366618597764093;		//rel
-const int n0rs0_time = 594;		//time
-const double n0rs0_res = 0.39247699402334446;		//time
+const double n0rs0_cost;	//cost
+const double n0rs0_avail; //avail
+const double n0rs0_rel;	//rel
+const int n0rs0_time;	//time
+const double n0rs0_res;	//time
 
 const int n0rs1_id = 0;
-const double n0rs1_cost = 84.0;	//cost
-const double n0rs1_avail = 0.8369941791566293;	//avail
-const double n0rs1_rel = 0.9276740290750755;		//rel
-const int n0rs1_time = 557;		//time
-const double n0rs1_res = 0.2695384241585783;		//time
+const double n0rs1_cost;	//cost
+const double n0rs1_avail; //avail
+const double n0rs1_rel;	//rel
+const int n0rs1_time;	//time
+const double n0rs1_res;	//time
 
 const int n0rs2_id = 0;
-const double n0rs2_cost = 58.0;	//cost
-const double n0rs2_avail = 0.977334902238537;	//avail
-const double n0rs2_rel = 0.8208473453101519;		//rel
-const int n0rs2_time = 551;		//time
-const double n0rs2_res = 0.44147815117886113;		//time
+const double n0rs2_cost;	//cost
+const double n0rs2_avail; //avail
+const double n0rs2_rel;	//rel
+const int n0rs2_time;	//time
+const double n0rs2_res;	//time
 
 const int n0rs3_id = 0;
-const double n0rs3_cost = 94.0;	//cost
-const double n0rs3_avail = 0.9467652655938847;	//avail
-const double n0rs3_rel = 0.8414267328099584;		//rel
-const int n0rs3_time = 572;		//time
-const double n0rs3_res = 0.38714858008696684;		//time
-
-const int n0rs4_id = 0;
-const double n0rs4_cost = 69.0;	//cost
-const double n0rs4_avail = 0.9818801105342476;	//avail
-const double n0rs4_rel = 0.8365292466665745;		//rel
-const int n0rs4_time = 581;		//time
-const double n0rs4_res = 0.2140610858488346;		//time
+const double n0rs3_cost;	//cost
+const double n0rs3_avail; //avail
+const double n0rs3_rel;	//rel
+const int n0rs3_time;	//time
+const double n0rs3_res;	//time
 
 const int n1rs0_id = 1;
-const double n1rs0_cost = 70.0;	//cost
-const double n1rs0_avail = 0.9589675748448979;	//avail
-const double n1rs0_rel = 0.8077687103165798;		//rel
-const int n1rs0_time = 500;		//time
-const double n1rs0_res = 0.2254443903778761;		//time
+const double n1rs0_cost;	//cost
+const double n1rs0_avail; //avail
+const double n1rs0_rel;	//rel
+const int n1rs0_time;	//time
+const double n1rs0_res;	//time
 
 const int n1rs1_id = 1;
-const double n1rs1_cost = 84.0;	//cost
-const double n1rs1_avail = 0.8649811708341542;	//avail
-const double n1rs1_rel = 0.9340637390521661;		//rel
-const int n1rs1_time = 521;		//time
-const double n1rs1_res = 0.37648935640052883;		//time
+const double n1rs1_cost;	//cost
+const double n1rs1_avail; //avail
+const double n1rs1_rel;	//rel
+const int n1rs1_time;	//time
+const double n1rs1_res;	//time
 
 const int n1rs2_id = 1;
-const double n1rs2_cost = 90.0;	//cost
-const double n1rs2_avail = 0.8848748431560938;	//avail
-const double n1rs2_rel = 0.9100992311511097;		//rel
-const int n1rs2_time = 589;		//time
-const double n1rs2_res = 0.14513428119477856;		//time
+const double n1rs2_cost;	//cost
+const double n1rs2_avail; //avail
+const double n1rs2_rel;	//rel
+const int n1rs2_time;	//time
+const double n1rs2_res;	//time
 
 const int n1rs3_id = 1;
-const double n1rs3_cost = 77.0;	//cost
-const double n1rs3_avail = 0.8790619508151453;	//avail
-const double n1rs3_rel = 0.9706377990811246;		//rel
-const int n1rs3_time = 550;		//time
-const double n1rs3_res = 0.1634478155908862;		//time
-
-const int n1rs4_id = 1;
-const double n1rs4_cost = 58.0;	//cost
-const double n1rs4_avail = 0.9522982279709818;	//avail
-const double n1rs4_rel = 0.8968542447480251;		//rel
-const int n1rs4_time = 513;		//time
-const double n1rs4_res = 0.33886973730208725;		//time
+const double n1rs3_cost;	//cost
+const double n1rs3_avail; //avail
+const double n1rs3_rel;	//rel
+const int n1rs3_time;	//time
+const double n1rs3_res;	//time
 
 const int n2rs0_id = 2;
-const double n2rs0_cost = 57.0;	//cost
-const double n2rs0_avail = 0.9740778765442518;	//avail
-const double n2rs0_rel = 0.8080927391133136;		//rel
-const int n2rs0_time = 506;		//time
-const double n2rs0_res = 0.34027293684980287;		//time
+const double n2rs0_cost;	//cost
+const double n2rs0_avail; //avail
+const double n2rs0_rel;	//rel
+const int n2rs0_time;	//time
+const double n2rs0_res;	//time
 
 const int n2rs1_id = 2;
-const double n2rs1_cost = 61.0;	//cost
-const double n2rs1_avail = 0.9006708811663862;	//avail
-const double n2rs1_rel = 0.830922940092453;		//rel
-const int n2rs1_time = 539;		//time
-const double n2rs1_res = 0.43201321250941727;		//time
+const double n2rs1_cost;	//cost
+const double n2rs1_avail; //avail
+const double n2rs1_rel;	//rel
+const int n2rs1_time;	//time
+const double n2rs1_res;	//time
 
 const int n2rs2_id = 2;
-const double n2rs2_cost = 63.0;	//cost
-const double n2rs2_avail = 0.9702188994978723;	//avail
-const double n2rs2_rel = 0.8070978078950943;		//rel
-const int n2rs2_time = 548;		//time
-const double n2rs2_res = 0.109836382715022;		//time
+const double n2rs2_cost;	//cost
+const double n2rs2_avail; //avail
+const double n2rs2_rel;	//rel
+const int n2rs2_time;	//time
+const double n2rs2_res;	//time
 
 const int n2rs3_id = 2;
-const double n2rs3_cost = 72.0;	//cost
-const double n2rs3_avail = 0.8948458934985984;	//avail
-const double n2rs3_rel = 0.8529924999142733;		//rel
-const int n2rs3_time = 504;		//time
-const double n2rs3_res = 0.4257155850850952;		//time
-
-const int n2rs4_id = 2;
-const double n2rs4_cost = 76.0;	//cost
-const double n2rs4_avail = 0.8575289835454682;	//avail
-const double n2rs4_rel = 0.8153301916131029;		//rel
-const int n2rs4_time = 586;		//time
-const double n2rs4_res = 0.48439450487293734;		//time
+const double n2rs3_cost;	//cost
+const double n2rs3_avail; //avail
+const double n2rs3_rel;	//rel
+const int n2rs3_time;	//time
+const double n2rs3_res;	//time
 
 const int n3rs0_id = 3;
-const double n3rs0_cost = 51.0;	//cost
-const double n3rs0_avail = 0.8365138707019102;	//avail
-const double n3rs0_rel = 0.881477360044721;		//rel
-const int n3rs0_time = 540;		//time
-const double n3rs0_res = 0.1526157172080525;		//time
+const double n3rs0_cost;	//cost
+const double n3rs0_avail; //avail
+const double n3rs0_rel;	//rel
+const int n3rs0_time;	//time
+const double n3rs0_res;	//time
 
 const int n3rs1_id = 3;
-const double n3rs1_cost = 65.0;	//cost
-const double n3rs1_avail = 0.9263483429103909;	//avail
-const double n3rs1_rel = 0.9973175415998445;		//rel
-const int n3rs1_time = 540;		//time
-const double n3rs1_res = 0.34271606739860005;		//time
+const double n3rs1_cost;	//cost
+const double n3rs1_avail; //avail
+const double n3rs1_rel;	//rel
+const int n3rs1_time;	//time
+const double n3rs1_res;	//time
 
 const int n3rs2_id = 3;
-const double n3rs2_cost = 96.0;	//cost
-const double n3rs2_avail = 0.9021464083874996;	//avail
-const double n3rs2_rel = 0.9216891363096761;		//rel
-const int n3rs2_time = 509;		//time
-const double n3rs2_res = 0.11547453596620204;		//time
+const double n3rs2_cost;	//cost
+const double n3rs2_avail; //avail
+const double n3rs2_rel;	//rel
+const int n3rs2_time;	//time
+const double n3rs2_res;	//time
 
 const int n3rs3_id = 3;
-const double n3rs3_cost = 81.0;	//cost
-const double n3rs3_avail = 0.8824846807469531;	//avail
-const double n3rs3_rel = 0.9035994298564;		//rel
-const int n3rs3_time = 502;		//time
-const double n3rs3_res = 0.29280082602480906;		//time
-
-const int n3rs4_id = 3;
-const double n3rs4_cost = 59.0;	//cost
-const double n3rs4_avail = 0.9863716650903676;	//avail
-const double n3rs4_rel = 0.906903587714911;		//rel
-const int n3rs4_time = 550;		//time
-const double n3rs4_res = 0.2790562456343846;		//time
+const double n3rs3_cost;	//cost
+const double n3rs3_avail; //avail
+const double n3rs3_rel;	//rel
+const int n3rs3_time;	//time
+const double n3rs3_res;	//time
 
 const int n4rs0_id = 4;
-const double n4rs0_cost = 91.0;	//cost
-const double n4rs0_avail = 0.9510196936190739;	//avail
-const double n4rs0_rel = 0.8268638332991404;		//rel
-const int n4rs0_time = 508;		//time
-const double n4rs0_res = 0.360501478550996;		//time
+const double n4rs0_cost;	//cost
+const double n4rs0_avail; //avail
+const double n4rs0_rel;	//rel
+const int n4rs0_time;	//time
+const double n4rs0_res;	//time
 
 const int n4rs1_id = 4;
-const double n4rs1_cost = 73.0;	//cost
-const double n4rs1_avail = 0.9796883289245049;	//avail
-const double n4rs1_rel = 0.8439807470050433;		//rel
-const int n4rs1_time = 508;		//time
-const double n4rs1_res = 0.2855690499969661;		//time
+const double n4rs1_cost;	//cost
+const double n4rs1_avail; //avail
+const double n4rs1_rel;	//rel
+const int n4rs1_time;	//time
+const double n4rs1_res;	//time
 
 const int n4rs2_id = 4;
-const double n4rs2_cost = 54.0;	//cost
-const double n4rs2_avail = 0.8226570602271762;	//avail
-const double n4rs2_rel = 0.9427149957416845;		//rel
-const int n4rs2_time = 536;		//time
-const double n4rs2_res = 0.4243613241787926;		//time
+const double n4rs2_cost;	//cost
+const double n4rs2_avail; //avail
+const double n4rs2_rel;	//rel
+const int n4rs2_time;	//time
+const double n4rs2_res;	//time
 
 const int n4rs3_id = 4;
-const double n4rs3_cost = 64.0;	//cost
-const double n4rs3_avail = 0.8594242293480501;	//avail
-const double n4rs3_rel = 0.8861945649997227;		//rel
-const int n4rs3_time = 516;		//time
-const double n4rs3_res = 0.263977997428401;		//time
-
-const int n4rs4_id = 4;
-const double n4rs4_cost = 98.0;	//cost
-const double n4rs4_avail = 0.9465181990401725;	//avail
-const double n4rs4_rel = 0.9827289160404885;		//rel
-const int n4rs4_time = 562;		//time
-const double n4rs4_res = 0.4169803406000874;		//time
+const double n4rs3_cost;	//cost
+const double n4rs3_avail; //avail
+const double n4rs3_rel;	//rel
+const int n4rs3_time;	//time
+const double n4rs3_res;	//time
 
 const int n5rs0_id = 5;
-const double n5rs0_cost = 69.0;	//cost
-const double n5rs0_avail = 0.8228457837003739;	//avail
-const double n5rs0_rel = 0.8059282638637945;		//rel
-const int n5rs0_time = 530;		//time
-const double n5rs0_res = 0.3035023364375433;		//time
+const double n5rs0_cost;	//cost
+const double n5rs0_avail; //avail
+const double n5rs0_rel;	//rel
+const int n5rs0_time;	//time
+const double n5rs0_res;	//time
 
 const int n5rs1_id = 5;
-const double n5rs1_cost = 57.0;	//cost
-const double n5rs1_avail = 0.923292029570495;	//avail
-const double n5rs1_rel = 0.8374526042891606;		//rel
-const int n5rs1_time = 595;		//time
-const double n5rs1_res = 0.21322206728840878;		//time
+const double n5rs1_cost;	//cost
+const double n5rs1_avail; //avail
+const double n5rs1_rel;	//rel
+const int n5rs1_time;	//time
+const double n5rs1_res;	//time
 
 const int n5rs2_id = 5;
-const double n5rs2_cost = 50.0;	//cost
-const double n5rs2_avail = 0.9413246209099341;	//avail
-const double n5rs2_rel = 0.9898916428969532;		//rel
-const int n5rs2_time = 515;		//time
-const double n5rs2_res = 0.3616100152506435;		//time
+const double n5rs2_cost;	//cost
+const double n5rs2_avail; //avail
+const double n5rs2_rel;	//rel
+const int n5rs2_time;	//time
+const double n5rs2_res;	//time
 
 const int n5rs3_id = 5;
-const double n5rs3_cost = 58.0;	//cost
-const double n5rs3_avail = 0.8026449817158725;	//avail
-const double n5rs3_rel = 0.9370035347939437;		//rel
-const int n5rs3_time = 570;		//time
-const double n5rs3_res = 0.4255737266578409;		//time
-
-const int n5rs4_id = 5;
-const double n5rs4_cost = 98.0;	//cost
-const double n5rs4_avail = 0.864467558623793;	//avail
-const double n5rs4_rel = 0.9295166407781078;		//rel
-const int n5rs4_time = 523;		//time
-const double n5rs4_res = 0.4768216982376531;		//time
+const double n5rs3_cost;	//cost
+const double n5rs3_avail; //avail
+const double n5rs3_rel;	//rel
+const int n5rs3_time;	//time
+const double n5rs3_res;	//time
 
 const int n6rs0_id = 6;
-const double n6rs0_cost = 60.0;	//cost
-const double n6rs0_avail = 0.9387975013168524;	//avail
-const double n6rs0_rel = 0.9069253587393027;		//rel
-const int n6rs0_time = 560;		//time
-const double n6rs0_res = 0.22697230830655385;		//time
+const double n6rs0_cost;	//cost
+const double n6rs0_avail; //avail
+const double n6rs0_rel;	//rel
+const int n6rs0_time;	//time
+const double n6rs0_res;	//time
 
 const int n6rs1_id = 6;
-const double n6rs1_cost = 75.0;	//cost
-const double n6rs1_avail = 0.9531162210233415;	//avail
-const double n6rs1_rel = 0.8291873427156757;		//rel
-const int n6rs1_time = 538;		//time
-const double n6rs1_res = 0.456636852290505;		//time
+const double n6rs1_cost;	//cost
+const double n6rs1_avail; //avail
+const double n6rs1_rel;	//rel
+const int n6rs1_time;	//time
+const double n6rs1_res;	//time
 
 const int n6rs2_id = 6;
-const double n6rs2_cost = 92.0;	//cost
-const double n6rs2_avail = 0.9081733395671419;	//avail
-const double n6rs2_rel = 0.8469562799440848;		//rel
-const int n6rs2_time = 558;		//time
-const double n6rs2_res = 0.4214088125708082;		//time
+const double n6rs2_cost;	//cost
+const double n6rs2_avail; //avail
+const double n6rs2_rel;	//rel
+const int n6rs2_time;	//time
+const double n6rs2_res;	//time
 
 const int n6rs3_id = 6;
-const double n6rs3_cost = 53.0;	//cost
-const double n6rs3_avail = 0.8701225078497953;	//avail
-const double n6rs3_rel = 0.8049607349489093;		//rel
-const int n6rs3_time = 561;		//time
-const double n6rs3_res = 0.31089445775215596;		//time
-
-const int n6rs4_id = 6;
-const double n6rs4_cost = 58.0;	//cost
-const double n6rs4_avail = 0.8430278014100724;	//avail
-const double n6rs4_rel = 0.8303662415538103;		//rel
-const int n6rs4_time = 593;		//time
-const double n6rs4_res = 0.48262345311232;		//time
+const double n6rs3_cost;	//cost
+const double n6rs3_avail; //avail
+const double n6rs3_rel;	//rel
+const int n6rs3_time;	//time
+const double n6rs3_res;	//time
 
 const int n7rs0_id = 7;
-const double n7rs0_cost = 76.0;	//cost
-const double n7rs0_avail = 0.9078062361766783;	//avail
-const double n7rs0_rel = 0.9964343995218214;		//rel
-const int n7rs0_time = 553;		//time
-const double n7rs0_res = 0.4008806913690367;		//time
+const double n7rs0_cost;	//cost
+const double n7rs0_avail; //avail
+const double n7rs0_rel;	//rel
+const int n7rs0_time;	//time
+const double n7rs0_res;	//time
 
 const int n7rs1_id = 7;
-const double n7rs1_cost = 53.0;	//cost
-const double n7rs1_avail = 0.9849612956925602;	//avail
-const double n7rs1_rel = 0.8715192033899224;		//rel
-const int n7rs1_time = 552;		//time
-const double n7rs1_res = 0.3812041131125111;		//time
+const double n7rs1_cost;	//cost
+const double n7rs1_avail; //avail
+const double n7rs1_rel;	//rel
+const int n7rs1_time;	//time
+const double n7rs1_res;	//time
 
 const int n7rs2_id = 7;
-const double n7rs2_cost = 51.0;	//cost
-const double n7rs2_avail = 0.9810011252197212;	//avail
-const double n7rs2_rel = 0.9644174741265562;		//rel
-const int n7rs2_time = 534;		//time
-const double n7rs2_res = 0.37449629381800487;		//time
+const double n7rs2_cost;	//cost
+const double n7rs2_avail; //avail
+const double n7rs2_rel;	//rel
+const int n7rs2_time;	//time
+const double n7rs2_res;	//time
 
 const int n7rs3_id = 7;
-const double n7rs3_cost = 91.0;	//cost
-const double n7rs3_avail = 0.9122243547592864;	//avail
-const double n7rs3_rel = 0.8593168142637466;		//rel
-const int n7rs3_time = 508;		//time
-const double n7rs3_res = 0.1204006014767904;		//time
-
-const int n7rs4_id = 7;
-const double n7rs4_cost = 53.0;	//cost
-const double n7rs4_avail = 0.8645954203894182;	//avail
-const double n7rs4_rel = 0.9970610416255636;		//rel
-const int n7rs4_time = 588;		//time
-const double n7rs4_res = 0.4577959364978894;		//time
+const double n7rs3_cost;	//cost
+const double n7rs3_avail; //avail
+const double n7rs3_rel;	//rel
+const int n7rs3_time;	//time
+const double n7rs3_res;	//time
 
 const int n8rs0_id = 8;
-const double n8rs0_cost = 61.0;	//cost
-const double n8rs0_avail = 0.9447204111241723;	//avail
-const double n8rs0_rel = 0.8041796323161197;		//rel
-const int n8rs0_time = 563;		//time
-const double n8rs0_res = 0.4009672867444525;		//time
+const double n8rs0_cost;	//cost
+const double n8rs0_avail; //avail
+const double n8rs0_rel;	//rel
+const int n8rs0_time;	//time
+const double n8rs0_res;	//time
 
 const int n8rs1_id = 8;
-const double n8rs1_cost = 86.0;	//cost
-const double n8rs1_avail = 0.904473417773753;	//avail
-const double n8rs1_rel = 0.9971042725593096;		//rel
-const int n8rs1_time = 501;		//time
-const double n8rs1_res = 0.3732121600658088;		//time
+const double n8rs1_cost;	//cost
+const double n8rs1_avail; //avail
+const double n8rs1_rel;	//rel
+const int n8rs1_time;	//time
+const double n8rs1_res;	//time
 
 const int n8rs2_id = 8;
-const double n8rs2_cost = 98.0;	//cost
-const double n8rs2_avail = 0.8806126017198865;	//avail
-const double n8rs2_rel = 0.9962222081212478;		//rel
-const int n8rs2_time = 584;		//time
-const double n8rs2_res = 0.3353465031154975;		//time
+const double n8rs2_cost;	//cost
+const double n8rs2_avail; //avail
+const double n8rs2_rel;	//rel
+const int n8rs2_time;	//time
+const double n8rs2_res;	//time
 
 const int n8rs3_id = 8;
-const double n8rs3_cost = 59.0;	//cost
-const double n8rs3_avail = 0.8807640645569302;	//avail
-const double n8rs3_rel = 0.872892531442479;		//rel
-const int n8rs3_time = 560;		//time
-const double n8rs3_res = 0.4547764110048401;		//time
-
-const int n8rs4_id = 8;
-const double n8rs4_cost = 91.0;	//cost
-const double n8rs4_avail = 0.8684408024258392;	//avail
-const double n8rs4_rel = 0.9222782864337709;		//rel
-const int n8rs4_time = 567;		//time
-const double n8rs4_res = 0.23150533311204746;		//time
+const double n8rs3_cost;	//cost
+const double n8rs3_avail; //avail
+const double n8rs3_rel;	//rel
+const int n8rs3_time;	//time
+const double n8rs3_res;	//time
 
 const int n9rs0_id = 9;
-const double n9rs0_cost = 96.0;	//cost
-const double n9rs0_avail = 0.9523030142807978;	//avail
-const double n9rs0_rel = 0.8058236822385522;		//rel
-const int n9rs0_time = 586;		//time
-const double n9rs0_res = 0.43064962055323397;		//time
+const double n9rs0_cost;	//cost
+const double n9rs0_avail; //avail
+const double n9rs0_rel;	//rel
+const int n9rs0_time;	//time
+const double n9rs0_res;	//time
 
 const int n9rs1_id = 9;
-const double n9rs1_cost = 54.0;	//cost
-const double n9rs1_avail = 0.868655176786447;	//avail
-const double n9rs1_rel = 0.8394323206181832;		//rel
-const int n9rs1_time = 518;		//time
-const double n9rs1_res = 0.36673811658217736;		//time
+const double n9rs1_cost;	//cost
+const double n9rs1_avail; //avail
+const double n9rs1_rel;	//rel
+const int n9rs1_time;	//time
+const double n9rs1_res;	//time
 
 const int n9rs2_id = 9;
-const double n9rs2_cost = 87.0;	//cost
-const double n9rs2_avail = 0.8612142334786419;	//avail
-const double n9rs2_rel = 0.8168789274953508;		//rel
-const int n9rs2_time = 592;		//time
-const double n9rs2_res = 0.24327490890616532;		//time
+const double n9rs2_cost;	//cost
+const double n9rs2_avail; //avail
+const double n9rs2_rel;	//rel
+const int n9rs2_time;	//time
+const double n9rs2_res;	//time
 
 const int n9rs3_id = 9;
-const double n9rs3_cost = 71.0;	//cost
-const double n9rs3_avail = 0.8084724699323295;	//avail
-const double n9rs3_rel = 0.9527136226948141;		//rel
-const int n9rs3_time = 589;		//time
-const double n9rs3_res = 0.3717473829510396;		//time
+const double n9rs3_cost;	//cost
+const double n9rs3_avail; //avail
+const double n9rs3_rel;	//rel
+const int n9rs3_time;	//time
+const double n9rs3_res;	//time
 
-const int n9rs4_id = 9;
-const double n9rs4_cost = 81.0;	//cost
-const double n9rs4_avail = 0.8265175460386208;	//avail
-const double n9rs4_rel = 0.904894295832028;		//rel
-const int n9rs4_time = 594;		//time
-const double n9rs4_res = 0.17746476067255268;		//time
+const int n10rs0_id = 10;
+const double n10rs0_cost;	//cost
+const double n10rs0_avail; //avail
+const double n10rs0_rel;	//rel
+const int n10rs0_time;	//time
+const double n10rs0_res;	//time
+
+const int n10rs1_id = 10;
+const double n10rs1_cost;	//cost
+const double n10rs1_avail; //avail
+const double n10rs1_rel;	//rel
+const int n10rs1_time;	//time
+const double n10rs1_res;	//time
+
+const int n10rs2_id = 10;
+const double n10rs2_cost;	//cost
+const double n10rs2_avail; //avail
+const double n10rs2_rel;	//rel
+const int n10rs2_time;	//time
+const double n10rs2_res;	//time
+
+const int n10rs3_id = 10;
+const double n10rs3_cost;	//cost
+const double n10rs3_avail; //avail
+const double n10rs3_rel;	//rel
+const int n10rs3_time;	//time
+const double n10rs3_res;	//time
+
+const int n11rs0_id = 11;
+const double n11rs0_cost;	//cost
+const double n11rs0_avail; //avail
+const double n11rs0_rel;	//rel
+const int n11rs0_time;	//time
+const double n11rs0_res;	//time
+
+const int n11rs1_id = 11;
+const double n11rs1_cost;	//cost
+const double n11rs1_avail; //avail
+const double n11rs1_rel;	//rel
+const int n11rs1_time;	//time
+const double n11rs1_res;	//time
+
+const int n11rs2_id = 11;
+const double n11rs2_cost;	//cost
+const double n11rs2_avail; //avail
+const double n11rs2_rel;	//rel
+const int n11rs2_time;	//time
+const double n11rs2_res;	//time
+
+const int n11rs3_id = 11;
+const double n11rs3_cost;	//cost
+const double n11rs3_avail; //avail
+const double n11rs3_rel;	//rel
+const int n11rs3_time;	//time
+const double n11rs3_res;	//time
+
+const int n12rs0_id = 12;
+const double n12rs0_cost;	//cost
+const double n12rs0_avail; //avail
+const double n12rs0_rel;	//rel
+const int n12rs0_time;	//time
+const double n12rs0_res;	//time
+
+const int n12rs1_id = 12;
+const double n12rs1_cost;	//cost
+const double n12rs1_avail; //avail
+const double n12rs1_rel;	//rel
+const int n12rs1_time;	//time
+const double n12rs1_res;	//time
+
+const int n12rs2_id = 12;
+const double n12rs2_cost;	//cost
+const double n12rs2_avail; //avail
+const double n12rs2_rel;	//rel
+const int n12rs2_time;	//time
+const double n12rs2_res;	//time
+
+const int n12rs3_id = 12;
+const double n12rs3_cost;	//cost
+const double n12rs3_avail; //avail
+const double n12rs3_rel;	//rel
+const int n12rs3_time;	//time
+const double n12rs3_res;	//time
+
+const int n13rs0_id = 13;
+const double n13rs0_cost;	//cost
+const double n13rs0_avail; //avail
+const double n13rs0_rel;	//rel
+const int n13rs0_time;	//time
+const double n13rs0_res;	//time
+
+const int n13rs1_id = 13;
+const double n13rs1_cost;	//cost
+const double n13rs1_avail; //avail
+const double n13rs1_rel;	//rel
+const int n13rs1_time;	//time
+const double n13rs1_res;	//time
+
+const int n13rs2_id = 13;
+const double n13rs2_cost;	//cost
+const double n13rs2_avail; //avail
+const double n13rs2_rel;	//rel
+const int n13rs2_time;	//time
+const double n13rs2_res;	//time
+
+const int n13rs3_id = 13;
+const double n13rs3_cost;	//cost
+const double n13rs3_avail; //avail
+const double n13rs3_rel;	//rel
+const int n13rs3_time;	//time
+const double n13rs3_res;	//time
+
+const int n14rs0_id = 14;
+const double n14rs0_cost;	//cost
+const double n14rs0_avail; //avail
+const double n14rs0_rel;	//rel
+const int n14rs0_time;	//time
+const double n14rs0_res;	//time
+
+const int n14rs1_id = 14;
+const double n14rs1_cost;	//cost
+const double n14rs1_avail; //avail
+const double n14rs1_rel;	//rel
+const int n14rs1_time;	//time
+const double n14rs1_res;	//time
+
+const int n14rs2_id = 14;
+const double n14rs2_cost;	//cost
+const double n14rs2_avail; //avail
+const double n14rs2_rel;	//rel
+const int n14rs2_time;	//time
+const double n14rs2_res;	//time
+
+const int n14rs3_id = 14;
+const double n14rs3_cost;	//cost
+const double n14rs3_avail; //avail
+const double n14rs3_rel;	//rel
+const int n14rs3_time;	//time
+const double n14rs3_res;	//time
+
+const int n15rs0_id = 15;
+const double n15rs0_cost;	//cost
+const double n15rs0_avail; //avail
+const double n15rs0_rel;	//rel
+const int n15rs0_time;	//time
+const double n15rs0_res;	//time
+
+const int n15rs1_id = 15;
+const double n15rs1_cost;	//cost
+const double n15rs1_avail; //avail
+const double n15rs1_rel;	//rel
+const int n15rs1_time;	//time
+const double n15rs1_res;	//time
+
+const int n15rs2_id = 15;
+const double n15rs2_cost;	//cost
+const double n15rs2_avail; //avail
+const double n15rs2_rel;	//rel
+const int n15rs2_time;	//time
+const double n15rs2_res;	//time
+
+const int n15rs3_id = 15;
+const double n15rs3_cost;	//cost
+const double n15rs3_avail; //avail
+const double n15rs3_rel;	//rel
+const int n15rs3_time;	//time
+const double n15rs3_res;	//time
+
+const int n16rs0_id = 16;
+const double n16rs0_cost;	//cost
+const double n16rs0_avail; //avail
+const double n16rs0_rel;	//rel
+const int n16rs0_time;	//time
+const double n16rs0_res;	//time
+
+const int n16rs1_id = 16;
+const double n16rs1_cost;	//cost
+const double n16rs1_avail; //avail
+const double n16rs1_rel;	//rel
+const int n16rs1_time;	//time
+const double n16rs1_res;	//time
+
+const int n16rs2_id = 16;
+const double n16rs2_cost;	//cost
+const double n16rs2_avail; //avail
+const double n16rs2_rel;	//rel
+const int n16rs2_time;	//time
+const double n16rs2_res;	//time
+
+const int n16rs3_id = 16;
+const double n16rs3_cost;	//cost
+const double n16rs3_avail; //avail
+const double n16rs3_rel;	//rel
+const int n16rs3_time;	//time
+const double n16rs3_res;	//time
+
+const int n17rs0_id = 17;
+const double n17rs0_cost;	//cost
+const double n17rs0_avail; //avail
+const double n17rs0_rel;	//rel
+const int n17rs0_time;	//time
+const double n17rs0_res;	//time
+
+const int n17rs1_id = 17;
+const double n17rs1_cost;	//cost
+const double n17rs1_avail; //avail
+const double n17rs1_rel;	//rel
+const int n17rs1_time;	//time
+const double n17rs1_res;	//time
+
+const int n17rs2_id = 17;
+const double n17rs2_cost;	//cost
+const double n17rs2_avail; //avail
+const double n17rs2_rel;	//rel
+const int n17rs2_time;	//time
+const double n17rs2_res;	//time
+
+const int n17rs3_id = 17;
+const double n17rs3_cost;	//cost
+const double n17rs3_avail; //avail
+const double n17rs3_rel;	//rel
+const int n17rs3_time;	//time
+const double n17rs3_res;	//time
+
+const int n18rs0_id = 18;
+const double n18rs0_cost;	//cost
+const double n18rs0_avail; //avail
+const double n18rs0_rel;	//rel
+const int n18rs0_time;	//time
+const double n18rs0_res;	//time
+
+const int n18rs1_id = 18;
+const double n18rs1_cost;	//cost
+const double n18rs1_avail; //avail
+const double n18rs1_rel;	//rel
+const int n18rs1_time;	//time
+const double n18rs1_res;	//time
+
+const int n18rs2_id = 18;
+const double n18rs2_cost;	//cost
+const double n18rs2_avail; //avail
+const double n18rs2_rel;	//rel
+const int n18rs2_time;	//time
+const double n18rs2_res;	//time
+
+const int n18rs3_id = 18;
+const double n18rs3_cost;	//cost
+const double n18rs3_avail; //avail
+const double n18rs3_rel;	//rel
+const int n18rs3_time;	//time
+const double n18rs3_res;	//time
+
+const int n19rs0_id = 19;
+const double n19rs0_cost;	//cost
+const double n19rs0_avail; //avail
+const double n19rs0_rel;	//rel
+const int n19rs0_time;	//time
+const double n19rs0_res;	//time
+
+const int n19rs1_id = 19;
+const double n19rs1_cost;	//cost
+const double n19rs1_avail; //avail
+const double n19rs1_rel;	//rel
+const int n19rs1_time;	//time
+const double n19rs1_res;	//time
+
+const int n19rs2_id = 19;
+const double n19rs2_cost;	//cost
+const double n19rs2_avail; //avail
+const double n19rs2_rel;	//rel
+const int n19rs2_time;	//time
+const double n19rs2_res;	//time
+
+const int n19rs3_id = 19;
+const double n19rs3_cost;	//cost
+const double n19rs3_avail; //avail
+const double n19rs3_rel;	//rel
+const int n19rs3_time;	//time
+const double n19rs3_res;	//time
+
+const int n20rs0_id = 20;
+const double n20rs0_cost;	//cost
+const double n20rs0_avail; //avail
+const double n20rs0_rel;	//rel
+const int n20rs0_time;	//time
+const double n20rs0_res;	//time
+
+const int n20rs1_id = 20;
+const double n20rs1_cost;	//cost
+const double n20rs1_avail; //avail
+const double n20rs1_rel;	//rel
+const int n20rs1_time;	//time
+const double n20rs1_res;	//time
+
+const int n20rs2_id = 20;
+const double n20rs2_cost;	//cost
+const double n20rs2_avail; //avail
+const double n20rs2_rel;	//rel
+const int n20rs2_time;	//time
+const double n20rs2_res;	//time
+
+const int n20rs3_id = 20;
+const double n20rs3_cost;	//cost
+const double n20rs3_avail; //avail
+const double n20rs3_rel;	//rel
+const int n20rs3_time;	//time
+const double n20rs3_res;	//time
+
+const int n21rs0_id = 21;
+const double n21rs0_cost;	//cost
+const double n21rs0_avail; //avail
+const double n21rs0_rel;	//rel
+const int n21rs0_time;	//time
+const double n21rs0_res;	//time
+
+const int n21rs1_id = 21;
+const double n21rs1_cost;	//cost
+const double n21rs1_avail; //avail
+const double n21rs1_rel;	//rel
+const int n21rs1_time;	//time
+const double n21rs1_res;	//time
+
+const int n21rs2_id = 21;
+const double n21rs2_cost;	//cost
+const double n21rs2_avail; //avail
+const double n21rs2_rel;	//rel
+const int n21rs2_time;	//time
+const double n21rs2_res;	//time
+
+const int n21rs3_id = 21;
+const double n21rs3_cost;	//cost
+const double n21rs3_avail; //avail
+const double n21rs3_rel;	//rel
+const int n21rs3_time;	//time
+const double n21rs3_res;	//time
+
+const int n22rs0_id = 22;
+const double n22rs0_cost;	//cost
+const double n22rs0_avail; //avail
+const double n22rs0_rel;	//rel
+const int n22rs0_time;	//time
+const double n22rs0_res;	//time
+
+const int n22rs1_id = 22;
+const double n22rs1_cost;	//cost
+const double n22rs1_avail; //avail
+const double n22rs1_rel;	//rel
+const int n22rs1_time;	//time
+const double n22rs1_res;	//time
+
+const int n22rs2_id = 22;
+const double n22rs2_cost;	//cost
+const double n22rs2_avail; //avail
+const double n22rs2_rel;	//rel
+const int n22rs2_time;	//time
+const double n22rs2_res;	//time
+
+const int n22rs3_id = 22;
+const double n22rs3_cost;	//cost
+const double n22rs3_avail; //avail
+const double n22rs3_rel;	//rel
+const int n22rs3_time;	//time
+const double n22rs3_res;	//time
+
+const int n23rs0_id = 23;
+const double n23rs0_cost;	//cost
+const double n23rs0_avail; //avail
+const double n23rs0_rel;	//rel
+const int n23rs0_time;	//time
+const double n23rs0_res;	//time
+
+const int n23rs1_id = 23;
+const double n23rs1_cost;	//cost
+const double n23rs1_avail; //avail
+const double n23rs1_rel;	//rel
+const int n23rs1_time;	//time
+const double n23rs1_res;	//time
+
+const int n23rs2_id = 23;
+const double n23rs2_cost;	//cost
+const double n23rs2_avail; //avail
+const double n23rs2_rel;	//rel
+const int n23rs2_time;	//time
+const double n23rs2_res;	//time
+
+const int n23rs3_id = 23;
+const double n23rs3_cost;	//cost
+const double n23rs3_avail; //avail
+const double n23rs3_rel;	//rel
+const int n23rs3_time;	//time
+const double n23rs3_res;	//time
+
+const int n24rs0_id = 24;
+const double n24rs0_cost;	//cost
+const double n24rs0_avail; //avail
+const double n24rs0_rel;	//rel
+const int n24rs0_time;	//time
+const double n24rs0_res;	//time
+
+const int n24rs1_id = 24;
+const double n24rs1_cost;	//cost
+const double n24rs1_avail; //avail
+const double n24rs1_rel;	//rel
+const int n24rs1_time;	//time
+const double n24rs1_res;	//time
+
+const int n24rs2_id = 24;
+const double n24rs2_cost;	//cost
+const double n24rs2_avail; //avail
+const double n24rs2_rel;	//rel
+const int n24rs2_time;	//time
+const double n24rs2_res;	//time
+
+const int n24rs3_id = 24;
+const double n24rs3_cost;	//cost
+const double n24rs3_avail; //avail
+const double n24rs3_rel;	//rel
+const int n24rs3_time;	//time
+const double n24rs3_res;	//time
+
+const int n25rs0_id = 25;
+const double n25rs0_cost;	//cost
+const double n25rs0_avail; //avail
+const double n25rs0_rel;	//rel
+const int n25rs0_time;	//time
+const double n25rs0_res;	//time
+
+const int n25rs1_id = 25;
+const double n25rs1_cost;	//cost
+const double n25rs1_avail; //avail
+const double n25rs1_rel;	//rel
+const int n25rs1_time;	//time
+const double n25rs1_res;	//time
+
+const int n25rs2_id = 25;
+const double n25rs2_cost;	//cost
+const double n25rs2_avail; //avail
+const double n25rs2_rel;	//rel
+const int n25rs2_time;	//time
+const double n25rs2_res;	//time
+
+const int n25rs3_id = 25;
+const double n25rs3_cost;	//cost
+const double n25rs3_avail; //avail
+const double n25rs3_rel;	//rel
+const int n25rs3_time;	//time
+const double n25rs3_res;	//time
+
+const int n26rs0_id = 26;
+const double n26rs0_cost;	//cost
+const double n26rs0_avail; //avail
+const double n26rs0_rel;	//rel
+const int n26rs0_time;	//time
+const double n26rs0_res;	//time
+
+const int n26rs1_id = 26;
+const double n26rs1_cost;	//cost
+const double n26rs1_avail; //avail
+const double n26rs1_rel;	//rel
+const int n26rs1_time;	//time
+const double n26rs1_res;	//time
+
+const int n26rs2_id = 26;
+const double n26rs2_cost;	//cost
+const double n26rs2_avail; //avail
+const double n26rs2_rel;	//rel
+const int n26rs2_time;	//time
+const double n26rs2_res;	//time
+
+const int n26rs3_id = 26;
+const double n26rs3_cost;	//cost
+const double n26rs3_avail; //avail
+const double n26rs3_rel;	//rel
+const int n26rs3_time;	//time
+const double n26rs3_res;	//time
+
+const int n27rs0_id = 27;
+const double n27rs0_cost;	//cost
+const double n27rs0_avail; //avail
+const double n27rs0_rel;	//rel
+const int n27rs0_time;	//time
+const double n27rs0_res;	//time
+
+const int n27rs1_id = 27;
+const double n27rs1_cost;	//cost
+const double n27rs1_avail; //avail
+const double n27rs1_rel;	//rel
+const int n27rs1_time;	//time
+const double n27rs1_res;	//time
+
+const int n27rs2_id = 27;
+const double n27rs2_cost;	//cost
+const double n27rs2_avail; //avail
+const double n27rs2_rel;	//rel
+const int n27rs2_time;	//time
+const double n27rs2_res;	//time
+
+const int n27rs3_id = 27;
+const double n27rs3_cost;	//cost
+const double n27rs3_avail; //avail
+const double n27rs3_rel;	//rel
+const int n27rs3_time;	//time
+const double n27rs3_res;	//time
+
+const int n28rs0_id = 28;
+const double n28rs0_cost;	//cost
+const double n28rs0_avail; //avail
+const double n28rs0_rel;	//rel
+const int n28rs0_time;	//time
+const double n28rs0_res;	//time
+
+const int n28rs1_id = 28;
+const double n28rs1_cost;	//cost
+const double n28rs1_avail; //avail
+const double n28rs1_rel;	//rel
+const int n28rs1_time;	//time
+const double n28rs1_res;	//time
+
+const int n28rs2_id = 28;
+const double n28rs2_cost;	//cost
+const double n28rs2_avail; //avail
+const double n28rs2_rel;	//rel
+const int n28rs2_time;	//time
+const double n28rs2_res;	//time
+
+const int n28rs3_id = 28;
+const double n28rs3_cost;	//cost
+const double n28rs3_avail; //avail
+const double n28rs3_rel;	//rel
+const int n28rs3_time;	//time
+const double n28rs3_res;	//time
+
+const int n29rs0_id = 29;
+const double n29rs0_cost;	//cost
+const double n29rs0_avail; //avail
+const double n29rs0_rel;	//rel
+const int n29rs0_time;	//time
+const double n29rs0_res;	//time
+
+const int n29rs1_id = 29;
+const double n29rs1_cost;	//cost
+const double n29rs1_avail; //avail
+const double n29rs1_rel;	//rel
+const int n29rs1_time;	//time
+const double n29rs1_res;	//time
+
+const int n29rs2_id = 29;
+const double n29rs2_cost;	//cost
+const double n29rs2_avail; //avail
+const double n29rs2_rel;	//rel
+const int n29rs2_time;	//time
+const double n29rs2_res;	//time
+
+const int n29rs3_id = 29;
+const double n29rs3_cost;	//cost
+const double n29rs3_avail; //avail
+const double n29rs3_rel;	//rel
+const int n29rs3_time;	//time
+const double n29rs3_res;	//time
+
+const int n30rs0_id = 30;
+const double n30rs0_cost;	//cost
+const double n30rs0_avail; //avail
+const double n30rs0_rel;	//rel
+const int n30rs0_time;	//time
+const double n30rs0_res;	//time
+
+const int n30rs1_id = 30;
+const double n30rs1_cost;	//cost
+const double n30rs1_avail; //avail
+const double n30rs1_rel;	//rel
+const int n30rs1_time;	//time
+const double n30rs1_res;	//time
+
+const int n30rs2_id = 30;
+const double n30rs2_cost;	//cost
+const double n30rs2_avail; //avail
+const double n30rs2_rel;	//rel
+const int n30rs2_time;	//time
+const double n30rs2_res;	//time
+
+const int n30rs3_id = 30;
+const double n30rs3_cost;	//cost
+const double n30rs3_avail; //avail
+const double n30rs3_rel;	//rel
+const int n30rs3_time;	//time
+const double n30rs3_res;	//time
+
+const int n31rs0_id = 31;
+const double n31rs0_cost;	//cost
+const double n31rs0_avail; //avail
+const double n31rs0_rel;	//rel
+const int n31rs0_time;	//time
+const double n31rs0_res;	//time
+
+const int n31rs1_id = 31;
+const double n31rs1_cost;	//cost
+const double n31rs1_avail; //avail
+const double n31rs1_rel;	//rel
+const int n31rs1_time;	//time
+const double n31rs1_res;	//time
+
+const int n31rs2_id = 31;
+const double n31rs2_cost;	//cost
+const double n31rs2_avail; //avail
+const double n31rs2_rel;	//rel
+const int n31rs2_time;	//time
+const double n31rs2_res;	//time
+
+const int n31rs3_id = 31;
+const double n31rs3_cost;	//cost
+const double n31rs3_avail; //avail
+const double n31rs3_rel;	//rel
+const int n31rs3_time;	//time
+const double n31rs3_res;	//time
+
+const int n32rs0_id = 32;
+const double n32rs0_cost;	//cost
+const double n32rs0_avail; //avail
+const double n32rs0_rel;	//rel
+const int n32rs0_time;	//time
+const double n32rs0_res;	//time
+
+const int n32rs1_id = 32;
+const double n32rs1_cost;	//cost
+const double n32rs1_avail; //avail
+const double n32rs1_rel;	//rel
+const int n32rs1_time;	//time
+const double n32rs1_res;	//time
+
+const int n32rs2_id = 32;
+const double n32rs2_cost;	//cost
+const double n32rs2_avail; //avail
+const double n32rs2_rel;	//rel
+const int n32rs2_time;	//time
+const double n32rs2_res;	//time
+
+const int n32rs3_id = 32;
+const double n32rs3_cost;	//cost
+const double n32rs3_avail; //avail
+const double n32rs3_rel;	//rel
+const int n32rs3_time;	//time
+const double n32rs3_res;	//time
+
+const int n33rs0_id = 33;
+const double n33rs0_cost;	//cost
+const double n33rs0_avail; //avail
+const double n33rs0_rel;	//rel
+const int n33rs0_time;	//time
+const double n33rs0_res;	//time
+
+const int n33rs1_id = 33;
+const double n33rs1_cost;	//cost
+const double n33rs1_avail; //avail
+const double n33rs1_rel;	//rel
+const int n33rs1_time;	//time
+const double n33rs1_res;	//time
+
+const int n33rs2_id = 33;
+const double n33rs2_cost;	//cost
+const double n33rs2_avail; //avail
+const double n33rs2_rel;	//rel
+const int n33rs2_time;	//time
+const double n33rs2_res;	//time
+
+const int n33rs3_id = 33;
+const double n33rs3_cost;	//cost
+const double n33rs3_avail; //avail
+const double n33rs3_rel;	//rel
+const int n33rs3_time;	//time
+const double n33rs3_res;	//time
+
+const int n34rs0_id = 34;
+const double n34rs0_cost;	//cost
+const double n34rs0_avail; //avail
+const double n34rs0_rel;	//rel
+const int n34rs0_time;	//time
+const double n34rs0_res;	//time
+
+const int n34rs1_id = 34;
+const double n34rs1_cost;	//cost
+const double n34rs1_avail; //avail
+const double n34rs1_rel;	//rel
+const int n34rs1_time;	//time
+const double n34rs1_res;	//time
+
+const int n34rs2_id = 34;
+const double n34rs2_cost;	//cost
+const double n34rs2_avail; //avail
+const double n34rs2_rel;	//rel
+const int n34rs2_time;	//time
+const double n34rs2_res;	//time
+
+const int n34rs3_id = 34;
+const double n34rs3_cost;	//cost
+const double n34rs3_avail; //avail
+const double n34rs3_rel;	//rel
+const int n34rs3_time;	//time
+const double n34rs3_res;	//time
+
+const int n35rs0_id = 35;
+const double n35rs0_cost;	//cost
+const double n35rs0_avail; //avail
+const double n35rs0_rel;	//rel
+const int n35rs0_time;	//time
+const double n35rs0_res;	//time
+
+const int n35rs1_id = 35;
+const double n35rs1_cost;	//cost
+const double n35rs1_avail; //avail
+const double n35rs1_rel;	//rel
+const int n35rs1_time;	//time
+const double n35rs1_res;	//time
+
+const int n35rs2_id = 35;
+const double n35rs2_cost;	//cost
+const double n35rs2_avail; //avail
+const double n35rs2_rel;	//rel
+const int n35rs2_time;	//time
+const double n35rs2_res;	//time
+
+const int n35rs3_id = 35;
+const double n35rs3_cost;	//cost
+const double n35rs3_avail; //avail
+const double n35rs3_rel;	//rel
+const int n35rs3_time;	//time
+const double n35rs3_res;	//time
+
+const int n36rs0_id = 36;
+const double n36rs0_cost;	//cost
+const double n36rs0_avail; //avail
+const double n36rs0_rel;	//rel
+const int n36rs0_time;	//time
+const double n36rs0_res;	//time
+
+const int n36rs1_id = 36;
+const double n36rs1_cost;	//cost
+const double n36rs1_avail; //avail
+const double n36rs1_rel;	//rel
+const int n36rs1_time;	//time
+const double n36rs1_res;	//time
+
+const int n36rs2_id = 36;
+const double n36rs2_cost;	//cost
+const double n36rs2_avail; //avail
+const double n36rs2_rel;	//rel
+const int n36rs2_time;	//time
+const double n36rs2_res;	//time
+
+const int n36rs3_id = 36;
+const double n36rs3_cost;	//cost
+const double n36rs3_avail; //avail
+const double n36rs3_rel;	//rel
+const int n36rs3_time;	//time
+const double n36rs3_res;	//time
+
+const int n37rs0_id = 37;
+const double n37rs0_cost;	//cost
+const double n37rs0_avail; //avail
+const double n37rs0_rel;	//rel
+const int n37rs0_time;	//time
+const double n37rs0_res;	//time
+
+const int n37rs1_id = 37;
+const double n37rs1_cost;	//cost
+const double n37rs1_avail; //avail
+const double n37rs1_rel;	//rel
+const int n37rs1_time;	//time
+const double n37rs1_res;	//time
+
+const int n37rs2_id = 37;
+const double n37rs2_cost;	//cost
+const double n37rs2_avail; //avail
+const double n37rs2_rel;	//rel
+const int n37rs2_time;	//time
+const double n37rs2_res;	//time
+
+const int n37rs3_id = 37;
+const double n37rs3_cost;	//cost
+const double n37rs3_avail; //avail
+const double n37rs3_rel;	//rel
+const int n37rs3_time;	//time
+const double n37rs3_res;	//time
+
+const int n38rs0_id = 38;
+const double n38rs0_cost;	//cost
+const double n38rs0_avail; //avail
+const double n38rs0_rel;	//rel
+const int n38rs0_time;	//time
+const double n38rs0_res;	//time
+
+const int n38rs1_id = 38;
+const double n38rs1_cost;	//cost
+const double n38rs1_avail; //avail
+const double n38rs1_rel;	//rel
+const int n38rs1_time;	//time
+const double n38rs1_res;	//time
+
+const int n38rs2_id = 38;
+const double n38rs2_cost;	//cost
+const double n38rs2_avail; //avail
+const double n38rs2_rel;	//rel
+const int n38rs2_time;	//time
+const double n38rs2_res;	//time
+
+const int n38rs3_id = 38;
+const double n38rs3_cost;	//cost
+const double n38rs3_avail; //avail
+const double n38rs3_rel;	//rel
+const int n38rs3_time;	//time
+const double n38rs3_res;	//time
+
+const int n39rs0_id = 39;
+const double n39rs0_cost;	//cost
+const double n39rs0_avail; //avail
+const double n39rs0_rel;	//rel
+const int n39rs0_time;	//time
+const double n39rs0_res;	//time
+
+const int n39rs1_id = 39;
+const double n39rs1_cost;	//cost
+const double n39rs1_avail; //avail
+const double n39rs1_rel;	//rel
+const int n39rs1_time;	//time
+const double n39rs1_res;	//time
+
+const int n39rs2_id = 39;
+const double n39rs2_cost;	//cost
+const double n39rs2_avail; //avail
+const double n39rs2_rel;	//rel
+const int n39rs2_time;	//time
+const double n39rs2_res;	//time
+
+const int n39rs3_id = 39;
+const double n39rs3_cost;	//cost
+const double n39rs3_avail; //avail
+const double n39rs3_rel;	//rel
+const int n39rs3_time;	//time
+const double n39rs3_res;	//time
+
+const int n40rs0_id = 40;
+const double n40rs0_cost;	//cost
+const double n40rs0_avail; //avail
+const double n40rs0_rel;	//rel
+const int n40rs0_time;	//time
+const double n40rs0_res;	//time
+
+const int n40rs1_id = 40;
+const double n40rs1_cost;	//cost
+const double n40rs1_avail; //avail
+const double n40rs1_rel;	//rel
+const int n40rs1_time;	//time
+const double n40rs1_res;	//time
+
+const int n40rs2_id = 40;
+const double n40rs2_cost;	//cost
+const double n40rs2_avail; //avail
+const double n40rs2_rel;	//rel
+const int n40rs2_time;	//time
+const double n40rs2_res;	//time
+
+const int n40rs3_id = 40;
+const double n40rs3_cost;	//cost
+const double n40rs3_avail; //avail
+const double n40rs3_rel;	//rel
+const int n40rs3_time;	//time
+const double n40rs3_res;	//time
+
+const int n41rs0_id = 41;
+const double n41rs0_cost;	//cost
+const double n41rs0_avail; //avail
+const double n41rs0_rel;	//rel
+const int n41rs0_time;	//time
+const double n41rs0_res;	//time
+
+const int n41rs1_id = 41;
+const double n41rs1_cost;	//cost
+const double n41rs1_avail; //avail
+const double n41rs1_rel;	//rel
+const int n41rs1_time;	//time
+const double n41rs1_res;	//time
+
+const int n41rs2_id = 41;
+const double n41rs2_cost;	//cost
+const double n41rs2_avail; //avail
+const double n41rs2_rel;	//rel
+const int n41rs2_time;	//time
+const double n41rs2_res;	//time
+
+const int n41rs3_id = 41;
+const double n41rs3_cost;	//cost
+const double n41rs3_avail; //avail
+const double n41rs3_rel;	//rel
+const int n41rs3_time;	//time
+const double n41rs3_res;	//time
+
+const int n42rs0_id = 42;
+const double n42rs0_cost;	//cost
+const double n42rs0_avail; //avail
+const double n42rs0_rel;	//rel
+const int n42rs0_time;	//time
+const double n42rs0_res;	//time
+
+const int n42rs1_id = 42;
+const double n42rs1_cost;	//cost
+const double n42rs1_avail; //avail
+const double n42rs1_rel;	//rel
+const int n42rs1_time;	//time
+const double n42rs1_res;	//time
+
+const int n42rs2_id = 42;
+const double n42rs2_cost;	//cost
+const double n42rs2_avail; //avail
+const double n42rs2_rel;	//rel
+const int n42rs2_time;	//time
+const double n42rs2_res;	//time
+
+const int n42rs3_id = 42;
+const double n42rs3_cost;	//cost
+const double n42rs3_avail; //avail
+const double n42rs3_rel;	//rel
+const int n42rs3_time;	//time
+const double n42rs3_res;	//time
+
+const int n43rs0_id = 43;
+const double n43rs0_cost;	//cost
+const double n43rs0_avail; //avail
+const double n43rs0_rel;	//rel
+const int n43rs0_time;	//time
+const double n43rs0_res;	//time
+
+const int n43rs1_id = 43;
+const double n43rs1_cost;	//cost
+const double n43rs1_avail; //avail
+const double n43rs1_rel;	//rel
+const int n43rs1_time;	//time
+const double n43rs1_res;	//time
+
+const int n43rs2_id = 43;
+const double n43rs2_cost;	//cost
+const double n43rs2_avail; //avail
+const double n43rs2_rel;	//rel
+const int n43rs2_time;	//time
+const double n43rs2_res;	//time
+
+const int n43rs3_id = 43;
+const double n43rs3_cost;	//cost
+const double n43rs3_avail; //avail
+const double n43rs3_rel;	//rel
+const int n43rs3_time;	//time
+const double n43rs3_res;	//time
+
+const int n44rs0_id = 44;
+const double n44rs0_cost;	//cost
+const double n44rs0_avail; //avail
+const double n44rs0_rel;	//rel
+const int n44rs0_time;	//time
+const double n44rs0_res;	//time
+
+const int n44rs1_id = 44;
+const double n44rs1_cost;	//cost
+const double n44rs1_avail; //avail
+const double n44rs1_rel;	//rel
+const int n44rs1_time;	//time
+const double n44rs1_res;	//time
+
+const int n44rs2_id = 44;
+const double n44rs2_cost;	//cost
+const double n44rs2_avail; //avail
+const double n44rs2_rel;	//rel
+const int n44rs2_time;	//time
+const double n44rs2_res;	//time
+
+const int n44rs3_id = 44;
+const double n44rs3_cost;	//cost
+const double n44rs3_avail; //avail
+const double n44rs3_rel;	//rel
+const int n44rs3_time;	//time
+const double n44rs3_res;	//time
+
+const int n45rs0_id = 45;
+const double n45rs0_cost;	//cost
+const double n45rs0_avail; //avail
+const double n45rs0_rel;	//rel
+const int n45rs0_time;	//time
+const double n45rs0_res;	//time
+
+const int n45rs1_id = 45;
+const double n45rs1_cost;	//cost
+const double n45rs1_avail; //avail
+const double n45rs1_rel;	//rel
+const int n45rs1_time;	//time
+const double n45rs1_res;	//time
+
+const int n45rs2_id = 45;
+const double n45rs2_cost;	//cost
+const double n45rs2_avail; //avail
+const double n45rs2_rel;	//rel
+const int n45rs2_time;	//time
+const double n45rs2_res;	//time
+
+const int n45rs3_id = 45;
+const double n45rs3_cost;	//cost
+const double n45rs3_avail; //avail
+const double n45rs3_rel;	//rel
+const int n45rs3_time;	//time
+const double n45rs3_res;	//time
+
+const int n46rs0_id = 46;
+const double n46rs0_cost;	//cost
+const double n46rs0_avail; //avail
+const double n46rs0_rel;	//rel
+const int n46rs0_time;	//time
+const double n46rs0_res;	//time
+
+const int n46rs1_id = 46;
+const double n46rs1_cost;	//cost
+const double n46rs1_avail; //avail
+const double n46rs1_rel;	//rel
+const int n46rs1_time;	//time
+const double n46rs1_res;	//time
+
+const int n46rs2_id = 46;
+const double n46rs2_cost;	//cost
+const double n46rs2_avail; //avail
+const double n46rs2_rel;	//rel
+const int n46rs2_time;	//time
+const double n46rs2_res;	//time
+
+const int n46rs3_id = 46;
+const double n46rs3_cost;	//cost
+const double n46rs3_avail; //avail
+const double n46rs3_rel;	//rel
+const int n46rs3_time;	//time
+const double n46rs3_res;	//time
+
+const int n47rs0_id = 47;
+const double n47rs0_cost;	//cost
+const double n47rs0_avail; //avail
+const double n47rs0_rel;	//rel
+const int n47rs0_time;	//time
+const double n47rs0_res;	//time
+
+const int n47rs1_id = 47;
+const double n47rs1_cost;	//cost
+const double n47rs1_avail; //avail
+const double n47rs1_rel;	//rel
+const int n47rs1_time;	//time
+const double n47rs1_res;	//time
+
+const int n47rs2_id = 47;
+const double n47rs2_cost;	//cost
+const double n47rs2_avail; //avail
+const double n47rs2_rel;	//rel
+const int n47rs2_time;	//time
+const double n47rs2_res;	//time
+
+const int n47rs3_id = 47;
+const double n47rs3_cost;	//cost
+const double n47rs3_avail; //avail
+const double n47rs3_rel;	//rel
+const int n47rs3_time;	//time
+const double n47rs3_res;	//time
+
+const int n48rs0_id = 48;
+const double n48rs0_cost;	//cost
+const double n48rs0_avail; //avail
+const double n48rs0_rel;	//rel
+const int n48rs0_time;	//time
+const double n48rs0_res;	//time
+
+const int n48rs1_id = 48;
+const double n48rs1_cost;	//cost
+const double n48rs1_avail; //avail
+const double n48rs1_rel;	//rel
+const int n48rs1_time;	//time
+const double n48rs1_res;	//time
+
+const int n48rs2_id = 48;
+const double n48rs2_cost;	//cost
+const double n48rs2_avail; //avail
+const double n48rs2_rel;	//rel
+const int n48rs2_time;	//time
+const double n48rs2_res;	//time
+
+const int n48rs3_id = 48;
+const double n48rs3_cost;	//cost
+const double n48rs3_avail; //avail
+const double n48rs3_rel;	//rel
+const int n48rs3_time;	//time
+const double n48rs3_res;	//time
+
+const int n49rs0_id = 49;
+const double n49rs0_cost;	//cost
+const double n49rs0_avail; //avail
+const double n49rs0_rel;	//rel
+const int n49rs0_time;	//time
+const double n49rs0_res;	//time
+
+const int n49rs1_id = 49;
+const double n49rs1_cost;	//cost
+const double n49rs1_avail; //avail
+const double n49rs1_rel;	//rel
+const int n49rs1_time;	//time
+const double n49rs1_res;	//time
+
+const int n49rs2_id = 49;
+const double n49rs2_cost;	//cost
+const double n49rs2_avail; //avail
+const double n49rs2_rel;	//rel
+const int n49rs2_time;	//time
+const double n49rs2_res;	//time
+
+const int n49rs3_id = 49;
+const double n49rs3_cost;	//cost
+const double n49rs3_avail; //avail
+const double n49rs3_rel;	//rel
+const int n49rs3_time;	//time
+const double n49rs3_res;	//time
+
+const int n50rs0_id = 50;
+const double n50rs0_cost;	//cost
+const double n50rs0_avail; //avail
+const double n50rs0_rel;	//rel
+const int n50rs0_time;	//time
+const double n50rs0_res;	//time
+
+const int n50rs1_id = 50;
+const double n50rs1_cost;	//cost
+const double n50rs1_avail; //avail
+const double n50rs1_rel;	//rel
+const int n50rs1_time;	//time
+const double n50rs1_res;	//time
+
+const int n50rs2_id = 50;
+const double n50rs2_cost;	//cost
+const double n50rs2_avail; //avail
+const double n50rs2_rel;	//rel
+const int n50rs2_time;	//time
+const double n50rs2_res;	//time
+
+const int n50rs3_id = 50;
+const double n50rs3_cost;	//cost
+const double n50rs3_avail; //avail
+const double n50rs3_rel;	//rel
+const int n50rs3_time;	//time
+const double n50rs3_res;	//time
+
+const int n51rs0_id = 51;
+const double n51rs0_cost;	//cost
+const double n51rs0_avail; //avail
+const double n51rs0_rel;	//rel
+const int n51rs0_time;	//time
+const double n51rs0_res;	//time
+
+const int n51rs1_id = 51;
+const double n51rs1_cost;	//cost
+const double n51rs1_avail; //avail
+const double n51rs1_rel;	//rel
+const int n51rs1_time;	//time
+const double n51rs1_res;	//time
+
+const int n51rs2_id = 51;
+const double n51rs2_cost;	//cost
+const double n51rs2_avail; //avail
+const double n51rs2_rel;	//rel
+const int n51rs2_time;	//time
+const double n51rs2_res;	//time
+
+const int n51rs3_id = 51;
+const double n51rs3_cost;	//cost
+const double n51rs3_avail; //avail
+const double n51rs3_rel;	//rel
+const int n51rs3_time;	//time
+const double n51rs3_res;	//time
+
+const int n52rs0_id = 52;
+const double n52rs0_cost;	//cost
+const double n52rs0_avail; //avail
+const double n52rs0_rel;	//rel
+const int n52rs0_time;	//time
+const double n52rs0_res;	//time
+
+const int n52rs1_id = 52;
+const double n52rs1_cost;	//cost
+const double n52rs1_avail; //avail
+const double n52rs1_rel;	//rel
+const int n52rs1_time;	//time
+const double n52rs1_res;	//time
+
+const int n52rs2_id = 52;
+const double n52rs2_cost;	//cost
+const double n52rs2_avail; //avail
+const double n52rs2_rel;	//rel
+const int n52rs2_time;	//time
+const double n52rs2_res;	//time
+
+const int n52rs3_id = 52;
+const double n52rs3_cost;	//cost
+const double n52rs3_avail; //avail
+const double n52rs3_rel;	//rel
+const int n52rs3_time;	//time
+const double n52rs3_res;	//time
+
+const int n53rs0_id = 53;
+const double n53rs0_cost;	//cost
+const double n53rs0_avail; //avail
+const double n53rs0_rel;	//rel
+const int n53rs0_time;	//time
+const double n53rs0_res;	//time
+
+const int n53rs1_id = 53;
+const double n53rs1_cost;	//cost
+const double n53rs1_avail; //avail
+const double n53rs1_rel;	//rel
+const int n53rs1_time;	//time
+const double n53rs1_res;	//time
+
+const int n53rs2_id = 53;
+const double n53rs2_cost;	//cost
+const double n53rs2_avail; //avail
+const double n53rs2_rel;	//rel
+const int n53rs2_time;	//time
+const double n53rs2_res;	//time
+
+const int n53rs3_id = 53;
+const double n53rs3_cost;	//cost
+const double n53rs3_avail; //avail
+const double n53rs3_rel;	//rel
+const int n53rs3_time;	//time
+const double n53rs3_res;	//time
+
+const int n54rs0_id = 54;
+const double n54rs0_cost;	//cost
+const double n54rs0_avail; //avail
+const double n54rs0_rel;	//rel
+const int n54rs0_time;	//time
+const double n54rs0_res;	//time
+
+const int n54rs1_id = 54;
+const double n54rs1_cost;	//cost
+const double n54rs1_avail; //avail
+const double n54rs1_rel;	//rel
+const int n54rs1_time;	//time
+const double n54rs1_res;	//time
+
+const int n54rs2_id = 54;
+const double n54rs2_cost;	//cost
+const double n54rs2_avail; //avail
+const double n54rs2_rel;	//rel
+const int n54rs2_time;	//time
+const double n54rs2_res;	//time
+
+const int n54rs3_id = 54;
+const double n54rs3_cost;	//cost
+const double n54rs3_avail; //avail
+const double n54rs3_rel;	//rel
+const int n54rs3_time;	//time
+const double n54rs3_res;	//time
+
+const int n55rs0_id = 55;
+const double n55rs0_cost;	//cost
+const double n55rs0_avail; //avail
+const double n55rs0_rel;	//rel
+const int n55rs0_time;	//time
+const double n55rs0_res;	//time
+
+const int n55rs1_id = 55;
+const double n55rs1_cost;	//cost
+const double n55rs1_avail; //avail
+const double n55rs1_rel;	//rel
+const int n55rs1_time;	//time
+const double n55rs1_res;	//time
+
+const int n55rs2_id = 55;
+const double n55rs2_cost;	//cost
+const double n55rs2_avail; //avail
+const double n55rs2_rel;	//rel
+const int n55rs2_time;	//time
+const double n55rs2_res;	//time
+
+const int n55rs3_id = 55;
+const double n55rs3_cost;	//cost
+const double n55rs3_avail; //avail
+const double n55rs3_rel;	//rel
+const int n55rs3_time;	//time
+const double n55rs3_res;	//time
+
+const int n56rs0_id = 56;
+const double n56rs0_cost;	//cost
+const double n56rs0_avail; //avail
+const double n56rs0_rel;	//rel
+const int n56rs0_time;	//time
+const double n56rs0_res;	//time
+
+const int n56rs1_id = 56;
+const double n56rs1_cost;	//cost
+const double n56rs1_avail; //avail
+const double n56rs1_rel;	//rel
+const int n56rs1_time;	//time
+const double n56rs1_res;	//time
+
+const int n56rs2_id = 56;
+const double n56rs2_cost;	//cost
+const double n56rs2_avail; //avail
+const double n56rs2_rel;	//rel
+const int n56rs2_time;	//time
+const double n56rs2_res;	//time
+
+const int n56rs3_id = 56;
+const double n56rs3_cost;	//cost
+const double n56rs3_avail; //avail
+const double n56rs3_rel;	//rel
+const int n56rs3_time;	//time
+const double n56rs3_res;	//time
+
+const int n57rs0_id = 57;
+const double n57rs0_cost;	//cost
+const double n57rs0_avail; //avail
+const double n57rs0_rel;	//rel
+const int n57rs0_time;	//time
+const double n57rs0_res;	//time
+
+const int n57rs1_id = 57;
+const double n57rs1_cost;	//cost
+const double n57rs1_avail; //avail
+const double n57rs1_rel;	//rel
+const int n57rs1_time;	//time
+const double n57rs1_res;	//time
+
+const int n57rs2_id = 57;
+const double n57rs2_cost;	//cost
+const double n57rs2_avail; //avail
+const double n57rs2_rel;	//rel
+const int n57rs2_time;	//time
+const double n57rs2_res;	//time
+
+const int n57rs3_id = 57;
+const double n57rs3_cost;	//cost
+const double n57rs3_avail; //avail
+const double n57rs3_rel;	//rel
+const int n57rs3_time;	//time
+const double n57rs3_res;	//time
+
+const int n58rs0_id = 58;
+const double n58rs0_cost;	//cost
+const double n58rs0_avail; //avail
+const double n58rs0_rel;	//rel
+const int n58rs0_time;	//time
+const double n58rs0_res;	//time
+
+const int n58rs1_id = 58;
+const double n58rs1_cost;	//cost
+const double n58rs1_avail; //avail
+const double n58rs1_rel;	//rel
+const int n58rs1_time;	//time
+const double n58rs1_res;	//time
+
+const int n58rs2_id = 58;
+const double n58rs2_cost;	//cost
+const double n58rs2_avail; //avail
+const double n58rs2_rel;	//rel
+const int n58rs2_time;	//time
+const double n58rs2_res;	//time
+
+const int n58rs3_id = 58;
+const double n58rs3_cost;	//cost
+const double n58rs3_avail; //avail
+const double n58rs3_rel;	//rel
+const int n58rs3_time;	//time
+const double n58rs3_res;	//time
+
+const int n59rs0_id = 59;
+const double n59rs0_cost;	//cost
+const double n59rs0_avail; //avail
+const double n59rs0_rel;	//rel
+const int n59rs0_time;	//time
+const double n59rs0_res;	//time
+
+const int n59rs1_id = 59;
+const double n59rs1_cost;	//cost
+const double n59rs1_avail; //avail
+const double n59rs1_rel;	//rel
+const int n59rs1_time;	//time
+const double n59rs1_res;	//time
+
+const int n59rs2_id = 59;
+const double n59rs2_cost;	//cost
+const double n59rs2_avail; //avail
+const double n59rs2_rel;	//rel
+const int n59rs2_time;	//time
+const double n59rs2_res;	//time
+
+const int n59rs3_id = 59;
+const double n59rs3_cost;	//cost
+const double n59rs3_avail; //avail
+const double n59rs3_rel;	//rel
+const int n59rs3_time;	//time
+const double n59rs3_res;	//time
+
+const int n60rs0_id = 60;
+const double n60rs0_cost;	//cost
+const double n60rs0_avail; //avail
+const double n60rs0_rel;	//rel
+const int n60rs0_time;	//time
+const double n60rs0_res;	//time
+
+const int n60rs1_id = 60;
+const double n60rs1_cost;	//cost
+const double n60rs1_avail; //avail
+const double n60rs1_rel;	//rel
+const int n60rs1_time;	//time
+const double n60rs1_res;	//time
+
+const int n60rs2_id = 60;
+const double n60rs2_cost;	//cost
+const double n60rs2_avail; //avail
+const double n60rs2_rel;	//rel
+const int n60rs2_time;	//time
+const double n60rs2_res;	//time
+
+const int n60rs3_id = 60;
+const double n60rs3_cost;	//cost
+const double n60rs3_avail; //avail
+const double n60rs3_rel;	//rel
+const int n60rs3_time;	//time
+const double n60rs3_res;	//time
+
+const int n61rs0_id = 61;
+const double n61rs0_cost;	//cost
+const double n61rs0_avail; //avail
+const double n61rs0_rel;	//rel
+const int n61rs0_time;	//time
+const double n61rs0_res;	//time
+
+const int n61rs1_id = 61;
+const double n61rs1_cost;	//cost
+const double n61rs1_avail; //avail
+const double n61rs1_rel;	//rel
+const int n61rs1_time;	//time
+const double n61rs1_res;	//time
+
+const int n61rs2_id = 61;
+const double n61rs2_cost;	//cost
+const double n61rs2_avail; //avail
+const double n61rs2_rel;	//rel
+const int n61rs2_time;	//time
+const double n61rs2_res;	//time
+
+const int n61rs3_id = 61;
+const double n61rs3_cost;	//cost
+const double n61rs3_avail; //avail
+const double n61rs3_rel;	//rel
+const int n61rs3_time;	//time
+const double n61rs3_res;	//time
+
+const int n62rs0_id = 62;
+const double n62rs0_cost;	//cost
+const double n62rs0_avail; //avail
+const double n62rs0_rel;	//rel
+const int n62rs0_time;	//time
+const double n62rs0_res;	//time
+
+const int n62rs1_id = 62;
+const double n62rs1_cost;	//cost
+const double n62rs1_avail; //avail
+const double n62rs1_rel;	//rel
+const int n62rs1_time;	//time
+const double n62rs1_res;	//time
+
+const int n62rs2_id = 62;
+const double n62rs2_cost;	//cost
+const double n62rs2_avail; //avail
+const double n62rs2_rel;	//rel
+const int n62rs2_time;	//time
+const double n62rs2_res;	//time
+
+const int n62rs3_id = 62;
+const double n62rs3_cost;	//cost
+const double n62rs3_avail; //avail
+const double n62rs3_rel;	//rel
+const int n62rs3_time;	//time
+const double n62rs3_res;	//time
+
+const int n63rs0_id = 63;
+const double n63rs0_cost;	//cost
+const double n63rs0_avail; //avail
+const double n63rs0_rel;	//rel
+const int n63rs0_time;	//time
+const double n63rs0_res;	//time
+
+const int n63rs1_id = 63;
+const double n63rs1_cost;	//cost
+const double n63rs1_avail; //avail
+const double n63rs1_rel;	//rel
+const int n63rs1_time;	//time
+const double n63rs1_res;	//time
+
+const int n63rs2_id = 63;
+const double n63rs2_cost;	//cost
+const double n63rs2_avail; //avail
+const double n63rs2_rel;	//rel
+const int n63rs2_time;	//time
+const double n63rs2_res;	//time
+
+const int n63rs3_id = 63;
+const double n63rs3_cost;	//cost
+const double n63rs3_avail; //avail
+const double n63rs3_rel;	//rel
+const int n63rs3_time;	//time
+const double n63rs3_res;	//time
+
+const int n64rs0_id = 64;
+const double n64rs0_cost;	//cost
+const double n64rs0_avail; //avail
+const double n64rs0_rel;	//rel
+const int n64rs0_time;	//time
+const double n64rs0_res;	//time
+
+const int n64rs1_id = 64;
+const double n64rs1_cost;	//cost
+const double n64rs1_avail; //avail
+const double n64rs1_rel;	//rel
+const int n64rs1_time;	//time
+const double n64rs1_res;	//time
+
+const int n64rs2_id = 64;
+const double n64rs2_cost;	//cost
+const double n64rs2_avail; //avail
+const double n64rs2_rel;	//rel
+const int n64rs2_time;	//time
+const double n64rs2_res;	//time
+
+const int n64rs3_id = 64;
+const double n64rs3_cost;	//cost
+const double n64rs3_avail; //avail
+const double n64rs3_rel;	//rel
+const int n64rs3_time;	//time
+const double n64rs3_res;	//time
+
+const int n65rs0_id = 65;
+const double n65rs0_cost;	//cost
+const double n65rs0_avail; //avail
+const double n65rs0_rel;	//rel
+const int n65rs0_time;	//time
+const double n65rs0_res;	//time
+
+const int n65rs1_id = 65;
+const double n65rs1_cost;	//cost
+const double n65rs1_avail; //avail
+const double n65rs1_rel;	//rel
+const int n65rs1_time;	//time
+const double n65rs1_res;	//time
+
+const int n65rs2_id = 65;
+const double n65rs2_cost;	//cost
+const double n65rs2_avail; //avail
+const double n65rs2_rel;	//rel
+const int n65rs2_time;	//time
+const double n65rs2_res;	//time
+
+const int n65rs3_id = 65;
+const double n65rs3_cost;	//cost
+const double n65rs3_avail; //avail
+const double n65rs3_rel;	//rel
+const int n65rs3_time;	//time
+const double n65rs3_res;	//time
+
+const int n66rs0_id = 66;
+const double n66rs0_cost;	//cost
+const double n66rs0_avail; //avail
+const double n66rs0_rel;	//rel
+const int n66rs0_time;	//time
+const double n66rs0_res;	//time
+
+const int n66rs1_id = 66;
+const double n66rs1_cost;	//cost
+const double n66rs1_avail; //avail
+const double n66rs1_rel;	//rel
+const int n66rs1_time;	//time
+const double n66rs1_res;	//time
+
+const int n66rs2_id = 66;
+const double n66rs2_cost;	//cost
+const double n66rs2_avail; //avail
+const double n66rs2_rel;	//rel
+const int n66rs2_time;	//time
+const double n66rs2_res;	//time
+
+const int n66rs3_id = 66;
+const double n66rs3_cost;	//cost
+const double n66rs3_avail; //avail
+const double n66rs3_rel;	//rel
+const int n66rs3_time;	//time
+const double n66rs3_res;	//time
+
+const int n67rs0_id = 67;
+const double n67rs0_cost;	//cost
+const double n67rs0_avail; //avail
+const double n67rs0_rel;	//rel
+const int n67rs0_time;	//time
+const double n67rs0_res;	//time
+
+const int n67rs1_id = 67;
+const double n67rs1_cost;	//cost
+const double n67rs1_avail; //avail
+const double n67rs1_rel;	//rel
+const int n67rs1_time;	//time
+const double n67rs1_res;	//time
+
+const int n67rs2_id = 67;
+const double n67rs2_cost;	//cost
+const double n67rs2_avail; //avail
+const double n67rs2_rel;	//rel
+const int n67rs2_time;	//time
+const double n67rs2_res;	//time
+
+const int n67rs3_id = 67;
+const double n67rs3_cost;	//cost
+const double n67rs3_avail; //avail
+const double n67rs3_rel;	//rel
+const int n67rs3_time;	//time
+const double n67rs3_res;	//time
+
+const int n68rs0_id = 68;
+const double n68rs0_cost;	//cost
+const double n68rs0_avail; //avail
+const double n68rs0_rel;	//rel
+const int n68rs0_time;	//time
+const double n68rs0_res;	//time
+
+const int n68rs1_id = 68;
+const double n68rs1_cost;	//cost
+const double n68rs1_avail; //avail
+const double n68rs1_rel;	//rel
+const int n68rs1_time;	//time
+const double n68rs1_res;	//time
+
+const int n68rs2_id = 68;
+const double n68rs2_cost;	//cost
+const double n68rs2_avail; //avail
+const double n68rs2_rel;	//rel
+const int n68rs2_time;	//time
+const double n68rs2_res;	//time
+
+const int n68rs3_id = 68;
+const double n68rs3_cost;	//cost
+const double n68rs3_avail; //avail
+const double n68rs3_rel;	//rel
+const int n68rs3_time;	//time
+const double n68rs3_res;	//time
+
+const int n69rs0_id = 69;
+const double n69rs0_cost;	//cost
+const double n69rs0_avail; //avail
+const double n69rs0_rel;	//rel
+const int n69rs0_time;	//time
+const double n69rs0_res;	//time
+
+const int n69rs1_id = 69;
+const double n69rs1_cost;	//cost
+const double n69rs1_avail; //avail
+const double n69rs1_rel;	//rel
+const int n69rs1_time;	//time
+const double n69rs1_res;	//time
+
+const int n69rs2_id = 69;
+const double n69rs2_cost;	//cost
+const double n69rs2_avail; //avail
+const double n69rs2_rel;	//rel
+const int n69rs2_time;	//time
+const double n69rs2_res;	//time
+
+const int n69rs3_id = 69;
+const double n69rs3_cost;	//cost
+const double n69rs3_avail; //avail
+const double n69rs3_rel;	//rel
+const int n69rs3_time;	//time
+const double n69rs3_res;	//time
+
+const int n70rs0_id = 70;
+const double n70rs0_cost;	//cost
+const double n70rs0_avail; //avail
+const double n70rs0_rel;	//rel
+const int n70rs0_time;	//time
+const double n70rs0_res;	//time
+
+const int n70rs1_id = 70;
+const double n70rs1_cost;	//cost
+const double n70rs1_avail; //avail
+const double n70rs1_rel;	//rel
+const int n70rs1_time;	//time
+const double n70rs1_res;	//time
+
+const int n70rs2_id = 70;
+const double n70rs2_cost;	//cost
+const double n70rs2_avail; //avail
+const double n70rs2_rel;	//rel
+const int n70rs2_time;	//time
+const double n70rs2_res;	//time
+
+const int n70rs3_id = 70;
+const double n70rs3_cost;	//cost
+const double n70rs3_avail; //avail
+const double n70rs3_rel;	//rel
+const int n70rs3_time;	//time
+const double n70rs3_res;	//time
+
+const int n71rs0_id = 71;
+const double n71rs0_cost;	//cost
+const double n71rs0_avail; //avail
+const double n71rs0_rel;	//rel
+const int n71rs0_time;	//time
+const double n71rs0_res;	//time
+
+const int n71rs1_id = 71;
+const double n71rs1_cost;	//cost
+const double n71rs1_avail; //avail
+const double n71rs1_rel;	//rel
+const int n71rs1_time;	//time
+const double n71rs1_res;	//time
+
+const int n71rs2_id = 71;
+const double n71rs2_cost;	//cost
+const double n71rs2_avail; //avail
+const double n71rs2_rel;	//rel
+const int n71rs2_time;	//time
+const double n71rs2_res;	//time
+
+const int n71rs3_id = 71;
+const double n71rs3_cost;	//cost
+const double n71rs3_avail; //avail
+const double n71rs3_rel;	//rel
+const int n71rs3_time;	//time
+const double n71rs3_res;	//time
+
+const int n72rs0_id = 72;
+const double n72rs0_cost;	//cost
+const double n72rs0_avail; //avail
+const double n72rs0_rel;	//rel
+const int n72rs0_time;	//time
+const double n72rs0_res;	//time
+
+const int n72rs1_id = 72;
+const double n72rs1_cost;	//cost
+const double n72rs1_avail; //avail
+const double n72rs1_rel;	//rel
+const int n72rs1_time;	//time
+const double n72rs1_res;	//time
+
+const int n72rs2_id = 72;
+const double n72rs2_cost;	//cost
+const double n72rs2_avail; //avail
+const double n72rs2_rel;	//rel
+const int n72rs2_time;	//time
+const double n72rs2_res;	//time
+
+const int n72rs3_id = 72;
+const double n72rs3_cost;	//cost
+const double n72rs3_avail; //avail
+const double n72rs3_rel;	//rel
+const int n72rs3_time;	//time
+const double n72rs3_res;	//time
+
+const int n73rs0_id = 73;
+const double n73rs0_cost;	//cost
+const double n73rs0_avail; //avail
+const double n73rs0_rel;	//rel
+const int n73rs0_time;	//time
+const double n73rs0_res;	//time
+
+const int n73rs1_id = 73;
+const double n73rs1_cost;	//cost
+const double n73rs1_avail; //avail
+const double n73rs1_rel;	//rel
+const int n73rs1_time;	//time
+const double n73rs1_res;	//time
+
+const int n73rs2_id = 73;
+const double n73rs2_cost;	//cost
+const double n73rs2_avail; //avail
+const double n73rs2_rel;	//rel
+const int n73rs2_time;	//time
+const double n73rs2_res;	//time
+
+const int n73rs3_id = 73;
+const double n73rs3_cost;	//cost
+const double n73rs3_avail; //avail
+const double n73rs3_rel;	//rel
+const int n73rs3_time;	//time
+const double n73rs3_res;	//time
+
+const int n74rs0_id = 74;
+const double n74rs0_cost;	//cost
+const double n74rs0_avail; //avail
+const double n74rs0_rel;	//rel
+const int n74rs0_time;	//time
+const double n74rs0_res;	//time
+
+const int n74rs1_id = 74;
+const double n74rs1_cost;	//cost
+const double n74rs1_avail; //avail
+const double n74rs1_rel;	//rel
+const int n74rs1_time;	//time
+const double n74rs1_res;	//time
+
+const int n74rs2_id = 74;
+const double n74rs2_cost;	//cost
+const double n74rs2_avail; //avail
+const double n74rs2_rel;	//rel
+const int n74rs2_time;	//time
+const double n74rs2_res;	//time
+
+const int n74rs3_id = 74;
+const double n74rs3_cost;	//cost
+const double n74rs3_avail; //avail
+const double n74rs3_rel;	//rel
+const int n74rs3_time;	//time
+const double n74rs3_res;	//time
+
+const int n75rs0_id = 75;
+const double n75rs0_cost;	//cost
+const double n75rs0_avail; //avail
+const double n75rs0_rel;	//rel
+const int n75rs0_time;	//time
+const double n75rs0_res;	//time
+
+const int n75rs1_id = 75;
+const double n75rs1_cost;	//cost
+const double n75rs1_avail; //avail
+const double n75rs1_rel;	//rel
+const int n75rs1_time;	//time
+const double n75rs1_res;	//time
+
+const int n75rs2_id = 75;
+const double n75rs2_cost;	//cost
+const double n75rs2_avail; //avail
+const double n75rs2_rel;	//rel
+const int n75rs2_time;	//time
+const double n75rs2_res;	//time
+
+const int n75rs3_id = 75;
+const double n75rs3_cost;	//cost
+const double n75rs3_avail; //avail
+const double n75rs3_rel;	//rel
+const int n75rs3_time;	//time
+const double n75rs3_res;	//time
+
+const int n76rs0_id = 76;
+const double n76rs0_cost;	//cost
+const double n76rs0_avail; //avail
+const double n76rs0_rel;	//rel
+const int n76rs0_time;	//time
+const double n76rs0_res;	//time
+
+const int n76rs1_id = 76;
+const double n76rs1_cost;	//cost
+const double n76rs1_avail; //avail
+const double n76rs1_rel;	//rel
+const int n76rs1_time;	//time
+const double n76rs1_res;	//time
+
+const int n76rs2_id = 76;
+const double n76rs2_cost;	//cost
+const double n76rs2_avail; //avail
+const double n76rs2_rel;	//rel
+const int n76rs2_time;	//time
+const double n76rs2_res;	//time
+
+const int n76rs3_id = 76;
+const double n76rs3_cost;	//cost
+const double n76rs3_avail; //avail
+const double n76rs3_rel;	//rel
+const int n76rs3_time;	//time
+const double n76rs3_res;	//time
+
+const int n77rs0_id = 77;
+const double n77rs0_cost;	//cost
+const double n77rs0_avail; //avail
+const double n77rs0_rel;	//rel
+const int n77rs0_time;	//time
+const double n77rs0_res;	//time
+
+const int n77rs1_id = 77;
+const double n77rs1_cost;	//cost
+const double n77rs1_avail; //avail
+const double n77rs1_rel;	//rel
+const int n77rs1_time;	//time
+const double n77rs1_res;	//time
+
+const int n77rs2_id = 77;
+const double n77rs2_cost;	//cost
+const double n77rs2_avail; //avail
+const double n77rs2_rel;	//rel
+const int n77rs2_time;	//time
+const double n77rs2_res;	//time
+
+const int n77rs3_id = 77;
+const double n77rs3_cost;	//cost
+const double n77rs3_avail; //avail
+const double n77rs3_rel;	//rel
+const int n77rs3_time;	//time
+const double n77rs3_res;	//time
+
+const int n78rs0_id = 78;
+const double n78rs0_cost;	//cost
+const double n78rs0_avail; //avail
+const double n78rs0_rel;	//rel
+const int n78rs0_time;	//time
+const double n78rs0_res;	//time
+
+const int n78rs1_id = 78;
+const double n78rs1_cost;	//cost
+const double n78rs1_avail; //avail
+const double n78rs1_rel;	//rel
+const int n78rs1_time;	//time
+const double n78rs1_res;	//time
+
+const int n78rs2_id = 78;
+const double n78rs2_cost;	//cost
+const double n78rs2_avail; //avail
+const double n78rs2_rel;	//rel
+const int n78rs2_time;	//time
+const double n78rs2_res;	//time
+
+const int n78rs3_id = 78;
+const double n78rs3_cost;	//cost
+const double n78rs3_avail; //avail
+const double n78rs3_rel;	//rel
+const int n78rs3_time;	//time
+const double n78rs3_res;	//time
+
+const int n79rs0_id = 79;
+const double n79rs0_cost;	//cost
+const double n79rs0_avail; //avail
+const double n79rs0_rel;	//rel
+const int n79rs0_time;	//time
+const double n79rs0_res;	//time
+
+const int n79rs1_id = 79;
+const double n79rs1_cost;	//cost
+const double n79rs1_avail; //avail
+const double n79rs1_rel;	//rel
+const int n79rs1_time;	//time
+const double n79rs1_res;	//time
+
+const int n79rs2_id = 79;
+const double n79rs2_cost;	//cost
+const double n79rs2_avail; //avail
+const double n79rs2_rel;	//rel
+const int n79rs2_time;	//time
+const double n79rs2_res;	//time
+
+const int n79rs3_id = 79;
+const double n79rs3_cost;	//cost
+const double n79rs3_avail; //avail
+const double n79rs3_rel;	//rel
+const int n79rs3_time;	//time
+const double n79rs3_res;	//time
 
 
 //=========Global Parameters=======
@@ -384,6 +2274,76 @@ module planner
 [r7] (t=0) & (goal=false) -> (n'=7) & (t'=1);
 [r8] (t=0) & (goal=false) -> (n'=8) & (t'=1);
 [r9] (t=0) & (goal=false) -> (n'=9) & (t'=1);
+[r10] (t=0) & (goal=false) -> (n'=10) & (t'=1);
+[r11] (t=0) & (goal=false) -> (n'=11) & (t'=1);
+[r12] (t=0) & (goal=false) -> (n'=12) & (t'=1);
+[r13] (t=0) & (goal=false) -> (n'=13) & (t'=1);
+[r14] (t=0) & (goal=false) -> (n'=14) & (t'=1);
+[r15] (t=0) & (goal=false) -> (n'=15) & (t'=1);
+[r16] (t=0) & (goal=false) -> (n'=16) & (t'=1);
+[r17] (t=0) & (goal=false) -> (n'=17) & (t'=1);
+[r18] (t=0) & (goal=false) -> (n'=18) & (t'=1);
+[r19] (t=0) & (goal=false) -> (n'=19) & (t'=1);
+[r20] (t=0) & (goal=false) -> (n'=20) & (t'=1);
+[r21] (t=0) & (goal=false) -> (n'=21) & (t'=1);
+[r22] (t=0) & (goal=false) -> (n'=22) & (t'=1);
+[r23] (t=0) & (goal=false) -> (n'=23) & (t'=1);
+[r24] (t=0) & (goal=false) -> (n'=24) & (t'=1);
+[r25] (t=0) & (goal=false) -> (n'=25) & (t'=1);
+[r26] (t=0) & (goal=false) -> (n'=26) & (t'=1);
+[r27] (t=0) & (goal=false) -> (n'=27) & (t'=1);
+[r28] (t=0) & (goal=false) -> (n'=28) & (t'=1);
+[r29] (t=0) & (goal=false) -> (n'=29) & (t'=1);
+[r30] (t=0) & (goal=false) -> (n'=30) & (t'=1);
+[r31] (t=0) & (goal=false) -> (n'=31) & (t'=1);
+[r32] (t=0) & (goal=false) -> (n'=32) & (t'=1);
+[r33] (t=0) & (goal=false) -> (n'=33) & (t'=1);
+[r34] (t=0) & (goal=false) -> (n'=34) & (t'=1);
+[r35] (t=0) & (goal=false) -> (n'=35) & (t'=1);
+[r36] (t=0) & (goal=false) -> (n'=36) & (t'=1);
+[r37] (t=0) & (goal=false) -> (n'=37) & (t'=1);
+[r38] (t=0) & (goal=false) -> (n'=38) & (t'=1);
+[r39] (t=0) & (goal=false) -> (n'=39) & (t'=1);
+[r40] (t=0) & (goal=false) -> (n'=40) & (t'=1);
+[r41] (t=0) & (goal=false) -> (n'=41) & (t'=1);
+[r42] (t=0) & (goal=false) -> (n'=42) & (t'=1);
+[r43] (t=0) & (goal=false) -> (n'=43) & (t'=1);
+[r44] (t=0) & (goal=false) -> (n'=44) & (t'=1);
+[r45] (t=0) & (goal=false) -> (n'=45) & (t'=1);
+[r46] (t=0) & (goal=false) -> (n'=46) & (t'=1);
+[r47] (t=0) & (goal=false) -> (n'=47) & (t'=1);
+[r48] (t=0) & (goal=false) -> (n'=48) & (t'=1);
+[r49] (t=0) & (goal=false) -> (n'=49) & (t'=1);
+[r50] (t=0) & (goal=false) -> (n'=50) & (t'=1);
+[r51] (t=0) & (goal=false) -> (n'=51) & (t'=1);
+[r52] (t=0) & (goal=false) -> (n'=52) & (t'=1);
+[r53] (t=0) & (goal=false) -> (n'=53) & (t'=1);
+[r54] (t=0) & (goal=false) -> (n'=54) & (t'=1);
+[r55] (t=0) & (goal=false) -> (n'=55) & (t'=1);
+[r56] (t=0) & (goal=false) -> (n'=56) & (t'=1);
+[r57] (t=0) & (goal=false) -> (n'=57) & (t'=1);
+[r58] (t=0) & (goal=false) -> (n'=58) & (t'=1);
+[r59] (t=0) & (goal=false) -> (n'=59) & (t'=1);
+[r60] (t=0) & (goal=false) -> (n'=60) & (t'=1);
+[r61] (t=0) & (goal=false) -> (n'=61) & (t'=1);
+[r62] (t=0) & (goal=false) -> (n'=62) & (t'=1);
+[r63] (t=0) & (goal=false) -> (n'=63) & (t'=1);
+[r64] (t=0) & (goal=false) -> (n'=64) & (t'=1);
+[r65] (t=0) & (goal=false) -> (n'=65) & (t'=1);
+[r66] (t=0) & (goal=false) -> (n'=66) & (t'=1);
+[r67] (t=0) & (goal=false) -> (n'=67) & (t'=1);
+[r68] (t=0) & (goal=false) -> (n'=68) & (t'=1);
+[r69] (t=0) & (goal=false) -> (n'=69) & (t'=1);
+[r70] (t=0) & (goal=false) -> (n'=70) & (t'=1);
+[r71] (t=0) & (goal=false) -> (n'=71) & (t'=1);
+[r72] (t=0) & (goal=false) -> (n'=72) & (t'=1);
+[r73] (t=0) & (goal=false) -> (n'=73) & (t'=1);
+[r74] (t=0) & (goal=false) -> (n'=74) & (t'=1);
+[r75] (t=0) & (goal=false) -> (n'=75) & (t'=1);
+[r76] (t=0) & (goal=false) -> (n'=76) & (t'=1);
+[r77] (t=0) & (goal=false) -> (n'=77) & (t'=1);
+[r78] (t=0) & (goal=false) -> (n'=78) & (t'=1);
+[r79] (t=0) & (goal=false) -> (n'=79) & (t'=1);
 endmodule
 
 //=========Module for Player 2=======
@@ -393,61 +2353,401 @@ module environment
 [n0rs1] (t=1) & (n=0) & (app_rs + n0rs1_res <= mx_rs) -> n0rs1_rel:(goal'=true) & (t'=0) + 1-n0rs1_rel:(goal'=false) & (t'=0);
 [n0rs2] (t=1) & (n=0) & (app_rs + n0rs2_res <= mx_rs) -> n0rs2_rel:(goal'=true) & (t'=0) + 1-n0rs2_rel:(goal'=false) & (t'=0);
 [n0rs3] (t=1) & (n=0) & (app_rs + n0rs3_res <= mx_rs) -> n0rs3_rel:(goal'=true) & (t'=0) + 1-n0rs3_rel:(goal'=false) & (t'=0);
-[n0rs4] (t=1) & (n=0) & (app_rs + n0rs4_res <= mx_rs) -> n0rs4_rel:(goal'=true) & (t'=0) + 1-n0rs4_rel:(goal'=false) & (t'=0);
 
 [n1rs0] (t=1) & (n=1) & (app_rs + n1rs0_res <= mx_rs) -> n1rs0_rel:(goal'=true) & (t'=0) + 1-n1rs0_rel:(goal'=false) & (t'=0);
 [n1rs1] (t=1) & (n=1) & (app_rs + n1rs1_res <= mx_rs) -> n1rs1_rel:(goal'=true) & (t'=0) + 1-n1rs1_rel:(goal'=false) & (t'=0);
 [n1rs2] (t=1) & (n=1) & (app_rs + n1rs2_res <= mx_rs) -> n1rs2_rel:(goal'=true) & (t'=0) + 1-n1rs2_rel:(goal'=false) & (t'=0);
 [n1rs3] (t=1) & (n=1) & (app_rs + n1rs3_res <= mx_rs) -> n1rs3_rel:(goal'=true) & (t'=0) + 1-n1rs3_rel:(goal'=false) & (t'=0);
-[n1rs4] (t=1) & (n=1) & (app_rs + n1rs4_res <= mx_rs) -> n1rs4_rel:(goal'=true) & (t'=0) + 1-n1rs4_rel:(goal'=false) & (t'=0);
 
 [n2rs0] (t=1) & (n=2) & (app_rs + n2rs0_res <= mx_rs) -> n2rs0_rel:(goal'=true) & (t'=0) + 1-n2rs0_rel:(goal'=false) & (t'=0);
 [n2rs1] (t=1) & (n=2) & (app_rs + n2rs1_res <= mx_rs) -> n2rs1_rel:(goal'=true) & (t'=0) + 1-n2rs1_rel:(goal'=false) & (t'=0);
 [n2rs2] (t=1) & (n=2) & (app_rs + n2rs2_res <= mx_rs) -> n2rs2_rel:(goal'=true) & (t'=0) + 1-n2rs2_rel:(goal'=false) & (t'=0);
 [n2rs3] (t=1) & (n=2) & (app_rs + n2rs3_res <= mx_rs) -> n2rs3_rel:(goal'=true) & (t'=0) + 1-n2rs3_rel:(goal'=false) & (t'=0);
-[n2rs4] (t=1) & (n=2) & (app_rs + n2rs4_res <= mx_rs) -> n2rs4_rel:(goal'=true) & (t'=0) + 1-n2rs4_rel:(goal'=false) & (t'=0);
 
 [n3rs0] (t=1) & (n=3) & (app_rs + n3rs0_res <= mx_rs) -> n3rs0_rel:(goal'=true) & (t'=0) + 1-n3rs0_rel:(goal'=false) & (t'=0);
 [n3rs1] (t=1) & (n=3) & (app_rs + n3rs1_res <= mx_rs) -> n3rs1_rel:(goal'=true) & (t'=0) + 1-n3rs1_rel:(goal'=false) & (t'=0);
 [n3rs2] (t=1) & (n=3) & (app_rs + n3rs2_res <= mx_rs) -> n3rs2_rel:(goal'=true) & (t'=0) + 1-n3rs2_rel:(goal'=false) & (t'=0);
 [n3rs3] (t=1) & (n=3) & (app_rs + n3rs3_res <= mx_rs) -> n3rs3_rel:(goal'=true) & (t'=0) + 1-n3rs3_rel:(goal'=false) & (t'=0);
-[n3rs4] (t=1) & (n=3) & (app_rs + n3rs4_res <= mx_rs) -> n3rs4_rel:(goal'=true) & (t'=0) + 1-n3rs4_rel:(goal'=false) & (t'=0);
 
 [n4rs0] (t=1) & (n=4) & (app_rs + n4rs0_res <= mx_rs) -> n4rs0_rel:(goal'=true) & (t'=0) + 1-n4rs0_rel:(goal'=false) & (t'=0);
 [n4rs1] (t=1) & (n=4) & (app_rs + n4rs1_res <= mx_rs) -> n4rs1_rel:(goal'=true) & (t'=0) + 1-n4rs1_rel:(goal'=false) & (t'=0);
 [n4rs2] (t=1) & (n=4) & (app_rs + n4rs2_res <= mx_rs) -> n4rs2_rel:(goal'=true) & (t'=0) + 1-n4rs2_rel:(goal'=false) & (t'=0);
 [n4rs3] (t=1) & (n=4) & (app_rs + n4rs3_res <= mx_rs) -> n4rs3_rel:(goal'=true) & (t'=0) + 1-n4rs3_rel:(goal'=false) & (t'=0);
-[n4rs4] (t=1) & (n=4) & (app_rs + n4rs4_res <= mx_rs) -> n4rs4_rel:(goal'=true) & (t'=0) + 1-n4rs4_rel:(goal'=false) & (t'=0);
 
 [n5rs0] (t=1) & (n=5) & (app_rs + n5rs0_res <= mx_rs) -> n5rs0_rel:(goal'=true) & (t'=0) + 1-n5rs0_rel:(goal'=false) & (t'=0);
 [n5rs1] (t=1) & (n=5) & (app_rs + n5rs1_res <= mx_rs) -> n5rs1_rel:(goal'=true) & (t'=0) + 1-n5rs1_rel:(goal'=false) & (t'=0);
 [n5rs2] (t=1) & (n=5) & (app_rs + n5rs2_res <= mx_rs) -> n5rs2_rel:(goal'=true) & (t'=0) + 1-n5rs2_rel:(goal'=false) & (t'=0);
 [n5rs3] (t=1) & (n=5) & (app_rs + n5rs3_res <= mx_rs) -> n5rs3_rel:(goal'=true) & (t'=0) + 1-n5rs3_rel:(goal'=false) & (t'=0);
-[n5rs4] (t=1) & (n=5) & (app_rs + n5rs4_res <= mx_rs) -> n5rs4_rel:(goal'=true) & (t'=0) + 1-n5rs4_rel:(goal'=false) & (t'=0);
 
 [n6rs0] (t=1) & (n=6) & (app_rs + n6rs0_res <= mx_rs) -> n6rs0_rel:(goal'=true) & (t'=0) + 1-n6rs0_rel:(goal'=false) & (t'=0);
 [n6rs1] (t=1) & (n=6) & (app_rs + n6rs1_res <= mx_rs) -> n6rs1_rel:(goal'=true) & (t'=0) + 1-n6rs1_rel:(goal'=false) & (t'=0);
 [n6rs2] (t=1) & (n=6) & (app_rs + n6rs2_res <= mx_rs) -> n6rs2_rel:(goal'=true) & (t'=0) + 1-n6rs2_rel:(goal'=false) & (t'=0);
 [n6rs3] (t=1) & (n=6) & (app_rs + n6rs3_res <= mx_rs) -> n6rs3_rel:(goal'=true) & (t'=0) + 1-n6rs3_rel:(goal'=false) & (t'=0);
-[n6rs4] (t=1) & (n=6) & (app_rs + n6rs4_res <= mx_rs) -> n6rs4_rel:(goal'=true) & (t'=0) + 1-n6rs4_rel:(goal'=false) & (t'=0);
 
 [n7rs0] (t=1) & (n=7) & (app_rs + n7rs0_res <= mx_rs) -> n7rs0_rel:(goal'=true) & (t'=0) + 1-n7rs0_rel:(goal'=false) & (t'=0);
 [n7rs1] (t=1) & (n=7) & (app_rs + n7rs1_res <= mx_rs) -> n7rs1_rel:(goal'=true) & (t'=0) + 1-n7rs1_rel:(goal'=false) & (t'=0);
 [n7rs2] (t=1) & (n=7) & (app_rs + n7rs2_res <= mx_rs) -> n7rs2_rel:(goal'=true) & (t'=0) + 1-n7rs2_rel:(goal'=false) & (t'=0);
 [n7rs3] (t=1) & (n=7) & (app_rs + n7rs3_res <= mx_rs) -> n7rs3_rel:(goal'=true) & (t'=0) + 1-n7rs3_rel:(goal'=false) & (t'=0);
-[n7rs4] (t=1) & (n=7) & (app_rs + n7rs4_res <= mx_rs) -> n7rs4_rel:(goal'=true) & (t'=0) + 1-n7rs4_rel:(goal'=false) & (t'=0);
 
 [n8rs0] (t=1) & (n=8) & (app_rs + n8rs0_res <= mx_rs) -> n8rs0_rel:(goal'=true) & (t'=0) + 1-n8rs0_rel:(goal'=false) & (t'=0);
 [n8rs1] (t=1) & (n=8) & (app_rs + n8rs1_res <= mx_rs) -> n8rs1_rel:(goal'=true) & (t'=0) + 1-n8rs1_rel:(goal'=false) & (t'=0);
 [n8rs2] (t=1) & (n=8) & (app_rs + n8rs2_res <= mx_rs) -> n8rs2_rel:(goal'=true) & (t'=0) + 1-n8rs2_rel:(goal'=false) & (t'=0);
 [n8rs3] (t=1) & (n=8) & (app_rs + n8rs3_res <= mx_rs) -> n8rs3_rel:(goal'=true) & (t'=0) + 1-n8rs3_rel:(goal'=false) & (t'=0);
-[n8rs4] (t=1) & (n=8) & (app_rs + n8rs4_res <= mx_rs) -> n8rs4_rel:(goal'=true) & (t'=0) + 1-n8rs4_rel:(goal'=false) & (t'=0);
 
 [n9rs0] (t=1) & (n=9) & (app_rs + n9rs0_res <= mx_rs) -> n9rs0_rel:(goal'=true) & (t'=0) + 1-n9rs0_rel:(goal'=false) & (t'=0);
 [n9rs1] (t=1) & (n=9) & (app_rs + n9rs1_res <= mx_rs) -> n9rs1_rel:(goal'=true) & (t'=0) + 1-n9rs1_rel:(goal'=false) & (t'=0);
 [n9rs2] (t=1) & (n=9) & (app_rs + n9rs2_res <= mx_rs) -> n9rs2_rel:(goal'=true) & (t'=0) + 1-n9rs2_rel:(goal'=false) & (t'=0);
 [n9rs3] (t=1) & (n=9) & (app_rs + n9rs3_res <= mx_rs) -> n9rs3_rel:(goal'=true) & (t'=0) + 1-n9rs3_rel:(goal'=false) & (t'=0);
-[n9rs4] (t=1) & (n=9) & (app_rs + n9rs4_res <= mx_rs) -> n9rs4_rel:(goal'=true) & (t'=0) + 1-n9rs4_rel:(goal'=false) & (t'=0);
+
+[n10rs0] (t=1) & (n=10) & (app_rs + n10rs0_res <= mx_rs) -> n10rs0_rel:(goal'=true) & (t'=0) + 1-n10rs0_rel:(goal'=false) & (t'=0);
+[n10rs1] (t=1) & (n=10) & (app_rs + n10rs1_res <= mx_rs) -> n10rs1_rel:(goal'=true) & (t'=0) + 1-n10rs1_rel:(goal'=false) & (t'=0);
+[n10rs2] (t=1) & (n=10) & (app_rs + n10rs2_res <= mx_rs) -> n10rs2_rel:(goal'=true) & (t'=0) + 1-n10rs2_rel:(goal'=false) & (t'=0);
+[n10rs3] (t=1) & (n=10) & (app_rs + n10rs3_res <= mx_rs) -> n10rs3_rel:(goal'=true) & (t'=0) + 1-n10rs3_rel:(goal'=false) & (t'=0);
+
+[n11rs0] (t=1) & (n=11) & (app_rs + n11rs0_res <= mx_rs) -> n11rs0_rel:(goal'=true) & (t'=0) + 1-n11rs0_rel:(goal'=false) & (t'=0);
+[n11rs1] (t=1) & (n=11) & (app_rs + n11rs1_res <= mx_rs) -> n11rs1_rel:(goal'=true) & (t'=0) + 1-n11rs1_rel:(goal'=false) & (t'=0);
+[n11rs2] (t=1) & (n=11) & (app_rs + n11rs2_res <= mx_rs) -> n11rs2_rel:(goal'=true) & (t'=0) + 1-n11rs2_rel:(goal'=false) & (t'=0);
+[n11rs3] (t=1) & (n=11) & (app_rs + n11rs3_res <= mx_rs) -> n11rs3_rel:(goal'=true) & (t'=0) + 1-n11rs3_rel:(goal'=false) & (t'=0);
+
+[n12rs0] (t=1) & (n=12) & (app_rs + n12rs0_res <= mx_rs) -> n12rs0_rel:(goal'=true) & (t'=0) + 1-n12rs0_rel:(goal'=false) & (t'=0);
+[n12rs1] (t=1) & (n=12) & (app_rs + n12rs1_res <= mx_rs) -> n12rs1_rel:(goal'=true) & (t'=0) + 1-n12rs1_rel:(goal'=false) & (t'=0);
+[n12rs2] (t=1) & (n=12) & (app_rs + n12rs2_res <= mx_rs) -> n12rs2_rel:(goal'=true) & (t'=0) + 1-n12rs2_rel:(goal'=false) & (t'=0);
+[n12rs3] (t=1) & (n=12) & (app_rs + n12rs3_res <= mx_rs) -> n12rs3_rel:(goal'=true) & (t'=0) + 1-n12rs3_rel:(goal'=false) & (t'=0);
+
+[n13rs0] (t=1) & (n=13) & (app_rs + n13rs0_res <= mx_rs) -> n13rs0_rel:(goal'=true) & (t'=0) + 1-n13rs0_rel:(goal'=false) & (t'=0);
+[n13rs1] (t=1) & (n=13) & (app_rs + n13rs1_res <= mx_rs) -> n13rs1_rel:(goal'=true) & (t'=0) + 1-n13rs1_rel:(goal'=false) & (t'=0);
+[n13rs2] (t=1) & (n=13) & (app_rs + n13rs2_res <= mx_rs) -> n13rs2_rel:(goal'=true) & (t'=0) + 1-n13rs2_rel:(goal'=false) & (t'=0);
+[n13rs3] (t=1) & (n=13) & (app_rs + n13rs3_res <= mx_rs) -> n13rs3_rel:(goal'=true) & (t'=0) + 1-n13rs3_rel:(goal'=false) & (t'=0);
+
+[n14rs0] (t=1) & (n=14) & (app_rs + n14rs0_res <= mx_rs) -> n14rs0_rel:(goal'=true) & (t'=0) + 1-n14rs0_rel:(goal'=false) & (t'=0);
+[n14rs1] (t=1) & (n=14) & (app_rs + n14rs1_res <= mx_rs) -> n14rs1_rel:(goal'=true) & (t'=0) + 1-n14rs1_rel:(goal'=false) & (t'=0);
+[n14rs2] (t=1) & (n=14) & (app_rs + n14rs2_res <= mx_rs) -> n14rs2_rel:(goal'=true) & (t'=0) + 1-n14rs2_rel:(goal'=false) & (t'=0);
+[n14rs3] (t=1) & (n=14) & (app_rs + n14rs3_res <= mx_rs) -> n14rs3_rel:(goal'=true) & (t'=0) + 1-n14rs3_rel:(goal'=false) & (t'=0);
+
+[n15rs0] (t=1) & (n=15) & (app_rs + n15rs0_res <= mx_rs) -> n15rs0_rel:(goal'=true) & (t'=0) + 1-n15rs0_rel:(goal'=false) & (t'=0);
+[n15rs1] (t=1) & (n=15) & (app_rs + n15rs1_res <= mx_rs) -> n15rs1_rel:(goal'=true) & (t'=0) + 1-n15rs1_rel:(goal'=false) & (t'=0);
+[n15rs2] (t=1) & (n=15) & (app_rs + n15rs2_res <= mx_rs) -> n15rs2_rel:(goal'=true) & (t'=0) + 1-n15rs2_rel:(goal'=false) & (t'=0);
+[n15rs3] (t=1) & (n=15) & (app_rs + n15rs3_res <= mx_rs) -> n15rs3_rel:(goal'=true) & (t'=0) + 1-n15rs3_rel:(goal'=false) & (t'=0);
+
+[n16rs0] (t=1) & (n=16) & (app_rs + n16rs0_res <= mx_rs) -> n16rs0_rel:(goal'=true) & (t'=0) + 1-n16rs0_rel:(goal'=false) & (t'=0);
+[n16rs1] (t=1) & (n=16) & (app_rs + n16rs1_res <= mx_rs) -> n16rs1_rel:(goal'=true) & (t'=0) + 1-n16rs1_rel:(goal'=false) & (t'=0);
+[n16rs2] (t=1) & (n=16) & (app_rs + n16rs2_res <= mx_rs) -> n16rs2_rel:(goal'=true) & (t'=0) + 1-n16rs2_rel:(goal'=false) & (t'=0);
+[n16rs3] (t=1) & (n=16) & (app_rs + n16rs3_res <= mx_rs) -> n16rs3_rel:(goal'=true) & (t'=0) + 1-n16rs3_rel:(goal'=false) & (t'=0);
+
+[n17rs0] (t=1) & (n=17) & (app_rs + n17rs0_res <= mx_rs) -> n17rs0_rel:(goal'=true) & (t'=0) + 1-n17rs0_rel:(goal'=false) & (t'=0);
+[n17rs1] (t=1) & (n=17) & (app_rs + n17rs1_res <= mx_rs) -> n17rs1_rel:(goal'=true) & (t'=0) + 1-n17rs1_rel:(goal'=false) & (t'=0);
+[n17rs2] (t=1) & (n=17) & (app_rs + n17rs2_res <= mx_rs) -> n17rs2_rel:(goal'=true) & (t'=0) + 1-n17rs2_rel:(goal'=false) & (t'=0);
+[n17rs3] (t=1) & (n=17) & (app_rs + n17rs3_res <= mx_rs) -> n17rs3_rel:(goal'=true) & (t'=0) + 1-n17rs3_rel:(goal'=false) & (t'=0);
+
+[n18rs0] (t=1) & (n=18) & (app_rs + n18rs0_res <= mx_rs) -> n18rs0_rel:(goal'=true) & (t'=0) + 1-n18rs0_rel:(goal'=false) & (t'=0);
+[n18rs1] (t=1) & (n=18) & (app_rs + n18rs1_res <= mx_rs) -> n18rs1_rel:(goal'=true) & (t'=0) + 1-n18rs1_rel:(goal'=false) & (t'=0);
+[n18rs2] (t=1) & (n=18) & (app_rs + n18rs2_res <= mx_rs) -> n18rs2_rel:(goal'=true) & (t'=0) + 1-n18rs2_rel:(goal'=false) & (t'=0);
+[n18rs3] (t=1) & (n=18) & (app_rs + n18rs3_res <= mx_rs) -> n18rs3_rel:(goal'=true) & (t'=0) + 1-n18rs3_rel:(goal'=false) & (t'=0);
+
+[n19rs0] (t=1) & (n=19) & (app_rs + n19rs0_res <= mx_rs) -> n19rs0_rel:(goal'=true) & (t'=0) + 1-n19rs0_rel:(goal'=false) & (t'=0);
+[n19rs1] (t=1) & (n=19) & (app_rs + n19rs1_res <= mx_rs) -> n19rs1_rel:(goal'=true) & (t'=0) + 1-n19rs1_rel:(goal'=false) & (t'=0);
+[n19rs2] (t=1) & (n=19) & (app_rs + n19rs2_res <= mx_rs) -> n19rs2_rel:(goal'=true) & (t'=0) + 1-n19rs2_rel:(goal'=false) & (t'=0);
+[n19rs3] (t=1) & (n=19) & (app_rs + n19rs3_res <= mx_rs) -> n19rs3_rel:(goal'=true) & (t'=0) + 1-n19rs3_rel:(goal'=false) & (t'=0);
+
+[n20rs0] (t=1) & (n=20) & (app_rs + n20rs0_res <= mx_rs) -> n20rs0_rel:(goal'=true) & (t'=0) + 1-n20rs0_rel:(goal'=false) & (t'=0);
+[n20rs1] (t=1) & (n=20) & (app_rs + n20rs1_res <= mx_rs) -> n20rs1_rel:(goal'=true) & (t'=0) + 1-n20rs1_rel:(goal'=false) & (t'=0);
+[n20rs2] (t=1) & (n=20) & (app_rs + n20rs2_res <= mx_rs) -> n20rs2_rel:(goal'=true) & (t'=0) + 1-n20rs2_rel:(goal'=false) & (t'=0);
+[n20rs3] (t=1) & (n=20) & (app_rs + n20rs3_res <= mx_rs) -> n20rs3_rel:(goal'=true) & (t'=0) + 1-n20rs3_rel:(goal'=false) & (t'=0);
+
+[n21rs0] (t=1) & (n=21) & (app_rs + n21rs0_res <= mx_rs) -> n21rs0_rel:(goal'=true) & (t'=0) + 1-n21rs0_rel:(goal'=false) & (t'=0);
+[n21rs1] (t=1) & (n=21) & (app_rs + n21rs1_res <= mx_rs) -> n21rs1_rel:(goal'=true) & (t'=0) + 1-n21rs1_rel:(goal'=false) & (t'=0);
+[n21rs2] (t=1) & (n=21) & (app_rs + n21rs2_res <= mx_rs) -> n21rs2_rel:(goal'=true) & (t'=0) + 1-n21rs2_rel:(goal'=false) & (t'=0);
+[n21rs3] (t=1) & (n=21) & (app_rs + n21rs3_res <= mx_rs) -> n21rs3_rel:(goal'=true) & (t'=0) + 1-n21rs3_rel:(goal'=false) & (t'=0);
+
+[n22rs0] (t=1) & (n=22) & (app_rs + n22rs0_res <= mx_rs) -> n22rs0_rel:(goal'=true) & (t'=0) + 1-n22rs0_rel:(goal'=false) & (t'=0);
+[n22rs1] (t=1) & (n=22) & (app_rs + n22rs1_res <= mx_rs) -> n22rs1_rel:(goal'=true) & (t'=0) + 1-n22rs1_rel:(goal'=false) & (t'=0);
+[n22rs2] (t=1) & (n=22) & (app_rs + n22rs2_res <= mx_rs) -> n22rs2_rel:(goal'=true) & (t'=0) + 1-n22rs2_rel:(goal'=false) & (t'=0);
+[n22rs3] (t=1) & (n=22) & (app_rs + n22rs3_res <= mx_rs) -> n22rs3_rel:(goal'=true) & (t'=0) + 1-n22rs3_rel:(goal'=false) & (t'=0);
+
+[n23rs0] (t=1) & (n=23) & (app_rs + n23rs0_res <= mx_rs) -> n23rs0_rel:(goal'=true) & (t'=0) + 1-n23rs0_rel:(goal'=false) & (t'=0);
+[n23rs1] (t=1) & (n=23) & (app_rs + n23rs1_res <= mx_rs) -> n23rs1_rel:(goal'=true) & (t'=0) + 1-n23rs1_rel:(goal'=false) & (t'=0);
+[n23rs2] (t=1) & (n=23) & (app_rs + n23rs2_res <= mx_rs) -> n23rs2_rel:(goal'=true) & (t'=0) + 1-n23rs2_rel:(goal'=false) & (t'=0);
+[n23rs3] (t=1) & (n=23) & (app_rs + n23rs3_res <= mx_rs) -> n23rs3_rel:(goal'=true) & (t'=0) + 1-n23rs3_rel:(goal'=false) & (t'=0);
+
+[n24rs0] (t=1) & (n=24) & (app_rs + n24rs0_res <= mx_rs) -> n24rs0_rel:(goal'=true) & (t'=0) + 1-n24rs0_rel:(goal'=false) & (t'=0);
+[n24rs1] (t=1) & (n=24) & (app_rs + n24rs1_res <= mx_rs) -> n24rs1_rel:(goal'=true) & (t'=0) + 1-n24rs1_rel:(goal'=false) & (t'=0);
+[n24rs2] (t=1) & (n=24) & (app_rs + n24rs2_res <= mx_rs) -> n24rs2_rel:(goal'=true) & (t'=0) + 1-n24rs2_rel:(goal'=false) & (t'=0);
+[n24rs3] (t=1) & (n=24) & (app_rs + n24rs3_res <= mx_rs) -> n24rs3_rel:(goal'=true) & (t'=0) + 1-n24rs3_rel:(goal'=false) & (t'=0);
+
+[n25rs0] (t=1) & (n=25) & (app_rs + n25rs0_res <= mx_rs) -> n25rs0_rel:(goal'=true) & (t'=0) + 1-n25rs0_rel:(goal'=false) & (t'=0);
+[n25rs1] (t=1) & (n=25) & (app_rs + n25rs1_res <= mx_rs) -> n25rs1_rel:(goal'=true) & (t'=0) + 1-n25rs1_rel:(goal'=false) & (t'=0);
+[n25rs2] (t=1) & (n=25) & (app_rs + n25rs2_res <= mx_rs) -> n25rs2_rel:(goal'=true) & (t'=0) + 1-n25rs2_rel:(goal'=false) & (t'=0);
+[n25rs3] (t=1) & (n=25) & (app_rs + n25rs3_res <= mx_rs) -> n25rs3_rel:(goal'=true) & (t'=0) + 1-n25rs3_rel:(goal'=false) & (t'=0);
+
+[n26rs0] (t=1) & (n=26) & (app_rs + n26rs0_res <= mx_rs) -> n26rs0_rel:(goal'=true) & (t'=0) + 1-n26rs0_rel:(goal'=false) & (t'=0);
+[n26rs1] (t=1) & (n=26) & (app_rs + n26rs1_res <= mx_rs) -> n26rs1_rel:(goal'=true) & (t'=0) + 1-n26rs1_rel:(goal'=false) & (t'=0);
+[n26rs2] (t=1) & (n=26) & (app_rs + n26rs2_res <= mx_rs) -> n26rs2_rel:(goal'=true) & (t'=0) + 1-n26rs2_rel:(goal'=false) & (t'=0);
+[n26rs3] (t=1) & (n=26) & (app_rs + n26rs3_res <= mx_rs) -> n26rs3_rel:(goal'=true) & (t'=0) + 1-n26rs3_rel:(goal'=false) & (t'=0);
+
+[n27rs0] (t=1) & (n=27) & (app_rs + n27rs0_res <= mx_rs) -> n27rs0_rel:(goal'=true) & (t'=0) + 1-n27rs0_rel:(goal'=false) & (t'=0);
+[n27rs1] (t=1) & (n=27) & (app_rs + n27rs1_res <= mx_rs) -> n27rs1_rel:(goal'=true) & (t'=0) + 1-n27rs1_rel:(goal'=false) & (t'=0);
+[n27rs2] (t=1) & (n=27) & (app_rs + n27rs2_res <= mx_rs) -> n27rs2_rel:(goal'=true) & (t'=0) + 1-n27rs2_rel:(goal'=false) & (t'=0);
+[n27rs3] (t=1) & (n=27) & (app_rs + n27rs3_res <= mx_rs) -> n27rs3_rel:(goal'=true) & (t'=0) + 1-n27rs3_rel:(goal'=false) & (t'=0);
+
+[n28rs0] (t=1) & (n=28) & (app_rs + n28rs0_res <= mx_rs) -> n28rs0_rel:(goal'=true) & (t'=0) + 1-n28rs0_rel:(goal'=false) & (t'=0);
+[n28rs1] (t=1) & (n=28) & (app_rs + n28rs1_res <= mx_rs) -> n28rs1_rel:(goal'=true) & (t'=0) + 1-n28rs1_rel:(goal'=false) & (t'=0);
+[n28rs2] (t=1) & (n=28) & (app_rs + n28rs2_res <= mx_rs) -> n28rs2_rel:(goal'=true) & (t'=0) + 1-n28rs2_rel:(goal'=false) & (t'=0);
+[n28rs3] (t=1) & (n=28) & (app_rs + n28rs3_res <= mx_rs) -> n28rs3_rel:(goal'=true) & (t'=0) + 1-n28rs3_rel:(goal'=false) & (t'=0);
+
+[n29rs0] (t=1) & (n=29) & (app_rs + n29rs0_res <= mx_rs) -> n29rs0_rel:(goal'=true) & (t'=0) + 1-n29rs0_rel:(goal'=false) & (t'=0);
+[n29rs1] (t=1) & (n=29) & (app_rs + n29rs1_res <= mx_rs) -> n29rs1_rel:(goal'=true) & (t'=0) + 1-n29rs1_rel:(goal'=false) & (t'=0);
+[n29rs2] (t=1) & (n=29) & (app_rs + n29rs2_res <= mx_rs) -> n29rs2_rel:(goal'=true) & (t'=0) + 1-n29rs2_rel:(goal'=false) & (t'=0);
+[n29rs3] (t=1) & (n=29) & (app_rs + n29rs3_res <= mx_rs) -> n29rs3_rel:(goal'=true) & (t'=0) + 1-n29rs3_rel:(goal'=false) & (t'=0);
+
+[n30rs0] (t=1) & (n=30) & (app_rs + n30rs0_res <= mx_rs) -> n30rs0_rel:(goal'=true) & (t'=0) + 1-n30rs0_rel:(goal'=false) & (t'=0);
+[n30rs1] (t=1) & (n=30) & (app_rs + n30rs1_res <= mx_rs) -> n30rs1_rel:(goal'=true) & (t'=0) + 1-n30rs1_rel:(goal'=false) & (t'=0);
+[n30rs2] (t=1) & (n=30) & (app_rs + n30rs2_res <= mx_rs) -> n30rs2_rel:(goal'=true) & (t'=0) + 1-n30rs2_rel:(goal'=false) & (t'=0);
+[n30rs3] (t=1) & (n=30) & (app_rs + n30rs3_res <= mx_rs) -> n30rs3_rel:(goal'=true) & (t'=0) + 1-n30rs3_rel:(goal'=false) & (t'=0);
+
+[n31rs0] (t=1) & (n=31) & (app_rs + n31rs0_res <= mx_rs) -> n31rs0_rel:(goal'=true) & (t'=0) + 1-n31rs0_rel:(goal'=false) & (t'=0);
+[n31rs1] (t=1) & (n=31) & (app_rs + n31rs1_res <= mx_rs) -> n31rs1_rel:(goal'=true) & (t'=0) + 1-n31rs1_rel:(goal'=false) & (t'=0);
+[n31rs2] (t=1) & (n=31) & (app_rs + n31rs2_res <= mx_rs) -> n31rs2_rel:(goal'=true) & (t'=0) + 1-n31rs2_rel:(goal'=false) & (t'=0);
+[n31rs3] (t=1) & (n=31) & (app_rs + n31rs3_res <= mx_rs) -> n31rs3_rel:(goal'=true) & (t'=0) + 1-n31rs3_rel:(goal'=false) & (t'=0);
+
+[n32rs0] (t=1) & (n=32) & (app_rs + n32rs0_res <= mx_rs) -> n32rs0_rel:(goal'=true) & (t'=0) + 1-n32rs0_rel:(goal'=false) & (t'=0);
+[n32rs1] (t=1) & (n=32) & (app_rs + n32rs1_res <= mx_rs) -> n32rs1_rel:(goal'=true) & (t'=0) + 1-n32rs1_rel:(goal'=false) & (t'=0);
+[n32rs2] (t=1) & (n=32) & (app_rs + n32rs2_res <= mx_rs) -> n32rs2_rel:(goal'=true) & (t'=0) + 1-n32rs2_rel:(goal'=false) & (t'=0);
+[n32rs3] (t=1) & (n=32) & (app_rs + n32rs3_res <= mx_rs) -> n32rs3_rel:(goal'=true) & (t'=0) + 1-n32rs3_rel:(goal'=false) & (t'=0);
+
+[n33rs0] (t=1) & (n=33) & (app_rs + n33rs0_res <= mx_rs) -> n33rs0_rel:(goal'=true) & (t'=0) + 1-n33rs0_rel:(goal'=false) & (t'=0);
+[n33rs1] (t=1) & (n=33) & (app_rs + n33rs1_res <= mx_rs) -> n33rs1_rel:(goal'=true) & (t'=0) + 1-n33rs1_rel:(goal'=false) & (t'=0);
+[n33rs2] (t=1) & (n=33) & (app_rs + n33rs2_res <= mx_rs) -> n33rs2_rel:(goal'=true) & (t'=0) + 1-n33rs2_rel:(goal'=false) & (t'=0);
+[n33rs3] (t=1) & (n=33) & (app_rs + n33rs3_res <= mx_rs) -> n33rs3_rel:(goal'=true) & (t'=0) + 1-n33rs3_rel:(goal'=false) & (t'=0);
+
+[n34rs0] (t=1) & (n=34) & (app_rs + n34rs0_res <= mx_rs) -> n34rs0_rel:(goal'=true) & (t'=0) + 1-n34rs0_rel:(goal'=false) & (t'=0);
+[n34rs1] (t=1) & (n=34) & (app_rs + n34rs1_res <= mx_rs) -> n34rs1_rel:(goal'=true) & (t'=0) + 1-n34rs1_rel:(goal'=false) & (t'=0);
+[n34rs2] (t=1) & (n=34) & (app_rs + n34rs2_res <= mx_rs) -> n34rs2_rel:(goal'=true) & (t'=0) + 1-n34rs2_rel:(goal'=false) & (t'=0);
+[n34rs3] (t=1) & (n=34) & (app_rs + n34rs3_res <= mx_rs) -> n34rs3_rel:(goal'=true) & (t'=0) + 1-n34rs3_rel:(goal'=false) & (t'=0);
+
+[n35rs0] (t=1) & (n=35) & (app_rs + n35rs0_res <= mx_rs) -> n35rs0_rel:(goal'=true) & (t'=0) + 1-n35rs0_rel:(goal'=false) & (t'=0);
+[n35rs1] (t=1) & (n=35) & (app_rs + n35rs1_res <= mx_rs) -> n35rs1_rel:(goal'=true) & (t'=0) + 1-n35rs1_rel:(goal'=false) & (t'=0);
+[n35rs2] (t=1) & (n=35) & (app_rs + n35rs2_res <= mx_rs) -> n35rs2_rel:(goal'=true) & (t'=0) + 1-n35rs2_rel:(goal'=false) & (t'=0);
+[n35rs3] (t=1) & (n=35) & (app_rs + n35rs3_res <= mx_rs) -> n35rs3_rel:(goal'=true) & (t'=0) + 1-n35rs3_rel:(goal'=false) & (t'=0);
+
+[n36rs0] (t=1) & (n=36) & (app_rs + n36rs0_res <= mx_rs) -> n36rs0_rel:(goal'=true) & (t'=0) + 1-n36rs0_rel:(goal'=false) & (t'=0);
+[n36rs1] (t=1) & (n=36) & (app_rs + n36rs1_res <= mx_rs) -> n36rs1_rel:(goal'=true) & (t'=0) + 1-n36rs1_rel:(goal'=false) & (t'=0);
+[n36rs2] (t=1) & (n=36) & (app_rs + n36rs2_res <= mx_rs) -> n36rs2_rel:(goal'=true) & (t'=0) + 1-n36rs2_rel:(goal'=false) & (t'=0);
+[n36rs3] (t=1) & (n=36) & (app_rs + n36rs3_res <= mx_rs) -> n36rs3_rel:(goal'=true) & (t'=0) + 1-n36rs3_rel:(goal'=false) & (t'=0);
+
+[n37rs0] (t=1) & (n=37) & (app_rs + n37rs0_res <= mx_rs) -> n37rs0_rel:(goal'=true) & (t'=0) + 1-n37rs0_rel:(goal'=false) & (t'=0);
+[n37rs1] (t=1) & (n=37) & (app_rs + n37rs1_res <= mx_rs) -> n37rs1_rel:(goal'=true) & (t'=0) + 1-n37rs1_rel:(goal'=false) & (t'=0);
+[n37rs2] (t=1) & (n=37) & (app_rs + n37rs2_res <= mx_rs) -> n37rs2_rel:(goal'=true) & (t'=0) + 1-n37rs2_rel:(goal'=false) & (t'=0);
+[n37rs3] (t=1) & (n=37) & (app_rs + n37rs3_res <= mx_rs) -> n37rs3_rel:(goal'=true) & (t'=0) + 1-n37rs3_rel:(goal'=false) & (t'=0);
+
+[n38rs0] (t=1) & (n=38) & (app_rs + n38rs0_res <= mx_rs) -> n38rs0_rel:(goal'=true) & (t'=0) + 1-n38rs0_rel:(goal'=false) & (t'=0);
+[n38rs1] (t=1) & (n=38) & (app_rs + n38rs1_res <= mx_rs) -> n38rs1_rel:(goal'=true) & (t'=0) + 1-n38rs1_rel:(goal'=false) & (t'=0);
+[n38rs2] (t=1) & (n=38) & (app_rs + n38rs2_res <= mx_rs) -> n38rs2_rel:(goal'=true) & (t'=0) + 1-n38rs2_rel:(goal'=false) & (t'=0);
+[n38rs3] (t=1) & (n=38) & (app_rs + n38rs3_res <= mx_rs) -> n38rs3_rel:(goal'=true) & (t'=0) + 1-n38rs3_rel:(goal'=false) & (t'=0);
+
+[n39rs0] (t=1) & (n=39) & (app_rs + n39rs0_res <= mx_rs) -> n39rs0_rel:(goal'=true) & (t'=0) + 1-n39rs0_rel:(goal'=false) & (t'=0);
+[n39rs1] (t=1) & (n=39) & (app_rs + n39rs1_res <= mx_rs) -> n39rs1_rel:(goal'=true) & (t'=0) + 1-n39rs1_rel:(goal'=false) & (t'=0);
+[n39rs2] (t=1) & (n=39) & (app_rs + n39rs2_res <= mx_rs) -> n39rs2_rel:(goal'=true) & (t'=0) + 1-n39rs2_rel:(goal'=false) & (t'=0);
+[n39rs3] (t=1) & (n=39) & (app_rs + n39rs3_res <= mx_rs) -> n39rs3_rel:(goal'=true) & (t'=0) + 1-n39rs3_rel:(goal'=false) & (t'=0);
+
+[n40rs0] (t=1) & (n=40) & (app_rs + n40rs0_res <= mx_rs) -> n40rs0_rel:(goal'=true) & (t'=0) + 1-n40rs0_rel:(goal'=false) & (t'=0);
+[n40rs1] (t=1) & (n=40) & (app_rs + n40rs1_res <= mx_rs) -> n40rs1_rel:(goal'=true) & (t'=0) + 1-n40rs1_rel:(goal'=false) & (t'=0);
+[n40rs2] (t=1) & (n=40) & (app_rs + n40rs2_res <= mx_rs) -> n40rs2_rel:(goal'=true) & (t'=0) + 1-n40rs2_rel:(goal'=false) & (t'=0);
+[n40rs3] (t=1) & (n=40) & (app_rs + n40rs3_res <= mx_rs) -> n40rs3_rel:(goal'=true) & (t'=0) + 1-n40rs3_rel:(goal'=false) & (t'=0);
+
+[n41rs0] (t=1) & (n=41) & (app_rs + n41rs0_res <= mx_rs) -> n41rs0_rel:(goal'=true) & (t'=0) + 1-n41rs0_rel:(goal'=false) & (t'=0);
+[n41rs1] (t=1) & (n=41) & (app_rs + n41rs1_res <= mx_rs) -> n41rs1_rel:(goal'=true) & (t'=0) + 1-n41rs1_rel:(goal'=false) & (t'=0);
+[n41rs2] (t=1) & (n=41) & (app_rs + n41rs2_res <= mx_rs) -> n41rs2_rel:(goal'=true) & (t'=0) + 1-n41rs2_rel:(goal'=false) & (t'=0);
+[n41rs3] (t=1) & (n=41) & (app_rs + n41rs3_res <= mx_rs) -> n41rs3_rel:(goal'=true) & (t'=0) + 1-n41rs3_rel:(goal'=false) & (t'=0);
+
+[n42rs0] (t=1) & (n=42) & (app_rs + n42rs0_res <= mx_rs) -> n42rs0_rel:(goal'=true) & (t'=0) + 1-n42rs0_rel:(goal'=false) & (t'=0);
+[n42rs1] (t=1) & (n=42) & (app_rs + n42rs1_res <= mx_rs) -> n42rs1_rel:(goal'=true) & (t'=0) + 1-n42rs1_rel:(goal'=false) & (t'=0);
+[n42rs2] (t=1) & (n=42) & (app_rs + n42rs2_res <= mx_rs) -> n42rs2_rel:(goal'=true) & (t'=0) + 1-n42rs2_rel:(goal'=false) & (t'=0);
+[n42rs3] (t=1) & (n=42) & (app_rs + n42rs3_res <= mx_rs) -> n42rs3_rel:(goal'=true) & (t'=0) + 1-n42rs3_rel:(goal'=false) & (t'=0);
+
+[n43rs0] (t=1) & (n=43) & (app_rs + n43rs0_res <= mx_rs) -> n43rs0_rel:(goal'=true) & (t'=0) + 1-n43rs0_rel:(goal'=false) & (t'=0);
+[n43rs1] (t=1) & (n=43) & (app_rs + n43rs1_res <= mx_rs) -> n43rs1_rel:(goal'=true) & (t'=0) + 1-n43rs1_rel:(goal'=false) & (t'=0);
+[n43rs2] (t=1) & (n=43) & (app_rs + n43rs2_res <= mx_rs) -> n43rs2_rel:(goal'=true) & (t'=0) + 1-n43rs2_rel:(goal'=false) & (t'=0);
+[n43rs3] (t=1) & (n=43) & (app_rs + n43rs3_res <= mx_rs) -> n43rs3_rel:(goal'=true) & (t'=0) + 1-n43rs3_rel:(goal'=false) & (t'=0);
+
+[n44rs0] (t=1) & (n=44) & (app_rs + n44rs0_res <= mx_rs) -> n44rs0_rel:(goal'=true) & (t'=0) + 1-n44rs0_rel:(goal'=false) & (t'=0);
+[n44rs1] (t=1) & (n=44) & (app_rs + n44rs1_res <= mx_rs) -> n44rs1_rel:(goal'=true) & (t'=0) + 1-n44rs1_rel:(goal'=false) & (t'=0);
+[n44rs2] (t=1) & (n=44) & (app_rs + n44rs2_res <= mx_rs) -> n44rs2_rel:(goal'=true) & (t'=0) + 1-n44rs2_rel:(goal'=false) & (t'=0);
+[n44rs3] (t=1) & (n=44) & (app_rs + n44rs3_res <= mx_rs) -> n44rs3_rel:(goal'=true) & (t'=0) + 1-n44rs3_rel:(goal'=false) & (t'=0);
+
+[n45rs0] (t=1) & (n=45) & (app_rs + n45rs0_res <= mx_rs) -> n45rs0_rel:(goal'=true) & (t'=0) + 1-n45rs0_rel:(goal'=false) & (t'=0);
+[n45rs1] (t=1) & (n=45) & (app_rs + n45rs1_res <= mx_rs) -> n45rs1_rel:(goal'=true) & (t'=0) + 1-n45rs1_rel:(goal'=false) & (t'=0);
+[n45rs2] (t=1) & (n=45) & (app_rs + n45rs2_res <= mx_rs) -> n45rs2_rel:(goal'=true) & (t'=0) + 1-n45rs2_rel:(goal'=false) & (t'=0);
+[n45rs3] (t=1) & (n=45) & (app_rs + n45rs3_res <= mx_rs) -> n45rs3_rel:(goal'=true) & (t'=0) + 1-n45rs3_rel:(goal'=false) & (t'=0);
+
+[n46rs0] (t=1) & (n=46) & (app_rs + n46rs0_res <= mx_rs) -> n46rs0_rel:(goal'=true) & (t'=0) + 1-n46rs0_rel:(goal'=false) & (t'=0);
+[n46rs1] (t=1) & (n=46) & (app_rs + n46rs1_res <= mx_rs) -> n46rs1_rel:(goal'=true) & (t'=0) + 1-n46rs1_rel:(goal'=false) & (t'=0);
+[n46rs2] (t=1) & (n=46) & (app_rs + n46rs2_res <= mx_rs) -> n46rs2_rel:(goal'=true) & (t'=0) + 1-n46rs2_rel:(goal'=false) & (t'=0);
+[n46rs3] (t=1) & (n=46) & (app_rs + n46rs3_res <= mx_rs) -> n46rs3_rel:(goal'=true) & (t'=0) + 1-n46rs3_rel:(goal'=false) & (t'=0);
+
+[n47rs0] (t=1) & (n=47) & (app_rs + n47rs0_res <= mx_rs) -> n47rs0_rel:(goal'=true) & (t'=0) + 1-n47rs0_rel:(goal'=false) & (t'=0);
+[n47rs1] (t=1) & (n=47) & (app_rs + n47rs1_res <= mx_rs) -> n47rs1_rel:(goal'=true) & (t'=0) + 1-n47rs1_rel:(goal'=false) & (t'=0);
+[n47rs2] (t=1) & (n=47) & (app_rs + n47rs2_res <= mx_rs) -> n47rs2_rel:(goal'=true) & (t'=0) + 1-n47rs2_rel:(goal'=false) & (t'=0);
+[n47rs3] (t=1) & (n=47) & (app_rs + n47rs3_res <= mx_rs) -> n47rs3_rel:(goal'=true) & (t'=0) + 1-n47rs3_rel:(goal'=false) & (t'=0);
+
+[n48rs0] (t=1) & (n=48) & (app_rs + n48rs0_res <= mx_rs) -> n48rs0_rel:(goal'=true) & (t'=0) + 1-n48rs0_rel:(goal'=false) & (t'=0);
+[n48rs1] (t=1) & (n=48) & (app_rs + n48rs1_res <= mx_rs) -> n48rs1_rel:(goal'=true) & (t'=0) + 1-n48rs1_rel:(goal'=false) & (t'=0);
+[n48rs2] (t=1) & (n=48) & (app_rs + n48rs2_res <= mx_rs) -> n48rs2_rel:(goal'=true) & (t'=0) + 1-n48rs2_rel:(goal'=false) & (t'=0);
+[n48rs3] (t=1) & (n=48) & (app_rs + n48rs3_res <= mx_rs) -> n48rs3_rel:(goal'=true) & (t'=0) + 1-n48rs3_rel:(goal'=false) & (t'=0);
+
+[n49rs0] (t=1) & (n=49) & (app_rs + n49rs0_res <= mx_rs) -> n49rs0_rel:(goal'=true) & (t'=0) + 1-n49rs0_rel:(goal'=false) & (t'=0);
+[n49rs1] (t=1) & (n=49) & (app_rs + n49rs1_res <= mx_rs) -> n49rs1_rel:(goal'=true) & (t'=0) + 1-n49rs1_rel:(goal'=false) & (t'=0);
+[n49rs2] (t=1) & (n=49) & (app_rs + n49rs2_res <= mx_rs) -> n49rs2_rel:(goal'=true) & (t'=0) + 1-n49rs2_rel:(goal'=false) & (t'=0);
+[n49rs3] (t=1) & (n=49) & (app_rs + n49rs3_res <= mx_rs) -> n49rs3_rel:(goal'=true) & (t'=0) + 1-n49rs3_rel:(goal'=false) & (t'=0);
+
+[n50rs0] (t=1) & (n=50) & (app_rs + n50rs0_res <= mx_rs) -> n50rs0_rel:(goal'=true) & (t'=0) + 1-n50rs0_rel:(goal'=false) & (t'=0);
+[n50rs1] (t=1) & (n=50) & (app_rs + n50rs1_res <= mx_rs) -> n50rs1_rel:(goal'=true) & (t'=0) + 1-n50rs1_rel:(goal'=false) & (t'=0);
+[n50rs2] (t=1) & (n=50) & (app_rs + n50rs2_res <= mx_rs) -> n50rs2_rel:(goal'=true) & (t'=0) + 1-n50rs2_rel:(goal'=false) & (t'=0);
+[n50rs3] (t=1) & (n=50) & (app_rs + n50rs3_res <= mx_rs) -> n50rs3_rel:(goal'=true) & (t'=0) + 1-n50rs3_rel:(goal'=false) & (t'=0);
+
+[n51rs0] (t=1) & (n=51) & (app_rs + n51rs0_res <= mx_rs) -> n51rs0_rel:(goal'=true) & (t'=0) + 1-n51rs0_rel:(goal'=false) & (t'=0);
+[n51rs1] (t=1) & (n=51) & (app_rs + n51rs1_res <= mx_rs) -> n51rs1_rel:(goal'=true) & (t'=0) + 1-n51rs1_rel:(goal'=false) & (t'=0);
+[n51rs2] (t=1) & (n=51) & (app_rs + n51rs2_res <= mx_rs) -> n51rs2_rel:(goal'=true) & (t'=0) + 1-n51rs2_rel:(goal'=false) & (t'=0);
+[n51rs3] (t=1) & (n=51) & (app_rs + n51rs3_res <= mx_rs) -> n51rs3_rel:(goal'=true) & (t'=0) + 1-n51rs3_rel:(goal'=false) & (t'=0);
+
+[n52rs0] (t=1) & (n=52) & (app_rs + n52rs0_res <= mx_rs) -> n52rs0_rel:(goal'=true) & (t'=0) + 1-n52rs0_rel:(goal'=false) & (t'=0);
+[n52rs1] (t=1) & (n=52) & (app_rs + n52rs1_res <= mx_rs) -> n52rs1_rel:(goal'=true) & (t'=0) + 1-n52rs1_rel:(goal'=false) & (t'=0);
+[n52rs2] (t=1) & (n=52) & (app_rs + n52rs2_res <= mx_rs) -> n52rs2_rel:(goal'=true) & (t'=0) + 1-n52rs2_rel:(goal'=false) & (t'=0);
+[n52rs3] (t=1) & (n=52) & (app_rs + n52rs3_res <= mx_rs) -> n52rs3_rel:(goal'=true) & (t'=0) + 1-n52rs3_rel:(goal'=false) & (t'=0);
+
+[n53rs0] (t=1) & (n=53) & (app_rs + n53rs0_res <= mx_rs) -> n53rs0_rel:(goal'=true) & (t'=0) + 1-n53rs0_rel:(goal'=false) & (t'=0);
+[n53rs1] (t=1) & (n=53) & (app_rs + n53rs1_res <= mx_rs) -> n53rs1_rel:(goal'=true) & (t'=0) + 1-n53rs1_rel:(goal'=false) & (t'=0);
+[n53rs2] (t=1) & (n=53) & (app_rs + n53rs2_res <= mx_rs) -> n53rs2_rel:(goal'=true) & (t'=0) + 1-n53rs2_rel:(goal'=false) & (t'=0);
+[n53rs3] (t=1) & (n=53) & (app_rs + n53rs3_res <= mx_rs) -> n53rs3_rel:(goal'=true) & (t'=0) + 1-n53rs3_rel:(goal'=false) & (t'=0);
+
+[n54rs0] (t=1) & (n=54) & (app_rs + n54rs0_res <= mx_rs) -> n54rs0_rel:(goal'=true) & (t'=0) + 1-n54rs0_rel:(goal'=false) & (t'=0);
+[n54rs1] (t=1) & (n=54) & (app_rs + n54rs1_res <= mx_rs) -> n54rs1_rel:(goal'=true) & (t'=0) + 1-n54rs1_rel:(goal'=false) & (t'=0);
+[n54rs2] (t=1) & (n=54) & (app_rs + n54rs2_res <= mx_rs) -> n54rs2_rel:(goal'=true) & (t'=0) + 1-n54rs2_rel:(goal'=false) & (t'=0);
+[n54rs3] (t=1) & (n=54) & (app_rs + n54rs3_res <= mx_rs) -> n54rs3_rel:(goal'=true) & (t'=0) + 1-n54rs3_rel:(goal'=false) & (t'=0);
+
+[n55rs0] (t=1) & (n=55) & (app_rs + n55rs0_res <= mx_rs) -> n55rs0_rel:(goal'=true) & (t'=0) + 1-n55rs0_rel:(goal'=false) & (t'=0);
+[n55rs1] (t=1) & (n=55) & (app_rs + n55rs1_res <= mx_rs) -> n55rs1_rel:(goal'=true) & (t'=0) + 1-n55rs1_rel:(goal'=false) & (t'=0);
+[n55rs2] (t=1) & (n=55) & (app_rs + n55rs2_res <= mx_rs) -> n55rs2_rel:(goal'=true) & (t'=0) + 1-n55rs2_rel:(goal'=false) & (t'=0);
+[n55rs3] (t=1) & (n=55) & (app_rs + n55rs3_res <= mx_rs) -> n55rs3_rel:(goal'=true) & (t'=0) + 1-n55rs3_rel:(goal'=false) & (t'=0);
+
+[n56rs0] (t=1) & (n=56) & (app_rs + n56rs0_res <= mx_rs) -> n56rs0_rel:(goal'=true) & (t'=0) + 1-n56rs0_rel:(goal'=false) & (t'=0);
+[n56rs1] (t=1) & (n=56) & (app_rs + n56rs1_res <= mx_rs) -> n56rs1_rel:(goal'=true) & (t'=0) + 1-n56rs1_rel:(goal'=false) & (t'=0);
+[n56rs2] (t=1) & (n=56) & (app_rs + n56rs2_res <= mx_rs) -> n56rs2_rel:(goal'=true) & (t'=0) + 1-n56rs2_rel:(goal'=false) & (t'=0);
+[n56rs3] (t=1) & (n=56) & (app_rs + n56rs3_res <= mx_rs) -> n56rs3_rel:(goal'=true) & (t'=0) + 1-n56rs3_rel:(goal'=false) & (t'=0);
+
+[n57rs0] (t=1) & (n=57) & (app_rs + n57rs0_res <= mx_rs) -> n57rs0_rel:(goal'=true) & (t'=0) + 1-n57rs0_rel:(goal'=false) & (t'=0);
+[n57rs1] (t=1) & (n=57) & (app_rs + n57rs1_res <= mx_rs) -> n57rs1_rel:(goal'=true) & (t'=0) + 1-n57rs1_rel:(goal'=false) & (t'=0);
+[n57rs2] (t=1) & (n=57) & (app_rs + n57rs2_res <= mx_rs) -> n57rs2_rel:(goal'=true) & (t'=0) + 1-n57rs2_rel:(goal'=false) & (t'=0);
+[n57rs3] (t=1) & (n=57) & (app_rs + n57rs3_res <= mx_rs) -> n57rs3_rel:(goal'=true) & (t'=0) + 1-n57rs3_rel:(goal'=false) & (t'=0);
+
+[n58rs0] (t=1) & (n=58) & (app_rs + n58rs0_res <= mx_rs) -> n58rs0_rel:(goal'=true) & (t'=0) + 1-n58rs0_rel:(goal'=false) & (t'=0);
+[n58rs1] (t=1) & (n=58) & (app_rs + n58rs1_res <= mx_rs) -> n58rs1_rel:(goal'=true) & (t'=0) + 1-n58rs1_rel:(goal'=false) & (t'=0);
+[n58rs2] (t=1) & (n=58) & (app_rs + n58rs2_res <= mx_rs) -> n58rs2_rel:(goal'=true) & (t'=0) + 1-n58rs2_rel:(goal'=false) & (t'=0);
+[n58rs3] (t=1) & (n=58) & (app_rs + n58rs3_res <= mx_rs) -> n58rs3_rel:(goal'=true) & (t'=0) + 1-n58rs3_rel:(goal'=false) & (t'=0);
+
+[n59rs0] (t=1) & (n=59) & (app_rs + n59rs0_res <= mx_rs) -> n59rs0_rel:(goal'=true) & (t'=0) + 1-n59rs0_rel:(goal'=false) & (t'=0);
+[n59rs1] (t=1) & (n=59) & (app_rs + n59rs1_res <= mx_rs) -> n59rs1_rel:(goal'=true) & (t'=0) + 1-n59rs1_rel:(goal'=false) & (t'=0);
+[n59rs2] (t=1) & (n=59) & (app_rs + n59rs2_res <= mx_rs) -> n59rs2_rel:(goal'=true) & (t'=0) + 1-n59rs2_rel:(goal'=false) & (t'=0);
+[n59rs3] (t=1) & (n=59) & (app_rs + n59rs3_res <= mx_rs) -> n59rs3_rel:(goal'=true) & (t'=0) + 1-n59rs3_rel:(goal'=false) & (t'=0);
+
+[n60rs0] (t=1) & (n=60) & (app_rs + n60rs0_res <= mx_rs) -> n60rs0_rel:(goal'=true) & (t'=0) + 1-n60rs0_rel:(goal'=false) & (t'=0);
+[n60rs1] (t=1) & (n=60) & (app_rs + n60rs1_res <= mx_rs) -> n60rs1_rel:(goal'=true) & (t'=0) + 1-n60rs1_rel:(goal'=false) & (t'=0);
+[n60rs2] (t=1) & (n=60) & (app_rs + n60rs2_res <= mx_rs) -> n60rs2_rel:(goal'=true) & (t'=0) + 1-n60rs2_rel:(goal'=false) & (t'=0);
+[n60rs3] (t=1) & (n=60) & (app_rs + n60rs3_res <= mx_rs) -> n60rs3_rel:(goal'=true) & (t'=0) + 1-n60rs3_rel:(goal'=false) & (t'=0);
+
+[n61rs0] (t=1) & (n=61) & (app_rs + n61rs0_res <= mx_rs) -> n61rs0_rel:(goal'=true) & (t'=0) + 1-n61rs0_rel:(goal'=false) & (t'=0);
+[n61rs1] (t=1) & (n=61) & (app_rs + n61rs1_res <= mx_rs) -> n61rs1_rel:(goal'=true) & (t'=0) + 1-n61rs1_rel:(goal'=false) & (t'=0);
+[n61rs2] (t=1) & (n=61) & (app_rs + n61rs2_res <= mx_rs) -> n61rs2_rel:(goal'=true) & (t'=0) + 1-n61rs2_rel:(goal'=false) & (t'=0);
+[n61rs3] (t=1) & (n=61) & (app_rs + n61rs3_res <= mx_rs) -> n61rs3_rel:(goal'=true) & (t'=0) + 1-n61rs3_rel:(goal'=false) & (t'=0);
+
+[n62rs0] (t=1) & (n=62) & (app_rs + n62rs0_res <= mx_rs) -> n62rs0_rel:(goal'=true) & (t'=0) + 1-n62rs0_rel:(goal'=false) & (t'=0);
+[n62rs1] (t=1) & (n=62) & (app_rs + n62rs1_res <= mx_rs) -> n62rs1_rel:(goal'=true) & (t'=0) + 1-n62rs1_rel:(goal'=false) & (t'=0);
+[n62rs2] (t=1) & (n=62) & (app_rs + n62rs2_res <= mx_rs) -> n62rs2_rel:(goal'=true) & (t'=0) + 1-n62rs2_rel:(goal'=false) & (t'=0);
+[n62rs3] (t=1) & (n=62) & (app_rs + n62rs3_res <= mx_rs) -> n62rs3_rel:(goal'=true) & (t'=0) + 1-n62rs3_rel:(goal'=false) & (t'=0);
+
+[n63rs0] (t=1) & (n=63) & (app_rs + n63rs0_res <= mx_rs) -> n63rs0_rel:(goal'=true) & (t'=0) + 1-n63rs0_rel:(goal'=false) & (t'=0);
+[n63rs1] (t=1) & (n=63) & (app_rs + n63rs1_res <= mx_rs) -> n63rs1_rel:(goal'=true) & (t'=0) + 1-n63rs1_rel:(goal'=false) & (t'=0);
+[n63rs2] (t=1) & (n=63) & (app_rs + n63rs2_res <= mx_rs) -> n63rs2_rel:(goal'=true) & (t'=0) + 1-n63rs2_rel:(goal'=false) & (t'=0);
+[n63rs3] (t=1) & (n=63) & (app_rs + n63rs3_res <= mx_rs) -> n63rs3_rel:(goal'=true) & (t'=0) + 1-n63rs3_rel:(goal'=false) & (t'=0);
+
+[n64rs0] (t=1) & (n=64) & (app_rs + n64rs0_res <= mx_rs) -> n64rs0_rel:(goal'=true) & (t'=0) + 1-n64rs0_rel:(goal'=false) & (t'=0);
+[n64rs1] (t=1) & (n=64) & (app_rs + n64rs1_res <= mx_rs) -> n64rs1_rel:(goal'=true) & (t'=0) + 1-n64rs1_rel:(goal'=false) & (t'=0);
+[n64rs2] (t=1) & (n=64) & (app_rs + n64rs2_res <= mx_rs) -> n64rs2_rel:(goal'=true) & (t'=0) + 1-n64rs2_rel:(goal'=false) & (t'=0);
+[n64rs3] (t=1) & (n=64) & (app_rs + n64rs3_res <= mx_rs) -> n64rs3_rel:(goal'=true) & (t'=0) + 1-n64rs3_rel:(goal'=false) & (t'=0);
+
+[n65rs0] (t=1) & (n=65) & (app_rs + n65rs0_res <= mx_rs) -> n65rs0_rel:(goal'=true) & (t'=0) + 1-n65rs0_rel:(goal'=false) & (t'=0);
+[n65rs1] (t=1) & (n=65) & (app_rs + n65rs1_res <= mx_rs) -> n65rs1_rel:(goal'=true) & (t'=0) + 1-n65rs1_rel:(goal'=false) & (t'=0);
+[n65rs2] (t=1) & (n=65) & (app_rs + n65rs2_res <= mx_rs) -> n65rs2_rel:(goal'=true) & (t'=0) + 1-n65rs2_rel:(goal'=false) & (t'=0);
+[n65rs3] (t=1) & (n=65) & (app_rs + n65rs3_res <= mx_rs) -> n65rs3_rel:(goal'=true) & (t'=0) + 1-n65rs3_rel:(goal'=false) & (t'=0);
+
+[n66rs0] (t=1) & (n=66) & (app_rs + n66rs0_res <= mx_rs) -> n66rs0_rel:(goal'=true) & (t'=0) + 1-n66rs0_rel:(goal'=false) & (t'=0);
+[n66rs1] (t=1) & (n=66) & (app_rs + n66rs1_res <= mx_rs) -> n66rs1_rel:(goal'=true) & (t'=0) + 1-n66rs1_rel:(goal'=false) & (t'=0);
+[n66rs2] (t=1) & (n=66) & (app_rs + n66rs2_res <= mx_rs) -> n66rs2_rel:(goal'=true) & (t'=0) + 1-n66rs2_rel:(goal'=false) & (t'=0);
+[n66rs3] (t=1) & (n=66) & (app_rs + n66rs3_res <= mx_rs) -> n66rs3_rel:(goal'=true) & (t'=0) + 1-n66rs3_rel:(goal'=false) & (t'=0);
+
+[n67rs0] (t=1) & (n=67) & (app_rs + n67rs0_res <= mx_rs) -> n67rs0_rel:(goal'=true) & (t'=0) + 1-n67rs0_rel:(goal'=false) & (t'=0);
+[n67rs1] (t=1) & (n=67) & (app_rs + n67rs1_res <= mx_rs) -> n67rs1_rel:(goal'=true) & (t'=0) + 1-n67rs1_rel:(goal'=false) & (t'=0);
+[n67rs2] (t=1) & (n=67) & (app_rs + n67rs2_res <= mx_rs) -> n67rs2_rel:(goal'=true) & (t'=0) + 1-n67rs2_rel:(goal'=false) & (t'=0);
+[n67rs3] (t=1) & (n=67) & (app_rs + n67rs3_res <= mx_rs) -> n67rs3_rel:(goal'=true) & (t'=0) + 1-n67rs3_rel:(goal'=false) & (t'=0);
+
+[n68rs0] (t=1) & (n=68) & (app_rs + n68rs0_res <= mx_rs) -> n68rs0_rel:(goal'=true) & (t'=0) + 1-n68rs0_rel:(goal'=false) & (t'=0);
+[n68rs1] (t=1) & (n=68) & (app_rs + n68rs1_res <= mx_rs) -> n68rs1_rel:(goal'=true) & (t'=0) + 1-n68rs1_rel:(goal'=false) & (t'=0);
+[n68rs2] (t=1) & (n=68) & (app_rs + n68rs2_res <= mx_rs) -> n68rs2_rel:(goal'=true) & (t'=0) + 1-n68rs2_rel:(goal'=false) & (t'=0);
+[n68rs3] (t=1) & (n=68) & (app_rs + n68rs3_res <= mx_rs) -> n68rs3_rel:(goal'=true) & (t'=0) + 1-n68rs3_rel:(goal'=false) & (t'=0);
+
+[n69rs0] (t=1) & (n=69) & (app_rs + n69rs0_res <= mx_rs) -> n69rs0_rel:(goal'=true) & (t'=0) + 1-n69rs0_rel:(goal'=false) & (t'=0);
+[n69rs1] (t=1) & (n=69) & (app_rs + n69rs1_res <= mx_rs) -> n69rs1_rel:(goal'=true) & (t'=0) + 1-n69rs1_rel:(goal'=false) & (t'=0);
+[n69rs2] (t=1) & (n=69) & (app_rs + n69rs2_res <= mx_rs) -> n69rs2_rel:(goal'=true) & (t'=0) + 1-n69rs2_rel:(goal'=false) & (t'=0);
+[n69rs3] (t=1) & (n=69) & (app_rs + n69rs3_res <= mx_rs) -> n69rs3_rel:(goal'=true) & (t'=0) + 1-n69rs3_rel:(goal'=false) & (t'=0);
+
+[n70rs0] (t=1) & (n=70) & (app_rs + n70rs0_res <= mx_rs) -> n70rs0_rel:(goal'=true) & (t'=0) + 1-n70rs0_rel:(goal'=false) & (t'=0);
+[n70rs1] (t=1) & (n=70) & (app_rs + n70rs1_res <= mx_rs) -> n70rs1_rel:(goal'=true) & (t'=0) + 1-n70rs1_rel:(goal'=false) & (t'=0);
+[n70rs2] (t=1) & (n=70) & (app_rs + n70rs2_res <= mx_rs) -> n70rs2_rel:(goal'=true) & (t'=0) + 1-n70rs2_rel:(goal'=false) & (t'=0);
+[n70rs3] (t=1) & (n=70) & (app_rs + n70rs3_res <= mx_rs) -> n70rs3_rel:(goal'=true) & (t'=0) + 1-n70rs3_rel:(goal'=false) & (t'=0);
+
+[n71rs0] (t=1) & (n=71) & (app_rs + n71rs0_res <= mx_rs) -> n71rs0_rel:(goal'=true) & (t'=0) + 1-n71rs0_rel:(goal'=false) & (t'=0);
+[n71rs1] (t=1) & (n=71) & (app_rs + n71rs1_res <= mx_rs) -> n71rs1_rel:(goal'=true) & (t'=0) + 1-n71rs1_rel:(goal'=false) & (t'=0);
+[n71rs2] (t=1) & (n=71) & (app_rs + n71rs2_res <= mx_rs) -> n71rs2_rel:(goal'=true) & (t'=0) + 1-n71rs2_rel:(goal'=false) & (t'=0);
+[n71rs3] (t=1) & (n=71) & (app_rs + n71rs3_res <= mx_rs) -> n71rs3_rel:(goal'=true) & (t'=0) + 1-n71rs3_rel:(goal'=false) & (t'=0);
+
+[n72rs0] (t=1) & (n=72) & (app_rs + n72rs0_res <= mx_rs) -> n72rs0_rel:(goal'=true) & (t'=0) + 1-n72rs0_rel:(goal'=false) & (t'=0);
+[n72rs1] (t=1) & (n=72) & (app_rs + n72rs1_res <= mx_rs) -> n72rs1_rel:(goal'=true) & (t'=0) + 1-n72rs1_rel:(goal'=false) & (t'=0);
+[n72rs2] (t=1) & (n=72) & (app_rs + n72rs2_res <= mx_rs) -> n72rs2_rel:(goal'=true) & (t'=0) + 1-n72rs2_rel:(goal'=false) & (t'=0);
+[n72rs3] (t=1) & (n=72) & (app_rs + n72rs3_res <= mx_rs) -> n72rs3_rel:(goal'=true) & (t'=0) + 1-n72rs3_rel:(goal'=false) & (t'=0);
+
+[n73rs0] (t=1) & (n=73) & (app_rs + n73rs0_res <= mx_rs) -> n73rs0_rel:(goal'=true) & (t'=0) + 1-n73rs0_rel:(goal'=false) & (t'=0);
+[n73rs1] (t=1) & (n=73) & (app_rs + n73rs1_res <= mx_rs) -> n73rs1_rel:(goal'=true) & (t'=0) + 1-n73rs1_rel:(goal'=false) & (t'=0);
+[n73rs2] (t=1) & (n=73) & (app_rs + n73rs2_res <= mx_rs) -> n73rs2_rel:(goal'=true) & (t'=0) + 1-n73rs2_rel:(goal'=false) & (t'=0);
+[n73rs3] (t=1) & (n=73) & (app_rs + n73rs3_res <= mx_rs) -> n73rs3_rel:(goal'=true) & (t'=0) + 1-n73rs3_rel:(goal'=false) & (t'=0);
+
+[n74rs0] (t=1) & (n=74) & (app_rs + n74rs0_res <= mx_rs) -> n74rs0_rel:(goal'=true) & (t'=0) + 1-n74rs0_rel:(goal'=false) & (t'=0);
+[n74rs1] (t=1) & (n=74) & (app_rs + n74rs1_res <= mx_rs) -> n74rs1_rel:(goal'=true) & (t'=0) + 1-n74rs1_rel:(goal'=false) & (t'=0);
+[n74rs2] (t=1) & (n=74) & (app_rs + n74rs2_res <= mx_rs) -> n74rs2_rel:(goal'=true) & (t'=0) + 1-n74rs2_rel:(goal'=false) & (t'=0);
+[n74rs3] (t=1) & (n=74) & (app_rs + n74rs3_res <= mx_rs) -> n74rs3_rel:(goal'=true) & (t'=0) + 1-n74rs3_rel:(goal'=false) & (t'=0);
+
+[n75rs0] (t=1) & (n=75) & (app_rs + n75rs0_res <= mx_rs) -> n75rs0_rel:(goal'=true) & (t'=0) + 1-n75rs0_rel:(goal'=false) & (t'=0);
+[n75rs1] (t=1) & (n=75) & (app_rs + n75rs1_res <= mx_rs) -> n75rs1_rel:(goal'=true) & (t'=0) + 1-n75rs1_rel:(goal'=false) & (t'=0);
+[n75rs2] (t=1) & (n=75) & (app_rs + n75rs2_res <= mx_rs) -> n75rs2_rel:(goal'=true) & (t'=0) + 1-n75rs2_rel:(goal'=false) & (t'=0);
+[n75rs3] (t=1) & (n=75) & (app_rs + n75rs3_res <= mx_rs) -> n75rs3_rel:(goal'=true) & (t'=0) + 1-n75rs3_rel:(goal'=false) & (t'=0);
+
+[n76rs0] (t=1) & (n=76) & (app_rs + n76rs0_res <= mx_rs) -> n76rs0_rel:(goal'=true) & (t'=0) + 1-n76rs0_rel:(goal'=false) & (t'=0);
+[n76rs1] (t=1) & (n=76) & (app_rs + n76rs1_res <= mx_rs) -> n76rs1_rel:(goal'=true) & (t'=0) + 1-n76rs1_rel:(goal'=false) & (t'=0);
+[n76rs2] (t=1) & (n=76) & (app_rs + n76rs2_res <= mx_rs) -> n76rs2_rel:(goal'=true) & (t'=0) + 1-n76rs2_rel:(goal'=false) & (t'=0);
+[n76rs3] (t=1) & (n=76) & (app_rs + n76rs3_res <= mx_rs) -> n76rs3_rel:(goal'=true) & (t'=0) + 1-n76rs3_rel:(goal'=false) & (t'=0);
+
+[n77rs0] (t=1) & (n=77) & (app_rs + n77rs0_res <= mx_rs) -> n77rs0_rel:(goal'=true) & (t'=0) + 1-n77rs0_rel:(goal'=false) & (t'=0);
+[n77rs1] (t=1) & (n=77) & (app_rs + n77rs1_res <= mx_rs) -> n77rs1_rel:(goal'=true) & (t'=0) + 1-n77rs1_rel:(goal'=false) & (t'=0);
+[n77rs2] (t=1) & (n=77) & (app_rs + n77rs2_res <= mx_rs) -> n77rs2_rel:(goal'=true) & (t'=0) + 1-n77rs2_rel:(goal'=false) & (t'=0);
+[n77rs3] (t=1) & (n=77) & (app_rs + n77rs3_res <= mx_rs) -> n77rs3_rel:(goal'=true) & (t'=0) + 1-n77rs3_rel:(goal'=false) & (t'=0);
+
+[n78rs0] (t=1) & (n=78) & (app_rs + n78rs0_res <= mx_rs) -> n78rs0_rel:(goal'=true) & (t'=0) + 1-n78rs0_rel:(goal'=false) & (t'=0);
+[n78rs1] (t=1) & (n=78) & (app_rs + n78rs1_res <= mx_rs) -> n78rs1_rel:(goal'=true) & (t'=0) + 1-n78rs1_rel:(goal'=false) & (t'=0);
+[n78rs2] (t=1) & (n=78) & (app_rs + n78rs2_res <= mx_rs) -> n78rs2_rel:(goal'=true) & (t'=0) + 1-n78rs2_rel:(goal'=false) & (t'=0);
+[n78rs3] (t=1) & (n=78) & (app_rs + n78rs3_res <= mx_rs) -> n78rs3_rel:(goal'=true) & (t'=0) + 1-n78rs3_rel:(goal'=false) & (t'=0);
+
+[n79rs0] (t=1) & (n=79) & (app_rs + n79rs0_res <= mx_rs) -> n79rs0_rel:(goal'=true) & (t'=0) + 1-n79rs0_rel:(goal'=false) & (t'=0);
+[n79rs1] (t=1) & (n=79) & (app_rs + n79rs1_res <= mx_rs) -> n79rs1_rel:(goal'=true) & (t'=0) + 1-n79rs1_rel:(goal'=false) & (t'=0);
+[n79rs2] (t=1) & (n=79) & (app_rs + n79rs2_res <= mx_rs) -> n79rs2_rel:(goal'=true) & (t'=0) + 1-n79rs2_rel:(goal'=false) & (t'=0);
+[n79rs3] (t=1) & (n=79) & (app_rs + n79rs3_res <= mx_rs) -> n79rs3_rel:(goal'=true) & (t'=0) + 1-n79rs3_rel:(goal'=false) & (t'=0);
 
 endmodule
 
@@ -457,208 +2757,1288 @@ rewards "rw_cost"
 [n0rs1] true : n0rs1_cost;
 [n0rs2] true : n0rs2_cost;
 [n0rs3] true : n0rs3_cost;
-[n0rs4] true : n0rs4_cost;
 [n1rs0] true : n1rs0_cost;
 [n1rs1] true : n1rs1_cost;
 [n1rs2] true : n1rs2_cost;
 [n1rs3] true : n1rs3_cost;
-[n1rs4] true : n1rs4_cost;
 [n2rs0] true : n2rs0_cost;
 [n2rs1] true : n2rs1_cost;
 [n2rs2] true : n2rs2_cost;
 [n2rs3] true : n2rs3_cost;
-[n2rs4] true : n2rs4_cost;
 [n3rs0] true : n3rs0_cost;
 [n3rs1] true : n3rs1_cost;
 [n3rs2] true : n3rs2_cost;
 [n3rs3] true : n3rs3_cost;
-[n3rs4] true : n3rs4_cost;
 [n4rs0] true : n4rs0_cost;
 [n4rs1] true : n4rs1_cost;
 [n4rs2] true : n4rs2_cost;
 [n4rs3] true : n4rs3_cost;
-[n4rs4] true : n4rs4_cost;
 [n5rs0] true : n5rs0_cost;
 [n5rs1] true : n5rs1_cost;
 [n5rs2] true : n5rs2_cost;
 [n5rs3] true : n5rs3_cost;
-[n5rs4] true : n5rs4_cost;
 [n6rs0] true : n6rs0_cost;
 [n6rs1] true : n6rs1_cost;
 [n6rs2] true : n6rs2_cost;
 [n6rs3] true : n6rs3_cost;
-[n6rs4] true : n6rs4_cost;
 [n7rs0] true : n7rs0_cost;
 [n7rs1] true : n7rs1_cost;
 [n7rs2] true : n7rs2_cost;
 [n7rs3] true : n7rs3_cost;
-[n7rs4] true : n7rs4_cost;
 [n8rs0] true : n8rs0_cost;
 [n8rs1] true : n8rs1_cost;
 [n8rs2] true : n8rs2_cost;
 [n8rs3] true : n8rs3_cost;
-[n8rs4] true : n8rs4_cost;
 [n9rs0] true : n9rs0_cost;
 [n9rs1] true : n9rs1_cost;
 [n9rs2] true : n9rs2_cost;
 [n9rs3] true : n9rs3_cost;
-[n9rs4] true : n9rs4_cost;
+[n10rs0] true : n10rs0_cost;
+[n10rs1] true : n10rs1_cost;
+[n10rs2] true : n10rs2_cost;
+[n10rs3] true : n10rs3_cost;
+[n11rs0] true : n11rs0_cost;
+[n11rs1] true : n11rs1_cost;
+[n11rs2] true : n11rs2_cost;
+[n11rs3] true : n11rs3_cost;
+[n12rs0] true : n12rs0_cost;
+[n12rs1] true : n12rs1_cost;
+[n12rs2] true : n12rs2_cost;
+[n12rs3] true : n12rs3_cost;
+[n13rs0] true : n13rs0_cost;
+[n13rs1] true : n13rs1_cost;
+[n13rs2] true : n13rs2_cost;
+[n13rs3] true : n13rs3_cost;
+[n14rs0] true : n14rs0_cost;
+[n14rs1] true : n14rs1_cost;
+[n14rs2] true : n14rs2_cost;
+[n14rs3] true : n14rs3_cost;
+[n15rs0] true : n15rs0_cost;
+[n15rs1] true : n15rs1_cost;
+[n15rs2] true : n15rs2_cost;
+[n15rs3] true : n15rs3_cost;
+[n16rs0] true : n16rs0_cost;
+[n16rs1] true : n16rs1_cost;
+[n16rs2] true : n16rs2_cost;
+[n16rs3] true : n16rs3_cost;
+[n17rs0] true : n17rs0_cost;
+[n17rs1] true : n17rs1_cost;
+[n17rs2] true : n17rs2_cost;
+[n17rs3] true : n17rs3_cost;
+[n18rs0] true : n18rs0_cost;
+[n18rs1] true : n18rs1_cost;
+[n18rs2] true : n18rs2_cost;
+[n18rs3] true : n18rs3_cost;
+[n19rs0] true : n19rs0_cost;
+[n19rs1] true : n19rs1_cost;
+[n19rs2] true : n19rs2_cost;
+[n19rs3] true : n19rs3_cost;
+[n20rs0] true : n20rs0_cost;
+[n20rs1] true : n20rs1_cost;
+[n20rs2] true : n20rs2_cost;
+[n20rs3] true : n20rs3_cost;
+[n21rs0] true : n21rs0_cost;
+[n21rs1] true : n21rs1_cost;
+[n21rs2] true : n21rs2_cost;
+[n21rs3] true : n21rs3_cost;
+[n22rs0] true : n22rs0_cost;
+[n22rs1] true : n22rs1_cost;
+[n22rs2] true : n22rs2_cost;
+[n22rs3] true : n22rs3_cost;
+[n23rs0] true : n23rs0_cost;
+[n23rs1] true : n23rs1_cost;
+[n23rs2] true : n23rs2_cost;
+[n23rs3] true : n23rs3_cost;
+[n24rs0] true : n24rs0_cost;
+[n24rs1] true : n24rs1_cost;
+[n24rs2] true : n24rs2_cost;
+[n24rs3] true : n24rs3_cost;
+[n25rs0] true : n25rs0_cost;
+[n25rs1] true : n25rs1_cost;
+[n25rs2] true : n25rs2_cost;
+[n25rs3] true : n25rs3_cost;
+[n26rs0] true : n26rs0_cost;
+[n26rs1] true : n26rs1_cost;
+[n26rs2] true : n26rs2_cost;
+[n26rs3] true : n26rs3_cost;
+[n27rs0] true : n27rs0_cost;
+[n27rs1] true : n27rs1_cost;
+[n27rs2] true : n27rs2_cost;
+[n27rs3] true : n27rs3_cost;
+[n28rs0] true : n28rs0_cost;
+[n28rs1] true : n28rs1_cost;
+[n28rs2] true : n28rs2_cost;
+[n28rs3] true : n28rs3_cost;
+[n29rs0] true : n29rs0_cost;
+[n29rs1] true : n29rs1_cost;
+[n29rs2] true : n29rs2_cost;
+[n29rs3] true : n29rs3_cost;
+[n30rs0] true : n30rs0_cost;
+[n30rs1] true : n30rs1_cost;
+[n30rs2] true : n30rs2_cost;
+[n30rs3] true : n30rs3_cost;
+[n31rs0] true : n31rs0_cost;
+[n31rs1] true : n31rs1_cost;
+[n31rs2] true : n31rs2_cost;
+[n31rs3] true : n31rs3_cost;
+[n32rs0] true : n32rs0_cost;
+[n32rs1] true : n32rs1_cost;
+[n32rs2] true : n32rs2_cost;
+[n32rs3] true : n32rs3_cost;
+[n33rs0] true : n33rs0_cost;
+[n33rs1] true : n33rs1_cost;
+[n33rs2] true : n33rs2_cost;
+[n33rs3] true : n33rs3_cost;
+[n34rs0] true : n34rs0_cost;
+[n34rs1] true : n34rs1_cost;
+[n34rs2] true : n34rs2_cost;
+[n34rs3] true : n34rs3_cost;
+[n35rs0] true : n35rs0_cost;
+[n35rs1] true : n35rs1_cost;
+[n35rs2] true : n35rs2_cost;
+[n35rs3] true : n35rs3_cost;
+[n36rs0] true : n36rs0_cost;
+[n36rs1] true : n36rs1_cost;
+[n36rs2] true : n36rs2_cost;
+[n36rs3] true : n36rs3_cost;
+[n37rs0] true : n37rs0_cost;
+[n37rs1] true : n37rs1_cost;
+[n37rs2] true : n37rs2_cost;
+[n37rs3] true : n37rs3_cost;
+[n38rs0] true : n38rs0_cost;
+[n38rs1] true : n38rs1_cost;
+[n38rs2] true : n38rs2_cost;
+[n38rs3] true : n38rs3_cost;
+[n39rs0] true : n39rs0_cost;
+[n39rs1] true : n39rs1_cost;
+[n39rs2] true : n39rs2_cost;
+[n39rs3] true : n39rs3_cost;
+[n40rs0] true : n40rs0_cost;
+[n40rs1] true : n40rs1_cost;
+[n40rs2] true : n40rs2_cost;
+[n40rs3] true : n40rs3_cost;
+[n41rs0] true : n41rs0_cost;
+[n41rs1] true : n41rs1_cost;
+[n41rs2] true : n41rs2_cost;
+[n41rs3] true : n41rs3_cost;
+[n42rs0] true : n42rs0_cost;
+[n42rs1] true : n42rs1_cost;
+[n42rs2] true : n42rs2_cost;
+[n42rs3] true : n42rs3_cost;
+[n43rs0] true : n43rs0_cost;
+[n43rs1] true : n43rs1_cost;
+[n43rs2] true : n43rs2_cost;
+[n43rs3] true : n43rs3_cost;
+[n44rs0] true : n44rs0_cost;
+[n44rs1] true : n44rs1_cost;
+[n44rs2] true : n44rs2_cost;
+[n44rs3] true : n44rs3_cost;
+[n45rs0] true : n45rs0_cost;
+[n45rs1] true : n45rs1_cost;
+[n45rs2] true : n45rs2_cost;
+[n45rs3] true : n45rs3_cost;
+[n46rs0] true : n46rs0_cost;
+[n46rs1] true : n46rs1_cost;
+[n46rs2] true : n46rs2_cost;
+[n46rs3] true : n46rs3_cost;
+[n47rs0] true : n47rs0_cost;
+[n47rs1] true : n47rs1_cost;
+[n47rs2] true : n47rs2_cost;
+[n47rs3] true : n47rs3_cost;
+[n48rs0] true : n48rs0_cost;
+[n48rs1] true : n48rs1_cost;
+[n48rs2] true : n48rs2_cost;
+[n48rs3] true : n48rs3_cost;
+[n49rs0] true : n49rs0_cost;
+[n49rs1] true : n49rs1_cost;
+[n49rs2] true : n49rs2_cost;
+[n49rs3] true : n49rs3_cost;
+[n50rs0] true : n50rs0_cost;
+[n50rs1] true : n50rs1_cost;
+[n50rs2] true : n50rs2_cost;
+[n50rs3] true : n50rs3_cost;
+[n51rs0] true : n51rs0_cost;
+[n51rs1] true : n51rs1_cost;
+[n51rs2] true : n51rs2_cost;
+[n51rs3] true : n51rs3_cost;
+[n52rs0] true : n52rs0_cost;
+[n52rs1] true : n52rs1_cost;
+[n52rs2] true : n52rs2_cost;
+[n52rs3] true : n52rs3_cost;
+[n53rs0] true : n53rs0_cost;
+[n53rs1] true : n53rs1_cost;
+[n53rs2] true : n53rs2_cost;
+[n53rs3] true : n53rs3_cost;
+[n54rs0] true : n54rs0_cost;
+[n54rs1] true : n54rs1_cost;
+[n54rs2] true : n54rs2_cost;
+[n54rs3] true : n54rs3_cost;
+[n55rs0] true : n55rs0_cost;
+[n55rs1] true : n55rs1_cost;
+[n55rs2] true : n55rs2_cost;
+[n55rs3] true : n55rs3_cost;
+[n56rs0] true : n56rs0_cost;
+[n56rs1] true : n56rs1_cost;
+[n56rs2] true : n56rs2_cost;
+[n56rs3] true : n56rs3_cost;
+[n57rs0] true : n57rs0_cost;
+[n57rs1] true : n57rs1_cost;
+[n57rs2] true : n57rs2_cost;
+[n57rs3] true : n57rs3_cost;
+[n58rs0] true : n58rs0_cost;
+[n58rs1] true : n58rs1_cost;
+[n58rs2] true : n58rs2_cost;
+[n58rs3] true : n58rs3_cost;
+[n59rs0] true : n59rs0_cost;
+[n59rs1] true : n59rs1_cost;
+[n59rs2] true : n59rs2_cost;
+[n59rs3] true : n59rs3_cost;
+[n60rs0] true : n60rs0_cost;
+[n60rs1] true : n60rs1_cost;
+[n60rs2] true : n60rs2_cost;
+[n60rs3] true : n60rs3_cost;
+[n61rs0] true : n61rs0_cost;
+[n61rs1] true : n61rs1_cost;
+[n61rs2] true : n61rs2_cost;
+[n61rs3] true : n61rs3_cost;
+[n62rs0] true : n62rs0_cost;
+[n62rs1] true : n62rs1_cost;
+[n62rs2] true : n62rs2_cost;
+[n62rs3] true : n62rs3_cost;
+[n63rs0] true : n63rs0_cost;
+[n63rs1] true : n63rs1_cost;
+[n63rs2] true : n63rs2_cost;
+[n63rs3] true : n63rs3_cost;
+[n64rs0] true : n64rs0_cost;
+[n64rs1] true : n64rs1_cost;
+[n64rs2] true : n64rs2_cost;
+[n64rs3] true : n64rs3_cost;
+[n65rs0] true : n65rs0_cost;
+[n65rs1] true : n65rs1_cost;
+[n65rs2] true : n65rs2_cost;
+[n65rs3] true : n65rs3_cost;
+[n66rs0] true : n66rs0_cost;
+[n66rs1] true : n66rs1_cost;
+[n66rs2] true : n66rs2_cost;
+[n66rs3] true : n66rs3_cost;
+[n67rs0] true : n67rs0_cost;
+[n67rs1] true : n67rs1_cost;
+[n67rs2] true : n67rs2_cost;
+[n67rs3] true : n67rs3_cost;
+[n68rs0] true : n68rs0_cost;
+[n68rs1] true : n68rs1_cost;
+[n68rs2] true : n68rs2_cost;
+[n68rs3] true : n68rs3_cost;
+[n69rs0] true : n69rs0_cost;
+[n69rs1] true : n69rs1_cost;
+[n69rs2] true : n69rs2_cost;
+[n69rs3] true : n69rs3_cost;
+[n70rs0] true : n70rs0_cost;
+[n70rs1] true : n70rs1_cost;
+[n70rs2] true : n70rs2_cost;
+[n70rs3] true : n70rs3_cost;
+[n71rs0] true : n71rs0_cost;
+[n71rs1] true : n71rs1_cost;
+[n71rs2] true : n71rs2_cost;
+[n71rs3] true : n71rs3_cost;
+[n72rs0] true : n72rs0_cost;
+[n72rs1] true : n72rs1_cost;
+[n72rs2] true : n72rs2_cost;
+[n72rs3] true : n72rs3_cost;
+[n73rs0] true : n73rs0_cost;
+[n73rs1] true : n73rs1_cost;
+[n73rs2] true : n73rs2_cost;
+[n73rs3] true : n73rs3_cost;
+[n74rs0] true : n74rs0_cost;
+[n74rs1] true : n74rs1_cost;
+[n74rs2] true : n74rs2_cost;
+[n74rs3] true : n74rs3_cost;
+[n75rs0] true : n75rs0_cost;
+[n75rs1] true : n75rs1_cost;
+[n75rs2] true : n75rs2_cost;
+[n75rs3] true : n75rs3_cost;
+[n76rs0] true : n76rs0_cost;
+[n76rs1] true : n76rs1_cost;
+[n76rs2] true : n76rs2_cost;
+[n76rs3] true : n76rs3_cost;
+[n77rs0] true : n77rs0_cost;
+[n77rs1] true : n77rs1_cost;
+[n77rs2] true : n77rs2_cost;
+[n77rs3] true : n77rs3_cost;
+[n78rs0] true : n78rs0_cost;
+[n78rs1] true : n78rs1_cost;
+[n78rs2] true : n78rs2_cost;
+[n78rs3] true : n78rs3_cost;
+[n79rs0] true : n79rs0_cost;
+[n79rs1] true : n79rs1_cost;
+[n79rs2] true : n79rs2_cost;
+[n79rs3] true : n79rs3_cost;
 endrewards
 rewards "rw_time"
 [n0rs0] true : n0rs0_time;
 [n0rs1] true : n0rs1_time;
 [n0rs2] true : n0rs2_time;
 [n0rs3] true : n0rs3_time;
-[n0rs4] true : n0rs4_time;
 [n1rs0] true : n1rs0_time;
 [n1rs1] true : n1rs1_time;
 [n1rs2] true : n1rs2_time;
 [n1rs3] true : n1rs3_time;
-[n1rs4] true : n1rs4_time;
 [n2rs0] true : n2rs0_time;
 [n2rs1] true : n2rs1_time;
 [n2rs2] true : n2rs2_time;
 [n2rs3] true : n2rs3_time;
-[n2rs4] true : n2rs4_time;
 [n3rs0] true : n3rs0_time;
 [n3rs1] true : n3rs1_time;
 [n3rs2] true : n3rs2_time;
 [n3rs3] true : n3rs3_time;
-[n3rs4] true : n3rs4_time;
 [n4rs0] true : n4rs0_time;
 [n4rs1] true : n4rs1_time;
 [n4rs2] true : n4rs2_time;
 [n4rs3] true : n4rs3_time;
-[n4rs4] true : n4rs4_time;
 [n5rs0] true : n5rs0_time;
 [n5rs1] true : n5rs1_time;
 [n5rs2] true : n5rs2_time;
 [n5rs3] true : n5rs3_time;
-[n5rs4] true : n5rs4_time;
 [n6rs0] true : n6rs0_time;
 [n6rs1] true : n6rs1_time;
 [n6rs2] true : n6rs2_time;
 [n6rs3] true : n6rs3_time;
-[n6rs4] true : n6rs4_time;
 [n7rs0] true : n7rs0_time;
 [n7rs1] true : n7rs1_time;
 [n7rs2] true : n7rs2_time;
 [n7rs3] true : n7rs3_time;
-[n7rs4] true : n7rs4_time;
 [n8rs0] true : n8rs0_time;
 [n8rs1] true : n8rs1_time;
 [n8rs2] true : n8rs2_time;
 [n8rs3] true : n8rs3_time;
-[n8rs4] true : n8rs4_time;
 [n9rs0] true : n9rs0_time;
 [n9rs1] true : n9rs1_time;
 [n9rs2] true : n9rs2_time;
 [n9rs3] true : n9rs3_time;
-[n9rs4] true : n9rs4_time;
+[n10rs0] true : n10rs0_time;
+[n10rs1] true : n10rs1_time;
+[n10rs2] true : n10rs2_time;
+[n10rs3] true : n10rs3_time;
+[n11rs0] true : n11rs0_time;
+[n11rs1] true : n11rs1_time;
+[n11rs2] true : n11rs2_time;
+[n11rs3] true : n11rs3_time;
+[n12rs0] true : n12rs0_time;
+[n12rs1] true : n12rs1_time;
+[n12rs2] true : n12rs2_time;
+[n12rs3] true : n12rs3_time;
+[n13rs0] true : n13rs0_time;
+[n13rs1] true : n13rs1_time;
+[n13rs2] true : n13rs2_time;
+[n13rs3] true : n13rs3_time;
+[n14rs0] true : n14rs0_time;
+[n14rs1] true : n14rs1_time;
+[n14rs2] true : n14rs2_time;
+[n14rs3] true : n14rs3_time;
+[n15rs0] true : n15rs0_time;
+[n15rs1] true : n15rs1_time;
+[n15rs2] true : n15rs2_time;
+[n15rs3] true : n15rs3_time;
+[n16rs0] true : n16rs0_time;
+[n16rs1] true : n16rs1_time;
+[n16rs2] true : n16rs2_time;
+[n16rs3] true : n16rs3_time;
+[n17rs0] true : n17rs0_time;
+[n17rs1] true : n17rs1_time;
+[n17rs2] true : n17rs2_time;
+[n17rs3] true : n17rs3_time;
+[n18rs0] true : n18rs0_time;
+[n18rs1] true : n18rs1_time;
+[n18rs2] true : n18rs2_time;
+[n18rs3] true : n18rs3_time;
+[n19rs0] true : n19rs0_time;
+[n19rs1] true : n19rs1_time;
+[n19rs2] true : n19rs2_time;
+[n19rs3] true : n19rs3_time;
+[n20rs0] true : n20rs0_time;
+[n20rs1] true : n20rs1_time;
+[n20rs2] true : n20rs2_time;
+[n20rs3] true : n20rs3_time;
+[n21rs0] true : n21rs0_time;
+[n21rs1] true : n21rs1_time;
+[n21rs2] true : n21rs2_time;
+[n21rs3] true : n21rs3_time;
+[n22rs0] true : n22rs0_time;
+[n22rs1] true : n22rs1_time;
+[n22rs2] true : n22rs2_time;
+[n22rs3] true : n22rs3_time;
+[n23rs0] true : n23rs0_time;
+[n23rs1] true : n23rs1_time;
+[n23rs2] true : n23rs2_time;
+[n23rs3] true : n23rs3_time;
+[n24rs0] true : n24rs0_time;
+[n24rs1] true : n24rs1_time;
+[n24rs2] true : n24rs2_time;
+[n24rs3] true : n24rs3_time;
+[n25rs0] true : n25rs0_time;
+[n25rs1] true : n25rs1_time;
+[n25rs2] true : n25rs2_time;
+[n25rs3] true : n25rs3_time;
+[n26rs0] true : n26rs0_time;
+[n26rs1] true : n26rs1_time;
+[n26rs2] true : n26rs2_time;
+[n26rs3] true : n26rs3_time;
+[n27rs0] true : n27rs0_time;
+[n27rs1] true : n27rs1_time;
+[n27rs2] true : n27rs2_time;
+[n27rs3] true : n27rs3_time;
+[n28rs0] true : n28rs0_time;
+[n28rs1] true : n28rs1_time;
+[n28rs2] true : n28rs2_time;
+[n28rs3] true : n28rs3_time;
+[n29rs0] true : n29rs0_time;
+[n29rs1] true : n29rs1_time;
+[n29rs2] true : n29rs2_time;
+[n29rs3] true : n29rs3_time;
+[n30rs0] true : n30rs0_time;
+[n30rs1] true : n30rs1_time;
+[n30rs2] true : n30rs2_time;
+[n30rs3] true : n30rs3_time;
+[n31rs0] true : n31rs0_time;
+[n31rs1] true : n31rs1_time;
+[n31rs2] true : n31rs2_time;
+[n31rs3] true : n31rs3_time;
+[n32rs0] true : n32rs0_time;
+[n32rs1] true : n32rs1_time;
+[n32rs2] true : n32rs2_time;
+[n32rs3] true : n32rs3_time;
+[n33rs0] true : n33rs0_time;
+[n33rs1] true : n33rs1_time;
+[n33rs2] true : n33rs2_time;
+[n33rs3] true : n33rs3_time;
+[n34rs0] true : n34rs0_time;
+[n34rs1] true : n34rs1_time;
+[n34rs2] true : n34rs2_time;
+[n34rs3] true : n34rs3_time;
+[n35rs0] true : n35rs0_time;
+[n35rs1] true : n35rs1_time;
+[n35rs2] true : n35rs2_time;
+[n35rs3] true : n35rs3_time;
+[n36rs0] true : n36rs0_time;
+[n36rs1] true : n36rs1_time;
+[n36rs2] true : n36rs2_time;
+[n36rs3] true : n36rs3_time;
+[n37rs0] true : n37rs0_time;
+[n37rs1] true : n37rs1_time;
+[n37rs2] true : n37rs2_time;
+[n37rs3] true : n37rs3_time;
+[n38rs0] true : n38rs0_time;
+[n38rs1] true : n38rs1_time;
+[n38rs2] true : n38rs2_time;
+[n38rs3] true : n38rs3_time;
+[n39rs0] true : n39rs0_time;
+[n39rs1] true : n39rs1_time;
+[n39rs2] true : n39rs2_time;
+[n39rs3] true : n39rs3_time;
+[n40rs0] true : n40rs0_time;
+[n40rs1] true : n40rs1_time;
+[n40rs2] true : n40rs2_time;
+[n40rs3] true : n40rs3_time;
+[n41rs0] true : n41rs0_time;
+[n41rs1] true : n41rs1_time;
+[n41rs2] true : n41rs2_time;
+[n41rs3] true : n41rs3_time;
+[n42rs0] true : n42rs0_time;
+[n42rs1] true : n42rs1_time;
+[n42rs2] true : n42rs2_time;
+[n42rs3] true : n42rs3_time;
+[n43rs0] true : n43rs0_time;
+[n43rs1] true : n43rs1_time;
+[n43rs2] true : n43rs2_time;
+[n43rs3] true : n43rs3_time;
+[n44rs0] true : n44rs0_time;
+[n44rs1] true : n44rs1_time;
+[n44rs2] true : n44rs2_time;
+[n44rs3] true : n44rs3_time;
+[n45rs0] true : n45rs0_time;
+[n45rs1] true : n45rs1_time;
+[n45rs2] true : n45rs2_time;
+[n45rs3] true : n45rs3_time;
+[n46rs0] true : n46rs0_time;
+[n46rs1] true : n46rs1_time;
+[n46rs2] true : n46rs2_time;
+[n46rs3] true : n46rs3_time;
+[n47rs0] true : n47rs0_time;
+[n47rs1] true : n47rs1_time;
+[n47rs2] true : n47rs2_time;
+[n47rs3] true : n47rs3_time;
+[n48rs0] true : n48rs0_time;
+[n48rs1] true : n48rs1_time;
+[n48rs2] true : n48rs2_time;
+[n48rs3] true : n48rs3_time;
+[n49rs0] true : n49rs0_time;
+[n49rs1] true : n49rs1_time;
+[n49rs2] true : n49rs2_time;
+[n49rs3] true : n49rs3_time;
+[n50rs0] true : n50rs0_time;
+[n50rs1] true : n50rs1_time;
+[n50rs2] true : n50rs2_time;
+[n50rs3] true : n50rs3_time;
+[n51rs0] true : n51rs0_time;
+[n51rs1] true : n51rs1_time;
+[n51rs2] true : n51rs2_time;
+[n51rs3] true : n51rs3_time;
+[n52rs0] true : n52rs0_time;
+[n52rs1] true : n52rs1_time;
+[n52rs2] true : n52rs2_time;
+[n52rs3] true : n52rs3_time;
+[n53rs0] true : n53rs0_time;
+[n53rs1] true : n53rs1_time;
+[n53rs2] true : n53rs2_time;
+[n53rs3] true : n53rs3_time;
+[n54rs0] true : n54rs0_time;
+[n54rs1] true : n54rs1_time;
+[n54rs2] true : n54rs2_time;
+[n54rs3] true : n54rs3_time;
+[n55rs0] true : n55rs0_time;
+[n55rs1] true : n55rs1_time;
+[n55rs2] true : n55rs2_time;
+[n55rs3] true : n55rs3_time;
+[n56rs0] true : n56rs0_time;
+[n56rs1] true : n56rs1_time;
+[n56rs2] true : n56rs2_time;
+[n56rs3] true : n56rs3_time;
+[n57rs0] true : n57rs0_time;
+[n57rs1] true : n57rs1_time;
+[n57rs2] true : n57rs2_time;
+[n57rs3] true : n57rs3_time;
+[n58rs0] true : n58rs0_time;
+[n58rs1] true : n58rs1_time;
+[n58rs2] true : n58rs2_time;
+[n58rs3] true : n58rs3_time;
+[n59rs0] true : n59rs0_time;
+[n59rs1] true : n59rs1_time;
+[n59rs2] true : n59rs2_time;
+[n59rs3] true : n59rs3_time;
+[n60rs0] true : n60rs0_time;
+[n60rs1] true : n60rs1_time;
+[n60rs2] true : n60rs2_time;
+[n60rs3] true : n60rs3_time;
+[n61rs0] true : n61rs0_time;
+[n61rs1] true : n61rs1_time;
+[n61rs2] true : n61rs2_time;
+[n61rs3] true : n61rs3_time;
+[n62rs0] true : n62rs0_time;
+[n62rs1] true : n62rs1_time;
+[n62rs2] true : n62rs2_time;
+[n62rs3] true : n62rs3_time;
+[n63rs0] true : n63rs0_time;
+[n63rs1] true : n63rs1_time;
+[n63rs2] true : n63rs2_time;
+[n63rs3] true : n63rs3_time;
+[n64rs0] true : n64rs0_time;
+[n64rs1] true : n64rs1_time;
+[n64rs2] true : n64rs2_time;
+[n64rs3] true : n64rs3_time;
+[n65rs0] true : n65rs0_time;
+[n65rs1] true : n65rs1_time;
+[n65rs2] true : n65rs2_time;
+[n65rs3] true : n65rs3_time;
+[n66rs0] true : n66rs0_time;
+[n66rs1] true : n66rs1_time;
+[n66rs2] true : n66rs2_time;
+[n66rs3] true : n66rs3_time;
+[n67rs0] true : n67rs0_time;
+[n67rs1] true : n67rs1_time;
+[n67rs2] true : n67rs2_time;
+[n67rs3] true : n67rs3_time;
+[n68rs0] true : n68rs0_time;
+[n68rs1] true : n68rs1_time;
+[n68rs2] true : n68rs2_time;
+[n68rs3] true : n68rs3_time;
+[n69rs0] true : n69rs0_time;
+[n69rs1] true : n69rs1_time;
+[n69rs2] true : n69rs2_time;
+[n69rs3] true : n69rs3_time;
+[n70rs0] true : n70rs0_time;
+[n70rs1] true : n70rs1_time;
+[n70rs2] true : n70rs2_time;
+[n70rs3] true : n70rs3_time;
+[n71rs0] true : n71rs0_time;
+[n71rs1] true : n71rs1_time;
+[n71rs2] true : n71rs2_time;
+[n71rs3] true : n71rs3_time;
+[n72rs0] true : n72rs0_time;
+[n72rs1] true : n72rs1_time;
+[n72rs2] true : n72rs2_time;
+[n72rs3] true : n72rs3_time;
+[n73rs0] true : n73rs0_time;
+[n73rs1] true : n73rs1_time;
+[n73rs2] true : n73rs2_time;
+[n73rs3] true : n73rs3_time;
+[n74rs0] true : n74rs0_time;
+[n74rs1] true : n74rs1_time;
+[n74rs2] true : n74rs2_time;
+[n74rs3] true : n74rs3_time;
+[n75rs0] true : n75rs0_time;
+[n75rs1] true : n75rs1_time;
+[n75rs2] true : n75rs2_time;
+[n75rs3] true : n75rs3_time;
+[n76rs0] true : n76rs0_time;
+[n76rs1] true : n76rs1_time;
+[n76rs2] true : n76rs2_time;
+[n76rs3] true : n76rs3_time;
+[n77rs0] true : n77rs0_time;
+[n77rs1] true : n77rs1_time;
+[n77rs2] true : n77rs2_time;
+[n77rs3] true : n77rs3_time;
+[n78rs0] true : n78rs0_time;
+[n78rs1] true : n78rs1_time;
+[n78rs2] true : n78rs2_time;
+[n78rs3] true : n78rs3_time;
+[n79rs0] true : n79rs0_time;
+[n79rs1] true : n79rs1_time;
+[n79rs2] true : n79rs2_time;
+[n79rs3] true : n79rs3_time;
 endrewards
 rewards "rw_reliability"
 [n0rs0] true : n0rs0_rel;
 [n0rs1] true : n0rs1_rel;
 [n0rs2] true : n0rs2_rel;
 [n0rs3] true : n0rs3_rel;
-[n0rs4] true : n0rs4_rel;
 [n1rs0] true : n1rs0_rel;
 [n1rs1] true : n1rs1_rel;
 [n1rs2] true : n1rs2_rel;
 [n1rs3] true : n1rs3_rel;
-[n1rs4] true : n1rs4_rel;
 [n2rs0] true : n2rs0_rel;
 [n2rs1] true : n2rs1_rel;
 [n2rs2] true : n2rs2_rel;
 [n2rs3] true : n2rs3_rel;
-[n2rs4] true : n2rs4_rel;
 [n3rs0] true : n3rs0_rel;
 [n3rs1] true : n3rs1_rel;
 [n3rs2] true : n3rs2_rel;
 [n3rs3] true : n3rs3_rel;
-[n3rs4] true : n3rs4_rel;
 [n4rs0] true : n4rs0_rel;
 [n4rs1] true : n4rs1_rel;
 [n4rs2] true : n4rs2_rel;
 [n4rs3] true : n4rs3_rel;
-[n4rs4] true : n4rs4_rel;
 [n5rs0] true : n5rs0_rel;
 [n5rs1] true : n5rs1_rel;
 [n5rs2] true : n5rs2_rel;
 [n5rs3] true : n5rs3_rel;
-[n5rs4] true : n5rs4_rel;
 [n6rs0] true : n6rs0_rel;
 [n6rs1] true : n6rs1_rel;
 [n6rs2] true : n6rs2_rel;
 [n6rs3] true : n6rs3_rel;
-[n6rs4] true : n6rs4_rel;
 [n7rs0] true : n7rs0_rel;
 [n7rs1] true : n7rs1_rel;
 [n7rs2] true : n7rs2_rel;
 [n7rs3] true : n7rs3_rel;
-[n7rs4] true : n7rs4_rel;
 [n8rs0] true : n8rs0_rel;
 [n8rs1] true : n8rs1_rel;
 [n8rs2] true : n8rs2_rel;
 [n8rs3] true : n8rs3_rel;
-[n8rs4] true : n8rs4_rel;
 [n9rs0] true : n9rs0_rel;
 [n9rs1] true : n9rs1_rel;
 [n9rs2] true : n9rs2_rel;
 [n9rs3] true : n9rs3_rel;
-[n9rs4] true : n9rs4_rel;
+[n10rs0] true : n10rs0_rel;
+[n10rs1] true : n10rs1_rel;
+[n10rs2] true : n10rs2_rel;
+[n10rs3] true : n10rs3_rel;
+[n11rs0] true : n11rs0_rel;
+[n11rs1] true : n11rs1_rel;
+[n11rs2] true : n11rs2_rel;
+[n11rs3] true : n11rs3_rel;
+[n12rs0] true : n12rs0_rel;
+[n12rs1] true : n12rs1_rel;
+[n12rs2] true : n12rs2_rel;
+[n12rs3] true : n12rs3_rel;
+[n13rs0] true : n13rs0_rel;
+[n13rs1] true : n13rs1_rel;
+[n13rs2] true : n13rs2_rel;
+[n13rs3] true : n13rs3_rel;
+[n14rs0] true : n14rs0_rel;
+[n14rs1] true : n14rs1_rel;
+[n14rs2] true : n14rs2_rel;
+[n14rs3] true : n14rs3_rel;
+[n15rs0] true : n15rs0_rel;
+[n15rs1] true : n15rs1_rel;
+[n15rs2] true : n15rs2_rel;
+[n15rs3] true : n15rs3_rel;
+[n16rs0] true : n16rs0_rel;
+[n16rs1] true : n16rs1_rel;
+[n16rs2] true : n16rs2_rel;
+[n16rs3] true : n16rs3_rel;
+[n17rs0] true : n17rs0_rel;
+[n17rs1] true : n17rs1_rel;
+[n17rs2] true : n17rs2_rel;
+[n17rs3] true : n17rs3_rel;
+[n18rs0] true : n18rs0_rel;
+[n18rs1] true : n18rs1_rel;
+[n18rs2] true : n18rs2_rel;
+[n18rs3] true : n18rs3_rel;
+[n19rs0] true : n19rs0_rel;
+[n19rs1] true : n19rs1_rel;
+[n19rs2] true : n19rs2_rel;
+[n19rs3] true : n19rs3_rel;
+[n20rs0] true : n20rs0_rel;
+[n20rs1] true : n20rs1_rel;
+[n20rs2] true : n20rs2_rel;
+[n20rs3] true : n20rs3_rel;
+[n21rs0] true : n21rs0_rel;
+[n21rs1] true : n21rs1_rel;
+[n21rs2] true : n21rs2_rel;
+[n21rs3] true : n21rs3_rel;
+[n22rs0] true : n22rs0_rel;
+[n22rs1] true : n22rs1_rel;
+[n22rs2] true : n22rs2_rel;
+[n22rs3] true : n22rs3_rel;
+[n23rs0] true : n23rs0_rel;
+[n23rs1] true : n23rs1_rel;
+[n23rs2] true : n23rs2_rel;
+[n23rs3] true : n23rs3_rel;
+[n24rs0] true : n24rs0_rel;
+[n24rs1] true : n24rs1_rel;
+[n24rs2] true : n24rs2_rel;
+[n24rs3] true : n24rs3_rel;
+[n25rs0] true : n25rs0_rel;
+[n25rs1] true : n25rs1_rel;
+[n25rs2] true : n25rs2_rel;
+[n25rs3] true : n25rs3_rel;
+[n26rs0] true : n26rs0_rel;
+[n26rs1] true : n26rs1_rel;
+[n26rs2] true : n26rs2_rel;
+[n26rs3] true : n26rs3_rel;
+[n27rs0] true : n27rs0_rel;
+[n27rs1] true : n27rs1_rel;
+[n27rs2] true : n27rs2_rel;
+[n27rs3] true : n27rs3_rel;
+[n28rs0] true : n28rs0_rel;
+[n28rs1] true : n28rs1_rel;
+[n28rs2] true : n28rs2_rel;
+[n28rs3] true : n28rs3_rel;
+[n29rs0] true : n29rs0_rel;
+[n29rs1] true : n29rs1_rel;
+[n29rs2] true : n29rs2_rel;
+[n29rs3] true : n29rs3_rel;
+[n30rs0] true : n30rs0_rel;
+[n30rs1] true : n30rs1_rel;
+[n30rs2] true : n30rs2_rel;
+[n30rs3] true : n30rs3_rel;
+[n31rs0] true : n31rs0_rel;
+[n31rs1] true : n31rs1_rel;
+[n31rs2] true : n31rs2_rel;
+[n31rs3] true : n31rs3_rel;
+[n32rs0] true : n32rs0_rel;
+[n32rs1] true : n32rs1_rel;
+[n32rs2] true : n32rs2_rel;
+[n32rs3] true : n32rs3_rel;
+[n33rs0] true : n33rs0_rel;
+[n33rs1] true : n33rs1_rel;
+[n33rs2] true : n33rs2_rel;
+[n33rs3] true : n33rs3_rel;
+[n34rs0] true : n34rs0_rel;
+[n34rs1] true : n34rs1_rel;
+[n34rs2] true : n34rs2_rel;
+[n34rs3] true : n34rs3_rel;
+[n35rs0] true : n35rs0_rel;
+[n35rs1] true : n35rs1_rel;
+[n35rs2] true : n35rs2_rel;
+[n35rs3] true : n35rs3_rel;
+[n36rs0] true : n36rs0_rel;
+[n36rs1] true : n36rs1_rel;
+[n36rs2] true : n36rs2_rel;
+[n36rs3] true : n36rs3_rel;
+[n37rs0] true : n37rs0_rel;
+[n37rs1] true : n37rs1_rel;
+[n37rs2] true : n37rs2_rel;
+[n37rs3] true : n37rs3_rel;
+[n38rs0] true : n38rs0_rel;
+[n38rs1] true : n38rs1_rel;
+[n38rs2] true : n38rs2_rel;
+[n38rs3] true : n38rs3_rel;
+[n39rs0] true : n39rs0_rel;
+[n39rs1] true : n39rs1_rel;
+[n39rs2] true : n39rs2_rel;
+[n39rs3] true : n39rs3_rel;
+[n40rs0] true : n40rs0_rel;
+[n40rs1] true : n40rs1_rel;
+[n40rs2] true : n40rs2_rel;
+[n40rs3] true : n40rs3_rel;
+[n41rs0] true : n41rs0_rel;
+[n41rs1] true : n41rs1_rel;
+[n41rs2] true : n41rs2_rel;
+[n41rs3] true : n41rs3_rel;
+[n42rs0] true : n42rs0_rel;
+[n42rs1] true : n42rs1_rel;
+[n42rs2] true : n42rs2_rel;
+[n42rs3] true : n42rs3_rel;
+[n43rs0] true : n43rs0_rel;
+[n43rs1] true : n43rs1_rel;
+[n43rs2] true : n43rs2_rel;
+[n43rs3] true : n43rs3_rel;
+[n44rs0] true : n44rs0_rel;
+[n44rs1] true : n44rs1_rel;
+[n44rs2] true : n44rs2_rel;
+[n44rs3] true : n44rs3_rel;
+[n45rs0] true : n45rs0_rel;
+[n45rs1] true : n45rs1_rel;
+[n45rs2] true : n45rs2_rel;
+[n45rs3] true : n45rs3_rel;
+[n46rs0] true : n46rs0_rel;
+[n46rs1] true : n46rs1_rel;
+[n46rs2] true : n46rs2_rel;
+[n46rs3] true : n46rs3_rel;
+[n47rs0] true : n47rs0_rel;
+[n47rs1] true : n47rs1_rel;
+[n47rs2] true : n47rs2_rel;
+[n47rs3] true : n47rs3_rel;
+[n48rs0] true : n48rs0_rel;
+[n48rs1] true : n48rs1_rel;
+[n48rs2] true : n48rs2_rel;
+[n48rs3] true : n48rs3_rel;
+[n49rs0] true : n49rs0_rel;
+[n49rs1] true : n49rs1_rel;
+[n49rs2] true : n49rs2_rel;
+[n49rs3] true : n49rs3_rel;
+[n50rs0] true : n50rs0_rel;
+[n50rs1] true : n50rs1_rel;
+[n50rs2] true : n50rs2_rel;
+[n50rs3] true : n50rs3_rel;
+[n51rs0] true : n51rs0_rel;
+[n51rs1] true : n51rs1_rel;
+[n51rs2] true : n51rs2_rel;
+[n51rs3] true : n51rs3_rel;
+[n52rs0] true : n52rs0_rel;
+[n52rs1] true : n52rs1_rel;
+[n52rs2] true : n52rs2_rel;
+[n52rs3] true : n52rs3_rel;
+[n53rs0] true : n53rs0_rel;
+[n53rs1] true : n53rs1_rel;
+[n53rs2] true : n53rs2_rel;
+[n53rs3] true : n53rs3_rel;
+[n54rs0] true : n54rs0_rel;
+[n54rs1] true : n54rs1_rel;
+[n54rs2] true : n54rs2_rel;
+[n54rs3] true : n54rs3_rel;
+[n55rs0] true : n55rs0_rel;
+[n55rs1] true : n55rs1_rel;
+[n55rs2] true : n55rs2_rel;
+[n55rs3] true : n55rs3_rel;
+[n56rs0] true : n56rs0_rel;
+[n56rs1] true : n56rs1_rel;
+[n56rs2] true : n56rs2_rel;
+[n56rs3] true : n56rs3_rel;
+[n57rs0] true : n57rs0_rel;
+[n57rs1] true : n57rs1_rel;
+[n57rs2] true : n57rs2_rel;
+[n57rs3] true : n57rs3_rel;
+[n58rs0] true : n58rs0_rel;
+[n58rs1] true : n58rs1_rel;
+[n58rs2] true : n58rs2_rel;
+[n58rs3] true : n58rs3_rel;
+[n59rs0] true : n59rs0_rel;
+[n59rs1] true : n59rs1_rel;
+[n59rs2] true : n59rs2_rel;
+[n59rs3] true : n59rs3_rel;
+[n60rs0] true : n60rs0_rel;
+[n60rs1] true : n60rs1_rel;
+[n60rs2] true : n60rs2_rel;
+[n60rs3] true : n60rs3_rel;
+[n61rs0] true : n61rs0_rel;
+[n61rs1] true : n61rs1_rel;
+[n61rs2] true : n61rs2_rel;
+[n61rs3] true : n61rs3_rel;
+[n62rs0] true : n62rs0_rel;
+[n62rs1] true : n62rs1_rel;
+[n62rs2] true : n62rs2_rel;
+[n62rs3] true : n62rs3_rel;
+[n63rs0] true : n63rs0_rel;
+[n63rs1] true : n63rs1_rel;
+[n63rs2] true : n63rs2_rel;
+[n63rs3] true : n63rs3_rel;
+[n64rs0] true : n64rs0_rel;
+[n64rs1] true : n64rs1_rel;
+[n64rs2] true : n64rs2_rel;
+[n64rs3] true : n64rs3_rel;
+[n65rs0] true : n65rs0_rel;
+[n65rs1] true : n65rs1_rel;
+[n65rs2] true : n65rs2_rel;
+[n65rs3] true : n65rs3_rel;
+[n66rs0] true : n66rs0_rel;
+[n66rs1] true : n66rs1_rel;
+[n66rs2] true : n66rs2_rel;
+[n66rs3] true : n66rs3_rel;
+[n67rs0] true : n67rs0_rel;
+[n67rs1] true : n67rs1_rel;
+[n67rs2] true : n67rs2_rel;
+[n67rs3] true : n67rs3_rel;
+[n68rs0] true : n68rs0_rel;
+[n68rs1] true : n68rs1_rel;
+[n68rs2] true : n68rs2_rel;
+[n68rs3] true : n68rs3_rel;
+[n69rs0] true : n69rs0_rel;
+[n69rs1] true : n69rs1_rel;
+[n69rs2] true : n69rs2_rel;
+[n69rs3] true : n69rs3_rel;
+[n70rs0] true : n70rs0_rel;
+[n70rs1] true : n70rs1_rel;
+[n70rs2] true : n70rs2_rel;
+[n70rs3] true : n70rs3_rel;
+[n71rs0] true : n71rs0_rel;
+[n71rs1] true : n71rs1_rel;
+[n71rs2] true : n71rs2_rel;
+[n71rs3] true : n71rs3_rel;
+[n72rs0] true : n72rs0_rel;
+[n72rs1] true : n72rs1_rel;
+[n72rs2] true : n72rs2_rel;
+[n72rs3] true : n72rs3_rel;
+[n73rs0] true : n73rs0_rel;
+[n73rs1] true : n73rs1_rel;
+[n73rs2] true : n73rs2_rel;
+[n73rs3] true : n73rs3_rel;
+[n74rs0] true : n74rs0_rel;
+[n74rs1] true : n74rs1_rel;
+[n74rs2] true : n74rs2_rel;
+[n74rs3] true : n74rs3_rel;
+[n75rs0] true : n75rs0_rel;
+[n75rs1] true : n75rs1_rel;
+[n75rs2] true : n75rs2_rel;
+[n75rs3] true : n75rs3_rel;
+[n76rs0] true : n76rs0_rel;
+[n76rs1] true : n76rs1_rel;
+[n76rs2] true : n76rs2_rel;
+[n76rs3] true : n76rs3_rel;
+[n77rs0] true : n77rs0_rel;
+[n77rs1] true : n77rs1_rel;
+[n77rs2] true : n77rs2_rel;
+[n77rs3] true : n77rs3_rel;
+[n78rs0] true : n78rs0_rel;
+[n78rs1] true : n78rs1_rel;
+[n78rs2] true : n78rs2_rel;
+[n78rs3] true : n78rs3_rel;
+[n79rs0] true : n79rs0_rel;
+[n79rs1] true : n79rs1_rel;
+[n79rs2] true : n79rs2_rel;
+[n79rs3] true : n79rs3_rel;
 endrewards
 rewards "rw_availability"
 [n0rs0] true : n0rs0_avail;
 [n0rs1] true : n0rs1_avail;
 [n0rs2] true : n0rs2_avail;
 [n0rs3] true : n0rs3_avail;
-[n0rs4] true : n0rs4_avail;
 [n1rs0] true : n1rs0_avail;
 [n1rs1] true : n1rs1_avail;
 [n1rs2] true : n1rs2_avail;
 [n1rs3] true : n1rs3_avail;
-[n1rs4] true : n1rs4_avail;
 [n2rs0] true : n2rs0_avail;
 [n2rs1] true : n2rs1_avail;
 [n2rs2] true : n2rs2_avail;
 [n2rs3] true : n2rs3_avail;
-[n2rs4] true : n2rs4_avail;
 [n3rs0] true : n3rs0_avail;
 [n3rs1] true : n3rs1_avail;
 [n3rs2] true : n3rs2_avail;
 [n3rs3] true : n3rs3_avail;
-[n3rs4] true : n3rs4_avail;
 [n4rs0] true : n4rs0_avail;
 [n4rs1] true : n4rs1_avail;
 [n4rs2] true : n4rs2_avail;
 [n4rs3] true : n4rs3_avail;
-[n4rs4] true : n4rs4_avail;
 [n5rs0] true : n5rs0_avail;
 [n5rs1] true : n5rs1_avail;
 [n5rs2] true : n5rs2_avail;
 [n5rs3] true : n5rs3_avail;
-[n5rs4] true : n5rs4_avail;
 [n6rs0] true : n6rs0_avail;
 [n6rs1] true : n6rs1_avail;
 [n6rs2] true : n6rs2_avail;
 [n6rs3] true : n6rs3_avail;
-[n6rs4] true : n6rs4_avail;
 [n7rs0] true : n7rs0_avail;
 [n7rs1] true : n7rs1_avail;
 [n7rs2] true : n7rs2_avail;
 [n7rs3] true : n7rs3_avail;
-[n7rs4] true : n7rs4_avail;
 [n8rs0] true : n8rs0_avail;
 [n8rs1] true : n8rs1_avail;
 [n8rs2] true : n8rs2_avail;
 [n8rs3] true : n8rs3_avail;
-[n8rs4] true : n8rs4_avail;
 [n9rs0] true : n9rs0_avail;
 [n9rs1] true : n9rs1_avail;
 [n9rs2] true : n9rs2_avail;
 [n9rs3] true : n9rs3_avail;
-[n9rs4] true : n9rs4_avail;
+[n10rs0] true : n10rs0_avail;
+[n10rs1] true : n10rs1_avail;
+[n10rs2] true : n10rs2_avail;
+[n10rs3] true : n10rs3_avail;
+[n11rs0] true : n11rs0_avail;
+[n11rs1] true : n11rs1_avail;
+[n11rs2] true : n11rs2_avail;
+[n11rs3] true : n11rs3_avail;
+[n12rs0] true : n12rs0_avail;
+[n12rs1] true : n12rs1_avail;
+[n12rs2] true : n12rs2_avail;
+[n12rs3] true : n12rs3_avail;
+[n13rs0] true : n13rs0_avail;
+[n13rs1] true : n13rs1_avail;
+[n13rs2] true : n13rs2_avail;
+[n13rs3] true : n13rs3_avail;
+[n14rs0] true : n14rs0_avail;
+[n14rs1] true : n14rs1_avail;
+[n14rs2] true : n14rs2_avail;
+[n14rs3] true : n14rs3_avail;
+[n15rs0] true : n15rs0_avail;
+[n15rs1] true : n15rs1_avail;
+[n15rs2] true : n15rs2_avail;
+[n15rs3] true : n15rs3_avail;
+[n16rs0] true : n16rs0_avail;
+[n16rs1] true : n16rs1_avail;
+[n16rs2] true : n16rs2_avail;
+[n16rs3] true : n16rs3_avail;
+[n17rs0] true : n17rs0_avail;
+[n17rs1] true : n17rs1_avail;
+[n17rs2] true : n17rs2_avail;
+[n17rs3] true : n17rs3_avail;
+[n18rs0] true : n18rs0_avail;
+[n18rs1] true : n18rs1_avail;
+[n18rs2] true : n18rs2_avail;
+[n18rs3] true : n18rs3_avail;
+[n19rs0] true : n19rs0_avail;
+[n19rs1] true : n19rs1_avail;
+[n19rs2] true : n19rs2_avail;
+[n19rs3] true : n19rs3_avail;
+[n20rs0] true : n20rs0_avail;
+[n20rs1] true : n20rs1_avail;
+[n20rs2] true : n20rs2_avail;
+[n20rs3] true : n20rs3_avail;
+[n21rs0] true : n21rs0_avail;
+[n21rs1] true : n21rs1_avail;
+[n21rs2] true : n21rs2_avail;
+[n21rs3] true : n21rs3_avail;
+[n22rs0] true : n22rs0_avail;
+[n22rs1] true : n22rs1_avail;
+[n22rs2] true : n22rs2_avail;
+[n22rs3] true : n22rs3_avail;
+[n23rs0] true : n23rs0_avail;
+[n23rs1] true : n23rs1_avail;
+[n23rs2] true : n23rs2_avail;
+[n23rs3] true : n23rs3_avail;
+[n24rs0] true : n24rs0_avail;
+[n24rs1] true : n24rs1_avail;
+[n24rs2] true : n24rs2_avail;
+[n24rs3] true : n24rs3_avail;
+[n25rs0] true : n25rs0_avail;
+[n25rs1] true : n25rs1_avail;
+[n25rs2] true : n25rs2_avail;
+[n25rs3] true : n25rs3_avail;
+[n26rs0] true : n26rs0_avail;
+[n26rs1] true : n26rs1_avail;
+[n26rs2] true : n26rs2_avail;
+[n26rs3] true : n26rs3_avail;
+[n27rs0] true : n27rs0_avail;
+[n27rs1] true : n27rs1_avail;
+[n27rs2] true : n27rs2_avail;
+[n27rs3] true : n27rs3_avail;
+[n28rs0] true : n28rs0_avail;
+[n28rs1] true : n28rs1_avail;
+[n28rs2] true : n28rs2_avail;
+[n28rs3] true : n28rs3_avail;
+[n29rs0] true : n29rs0_avail;
+[n29rs1] true : n29rs1_avail;
+[n29rs2] true : n29rs2_avail;
+[n29rs3] true : n29rs3_avail;
+[n30rs0] true : n30rs0_avail;
+[n30rs1] true : n30rs1_avail;
+[n30rs2] true : n30rs2_avail;
+[n30rs3] true : n30rs3_avail;
+[n31rs0] true : n31rs0_avail;
+[n31rs1] true : n31rs1_avail;
+[n31rs2] true : n31rs2_avail;
+[n31rs3] true : n31rs3_avail;
+[n32rs0] true : n32rs0_avail;
+[n32rs1] true : n32rs1_avail;
+[n32rs2] true : n32rs2_avail;
+[n32rs3] true : n32rs3_avail;
+[n33rs0] true : n33rs0_avail;
+[n33rs1] true : n33rs1_avail;
+[n33rs2] true : n33rs2_avail;
+[n33rs3] true : n33rs3_avail;
+[n34rs0] true : n34rs0_avail;
+[n34rs1] true : n34rs1_avail;
+[n34rs2] true : n34rs2_avail;
+[n34rs3] true : n34rs3_avail;
+[n35rs0] true : n35rs0_avail;
+[n35rs1] true : n35rs1_avail;
+[n35rs2] true : n35rs2_avail;
+[n35rs3] true : n35rs3_avail;
+[n36rs0] true : n36rs0_avail;
+[n36rs1] true : n36rs1_avail;
+[n36rs2] true : n36rs2_avail;
+[n36rs3] true : n36rs3_avail;
+[n37rs0] true : n37rs0_avail;
+[n37rs1] true : n37rs1_avail;
+[n37rs2] true : n37rs2_avail;
+[n37rs3] true : n37rs3_avail;
+[n38rs0] true : n38rs0_avail;
+[n38rs1] true : n38rs1_avail;
+[n38rs2] true : n38rs2_avail;
+[n38rs3] true : n38rs3_avail;
+[n39rs0] true : n39rs0_avail;
+[n39rs1] true : n39rs1_avail;
+[n39rs2] true : n39rs2_avail;
+[n39rs3] true : n39rs3_avail;
+[n40rs0] true : n40rs0_avail;
+[n40rs1] true : n40rs1_avail;
+[n40rs2] true : n40rs2_avail;
+[n40rs3] true : n40rs3_avail;
+[n41rs0] true : n41rs0_avail;
+[n41rs1] true : n41rs1_avail;
+[n41rs2] true : n41rs2_avail;
+[n41rs3] true : n41rs3_avail;
+[n42rs0] true : n42rs0_avail;
+[n42rs1] true : n42rs1_avail;
+[n42rs2] true : n42rs2_avail;
+[n42rs3] true : n42rs3_avail;
+[n43rs0] true : n43rs0_avail;
+[n43rs1] true : n43rs1_avail;
+[n43rs2] true : n43rs2_avail;
+[n43rs3] true : n43rs3_avail;
+[n44rs0] true : n44rs0_avail;
+[n44rs1] true : n44rs1_avail;
+[n44rs2] true : n44rs2_avail;
+[n44rs3] true : n44rs3_avail;
+[n45rs0] true : n45rs0_avail;
+[n45rs1] true : n45rs1_avail;
+[n45rs2] true : n45rs2_avail;
+[n45rs3] true : n45rs3_avail;
+[n46rs0] true : n46rs0_avail;
+[n46rs1] true : n46rs1_avail;
+[n46rs2] true : n46rs2_avail;
+[n46rs3] true : n46rs3_avail;
+[n47rs0] true : n47rs0_avail;
+[n47rs1] true : n47rs1_avail;
+[n47rs2] true : n47rs2_avail;
+[n47rs3] true : n47rs3_avail;
+[n48rs0] true : n48rs0_avail;
+[n48rs1] true : n48rs1_avail;
+[n48rs2] true : n48rs2_avail;
+[n48rs3] true : n48rs3_avail;
+[n49rs0] true : n49rs0_avail;
+[n49rs1] true : n49rs1_avail;
+[n49rs2] true : n49rs2_avail;
+[n49rs3] true : n49rs3_avail;
+[n50rs0] true : n50rs0_avail;
+[n50rs1] true : n50rs1_avail;
+[n50rs2] true : n50rs2_avail;
+[n50rs3] true : n50rs3_avail;
+[n51rs0] true : n51rs0_avail;
+[n51rs1] true : n51rs1_avail;
+[n51rs2] true : n51rs2_avail;
+[n51rs3] true : n51rs3_avail;
+[n52rs0] true : n52rs0_avail;
+[n52rs1] true : n52rs1_avail;
+[n52rs2] true : n52rs2_avail;
+[n52rs3] true : n52rs3_avail;
+[n53rs0] true : n53rs0_avail;
+[n53rs1] true : n53rs1_avail;
+[n53rs2] true : n53rs2_avail;
+[n53rs3] true : n53rs3_avail;
+[n54rs0] true : n54rs0_avail;
+[n54rs1] true : n54rs1_avail;
+[n54rs2] true : n54rs2_avail;
+[n54rs3] true : n54rs3_avail;
+[n55rs0] true : n55rs0_avail;
+[n55rs1] true : n55rs1_avail;
+[n55rs2] true : n55rs2_avail;
+[n55rs3] true : n55rs3_avail;
+[n56rs0] true : n56rs0_avail;
+[n56rs1] true : n56rs1_avail;
+[n56rs2] true : n56rs2_avail;
+[n56rs3] true : n56rs3_avail;
+[n57rs0] true : n57rs0_avail;
+[n57rs1] true : n57rs1_avail;
+[n57rs2] true : n57rs2_avail;
+[n57rs3] true : n57rs3_avail;
+[n58rs0] true : n58rs0_avail;
+[n58rs1] true : n58rs1_avail;
+[n58rs2] true : n58rs2_avail;
+[n58rs3] true : n58rs3_avail;
+[n59rs0] true : n59rs0_avail;
+[n59rs1] true : n59rs1_avail;
+[n59rs2] true : n59rs2_avail;
+[n59rs3] true : n59rs3_avail;
+[n60rs0] true : n60rs0_avail;
+[n60rs1] true : n60rs1_avail;
+[n60rs2] true : n60rs2_avail;
+[n60rs3] true : n60rs3_avail;
+[n61rs0] true : n61rs0_avail;
+[n61rs1] true : n61rs1_avail;
+[n61rs2] true : n61rs2_avail;
+[n61rs3] true : n61rs3_avail;
+[n62rs0] true : n62rs0_avail;
+[n62rs1] true : n62rs1_avail;
+[n62rs2] true : n62rs2_avail;
+[n62rs3] true : n62rs3_avail;
+[n63rs0] true : n63rs0_avail;
+[n63rs1] true : n63rs1_avail;
+[n63rs2] true : n63rs2_avail;
+[n63rs3] true : n63rs3_avail;
+[n64rs0] true : n64rs0_avail;
+[n64rs1] true : n64rs1_avail;
+[n64rs2] true : n64rs2_avail;
+[n64rs3] true : n64rs3_avail;
+[n65rs0] true : n65rs0_avail;
+[n65rs1] true : n65rs1_avail;
+[n65rs2] true : n65rs2_avail;
+[n65rs3] true : n65rs3_avail;
+[n66rs0] true : n66rs0_avail;
+[n66rs1] true : n66rs1_avail;
+[n66rs2] true : n66rs2_avail;
+[n66rs3] true : n66rs3_avail;
+[n67rs0] true : n67rs0_avail;
+[n67rs1] true : n67rs1_avail;
+[n67rs2] true : n67rs2_avail;
+[n67rs3] true : n67rs3_avail;
+[n68rs0] true : n68rs0_avail;
+[n68rs1] true : n68rs1_avail;
+[n68rs2] true : n68rs2_avail;
+[n68rs3] true : n68rs3_avail;
+[n69rs0] true : n69rs0_avail;
+[n69rs1] true : n69rs1_avail;
+[n69rs2] true : n69rs2_avail;
+[n69rs3] true : n69rs3_avail;
+[n70rs0] true : n70rs0_avail;
+[n70rs1] true : n70rs1_avail;
+[n70rs2] true : n70rs2_avail;
+[n70rs3] true : n70rs3_avail;
+[n71rs0] true : n71rs0_avail;
+[n71rs1] true : n71rs1_avail;
+[n71rs2] true : n71rs2_avail;
+[n71rs3] true : n71rs3_avail;
+[n72rs0] true : n72rs0_avail;
+[n72rs1] true : n72rs1_avail;
+[n72rs2] true : n72rs2_avail;
+[n72rs3] true : n72rs3_avail;
+[n73rs0] true : n73rs0_avail;
+[n73rs1] true : n73rs1_avail;
+[n73rs2] true : n73rs2_avail;
+[n73rs3] true : n73rs3_avail;
+[n74rs0] true : n74rs0_avail;
+[n74rs1] true : n74rs1_avail;
+[n74rs2] true : n74rs2_avail;
+[n74rs3] true : n74rs3_avail;
+[n75rs0] true : n75rs0_avail;
+[n75rs1] true : n75rs1_avail;
+[n75rs2] true : n75rs2_avail;
+[n75rs3] true : n75rs3_avail;
+[n76rs0] true : n76rs0_avail;
+[n76rs1] true : n76rs1_avail;
+[n76rs2] true : n76rs2_avail;
+[n76rs3] true : n76rs3_avail;
+[n77rs0] true : n77rs0_avail;
+[n77rs1] true : n77rs1_avail;
+[n77rs2] true : n77rs2_avail;
+[n77rs3] true : n77rs3_avail;
+[n78rs0] true : n78rs0_avail;
+[n78rs1] true : n78rs1_avail;
+[n78rs2] true : n78rs2_avail;
+[n78rs3] true : n78rs3_avail;
+[n79rs0] true : n79rs0_avail;
+[n79rs1] true : n79rs1_avail;
+[n79rs2] true : n79rs2_avail;
+[n79rs3] true : n79rs3_avail;
 endrewards
 //=========Labels=======
 label "done" = (goal=true);

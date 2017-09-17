@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
 import parser.Values;
 
@@ -28,7 +29,8 @@ public class SynthesisSimulator {
 	long timeGen[]; //log the generation execution time
 	long timeExp[]; //long the export execution time
 	long timeExt[]; //log the extraction execution time
-	boolean statusRes[]; //log the synthesis status
+	boolean statusRes[]; //log the synthesis status without pareto
+	boolean statusSyn[][]; //log the synthesis status with pareto
 	int countCand[];  //log the number of candidates
 		
 	//to log the execution information
@@ -75,7 +77,6 @@ public class SynthesisSimulator {
 		timeExt = new long[simCycle]; //log the extraction execution time
 		statusRes = new boolean[simCycle]; //log the synthesis status
 		countCand = new int[simCycle]; //log the number of candidates
-		
 		//begin the simulation per configuration	
 		for(int m=0; m < simCycle; m++) {
 			
@@ -150,6 +151,102 @@ public class SynthesisSimulator {
 			
 	}
 	
+	public void simulatePlanningwithPareto(int sCycle) {
+		
+		simCycle = sCycle;
+		time = new long[simCycle]; //log the synthesis execution time
+		timeExt = new long[simCycle]; //log the extraction execution time
+		statusSyn = new boolean[simCycle][3]; //log synthesis status with pareto, whilst 3 refers to max attempt
+		countCand = new int[simCycle]; //log the number of candidates
+		
+		//begin the simulation per configuration	
+		for(int m=0; m < simCycle; m++) {
+			
+			//to store the time
+			TimeMeasure tm = new TimeMeasure();
+			TimeMeasure tmExt = new TimeMeasure();
+			
+			//==========Synthesis===================
+			//record the start time
+			tm.start();
+			
+			//encoding the model
+			encodeModel();
+			
+			System.out.println("Synthesizing model...");
+			sp.initiatePlanner();
+			sp.parseModelandProperties(modelPath, propPath);
+			sp.setPropertyId(0);
+			
+			if(!mdg.setValuesStatus)
+				sp.setUndefinedModelValues(mdg.getDefinedValues());
+			if(!pg.setValuesStatus)
+				sp.setUndefinedPropertiesValues(pg.getDefinedValues());
+			
+			int count=0;
+			boolean status = false;
+			while (true) {
+				//perform model checking
+				sp.checkModelforMultiObjective();
+				status = sp.getSynthesisStatus();
+				
+				//record the synthesis status
+				statusSyn[m][count] = status;
+				
+				if ((status==true) || (count > 2)) {
+					System.out.println("Terminating the model checking loop");
+					break;
+				}
+				else {
+					//get new thresholds values via pareto computation
+					sp.computeParetoforThresholds();
+					//re-assign the new thresholds
+					sp.assignThresholdParamswithValues(pg.getProperties());
+				}
+				count++;
+			}
+			
+			//==================================
+			//exporting
+			if (status) {
+				//exporting
+				System.out.println("Exporting transitions and strategies...");
+				sp.exportTrans(transPath);
+				sp.exportStrategy(stratPath);		
+			}	
+			else
+				System.out.println("No exporting since synthesis results in false");	
+			
+			tm.stop();
+ 			time[m] = tm.getDuration(); //record the duration
+ 			
+ 			tmExt.start();
+ 			
+			//=================================
+ 			//extraction
+ 			if (status) {
+ 				System.out.println("Extracting strategies...");
+ 				se.setPath(transPath, stratPath, actionListPath);
+ 				se.readSingleActionLabelFile();
+ 				se.readTransitionFile();
+ 				se.readStrategiesfromMultiObjSynthesis();	
+ 				se.findSingleDecision();
+ 			}
+ 			else
+ 				System.out.println("No decision since synthesis results in false");	
+
+			//===============================
+			
+			//stop the timer
+ 			tmExt.stop();
+ 			//record the duration
+ 			timeExt[m] = tmExt.getDuration();
+
+		}//end of simulation cycle 
+	
+		System.out.println("Simulation is done...");
+			
+	}
 	/**
 	 * log performance data
 	 */
@@ -159,10 +256,46 @@ public class SynthesisSimulator {
 			PrintWriter out = new PrintWriter(new FileWriter(fileName, false));
 		
 			String loginfo = "";
-			out.println("CycleId NumofObj NumofAct NumofEnv SynTime SynStatus NumofCandidate");
+			out.println("CycleId NumofAct NumofEnv SynTime SynStatus NumofCandidate");
 			for(int m=0; m < simCycle; m++) {
 				loginfo = loginfo+m+" "+mdg.getMaxActionP1()+" "+mdg.getMaxActionP2()+" "+
 						  time[m]+" "+statusRes[m]+" "+countCand[m]+"\n";
+			}
+			out.println(loginfo);
+			out.close();
+		}
+ 		catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * log performance data
+	 */
+	public void logInformationwithPareto() {	
+		String fileName = outfile + "_" + mdg.getMaxActionP1() +"_" + mdg.getMaxActionP2();
+		try {
+			PrintWriter out = new PrintWriter(new FileWriter(fileName, true));
+		
+			String loginfo = "";
+			//out.println("CycleId NumofAct NumofEnv SynTime SynStatus NumofCandidate");
+			for(int m=0; m < simCycle; m++) {
+				loginfo = loginfo+m+" "+mdg.getMaxActionP1()+" "+mdg.getMaxActionP2()+" "+
+						  time[m];
+				//print the synthesis status before and after computing pareto set
+				for(int c=0; c < statusSyn[m].length; c++) {
+					loginfo = loginfo+" "+statusSyn[m][c]+",";
+				}
+				//print number of potential candidate
+				loginfo = loginfo+" "+countCand[m]+"\n";
 			}
 			out.println(loginfo);
 			out.close();
@@ -190,11 +323,11 @@ public class SynthesisSimulator {
 		String actionListPath = "/home/azlan/git/PrismGames/IOFiles/actionList.txt";
 	
 		//==========CONFIGURATION SETTING==================
-		int numAct = 10;  //number of collaborator
-		int numEnv = 5;  //number of environment variation
-		int simCycle = 1; //number of simulation cycle
+		int numAct = 80;  //number of collaborator
+		int numEnv = 4;  //number of environment variation
+		int simCycle = 100; //number of simulation cycle
 		int numQyObj = 3; //number of quality objectives
-		boolean assignValue = true; //true-assign values while encoding, false-later stage
+		boolean assignValue = false; //true-assign values while encoding, false-later stage
 		
 		for(int conf=0; conf < 1; conf++) {
 			//==========UPDATING CONFIGURATION SETTING==================
@@ -208,13 +341,25 @@ public class SynthesisSimulator {
 			pp[0] = new Properties();
 			pp[1] = new Properties();
 			pp[2] = new Properties();
-			//pp[3] = new Properties();
 			
+			Random rand = new Random();
+			
+			//initialize values for each resource / variation
+			double cost, rel;
+			int time;
+
+			//initialize range value for reliability
+			double minRel=0.8, maxRel=1.0;
+			double rangeRel = maxRel - minRel;
+			
+			cost = rand.nextInt(20) + 85;
+			time = rand.nextInt(200) + 700;
+			rel = rand.nextDouble() * rangeRel + minRel;
+				
 			//specify the parameters
-			pp[0].setProperties(0, "cost", "double", 90, 10, "<");
-			pp[1].setProperties(1, "time", "int", 1000, 100,"<");
-			pp[2].setProperties(2, "reliability", "double", 0.9, 0.1, ">");
-			//pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
+			pp[0].setProperties(0, "cost", "double", cost, 10, "<");
+			pp[1].setProperties(1, "time", "int", time, 100,"<");
+			pp[2].setProperties(2, "reliability", "double", rel, 0.1, ">");
 			
 			//========PROPERTIES ENCODING=====================
 			pg.setPropPath(propPath); //set the path
@@ -257,8 +402,10 @@ public class SynthesisSimulator {
 			SynthesisSimulator syn = new SynthesisSimulator();
 			syn.setPath(propPath, modelPath, transPath, stratPath, actionListPath);
 			syn.setSimulationObjects(pg, mdg, sp, se);
-			syn.simulatePlanning(simCycle);
-			syn.logInformation();
+			//syn.simulatePlanning(simCycle);
+			syn.simulatePlanningwithPareto(simCycle);
+			//syn.logInformation();
+			syn.logInformationwithPareto();
 		}//end of configuration
 		
 	}

@@ -112,8 +112,8 @@ public class AdaptationModelGenerator extends ModelGenerator{
 		for(int i=0; i < this.maxActionP1; i++) {
 			if (maxActionP2 > 0) {
 				for(int j=0; j < this.maxActionP2; j++) {
-					cost = rand.nextInt(50) + 50;
-					time = rand.nextInt(100) + 500;
+					cost = rand.nextInt(50) + 60;
+					time = rand.nextInt(100) + 800;
 					rel = rand.nextDouble() * rangeRel + minRel;
 					avail = rand.nextDouble() * rangeAvail + minAvail;
 					res = rand.nextDouble() * rangeRes + minRes;
@@ -201,7 +201,8 @@ public class AdaptationModelGenerator extends ModelGenerator{
 			vm = new Values();
 		}
 		
-		vm.addValue("MXN", maxActionP1);
+		vm.addValue("MXN", this.maxActionP1);
+		vm.addValue("app_rs", this.reqResource);
 		
 		if (maxActionP2 > 0) {
 			for(int i=0; i < this.maxActionP1; i++) {

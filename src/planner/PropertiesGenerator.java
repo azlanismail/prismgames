@@ -40,6 +40,10 @@ public class PropertiesGenerator extends ModelGenerator{
 		}
 	}
 	
+	public Properties[] getProperties() {
+		return prop;
+	}
+	
 	public void encodeProperties() {
 		
 	

@@ -106,8 +106,13 @@ public class StochasticPlanner {
 		//assuming random approach
 		Random rand = new Random();
 		
+		//initialize range value for the resource
+		int minInd=3, maxInd=thresholdSets.size()-1;
+		int rangeInd = maxInd - minInd;
+				
 		//select one of the pair of threshold candidates, except those 0.0, 1.0, -ve values
-		int chooseInd = rand.nextInt(thresholdSets.size()-1) + 2;
+		int chooseInd = rand.nextInt(thresholdSets.size()-3) + 3;
+		//int chooseInd = rand.nextInt(thresholdSets.size()-1) * rangeInd + minInd;
 		System.out.println("Chosen index is "+chooseInd);
 		
 		//split the pair
@@ -296,23 +301,10 @@ public class StochasticPlanner {
 		    		if(!splitTemp[j].isEmpty() && !splitTemp[j].contentEquals("r:")) {
 		    			thresholdSets.add(splitTemp[j]); 
 			    	    System.out.println("Pareto is "+splitTemp[j]);
-			    	  //  String[] splitStr2 = splitStr[j].split("\\,");
-			    	  //  for(int k=0; k < splitStr2.length; k++) {
-				    	//    System.out.print(splitStr2[k]+",");
-				    	//}
-			    	  //  System.out.println();
 		    		}
 		    	}
 		    	    
 		    }
-		    
-		    // Pareto[] pset = smg.getParetoSet();
-		    //for(int i=0; i < pset.length; i++) {
-		    	//Polyhedron pol = pset[i].get();
-		    	//for(int j=0; j < pset[i].getDimension(); j++)
-		      	//System.out.println("The pareto set is : "+ pset[i].get().toString());
-		    	//System.out.println("The pareto set is : ");
-		    //}
 		 }//end of try
 		 catch (PrismLangException e) {
 				// TODO Auto-generated catch block
@@ -467,7 +459,6 @@ public class StochasticPlanner {
 		
 		//=================================
 		//synthesis
-		boolean status = sp.getSynthesisStatus();
 		
 		System.out.println("Synthesizing model...");
 		sp.initiatePlanner();
@@ -476,10 +467,8 @@ public class StochasticPlanner {
 		//sp.setUndefinedModelValues(mdg.getDefinedValues());
 		sp.setUndefinedPropertiesValues(pg.getDefinedValues());
 		
-		//sp.checkModelforMultiObjective();
-		//status = sp.getSynthesisStatus();
-		
 		int count=0;
+		boolean status = false;
 		while (true) {
 			//perform model checking
 			sp.checkModelforMultiObjective();
