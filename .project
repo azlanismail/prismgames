@@ -29,7 +29,7 @@
 		<link>
 			<name>ppl</name>
 			<type>2</type>
-			<location>/usr/lib64/ppl</location>
+			<location>/home/azlan/usr/lib/ppl</location>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -1,0 +1,3 @@
+CycleId NumofAct NumofEnv SynTime SynStatus NumofCandidate InitialProp(C,T,R) AdjustedProp(C,T,R)
+0 40 5 20967 false, true, false, 0 94.0,759,0.8354130544811416 107.02300000000001,944,0.9799000000000001 
+

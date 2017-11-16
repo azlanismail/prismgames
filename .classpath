@@ -10,7 +10,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="ppl">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/usr/lib64/ppl"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/azlan/usr/lib/ppl"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/colt.jar"/>

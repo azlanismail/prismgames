@@ -8,7 +8,7 @@ import parser.Values;
 
 public class PropertiesGenerator extends ModelGenerator{
 	
-	PrintWriter pp;
+	PrintWriter pw;
 	Properties prop[];
 	//for assigning constant parameters
 	Values vp;
@@ -21,7 +21,7 @@ public class PropertiesGenerator extends ModelGenerator{
 	
 	public void setPropPath(String path) {
 		try {
-				pp = new PrintWriter(new File(path));
+				pw = new PrintWriter(new File(path));
 		}
 		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -50,13 +50,13 @@ public class PropertiesGenerator extends ModelGenerator{
 		if (super.setValuesStatus) {
 			//declare the parameters with threshold values
 			for(int i=0; i < prop.length; i++) {
-				pp.println("const "+prop[i].type+" "+prop[i].name+" = "+prop[i].values+";");
+				pw.println("const "+prop[i].type+" "+prop[i].name+" = "+prop[i].values+";");
 			}
 		}
 		else {
 			//declare the parameters without threshold values
 			for(int i=0; i < prop.length; i++) {
-				pp.println("const "+prop[i].type+" "+prop[i].name+";");
+				pw.println("const "+prop[i].type+" "+prop[i].name+";");
 			}
 		}
 		//specify multi-objective properties
@@ -66,8 +66,8 @@ public class PropertiesGenerator extends ModelGenerator{
 		for(int i=1; i < prop.length; i++) {
 			multiobj = multiobj + "& R{\"rw_"+prop[i].name+"\"}"+prop[i].comparator+" "+prop[i].name+"[C] ";	
 		}
-		pp.println(multiobj+")");
-		pp.close();
+		pw.println(multiobj+")");
+		pw.close();
 	}
 	
 	public static void main(String args[]) {
@@ -90,7 +90,7 @@ public class PropertiesGenerator extends ModelGenerator{
 		//pp[3].setProperties(3, "availability", "double", 0.9, 0.1, ">=");
 		
 		//set the path
-		String propPath = "/home/azlan/git/PrismGames/Prismfiles/propTest.props";
+		String propPath = "/home/azlan/git/prismgames/Prismfiles/propTest.props";
 		pg.setPropPath(propPath);
 		
 		//assign properties to the properties generator

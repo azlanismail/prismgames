@@ -1,11 +1,11 @@
 
 Building model...
 
-Computing reachable states... 241 states
-Reachable states exploration and model construction done in 0.531 secs.
+Computing reachable states... 16 states
+Reachable states exploration and model construction done in 0.091 secs.
 Sorting reachable states list...
 
-Time for model construction: 0.61 seconds.
+Time for model construction: 0.096 seconds.
 
 Reducing multi-objective query to CNF: R{"rw_cost"}<cost [ C ]&R{"rw_time"}<time [ C ]&R{"rw_reliability"}>reliability [ C ]
 expr: [[R{"rw_cost"}<cost [ C ]], [R{"rw_time"}<time [ C ]], [R{"rw_reliability"}>reliability [ C ]]]
@@ -21,14 +21,14 @@ Property:
 
 initial state: 0
 operation: Strategy generation
-Synthesis took 72.206328 s
+Synthesis took 0.294637 s
 strategy: null
 
 Number of states satisfying <<p1>> ((R{"rw_cost"}<cost [ C ]&R{"rw_time"}<time [ C ]&R{"rw_reliability"}>reliability [ C ])): 0
 
 Property satisfied in 0 of 1 initial states.
 
-Time for model checking: 72.84100000000001 seconds.
+Time for model checking: 0.504 seconds.
 
 Result: false (property not satisfied in the initial state)
 
@@ -46,23 +46,23 @@ Property:
 
 initial state: 0
 operation: Pareto set computation
-Pareto set computation took 68.099044 s
+Pareto set computation took 0.232521 s
 Resulting Pareto set:
-maxcorners=91. state 0:
-[r:[0.0000, 0.0000, -1.0000]r:[0.0000, 1.0000, 0.0000]r:[1.0000, 0.0000, 0.0000][82.0080, 1046.3599, 0.9900][82.0123, 1046.3599, 0.9900][82.0936, 1035.5990, 0.9900][82.0979, 1035.5990, 0.9900][82.6794, 961.9692, 0.9900][82.6837, 961.9692, 0.9900][81.9941, 1047.9327, 0.9900][82.0000, 1047.9327, 0.9900][82.0066, 1046.3599, 0.9900][82.0922, 1035.5990, 0.9900][82.6780, 961.9692, 0.9900][102.2231, 895.1613, 0.9900][81.9921, 1048.1628, 0.9899][81.9939, 1047.9327, 0.9899][82.0064, 1046.3599, 0.9899][82.0920, 1035.5990, 0.9899][82.6779, 961.9692, 0.9899][102.2229, 895.1613, 0.9900][81.9919, 1048.1969, 0.9899][102.2229, 895.1613, 0.9900][102.2237, 895.1613, 0.9900][82.1069, 1035.5990, 0.9900][82.6927, 961.9692, 0.9900][82.1342, 1035.5990, 0.9900][82.7201, 961.9692, 0.9900][82.0124, 1046.3599, 0.9900][82.0980, 1035.5990, 0.9900][82.6838, 961.9692, 0.9900][82.0001, 1047.9327, 0.9900][102.2237, 895.1613, 0.9900][82.0502, 1046.3605, 0.9900][102.2250, 895.1615, 0.9900][102.2237, 895.1613, 0.9900][82.1351, 1035.5990, 0.9900][82.7209, 961.9692, 0.9900][82.7815, 961.9692, 0.9900][82.0514, 1046.3606, 0.9900][102.2288, 895.2127, 0.9900][102.2289, 895.2135, 0.9900][102.2250, 895.1615, 0.9900][102.2273, 895.1651, 0.9900][82.3938, 1035.6040, 0.9900][102.2374, 895.7976, 0.9900][82.9686, 961.9694, 0.9900][102.2291, 895.2141, 0.9900][102.2403, 895.8879, 0.9900][82.0417, 1046.3599, 0.9900][82.9743, 961.9694, 0.9900][82.4017, 1035.6041, 0.9900][84.7444, 962.0039, 0.9900][82.3355, 1035.5995, 0.9900][84.7984, 962.0049, 0.9900][110.8065, 905.1454, 0.9900][82.2010, 1035.5990, 0.9900][82.9255, 961.9692, 0.9900][101.5404, 917.3667, 0.9900][84.3458, 961.9730, 0.9900][83.4252, 961.9695, 0.9900]]
+maxcorners=5. state 0:
+[r:[0.0000, 0.0000, -1.0000]r:[0.0000, 1.0000, 0.0000]r:[1.0000, 0.0000, 0.0000][100.0518, 991.8447, 0.9900][102.4618, 950.4055, 0.9900]]
 
 Pareto set computation result evaluated
-Time for model checking: 71.006 seconds.
+Time for model checking: 0.251 seconds.
 
 Result: Pareto Set
 
 Building model...
 
-Computing reachable states... 241 states
-Reachable states exploration and model construction done in 0.633 secs.
+Computing reachable states... 16 states
+Reachable states exploration and model construction done in 0.063 secs.
 Sorting reachable states list...
 
-Time for model construction: 2.7 seconds.
+Time for model construction: 0.063 seconds.
 
 Reducing multi-objective query to CNF: R{"rw_cost"}<cost [ C ]&R{"rw_time"}<time [ C ]&R{"rw_reliability"}>reliability [ C ]
 expr: [[R{"rw_cost"}<cost [ C ]], [R{"rw_time"}<time [ C ]], [R{"rw_reliability"}>reliability [ C ]]]
@@ -78,3 +78,102 @@ Property:
 
 initial state: 0
 operation: Strategy generation
+Strategy construction took 0.077679 s
+Synthesis took 0.167469 s
+strategy: $SU.strat-v0.1
+// Stochastic Memory Update Strategy
+start strategy
+States:
+16
+// Initial state
+InitState:
+0
+// initial distribution
+Init:
+{0=0.9543602177641223, 1=0.04563978223587765}
+// next state function
+// note: only P1 states
+Next:
+// first index: current state
+// second index: current corner
+0 0 {4=1.0}
+0 1 {1=1.0}
+2 0 {4=1.0}
+2 1 {1=1.0}
+5 0 {4=1.0}
+5 1 {1=1.0}
+7 0 {0=1.0}
+10 0 {0=1.0}
+// memory update function: player states
+MemUpdStates:
+// first index: current state
+// second index: current corner
+// third index: next move
+0 0 4 {0=1.0}
+0 1 1 {0=1.0}
+2 0 4 {0=1.0}
+2 1 1 {0=1.0}
+5 0 4 {0=1.0}
+5 1 1 {0=1.0}
+7 0 0 {0=1.0}
+10 0 0 {0=1.0}
+12 0 0 {0=1.0}
+12 0 1 {0=1.0}
+12 0 2 {1=1.0}
+12 0 3 {0=1.0}
+12 0 4 {1=1.0}
+15 0 0 {0=1.0}
+15 0 1 {1=1.0}
+15 0 2 {1=1.0}
+15 0 3 {1=1.0}
+15 0 4 {0=1.0}
+// memory update function: moves
+MemUpdMoves:
+// first index: current state
+// second index: current move
+// third index: curent corner (at move)
+// fourth index: next state
+0 1 0 12 {0=1.0}
+0 4 0 15 {0=1.0}
+2 1 0 12 {0=1.0}
+2 4 0 15 {0=1.0}
+5 1 0 12 {0=1.0}
+5 4 0 15 {0=1.0}
+7 0 0 7 {0=1.0}
+10 0 0 10 {0=1.0}
+12 0 0 2 {0=1.0}
+12 0 0 7 {0=1.0}
+12 1 0 2 {0=1.0}
+12 1 0 7 {0=1.0}
+12 2 1 2 {1=1.0}
+12 2 1 7 {0=1.0}
+12 3 0 2 {0=1.0}
+12 3 0 7 {0=1.0}
+12 4 1 2 {1=1.0}
+12 4 1 7 {0=1.0}
+15 0 0 5 {0=1.0}
+15 0 0 10 {0=1.0}
+15 1 1 5 {1=1.0}
+15 1 1 10 {0=1.0}
+15 2 1 5 {1=1.0}
+15 2 1 10 {0=1.0}
+15 3 1 5 {1=1.0}
+15 3 1 10 {0=1.0}
+15 4 0 5 {0=1.0}
+15 4 0 10 {0=1.0}
+Info:
+
+maximum C-iterations: 500
+	relative termination threshold: 0.010000
+	bounding box: 
+
+endstrategy
+
+
+Number of states satisfying <<p1>> ((R{"rw_cost"}<cost [ C ]&R{"rw_time"}<time [ C ]&R{"rw_reliability"}>reliability [ C ])): 7
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.17900000000000002 seconds.
+
+Result: true (property satisfied in the initial state)

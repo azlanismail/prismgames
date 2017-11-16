@@ -34,7 +34,10 @@ public class SynthesisSimulator {
 	int countCand[];  //log the number of candidates
 		
 	//to log the execution information
-	String outfile = "/home/azlan/git/PrismGames/IOFiles/logfile";
+	String outfile;
+	
+	//to log the adjusted properties
+	Properties adjustProp[];
 	
 	public SynthesisSimulator() {
 		
@@ -200,8 +203,10 @@ public class SynthesisSimulator {
 				else {
 					//get new thresholds values via pareto computation
 					sp.computeParetoforThresholds();
+					
 					//re-assign the new thresholds
-					sp.assignThresholdParamswithValues(pg.getProperties());
+					adjustProp = sp.assignThresholdParamswithValues(pg.getProperties());
+					//sp.assignThresholdParamswithValues();
 				}
 				count++;
 			}
@@ -250,7 +255,8 @@ public class SynthesisSimulator {
 	/**
 	 * log performance data
 	 */
-	public void logInformation() {	
+	public void logInformation(String outfile) {
+		this.outfile = outfile;
 		String fileName = outfile + "_" + mdg.getMaxActionP1() +"_" + mdg.getMaxActionP2();
 		try {
 			PrintWriter out = new PrintWriter(new FileWriter(fileName, false));
@@ -280,13 +286,17 @@ public class SynthesisSimulator {
 	/**
 	 * log performance data
 	 */
-	public void logInformationwithPareto() {	
-		String fileName = outfile + "_" + mdg.getMaxActionP1() +"_" + mdg.getMaxActionP2();
+	public void logInformationwithPareto(String outfile, double cost, int tm, double rel) {	
+		
+		//set the file name
+		this.outfile = outfile;
+		String fileName = outfile + "_Pareto_" + mdg.getMaxActionP1() +"_" + mdg.getMaxActionP2();
+		
 		try {
-			PrintWriter out = new PrintWriter(new FileWriter(fileName, true));
+			PrintWriter out = new PrintWriter(new FileWriter(fileName, false));
 		
 			String loginfo = "";
-			//out.println("CycleId NumofAct NumofEnv SynTime SynStatus NumofCandidate");
+			out.println("CycleId NumofAct NumofEnv SynTime SynStatus NumofCandidate InitialProp(C,T,R) AdjustedProp(C,T,R)");
 			for(int m=0; m < simCycle; m++) {
 				loginfo = loginfo+m+" "+mdg.getMaxActionP1()+" "+mdg.getMaxActionP2()+" "+
 						  time[m];
@@ -294,9 +304,25 @@ public class SynthesisSimulator {
 				for(int c=0; c < statusSyn[m].length; c++) {
 					loginfo = loginfo+" "+statusSyn[m][c]+",";
 				}
+				
 				//print number of potential candidate
-				loginfo = loginfo+" "+countCand[m]+"\n";
+				loginfo = loginfo+" "+countCand[m]+" ";
+				
+				//print the initial thresholds
+				loginfo = loginfo +cost+","+tm+","+rel+" ";
+			
+				//print the adjusted thresholds where the values are obtained during pareto based model checking
+				for(int g=0; g < adjustProp.length; g++) {
+					loginfo = loginfo+adjustProp[g].values;
+					if (g+1 >= adjustProp.length)
+						loginfo = loginfo+" ";
+					else
+						loginfo = loginfo+",";
+				}
+				//print next line
+				loginfo = loginfo +"\n";
 			}
+			
 			out.println(loginfo);
 			out.close();
 		}
@@ -316,22 +342,26 @@ public class SynthesisSimulator {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		String propPath = "/home/azlan/git/PrismGames/Prismfiles/propTest.props";
-		String modelPath = "/home/azlan/git/PrismGames/Prismfiles/appDeployModel.prism";
-		String transPath = "/home/azlan/git/PrismGames/IOFiles/trans.txt";
-		String stratPath = "/home/azlan/git/PrismGames/IOFiles/strat.txt";
-		String actionListPath = "/home/azlan/git/PrismGames/IOFiles/actionList.txt";
-	
+		String propPath = "/home/azlan/git/prismgames/Prismfiles/propTest.props";
+		String modelPath = "/home/azlan/git/prismgames/Prismfiles/appDeployModel.prism";
+		String transPath = "/home/azlan/git/prismgames/IOFiles/trans.txt";
+		String stratPath = "/home/azlan/git/prismgames/IOFiles/strat.txt";
+		String actionListPath = "/home/azlan/git/prismgames/IOFiles/actionList.txt";
+		//to log the execution information
+		String outfile = "/home/azlan/git/prismgames/IOFiles/logfile";
+				
 		//==========CONFIGURATION SETTING==================
-		int numAct = 80;  //number of collaborator
-		int numEnv = 4;  //number of environment variation
-		int simCycle = 100; //number of simulation cycle
+		int numConf = 1; //number of configuration
+		int numAct = 5;  //number of collaborator
+		int numEnv = 5;  //number of environment variation
+		int simCycle = 1; //number of simulation cycle
 		int numQyObj = 3; //number of quality objectives
 		boolean assignValue = false; //true-assign values while encoding, false-later stage
+		boolean reSynthesis = true; //true-need pareto computation, false-not needed
 		
-		for(int conf=0; conf < 1; conf++) {
+		for(int conf=0; conf < numConf; conf++) {
 			//==========UPDATING CONFIGURATION SETTING==================
-			//numAct += 20;
+			//numAct += 10;
 			//==========PROPERTIES CREATION=====================
 			//set properties
 			Properties pp[] = new Properties[numQyObj];
@@ -352,7 +382,7 @@ public class SynthesisSimulator {
 			double minRel=0.8, maxRel=1.0;
 			double rangeRel = maxRel - minRel;
 			
-			cost = rand.nextInt(20) + 85;
+			cost = rand.nextInt(20) + 80;
 			time = rand.nextInt(200) + 700;
 			rel = rand.nextDouble() * rangeRel + minRel;
 				
@@ -380,17 +410,6 @@ public class SynthesisSimulator {
 			mdg.setParamsNames("p1", "p2", "planner", "environment");
 			mdg.setUpperBounds(1, numAct, numEnv); //simply set numNode = 1
 			
-			//creating and assigning values to the model parameters
-//			System.out.println("Generates random values...");
-//			mdg.setAllRandomServProfiles();
-//			System.out.println("Create quality attributes...");
-//			mdg.createQualityParams();
-//			System.out.println("Assign quantitative information...");
-//			mdg.setQualityParamswithValues();
-//			mdg.setModelPath(modelPath);	
-//			System.out.println("Encoding model specification...");
-//			mdg.encodeSGModelforComplexAppDeployment();
-//			mdg.exportActionList(actionListPath);
 			
 			//=========INITIALIZE PLANNING-RELATED OBJECTS==============
 			//Create a SG-Planner instance
@@ -402,10 +421,16 @@ public class SynthesisSimulator {
 			SynthesisSimulator syn = new SynthesisSimulator();
 			syn.setPath(propPath, modelPath, transPath, stratPath, actionListPath);
 			syn.setSimulationObjects(pg, mdg, sp, se);
-			//syn.simulatePlanning(simCycle);
-			syn.simulatePlanningwithPareto(simCycle);
-			//syn.logInformation();
-			syn.logInformationwithPareto();
+			
+			if(reSynthesis) {
+				syn.simulatePlanningwithPareto(simCycle);
+				syn.logInformationwithPareto(outfile, cost, time, rel);
+			}
+			else {
+				syn.simulatePlanning(simCycle);
+				syn.logInformation(outfile);
+			}
+			
 		}//end of configuration
 		
 	}

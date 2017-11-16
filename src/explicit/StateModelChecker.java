@@ -116,7 +116,7 @@ public class StateModelChecker extends PrismComponent
         protected MultiParameters parsed_params = null;
         
         // Computing Pareto sets?
-        protected boolean computePareto = true; // computing Pareto set, or doing actual model checking?
+        protected boolean computePareto = false; // computing Pareto set, or doing actual model checking?
 
         // Cancel computation if first element true
         protected boolean[] cancel_computation = new boolean[1]; // false by default	

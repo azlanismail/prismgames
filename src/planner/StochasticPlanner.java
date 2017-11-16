@@ -58,6 +58,7 @@ public class StochasticPlanner {
 	int propId;	//for storing the property index 
 	boolean synthesisStatus = false;	//for storing the synthesis status
 
+	//Properties prop[]; //for properties adjustment / re-synthesizing
 	
 	public StochasticPlanner() {  }
 	
@@ -97,7 +98,7 @@ public class StochasticPlanner {
 		}  
 	}
 	
-	public void assignThresholdParamswithValues(Properties[] prop) {
+	public Properties[] assignThresholdParamswithValues(Properties prop[]) {
 		
 		if (vp == null) {
 			vp = new Values();
@@ -122,23 +123,26 @@ public class StochasticPlanner {
 		if (splitStr.length == 3) {
 			for(int i=0; i < prop.length; i++) {
 				if (prop[i].name.equalsIgnoreCase("cost")) {
-					System.out.println("The value is "+splitStr[0]);
+					System.out.println("The cost is "+splitStr[0]);
 					prop[i].values = Double.parseDouble(splitStr[0]) + 0.1;
 				}
 				else if (prop[i].name.equalsIgnoreCase("time")) {
 					String[] ss = splitStr[1].split("\\.");
-					System.out.println("The value is "+ss[0]);
+					System.out.println("The time is "+ss[0]);
 					prop[i].values = Integer.parseInt(ss[0].trim()) + 1;
 				}
-				else {
-					System.out.println("The value is "+splitStr[2]);
-					prop[i].values = Double.parseDouble(splitStr[2]) - 0.1;
+				else if (prop[i].name.equalsIgnoreCase("reliability")) {
+					System.out.println("The reliability is "+splitStr[2]);
+					prop[i].values = Double.parseDouble(splitStr[2]) - 0.01;
 				}
+				else
+					System.out.println("No values from the threshold set");
 			}
 		}
 		else
 			System.out.println("The element of pair is insufficent");
 		
+		//reassign the values into the properties specification
 		for(int i=0; i < prop.length; i++) {
 			vp.addValue(prop[i].name, prop[i].values); 
 		}
@@ -149,6 +153,8 @@ public class StochasticPlanner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
+		
+		return prop;
 	}
 	
 	public void setUndefinedPropertiesValues(Values vp) {
@@ -419,15 +425,15 @@ public class StochasticPlanner {
 		// TODO Auto-generated method stub
 		
 		//set the input paths
-		String propPath = "/home/azlan/git/PrismGames/Prismfiles/propTest.props";
-		String modelPath = "/home/azlan/git/PrismGames/Prismfiles/appDeployModel.prism";
+		String propPath = "/home/azlan/git/prismgames/Prismfiles/propTest.props";
+		String modelPath = "/home/azlan/git/prismgames/Prismfiles/appDeployModel.prism";
 	
 		//set the output paths
-		String transPath = "/home/azlan/git/PrismGames/IOFiles/trans.txt";
-		String stratPath = "/home/azlan/git/PrismGames/IOFiles/strat.txt";
+		String transPath = "/home/azlan/git/prismgames/IOFiles/trans.txt";
+		String stratPath = "/home/azlan/git/prismgames/IOFiles/strat.txt";
 		
 		//set intermediate path
-		String actionListPath = "/home/azlan/git/PrismGames/IOFiles/actionList.txt";
+		String actionListPath = "/home/azlan/git/prismgames/IOFiles/actionList.txt";
 	
 		//==========PROPERTIES CREATION=====================
 		//set properties
