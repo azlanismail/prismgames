@@ -353,7 +353,9 @@ public class SynthesisSimulator {
 		//==========CONFIGURATION SETTING==================
 		int numConf = 1; //number of configuration
 		int numAct = 5;  //number of collaborator
+		int numDisAct = 0;  //how many to accumulate 
 		int numEnv = 5;  //number of environment variation
+		int numDisEnv = 0;  //how many to accumulate
 		int simCycle = 1; //number of simulation cycle
 		int numQyObj = 3; //number of quality objectives
 		boolean assignValue = false; //true-assign values while encoding, false-later stage
@@ -361,7 +363,7 @@ public class SynthesisSimulator {
 		
 		for(int conf=0; conf < numConf; conf++) {
 			//==========UPDATING CONFIGURATION SETTING==================
-			//numAct += 10;
+			numAct += numDisAct;
 			//==========PROPERTIES CREATION=====================
 			//set properties
 			Properties pp[] = new Properties[numQyObj];
@@ -430,6 +432,11 @@ public class SynthesisSimulator {
 				syn.simulatePlanning(simCycle);
 				syn.logInformation(outfile);
 			}
+			
+			//==========UPDATING CONFIGURATION SETTING FOR THE NEXT CYCLE==================
+			numAct += numDisAct;
+			numEnv += numDisEnv;
+			
 			
 		}//end of configuration
 		
